@@ -41,9 +41,13 @@
   --gPurple:   linear-gradient(135deg,#a855f7,#7c3aed);
   --gCyan:     linear-gradient(135deg,#22d3ee,#0891b2);
   --gPink:     linear-gradient(135deg,#f472b6,#db2777);
+  --gOrange:   linear-gradient(135deg,#fb923c,#ea580c);
+  --gLime:     linear-gradient(135deg,#a3e635,#65a30d);
   --purple:    #a855f7;
   --cyan:      #22d3ee;
   --pink:      #f472b6;
+  --orange:    #fb923c;
+  --lime:      #a3e635;
   --text:      #eef2ff;
   --textS:     #8899bb;
   --textM:     #4a5a7a;
@@ -84,9 +88,13 @@
   --gPurple:   linear-gradient(135deg,#9333ea,#6d28d9);
   --gCyan:     linear-gradient(135deg,#0891b2,#0e7490);
   --gPink:     linear-gradient(135deg,#db2777,#9d174d);
+  --gOrange:   linear-gradient(135deg,#ea580c,#c2410c);
+  --gLime:     linear-gradient(135deg,#65a30d,#3f6212);
   --purple:    #9333ea;
   --cyan:      #0891b2;
   --pink:      #db2777;
+  --orange:    #ea580c;
+  --lime:      #65a30d;
   --text:      #0d1225;
   --textS:     #3a4a6a;
   --textM:     #7a8aaa;
@@ -228,6 +236,8 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .track-card.sel-bod{border-color:var(--purple);box-shadow:0 0 0 2px rgba(168,85,247,.2),0 0 50px rgba(168,85,247,.12);}
 .track-card.sel-ion{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(34,211,238,.2),0 0 50px rgba(34,211,238,.12);}
 .track-card.sel-ext{border-color:var(--pink);box-shadow:0 0 0 2px rgba(244,114,182,.2),0 0 50px rgba(244,114,182,.12);}
+.track-card.sel-scm{border-color:var(--orange);box-shadow:0 0 0 2px rgba(251,146,60,.2),0 0 50px rgba(251,146,60,.12);}
+.track-card.sel-mfg{border-color:var(--lime);box-shadow:0 0 0 2px rgba(163,230,53,.2),0 0 50px rgba(163,230,53,.12);}
 
 .track-icon{width:60px;height:60px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:22px;position:relative;z-index:1;box-shadow:var(--smSm);}
 .track-icon.dev{background:var(--gBlue);}
@@ -235,6 +245,8 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .track-icon.bod{background:var(--gPurple);}
 .track-icon.ion{background:var(--gCyan);}
 .track-icon.ext{background:var(--gPink);}
+.track-icon.scm{background:var(--gOrange);}
+.track-icon.mfg{background:var(--gLime);}
 .track-badge{
   position:absolute;top:20px;right:20px;z-index:2;
   font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
@@ -245,6 +257,8 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .track-badge.bod{background:rgba(168,85,247,.1);color:var(--purple);border:1px solid rgba(168,85,247,.25);}
 .track-badge.ion{background:rgba(34,211,238,.1);color:var(--cyan);border:1px solid rgba(34,211,238,.25);}
 .track-badge.ext{background:rgba(244,114,182,.1);color:var(--pink);border:1px solid rgba(244,114,182,.25);}
+.track-badge.scm{background:rgba(251,146,60,.1);color:var(--orange);border:1px solid rgba(251,146,60,.25);}
+.track-badge.mfg{background:rgba(163,230,53,.1);color:var(--lime);border:1px solid rgba(163,230,53,.25);}
 .track-title{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:10px;position:relative;z-index:1;}
 .track-desc{font-size:13px;color:var(--textS);line-height:1.65;margin-bottom:22px;position:relative;z-index:1;}
 .track-tags{display:flex;flex-wrap:wrap;gap:7px;position:relative;z-index:1;}
@@ -261,10 +275,13 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .track-card.sel-bod .track-sel-ring{background:var(--gPurple);border-color:transparent;}
 .track-card.sel-ion .track-sel-ring{background:var(--gCyan);border-color:transparent;}
 .track-card.sel-ext .track-sel-ring{background:var(--gPink);border-color:transparent;}
+.track-card.sel-scm .track-sel-ring{background:var(--gOrange);border-color:transparent;}
+.track-card.sel-mfg .track-sel-ring{background:var(--gLime);border-color:transparent;}
 .track-sel-ring::after{content:'✓';font-size:11px;font-weight:700;color:#fff;display:none;}
 .track-card.sel-dev .track-sel-ring::after,.track-card.sel-fin .track-sel-ring::after,
 .track-card.sel-bod .track-sel-ring::after,.track-card.sel-ion .track-sel-ring::after,
-.track-card.sel-ext .track-sel-ring::after{display:block;}
+.track-card.sel-ext .track-sel-ring::after,.track-card.sel-scm .track-sel-ring::after,
+.track-card.sel-mfg .track-sel-ring::after{display:block;}
 
 /* Reg card */
 .reg-card{background:var(--surf);border:1px solid var(--rim);border-radius:28px;padding:52px;box-shadow:var(--smLg);position:relative;overflow:hidden;}
@@ -312,6 +329,10 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .btn-primary.cyan-theme:hover{box-shadow:0 8px 32px rgba(34,211,238,.45);}
 .btn-primary.pink-theme{background:var(--gPink);box-shadow:0 4px 24px rgba(244,114,182,.3),inset 0 1px 0 rgba(255,255,255,.2);}
 .btn-primary.pink-theme:hover{box-shadow:0 8px 32px rgba(244,114,182,.45);}
+.btn-primary.orange-theme{background:var(--gOrange);box-shadow:0 4px 24px rgba(251,146,60,.35),inset 0 1px 0 rgba(255,255,255,.2);}
+.btn-primary.orange-theme:hover{box-shadow:0 8px 32px rgba(251,146,60,.5);}
+.btn-primary.lime-theme{background:var(--gLime);box-shadow:0 4px 24px rgba(163,230,53,.3),inset 0 1px 0 rgba(255,255,255,.2);}
+.btn-primary.lime-theme:hover{box-shadow:0 8px 32px rgba(163,230,53,.45);}
 .btn-ghost{background:var(--surf2);border:1px solid var(--rim);color:var(--textS);}
 .btn-ghost:hover{border-color:var(--rim2);color:var(--text);}
 .btn-success{background:var(--gEmerald);color:#fff;box-shadow:0 4px 20px rgba(52,211,153,.35);}
@@ -338,6 +359,8 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .av.bod{background:var(--gPurple);box-shadow:0 3px 14px rgba(168,85,247,.4);}
 .av.ion{background:var(--gCyan);box-shadow:0 3px 14px rgba(34,211,238,.4);}
 .av.ext{background:var(--gPink);box-shadow:0 3px 14px rgba(244,114,182,.4);}
+.av.scm{background:var(--gOrange);box-shadow:0 3px 14px rgba(251,146,60,.4);}
+.av.mfg{background:var(--gLime);box-shadow:0 3px 14px rgba(163,230,53,.4);}
 .c-name{font-size:14px;font-weight:600;}
 .c-track{font-size:11px;color:var(--textM);font-family:var(--mono);}
 .timer-box{text-align:right;}
@@ -357,6 +380,8 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .prog-bar.bod{background:var(--gPurple);}
 .prog-bar.ion{background:var(--gCyan);}
 .prog-bar.ext{background:var(--gPink);}
+.prog-bar.scm{background:var(--gOrange);}
+.prog-bar.mfg{background:var(--gLime);}
 
 .nav-dots{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px;}
 .nd{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;font-weight:500;cursor:pointer;background:var(--surf2);border:1px solid var(--rim);color:var(--textM);transition:all .15s var(--ease);}
@@ -367,6 +392,8 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .nd.now.bod{background:rgba(168,85,247,.14);border-color:var(--purple);color:var(--purple);box-shadow:0 0 0 2px rgba(168,85,247,.15);}
 .nd.now.ion{background:rgba(34,211,238,.14);border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 0 2px rgba(34,211,238,.15);}
 .nd.now.ext{background:rgba(244,114,182,.14);border-color:var(--pink);color:var(--pink);box-shadow:0 0 0 2px rgba(244,114,182,.15);}
+.nd.now.scm{background:rgba(251,146,60,.14);border-color:var(--orange);color:var(--orange);box-shadow:0 0 0 2px rgba(251,146,60,.15);}
+.nd.now.mfg{background:rgba(163,230,53,.14);border-color:var(--lime);color:var(--lime);box-shadow:0 0 0 2px rgba(163,230,53,.15);}
 .nd.skip{background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.3);color:var(--amber);}
 
 .q-card{
@@ -412,6 +439,16 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .ch-sdk{background:rgba(168,85,247,.08);color:var(--purple);border:1px solid rgba(168,85,247,.2);}
 .ch-api{background:rgba(79,140,255,.08);color:var(--blue);border:1px solid rgba(79,140,255,.2);}
 .ch-ui{background:rgba(45,212,191,.08);color:var(--teal);border:1px solid rgba(45,212,191,.2);}
+/* SCM chips */
+.ch-scm{background:rgba(251,146,60,.1);color:var(--orange);border:1px solid rgba(251,146,60,.22);}
+.ch-po{background:rgba(233,189,85,.08);color:var(--gold);border:1px solid rgba(233,189,85,.2);}
+.ch-inv{background:rgba(45,212,191,.08);color:var(--teal);border:1px solid rgba(45,212,191,.2);}
+.ch-wh{background:rgba(79,140,255,.08);color:var(--blue);border:1px solid rgba(79,140,255,.2);}
+/* MFG chips */
+.ch-mfg{background:rgba(163,230,53,.1);color:var(--lime);border:1px solid rgba(163,230,53,.22);}
+.ch-ep{background:rgba(52,211,153,.08);color:var(--emerald);border:1px solid rgba(52,211,153,.2);}
+.ch-wo{background:rgba(34,211,238,.08);color:var(--cyan);border:1px solid rgba(34,211,238,.2);}
+.ch-bom{background:rgba(168,85,247,.08);color:var(--purple);border:1px solid rgba(168,85,247,.2);}
 
 .q-text{font-family:var(--serif);font-size:19px;font-weight:600;line-height:1.62;color:var(--text);margin-bottom:10px;position:relative;z-index:1;}
 .q-hint{font-size:12px;color:var(--textM);font-family:var(--mono);margin-bottom:22px;letter-spacing:.05em;position:relative;z-index:1;}
@@ -425,17 +462,23 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .opt.sel.bod{border-color:var(--purple);background:rgba(168,85,247,.07);box-shadow:0 0 0 1px rgba(168,85,247,.15),var(--smSm);}
 .opt.sel.ion{border-color:var(--cyan);background:rgba(34,211,238,.06);box-shadow:0 0 0 1px rgba(34,211,238,.15),var(--smSm);}
 .opt.sel.ext{border-color:var(--pink);background:rgba(244,114,182,.06);box-shadow:0 0 0 1px rgba(244,114,182,.15),var(--smSm);}
+.opt.sel.scm{border-color:var(--orange);background:rgba(251,146,60,.06);box-shadow:0 0 0 1px rgba(251,146,60,.15),var(--smSm);}
+.opt.sel.mfg{border-color:var(--lime);background:rgba(163,230,53,.05);box-shadow:0 0 0 1px rgba(163,230,53,.15),var(--smSm);}
 [data-theme="light"] .opt.sel.dev{background:rgba(59,111,224,.05);}
 [data-theme="light"] .opt.sel.fin{background:rgba(184,125,0,.04);}
 [data-theme="light"] .opt.sel.bod{background:rgba(147,51,234,.04);}
 [data-theme="light"] .opt.sel.ion{background:rgba(8,145,178,.04);}
 [data-theme="light"] .opt.sel.ext{background:rgba(219,39,119,.04);}
+[data-theme="light"] .opt.sel.scm{background:rgba(234,88,12,.04);}
+[data-theme="light"] .opt.sel.mfg{background:rgba(101,163,13,.04);}
 .opt-key{width:30px;height:30px;border-radius:8px;border:1px solid var(--rim);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:600;color:var(--textM);flex-shrink:0;margin-top:1px;transition:all .18s;position:relative;z-index:1;}
 .opt.sel.dev .opt-key{background:var(--gBlue);border-color:transparent;color:#fff;box-shadow:0 3px 12px rgba(79,140,255,.45);}
 .opt.sel.fin .opt-key{background:var(--gGold);border-color:transparent;color:#fff;box-shadow:0 3px 12px rgba(233,189,85,.45);}
 .opt.sel.bod .opt-key{background:var(--gPurple);border-color:transparent;color:#fff;box-shadow:0 3px 12px rgba(168,85,247,.45);}
 .opt.sel.ion .opt-key{background:var(--gCyan);border-color:transparent;color:#fff;box-shadow:0 3px 12px rgba(34,211,238,.45);}
 .opt.sel.ext .opt-key{background:var(--gPink);border-color:transparent;color:#fff;box-shadow:0 3px 12px rgba(244,114,182,.45);}
+.opt.sel.scm .opt-key{background:var(--gOrange);border-color:transparent;color:#fff;box-shadow:0 3px 12px rgba(251,146,60,.45);}
+.opt.sel.mfg .opt-key{background:var(--gLime);border-color:transparent;color:#fff;box-shadow:0 3px 12px rgba(163,230,53,.45);}
 .opt-txt{font-size:14px;line-height:1.58;color:var(--textS);transition:color .18s;position:relative;z-index:1;padding-top:2px;}
 .opt.sel .opt-txt{color:var(--text);}
 
@@ -491,21 +534,29 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .cert-panel.purple{background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(124,58,237,.04));border-color:rgba(168,85,247,.2);box-shadow:0 0 50px rgba(168,85,247,.12);}
 .cert-panel.cyan{background:linear-gradient(135deg,rgba(34,211,238,.05),rgba(8,145,178,.04));border-color:rgba(34,211,238,.18);box-shadow:0 0 50px rgba(34,211,238,.12);}
 .cert-panel.pink{background:linear-gradient(135deg,rgba(244,114,182,.05),rgba(219,39,119,.04));border-color:rgba(244,114,182,.18);box-shadow:0 0 50px rgba(244,114,182,.12);}
+.cert-panel.orange{background:linear-gradient(135deg,rgba(251,146,60,.06),rgba(234,88,12,.04));border-color:rgba(251,146,60,.18);box-shadow:0 0 50px rgba(251,146,60,.12);}
+.cert-panel.lime{background:linear-gradient(135deg,rgba(163,230,53,.05),rgba(101,163,13,.04));border-color:rgba(163,230,53,.18);box-shadow:0 0 50px rgba(163,230,53,.12);}
 .cert-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(79,140,255,.4),transparent);}
 .cert-panel.gold::before{background:linear-gradient(90deg,transparent,rgba(233,189,85,.4),transparent);}
 .cert-panel.purple::before{background:linear-gradient(90deg,transparent,rgba(168,85,247,.4),transparent);}
 .cert-panel.cyan::before{background:linear-gradient(90deg,transparent,rgba(34,211,238,.4),transparent);}
 .cert-panel.pink::before{background:linear-gradient(90deg,transparent,rgba(244,114,182,.4),transparent);}
+.cert-panel.orange::before{background:linear-gradient(90deg,transparent,rgba(251,146,60,.4),transparent);}
+.cert-panel.lime::before{background:linear-gradient(90deg,transparent,rgba(163,230,53,.4),transparent);}
 .cert-ey{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;}
 .cert-panel.gold .cert-ey{color:var(--gold);}
 .cert-panel.purple .cert-ey{color:var(--purple);}
 .cert-panel.cyan .cert-ey{color:var(--cyan);}
 .cert-panel.pink .cert-ey{color:var(--pink);}
+.cert-panel.orange .cert-ey{color:var(--orange);}
+.cert-panel.lime .cert-ey{color:var(--lime);}
 .cert-name{font-family:var(--serif);font-size:32px;font-weight:700;margin-bottom:10px;background:var(--gBlue);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .cert-panel.gold .cert-name{background:var(--gGold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .cert-panel.purple .cert-name{background:var(--gPurple);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .cert-panel.cyan .cert-name{background:var(--gCyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .cert-panel.pink .cert-name{background:var(--gPink);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cert-panel.orange .cert-name{background:var(--gOrange);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cert-panel.lime .cert-name{background:var(--gLime);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .cert-body{font-size:15px;color:var(--textS);line-height:1.7;margin-bottom:20px;}
 .cert-meta{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;}
 .cert-mi{font-family:var(--mono);font-size:11px;color:var(--textM);display:flex;align-items:center;gap:8px;}
@@ -631,6 +682,26 @@ canvas#cert-canvas{display:none;}
           <span class="ttag">Ext Points</span><span class="ttag">REST / OData</span><span class="ttag">UI Ext</span><span class="ttag">SDK</span>
         </div>
         <div class="track-sel-ring" id="ring-ext"></div>
+      </div>
+      <div class="track-card" id="card-scm" onclick="selectTrack('scm')">
+        <div class="track-badge scm">Functional</div>
+        <div class="track-icon scm">📦</div>
+        <div class="track-title">Infor LN SCM</div>
+        <div class="track-desc">Supply Chain Management — Purchasing, Sales, Inventory, Warehousing, Logistics, and Item Master configuration in Infor LN.</div>
+        <div class="track-tags">
+          <span class="ttag">Purchasing</span><span class="ttag">Sales</span><span class="ttag">Inventory</span><span class="ttag">Warehouse</span>
+        </div>
+        <div class="track-sel-ring" id="ring-scm"></div>
+      </div>
+      <div class="track-card" id="card-mfg" onclick="selectTrack('mfg')">
+        <div class="track-badge mfg">Functional</div>
+        <div class="track-icon mfg">🏭</div>
+        <div class="track-title">Infor LN Manufacturing</div>
+        <div class="track-desc">Manufacturing — BOMs, Routings, Production Orders, MPS/MRP, Shop Floor, Capacity Planning, and Costing in Infor LN.</div>
+        <div class="track-tags">
+          <span class="ttag">BOM</span><span class="ttag">Routing</span><span class="ttag">MRP</span><span class="ttag">Shop Floor</span>
+        </div>
+        <div class="track-sel-ring" id="ring-mfg"></div>
       </div>
     </div>
 
@@ -1184,17 +1255,153 @@ let track='', QS=[], candidate={}, answers={}, skipped=new Set(), curIdx=0, time
 /* ══════════════════════════════════════════
    TRACK SELECTION
 ══════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   SCM QUESTION BANK  50 pts
+   13×2pt Simple + 4×3pt Medium + 3×4pt Difficult = 50
+══════════════════════════════════════════ */
+const QS_SCM=[
+  {id:1,cat:'po',cl:'ch-po',catL:'Purchasing',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Purchasing, what is the purpose of a "Purchase Contract"?',
+   opts:[{k:'a',t:'It is a one-time purchase request raised by a department.'},{k:'b',t:'It is a long-term agreement with a supplier that defines pricing, terms, and conditions for future purchases.'},{k:'c',t:'It is the document that physically records goods received from a supplier.'},{k:'d',t:'It is used exclusively for inter-company purchase transactions.'}],correct:['b']},
+  {id:2,cat:'po',cl:'ch-po',catL:'Purchasing',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which of the following are valid statuses for a Purchase Order in Infor LN?',
+   opts:[{k:'a',t:'Open'},{k:'b',t:'Confirmed'},{k:'c',t:'Closed'},{k:'d',t:'Invoiced'}],correct:['a','b','c','d']},
+  {id:3,cat:'po',cl:'ch-po',catL:'Purchasing',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is a "Purchase Requisition" (PR) in Infor LN?',
+   opts:[{k:'a',t:'An internal request from a department or MRP to procure goods or services, which can be converted into a Purchase Order.'},{k:'b',t:'The document sent to the supplier confirming the order.'},{k:'c',t:'A goods receipt document created when items arrive in the warehouse.'},{k:'d',t:'A financial document that records the supplier liability.'}],correct:['a']},
+  {id:4,cat:'inv',cl:'ch-inv',catL:'Inventory',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which of the following are valid methods for item valuation in Infor LN Inventory?',
+   opts:[{k:'a',t:'Standard Cost'},{k:'b',t:'Moving Average Cost (FIFO variant)'},{k:'c',t:'LIFO'},{k:'d',t:'FEFO (First Expired First Out)'}],correct:['a','b']},
+  {id:5,cat:'inv',cl:'ch-inv',catL:'Inventory',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN, what is a "Lot"?',
+   opts:[{k:'a',t:'A batch or group of identical items produced or received together, tracked as a unit for traceability and quality purposes.'},{k:'b',t:'A warehouse location that holds a fixed maximum quantity.'},{k:'c',t:'A purchase order line for a specific item.'},{k:'d',t:'A financial grouping of inventory transactions by period.'}],correct:['a']},
+  {id:6,cat:'wh',cl:'ch-wh',catL:'Warehousing',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which of the following are standard warehouse activities managed in Infor LN Warehousing?',
+   opts:[{k:'a',t:'Inbound (receiving)'},{k:'b',t:'Outbound (shipping)'},{k:'c',t:'Internal transfers'},{k:'d',t:'Supplier invoice approval'}],correct:['a','b','c']},
+  {id:7,cat:'scm',cl:'ch-scm',catL:'Sales',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Sales, what triggers the creation of a "Sales Invoice"?',
+   opts:[{k:'a',t:'Confirming the Sales Order.'},{k:'b',t:'Shipping goods to the customer and invoicing based on the delivery.'},{k:'c',t:'Creating a Sales Contract with the customer.'},{k:'d',t:'Receiving payment from the customer.'}],correct:['b']},
+  {id:8,cat:'inv',cl:'ch-inv',catL:'Inventory',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'Which statements about "Serialised Items" in Infor LN are correct?',
+   opts:[{k:'a',t:'Each unit has a unique serial number for individual traceability.'},{k:'b',t:'Serial numbers are assigned at goods receipt or production completion.'},{k:'c',t:'Serialised items cannot be tracked after they leave the warehouse.'},{k:'d',t:'Serial number history enables warranty and service tracking.'}],correct:['a','b','d']},
+  {id:9,cat:'wh',cl:'ch-wh',catL:'Warehousing',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is a "Warehouse Transfer Order" in Infor LN?',
+   opts:[{k:'a',t:'A document to move inventory between two different warehouses or locations within the same company.'},{k:'b',t:'An inter-company purchase order for goods transferred between subsidiaries.'},{k:'c',t:'A financial document for recording inventory write-offs.'},{k:'d',t:'A supplier return document for defective goods.'}],correct:['a']},
+  {id:10,cat:'po',cl:'ch-po',catL:'Purchasing',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'In Infor LN, which documents are part of the standard Procure-to-Pay (P2P) cycle?',
+   opts:[{k:'a',t:'Purchase Requisition'},{k:'b',t:'Purchase Order'},{k:'c',t:'Goods Receipt'},{k:'d',t:'Purchase Invoice'}],correct:['a','b','c','d']},
+  {id:11,cat:'scm',cl:'ch-scm',catL:'Sales',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is the purpose of a "Sales Contract" in Infor LN?',
+   opts:[{k:'a',t:'A long-term agreement with a customer defining pricing, volumes, and terms, used as a reference for creating Sales Orders.'},{k:'b',t:'The document used to ship goods to the customer.'},{k:'c',t:'A credit note issued to the customer.'},{k:'d',t:'An internal sales forecast document.'}],correct:['a']},
+  {id:12,cat:'inv',cl:'ch-inv',catL:'Inventory',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'In Infor LN Inventory, which statements about "Negative Inventory" are correct?',
+   opts:[{k:'a',t:'Negative inventory can occur when goods are issued before the corresponding receipt is processed.'},{k:'b',t:'Infor LN can be configured to allow or block negative inventory per item or warehouse.'},{k:'c',t:'Negative inventory always causes the system to automatically create a purchase order.'},{k:'d',t:'Negative inventory may affect inventory valuation accuracy.'}],correct:['a','b','d']},
+  {id:13,cat:'wh',cl:'ch-wh',catL:'Warehousing',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is an "Advance Shipment Notice" (ASN) in Infor LN Warehousing?',
+   opts:[{k:'a',t:'A notification sent by the supplier before the physical shipment arrives, allowing the warehouse to plan for inbound processing.'},{k:'b',t:'A document raised by the warehouse to reserve space for incoming goods.'},{k:'c',t:'A report generated after goods are received and inspected.'},{k:'d',t:'A financial document issued to the supplier upon delivery.'}],correct:['a']},
+  {id:14,cat:'scm',cl:'ch-scm',catL:'Sales',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'Which of the following are valid sales order types in Infor LN?',
+   opts:[{k:'a',t:'Standard Sales Order'},{k:'b',t:'Consignment Sales Order'},{k:'c',t:'Inter-company Sales Order'},{k:'d',t:'Back-to-Back (B2B) Sales Order'}],correct:['a','b','c','d']},
+  {id:15,cat:'inv',cl:'ch-inv',catL:'Inventory',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN, what is a "Cycle Count"?',
+   opts:[{k:'a',t:'A complete physical inventory count performed once per year.'},{k:'b',t:'A continuous inventory counting process where subsets of inventory are counted on a rotating schedule without stopping operations.'},{k:'c',t:'An automated reconciliation run that compares system inventory to purchase orders.'},{k:'d',t:'A count triggered automatically when inventory falls below the reorder point.'}],correct:['b']},
+  {id:16,cat:'po',cl:'ch-po',catL:'Purchasing',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN, what is the "Three-Way Match" in Accounts Payable processing?',
+   opts:[{k:'a',t:'Matching the supplier invoice against the Purchase Order and the Goods Receipt to validate quantities and prices before approving payment.'},{k:'b',t:'Matching three separate purchase orders for the same item.'},{k:'c',t:'A three-step approval workflow for high-value purchase orders.'},{k:'d',t:'Matching the purchase order against three supplier quotes.'}],correct:['a']},
+  {id:17,cat:'wh',cl:'ch-wh',catL:'Warehousing',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which putaway strategies are supported in Infor LN Warehousing?',
+   opts:[{k:'a',t:'Fixed location (item always stored in the same location)'},{k:'b',t:'Nearest empty location'},{k:'c',t:'Zone-based putaway'},{k:'d',t:'FEFO (First Expired First Out) directed putaway'}],correct:['a','b','c','d']},
+  {id:18,cat:'scm',cl:'ch-scm',catL:'Sales',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which of the following are valid order promising methods in Infor LN Sales?',
+   opts:[{k:'a',t:'Available-to-Promise (ATP)'},{k:'b',t:'Capable-to-Promise (CTP)'},{k:'c',t:'Profitable-to-Promise (PTP)'},{k:'d',t:'No check (manual delivery date entry)'}],correct:['a','b','d']},
+  {id:19,cat:'inv',cl:'ch-inv',catL:'Inventory',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'In Infor LN, which configuration elements are required to enable lot traceability for an item?',
+   opts:[{k:'a',t:'Enabling "Lot Controlled" on the item master.'},{k:'b',t:'Defining a lot numbering sequence.'},{k:'c',t:'Activating lot tracking in the warehouse parameters.'},{k:'d',t:'Disabling serialisation on the item before enabling lots.'}],correct:['a','b','c']},
+  {id:20,cat:'wh',cl:'ch-wh',catL:'Warehousing',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'A warehouse team is experiencing incorrect inventory counts in Infor LN. Which are valid root causes to investigate?',
+   opts:[{k:'a',t:'Goods receipts posted to the wrong warehouse location.'},{k:'b',t:'Outbound shipments confirmed without completing the pick order.'},{k:'c',t:'The item master having an incorrect unit of measure conversion.'},{k:'d',t:'Open transfer orders that have not been confirmed.'}],correct:['a','b','c','d']}
+];
+
+/* ══════════════════════════════════════════
+   MANUFACTURING QUESTION BANK  50 pts
+   13×2pt Simple + 4×3pt Medium + 3×4pt Difficult = 50
+══════════════════════════════════════════ */
+const QS_MFG=[
+  {id:1,cat:'bom',cl:'ch-bom',catL:'BOM & Routing',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Manufacturing, what is a "Bill of Materials" (BOM)?',
+   opts:[{k:'a',t:'A document that records actual material consumption during production.'},{k:'b',t:'A structured list of all components, sub-assemblies, and raw materials required to produce a finished item, along with their quantities.'},{k:'c',t:'A financial document that records the cost of a production order.'},{k:'d',t:'A quality inspection checklist for finished goods.'}],correct:['b']},
+  {id:2,cat:'bom',cl:'ch-bom',catL:'BOM & Routing',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which of the following are valid BOM types in Infor LN?',
+   opts:[{k:'a',t:'Production BOM'},{k:'b',t:'Engineering BOM'},{k:'c',t:'Phantom BOM (Phantom Item)'},{k:'d',t:'Procurement BOM'}],correct:['a','b','c']},
+  {id:3,cat:'bom',cl:'ch-bom',catL:'BOM & Routing',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is a "Routing" in Infor LN Manufacturing?',
+   opts:[{k:'a',t:'The path goods travel through the warehouse from receiving to storage.'},{k:'b',t:'A sequence of operations describing the steps, work centres, and times required to manufacture an item.'},{k:'c',t:'The supplier delivery route for raw materials.'},{k:'d',t:'A financial allocation method for production costs.'}],correct:['b']},
+  {id:4,cat:'ep',cl:'ch-ep',catL:'MPS / MRP',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What does MRP stand for in Infor LN Manufacturing?',
+   opts:[{k:'a',t:'Manufacturing Resource Planning'},{k:'b',t:'Material Requirements Planning'},{k:'c',t:'Master Routing Procedure'},{k:'d',t:'Manufacturing Run Programme'}],correct:['b']},
+  {id:5,cat:'ep',cl:'ch-ep',catL:'MPS / MRP',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is the primary output of an MRP run in Infor LN?',
+   opts:[{k:'a',t:'Confirmed Production Orders and Purchase Orders.'},{k:'b',t:'Planned Production Orders and Planned Purchase Orders based on demand, inventory, and lead times.'},{k:'c',t:'Actual material costs for all open production orders.'},{k:'d',t:'Capacity utilisation reports for all work centres.'}],correct:['b']},
+  {id:6,cat:'ep',cl:'ch-ep',catL:'MPS / MRP',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which inputs does the MRP engine in Infor LN use to calculate requirements?',
+   opts:[{k:'a',t:'Sales Order demand and Forecast'},{k:'b',t:'Current on-hand inventory and open Purchase Orders'},{k:'c',t:'BOM structure and lead times'},{k:'d',t:'Actual production costs from closed orders'}],correct:['a','b','c']},
+  {id:7,cat:'wo',cl:'ch-wo',catL:'Production Orders',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is the difference between a "Planned Production Order" and a "Released Production Order" in Infor LN?',
+   opts:[{k:'a',t:'Planned orders are system-generated suggestions; Released orders are confirmed and can have materials allocated and operations scheduled.'},{k:'b',t:'Planned orders use actual costs; Released orders use standard costs.'},{k:'c',t:'There is no practical difference — they both trigger material consumption.'},{k:'d',t:'Planned orders are only created manually; Released orders are always system-generated.'}],correct:['a']},
+  {id:8,cat:'wo',cl:'ch-wo',catL:'Production Orders',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Manufacturing, what is "Backflushing"?',
+   opts:[{k:'a',t:'A method of automatic material issue where components are consumed from inventory based on the reported production quantity, without manual pick lists.'},{k:'b',t:'A process for reversing an incorrectly posted goods receipt.'},{k:'c',t:'A technique for calculating capacity requirements in reverse from a due date.'},{k:'d',t:'A cost adjustment method applied at period end.'}],correct:['a']},
+  {id:9,cat:'ep',cl:'ch-ep',catL:'MPS / MRP',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'Which of the following are valid lot-sizing rules used by MRP in Infor LN?',
+   opts:[{k:'a',t:'Lot-for-Lot (order exactly what is needed)'},{k:'b',t:'Fixed Order Quantity'},{k:'c',t:'Economic Order Quantity (EOQ)'},{k:'d',t:'Minimum / Maximum Order Quantity'}],correct:['a','b','c','d']},
+  {id:10,cat:'bom',cl:'ch-bom',catL:'BOM & Routing',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'Which statements about "Phantom Items" in an Infor LN BOM are correct?',
+   opts:[{k:'a',t:'Phantom items are intermediary assemblies that are not physically stocked — their components are exploded directly into the parent BOM.'},{k:'b',t:'MRP does not generate production orders for phantom items.'},{k:'c',t:'Phantom items always require a separate work centre and routing.'},{k:'d',t:'Using phantoms simplifies BOM maintenance for commonly reused sub-assemblies.'}],correct:['a','b','d']},
+  {id:11,cat:'wo',cl:'ch-wo',catL:'Production Orders',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is the purpose of a "Production Order Variance" report in Infor LN?',
+   opts:[{k:'a',t:'It shows the difference between the standard (planned) cost and the actual cost of a production order, helping identify inefficiencies.'},{k:'b',t:'It lists all production orders that are past their due date.'},{k:'c',t:'It summarises the total output of a work centre over a period.'},{k:'d',t:'It records quality inspection results for completed production orders.'}],correct:['a']},
+  {id:12,cat:'ep',cl:'ch-ep',catL:'MPS / MRP',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'In Infor LN, what is the difference between MPS (Master Production Schedule) and MRP?',
+   opts:[{k:'a',t:'MPS plans end-item (finished goods) production at a high level; MRP explodes this plan through the BOM to plan component requirements.'},{k:'b',t:'MPS is driven by customer demand and forecasts; MRP is driven by MPS and independent demand for components.'},{k:'c',t:'MPS considers capacity; MRP is always infinite capacity.'},{k:'d',t:'MPS and MRP are the same function accessed through different menus.'}],correct:['a','b']},
+  {id:13,cat:'wo',cl:'ch-wo',catL:'Production Orders',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Manufacturing, what does "Operation Reporting" allow a shop floor operator to do?',
+   opts:[{k:'a',t:'Record the completion of a routing operation, reporting actual hours, quantities produced, and scrap.'},{k:'b',t:'Approve purchase orders for raw materials required for production.'},{k:'c',t:'Print BOM structures for each production order.'},{k:'d',t:'Create new work centres in the routing master.'}],correct:['a']},
+  {id:14,cat:'bom',cl:'ch-bom',catL:'BOM & Routing',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'Which elements are defined in a Routing Operation in Infor LN?',
+   opts:[{k:'a',t:'Work centre where the operation is performed'},{k:'b',t:'Setup time and run time'},{k:'c',t:'Component quantity consumed in this operation'},{k:'d',t:'Move time to next operation'}],correct:['a','b','d']},
+  {id:15,cat:'ep',cl:'ch-ep',catL:'MPS / MRP',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is a "Time Fence" in the context of Infor LN MPS / MRP?',
+   opts:[{k:'a',t:'A boundary within which the system will not automatically reschedule or create planned orders, protecting a firm production schedule from automatic changes.'},{k:'b',t:'The lead time defined on the item master for procurement.'},{k:'c',t:'The maximum age of a production order before it is automatically closed.'},{k:'d',t:'The cutoff date for financial period closing in manufacturing.'}],correct:['a']},
+  {id:16,cat:'wo',cl:'ch-wo',catL:'Production Orders',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What happens during the "Release" of a Production Order in Infor LN?',
+   opts:[{k:'a',t:'The production order is deleted from the system.'},{k:'b',t:'Materials are reserved, operations are scheduled, and the order becomes visible to the shop floor for execution.'},{k:'c',t:'Actual costs are automatically posted to the General Ledger.'},{k:'d',t:'The finished goods are automatically received into inventory.'}],correct:['b']},
+  {id:17,cat:'bom',cl:'ch-bom',catL:'BOM & Routing',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which of the following are valid work centre types in Infor LN Manufacturing?',
+   opts:[{k:'a',t:'Machine work centre'},{k:'b',t:'Labour work centre'},{k:'c',t:'Subcontracting work centre'},{k:'d',t:'Virtual (planning) work centre'}],correct:['a','b','c','d']},
+  {id:18,cat:'ep',cl:'ch-ep',catL:'MPS / MRP',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which statements about "Safety Stock" in Infor LN are correct?',
+   opts:[{k:'a',t:'Safety stock is a buffer quantity maintained to protect against demand variability and supply uncertainty.'},{k:'b',t:'MRP treats safety stock as additional demand when calculating requirements.'},{k:'c',t:'Safety stock is only applicable to purchased items, not manufactured items.'},{k:'d',t:'Safety stock level can be defined as a fixed quantity or a dynamic coverage time.'}],correct:['a','b','d']},
+  {id:19,cat:'wo',cl:'ch-wo',catL:'Production Orders',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'A production order for a finished item is showing material shortages in Infor LN. Which are valid steps to investigate and resolve?',
+   opts:[{k:'a',t:'Check the BOM to confirm all required components are correctly defined.'},{k:'b',t:'Review inventory on-hand and available quantities for the components.'},{k:'c',t:'Check if open Purchase Orders or Production Orders for the components will arrive in time.'},{k:'d',t:'Increase the safety stock on the finished item to prevent the shortage.'}],correct:['a','b','c']},
+  {id:20,cat:'bom',cl:'ch-bom',catL:'BOM & Routing',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'In Infor LN, which of the following are valid methods for managing engineering changes to a BOM?',
+   opts:[{k:'a',t:'Engineering Change Orders (ECO) with effectivity dates to control when the new BOM version becomes active.'},{k:'b',t:'BOM version control — maintaining multiple versions and selecting the appropriate one at production order creation.'},{k:'c',t:'Directly editing the active BOM in all open production orders simultaneously.'},{k:'d',t:'Using "Phantom" items as placeholders until a new component is approved.'}],correct:['a','b']}
+];
+
 const TRACKS={
   dev:{label:'Infor LN Development Certification',color:'var(--blue)',btnCls:'',certCls:'',certColor:'#4f8cff',certColor2:'#7c6fff',icon:'💻'},
   fin:{label:'Infor LN Finance Certification',color:'var(--gold)',btnCls:' gold-theme',certCls:' gold',certColor:'#e9bd55',certColor2:'#c9962a',icon:'📊'},
   bod:{label:'Infor BOD Certification',color:'var(--purple)',btnCls:' purple-theme',certCls:' purple',certColor:'#a855f7',certColor2:'#7c3aed',icon:'📡'},
   ion:{label:'Infor ION Certification',color:'var(--cyan)',btnCls:' cyan-theme',certCls:' cyan',certColor:'#22d3ee',certColor2:'#0891b2',icon:'🔗'},
   ext:{label:'Infor LN Extensibility Certification',color:'var(--pink)',btnCls:' pink-theme',certCls:' pink',certColor:'#f472b6',certColor2:'#db2777',icon:'🧩'},
+  scm:{label:'Infor LN SCM Certification',color:'var(--orange)',btnCls:' orange-theme',certCls:' orange',certColor:'#fb923c',certColor2:'#ea580c',icon:'📦'},
+  mfg:{label:'Infor LN Manufacturing Certification',color:'var(--lime)',btnCls:' lime-theme',certCls:' lime',certColor:'#a3e635',certColor2:'#65a30d',icon:'🏭'},
 };
 
 function selectTrack(t){
   track=t;
-  ['dev','fin','bod','ion','ext'].forEach(k=>{
+  ['dev','fin','bod','ion','ext','scm','mfg'].forEach(k=>{
     const c=document.getElementById('card-'+k);
     if(c) c.className='track-card'+(k===t?' sel-'+t:'');
   });
@@ -1225,14 +1432,14 @@ function startExam(){
   if(!m||m.replace(/\D/g,'').length<8){document.getElementById('err-m').style.display='block';document.getElementById('rm').style.borderColor='var(--rose)';ok=false;}
   if(!ok)return;
   candidate={name:n,email:e,mob:m};
-  const QS_MAP={dev:QS_DEV,fin:QS_FIN,bod:QS_BOD,ion:QS_ION,ext:QS_EXT};
+  const QS_MAP={dev:QS_DEV,fin:QS_FIN,bod:QS_BOD,ion:QS_ION,ext:QS_EXT,scm:QS_SCM,mfg:QS_MFG};
   QS=[...QS_MAP[track]];
   answers={};skipped=new Set();curIdx=0;timeLeft=DURATION;
   // Setup exam bar
   document.getElementById('cav').textContent=n.split(' ').filter(Boolean).map(x=>x[0]).slice(0,2).join('').toUpperCase();
   document.getElementById('cav').className='av '+track;
   document.getElementById('cname').textContent=n;
-  document.getElementById('ctrack').textContent=track==='dev'?'LN Development Certification':'LN Finance Certification';
+  document.getElementById('ctrack').textContent=TRACKS[track].label;
   document.getElementById('prog-bar').className='prog-bar'+(track==='fin'?' fin':'');
   showScreen('exam');renderDots();renderQ();startTimer();
 }
