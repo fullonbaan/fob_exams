@@ -6,6 +6,7 @@
 <title>FullonBaan — Certification Portal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 /* ────────────────────────────────────────────
@@ -486,6 +487,107 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .ag{display:flex;gap:10px;}
 
 /* ────────────────────────────────────────────
+   PAYMENT SCREEN
+──────────────────────────────────────────── */
+#payment{max-width:720px;margin:0 auto;}
+.pay-dot{background:var(--emerald);}
+
+.pay-summary{
+  background:var(--surf2);border:1px solid var(--rim);border-radius:18px;
+  padding:22px 28px;margin-bottom:24px;
+}
+.pay-sum-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;font-size:14px;}
+.pay-sum-lbl{color:var(--textM);font-size:13px;}
+.pay-sum-val{color:var(--text);font-weight:500;font-size:13px;text-align:right;max-width:60%;}
+.pay-sum-divider{height:1px;background:var(--rim);margin:10px 0;}
+.pay-sum-total{padding-top:12px;}
+.pay-sum-amount{font-family:var(--serif);font-size:28px;font-weight:700;background:var(--gEmerald);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+.pay-card{
+  background:var(--surf);border:1px solid var(--rim);border-radius:24px;
+  padding:36px 40px;box-shadow:var(--smMd);position:relative;overflow:hidden;
+  margin-bottom:24px;
+}
+.pay-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--rim2),transparent);}
+.pay-card-hd{display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:22px;border-bottom:1px solid var(--rim);}
+.pay-upi-logo{
+  width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:13px;font-weight:800;letter-spacing:.05em;
+  background:linear-gradient(135deg,#5f259f,#00b9f1);color:#fff;flex-shrink:0;
+  box-shadow:0 4px 16px rgba(0,185,241,.3);
+}
+
+.pay-steps{display:flex;flex-direction:column;gap:16px;margin-bottom:28px;}
+.pay-step{display:flex;gap:14px;align-items:flex-start;}
+.pay-step-n{
+  width:28px;height:28px;border-radius:50%;background:var(--gBlue);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;
+  flex-shrink:0;margin-top:1px;box-shadow:0 2px 10px rgba(79,140,255,.35);
+}
+.pay-step-body{}
+.pay-step-title{font-size:14px;font-weight:600;margin-bottom:3px;}
+.pay-step-desc{font-size:13px;color:var(--textM);line-height:1.5;}
+
+.pay-qr-row{display:flex;gap:32px;align-items:flex-start;padding:24px;background:var(--surf2);border-radius:16px;border:1px solid var(--rim);margin-bottom:24px;flex-wrap:wrap;}
+.pay-qr-wrap{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.pay-qr-wrap canvas{border-radius:12px;background:#fff;padding:10px;}
+.pay-upi-details{flex:1;min-width:200px;display:flex;flex-direction:column;gap:14px;justify-content:center;}
+.pay-detail-row{display:flex;flex-direction:column;gap:4px;}
+.pay-detail-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--textM);font-family:var(--mono);}
+.pay-detail-val{font-size:15px;font-weight:600;color:var(--text);}
+.pay-upi-id-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.pay-upi-id-val{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--blue);word-break:break-all;}
+.pay-copy-btn{
+  display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:8px;
+  background:rgba(79,140,255,.1);border:1px solid rgba(79,140,255,.22);color:var(--blue);
+  font-size:11px;font-weight:600;cursor:pointer;font-family:var(--sans);
+  transition:all .15s;flex-shrink:0;
+}
+.pay-copy-btn:hover{background:rgba(79,140,255,.18);}
+.pay-copy-btn.copied{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.25);color:var(--emerald);}
+
+.pay-utr-section{
+  background:linear-gradient(135deg,rgba(79,140,255,.04),rgba(124,111,255,.04));
+  border:1px solid rgba(79,140,255,.14);border-radius:16px;padding:22px 24px;margin-bottom:20px;
+}
+.pay-utr-hd{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;}
+.pay-utr-icon{font-size:22px;flex-shrink:0;margin-top:1px;}
+.utr-input{
+  width:100%;background:var(--surf2);border:1px solid var(--rim);border-radius:12px;
+  padding:14px 18px;font-size:16px;font-family:var(--mono);font-weight:600;color:var(--text);
+  letter-spacing:.08em;outline:none;
+  transition:border-color var(--dur),box-shadow var(--dur);
+  box-sizing:border-box;
+}
+.utr-input::placeholder{color:var(--textM);font-weight:400;letter-spacing:0;}
+.utr-input:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(79,140,255,.12);}
+.utr-input.valid{border-color:var(--emerald);box-shadow:0 0 0 4px rgba(52,211,153,.1);}
+.utr-input.invalid{border-color:var(--rose);box-shadow:0 0 0 4px rgba(248,113,113,.1);}
+.pay-proceed-btn{flex-shrink:0;margin-top:0;}
+
+.pay-disclaimer{
+  display:flex;align-items:flex-start;gap:9px;font-size:12px;color:var(--textM);
+  line-height:1.6;padding:14px 16px;background:rgba(251,191,36,.04);
+  border:1px solid rgba(251,191,36,.14);border-radius:10px;
+}
+.pay-disclaimer svg{flex-shrink:0;margin-top:1px;color:var(--amber);}
+
+/* Pending verification banner */
+.pay-pending-banner{
+  display:flex;align-items:flex-start;gap:14px;
+  background:linear-gradient(135deg,rgba(251,191,36,.08),rgba(233,189,85,.06));
+  border:1px solid rgba(251,191,36,.25);border-radius:16px;
+  padding:22px 24px;margin-bottom:24px;
+}
+.pay-pending-icon{font-size:28px;flex-shrink:0;}
+.pay-pending-title{font-size:16px;font-weight:700;margin-bottom:4px;color:var(--amber);}
+.pay-pending-body{font-size:13px;color:var(--textS);line-height:1.6;}
+.pay-pending-meta{display:flex;flex-direction:column;gap:6px;margin-top:10px;}
+.pay-pending-row{display:flex;gap:8px;font-size:12px;font-family:var(--mono);}
+.pay-pending-key{color:var(--textM);min-width:80px;}
+.pay-pending-val{color:var(--text);font-weight:600;word-break:break-all;}
+
+/* ────────────────────────────────────────────
    RESULTS SCREEN
 ──────────────────────────────────────────── */
 #results{max-width:900px;margin:0 auto;padding:60px 48px 100px;}
@@ -729,8 +831,9 @@ canvas#cert-canvas{display:none;}
       <div class="rules" id="rules-box">
         <div class="rules-h">Exam Guidelines</div>
         <ul>
+          <li><strong>₹499 fee</strong> per track, payable via UPI. You will be directed to payment after registration.</li>
           <li>20 multiple-choice questions — some require selecting multiple correct answers.</li>
-          <li>You have <strong>45 minutes</strong> from the moment you click Begin.</li>
+          <li>You have <strong>45 minutes</strong> from the moment you click Begin Exam.</li>
           <li>A minimum of <strong>70% (35 / 50 points)</strong> is required to pass and earn your FullonBaan certificate.</li>
           <li>Results are shown immediately. Confirmation email and certificate (if passed) are sent automatically.</li>
           <li>Do not refresh or navigate away — your progress will be lost.</li>
@@ -738,9 +841,145 @@ canvas#cert-canvas{display:none;}
       </div>
       <button class="btn btn-primary btn-xl" id="begin-btn" onclick="startExam()">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg>
-        Select a Track to Begin
+        Select a Track to Proceed
       </button>
     </div>
+  </div>
+</div>
+
+<!-- ████ PAYMENT ████ -->
+<div id="payment" class="screen">
+  <div style="max-width:720px;margin:0 auto;padding:60px 48px 100px;">
+
+    <!-- Back link -->
+    <button class="btn btn-ghost btn-sm" onclick="goHome()" style="margin-bottom:28px;">← Back to Portal</button>
+
+    <!-- Header -->
+    <div class="eyebrow"><span class="eyebrow-dot pay-dot"></span>Secure Payment</div>
+    <h2 style="font-family:var(--serif);font-size:36px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px;">Complete Your Registration</h2>
+    <p style="color:var(--textS);font-size:15px;margin-bottom:36px;line-height:1.7;">Pay <strong style="color:var(--text)">₹499</strong> via UPI to unlock your exam. Your spot is reserved for <strong style="color:var(--text)">30 minutes</strong> after payment.</p>
+
+    <!-- Order summary card -->
+    <div class="pay-summary" id="pay-summary">
+      <div class="pay-sum-row">
+        <span class="pay-sum-lbl">Candidate</span>
+        <span class="pay-sum-val" id="ps-name">—</span>
+      </div>
+      <div class="pay-sum-row">
+        <span class="pay-sum-lbl">Track</span>
+        <span class="pay-sum-val" id="ps-track">—</span>
+      </div>
+      <div class="pay-sum-row">
+        <span class="pay-sum-lbl">Email</span>
+        <span class="pay-sum-val" id="ps-email">—</span>
+      </div>
+      <div class="pay-sum-divider"></div>
+      <div class="pay-sum-row pay-sum-total">
+        <span class="pay-sum-lbl">Amount Due</span>
+        <span class="pay-sum-amount">₹499</span>
+      </div>
+    </div>
+
+    <!-- UPI payment card -->
+    <div class="pay-card">
+      <div class="pay-card-hd">
+        <div class="pay-upi-logo">UPI</div>
+        <div>
+          <div style="font-weight:700;font-size:15px;">Pay via UPI</div>
+          <div style="font-size:12px;color:var(--textM);">Use any UPI app — GPay, PhonePe, Paytm, BHIM</div>
+        </div>
+      </div>
+
+      <!-- Steps -->
+      <div class="pay-steps">
+        <div class="pay-step">
+          <div class="pay-step-n">1</div>
+          <div class="pay-step-body">
+            <div class="pay-step-title">Scan QR or copy UPI ID</div>
+            <div class="pay-step-desc">Open your UPI app and scan the QR code below, or manually enter the UPI ID.</div>
+          </div>
+        </div>
+        <div class="pay-step">
+          <div class="pay-step-n">2</div>
+          <div class="pay-step-body">
+            <div class="pay-step-title">Pay exactly ₹499</div>
+            <div class="pay-step-desc">In the remarks / description field, enter your registered email address.</div>
+          </div>
+        </div>
+        <div class="pay-step">
+          <div class="pay-step-n">3</div>
+          <div class="pay-step-body">
+            <div class="pay-step-title">Enter your UTR / Transaction ID</div>
+            <div class="pay-step-desc">After payment, find the 12-digit UTR number in your UPI app and enter it below.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QR + UPI ID row -->
+      <div class="pay-qr-row">
+        <div class="pay-qr-wrap">
+          <canvas id="upi-qr-canvas" width="180" height="180"></canvas>
+          <div style="font-size:10px;color:var(--textM);margin-top:8px;font-family:var(--mono);">Scan with any UPI app</div>
+        </div>
+        <div class="pay-upi-details">
+          <div class="pay-detail-row">
+            <span class="pay-detail-lbl">UPI ID</span>
+            <div class="pay-upi-id-row">
+              <span class="pay-upi-id-val" id="pay-upi-id-display">—</span>
+              <button class="pay-copy-btn" onclick="copyUpiId()" id="copy-btn" title="Copy UPI ID">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="pay-detail-row">
+            <span class="pay-detail-lbl">Payee Name</span>
+            <span class="pay-detail-val" id="pay-upi-name-display">—</span>
+          </div>
+          <div class="pay-detail-row">
+            <span class="pay-detail-lbl">Amount</span>
+            <span class="pay-detail-val" style="font-size:22px;font-weight:700;color:var(--emerald)">₹499</span>
+          </div>
+          <div class="pay-detail-row">
+            <span class="pay-detail-lbl">Remarks</span>
+            <span class="pay-detail-val" style="font-size:12px;color:var(--textM);">Enter your email address</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- UTR Entry -->
+      <div class="pay-utr-section">
+        <div class="pay-utr-hd">
+          <div class="pay-utr-icon">🔒</div>
+          <div>
+            <div style="font-weight:700;font-size:14px;">Enter UTR / Transaction Reference Number</div>
+            <div style="font-size:12px;color:var(--textM);margin-top:2px;">Find this in your UPI app under payment history. It is 12 digits.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;">
+          <div style="flex:1;min-width:200px;">
+            <input type="text" id="utr-input" class="utr-input" placeholder="e.g. 425112345678" maxlength="22" oninput="utrInputHandler(this)" autocomplete="off" spellcheck="false">
+            <span class="err" id="err-utr" style="display:none;margin-top:6px;">Please enter a valid UTR number (minimum 12 digits).</span>
+          </div>
+          <button class="btn btn-primary btn-md pay-proceed-btn" id="pay-proceed-btn" onclick="submitUTR()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Verify &amp; Proceed
+          </button>
+        </div>
+      </div>
+
+      <!-- Disclaimer -->
+      <div class="pay-disclaimer">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Your UTR will be recorded and cross-verified against our UPI statement. Exam access will be confirmed within minutes. Attempting to use a fake UTR will result in disqualification and no refund.
+      </div>
+    </div>
+
+    <!-- Support -->
+    <div style="text-align:center;margin-top:24px;font-size:13px;color:var(--textM);">
+      Payment issues? Email <a href="mailto:fullonbaan@gmail.com" style="color:var(--blue);text-decoration:none;">fullonbaan@gmail.com</a> with your UTR and registered email.
+    </div>
+
   </div>
 </div>
 
@@ -833,6 +1072,13 @@ const TPL_RESULT   = 'tpl_exam_result';
 const TPL_CERT     = 'tpl_exam_cert';
 const FOB_EMAIL    = 'fullonbaan@gmail.com';
 emailjs.init(EMAILJS_PUB);
+
+/* ══════════════════════════════════════════
+   PAYMENT CONFIG  — replace with your UPI ID
+══════════════════════════════════════════ */
+const UPI_ID      = 'fullonbaan@upi';        // ← YOUR UPI ID here
+const UPI_NAME    = 'FullonBaan Education';   // ← Payee name as in UPI
+const EXAM_PRICE  = 499;                       // ₹ per track
 
 /* ══════════════════════════════════════════
    THEME
@@ -1411,7 +1657,7 @@ function selectTrack(t){
   lbl.style.color=cfg.color;
   const btn=document.getElementById('begin-btn');
   btn.className='btn btn-primary btn-xl'+cfg.btnCls;
-  btn.innerHTML=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg> Begin ${cfg.label.replace(' Certification','')} Exam`;
+  btn.innerHTML=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg> Proceed to Payment — ₹499`;
   document.querySelector('.rules-h').style.color=cfg.color;
   document.querySelector('.rules').style.borderColor=cfg.color.replace('var(','').replace(')','');
 }
@@ -1419,6 +1665,9 @@ function selectTrack(t){
 /* ══════════════════════════════════════════
    REGISTRATION & START
 ══════════════════════════════════════════ */
+/* payment state */
+let utrSubmitted='', paymentVerified=false;
+
 function startExam(){
   if(!track){ toast('Please select a certification track first.','☝️'); return; }
   const n=document.getElementById('rn').value.trim();
@@ -1432,17 +1681,154 @@ function startExam(){
   if(!m||m.replace(/\D/g,'').length<8){document.getElementById('err-m').style.display='block';document.getElementById('rm').style.borderColor='var(--rose)';ok=false;}
   if(!ok)return;
   candidate={name:n,email:e,mob:m};
+  showPaymentScreen();
+}
+
+function showPaymentScreen(){
+  // Populate order summary
+  document.getElementById('ps-name').textContent=candidate.name;
+  document.getElementById('ps-track').textContent=TRACKS[track].label;
+  document.getElementById('ps-email').textContent=candidate.email;
+  document.getElementById('pay-upi-id-display').textContent=UPI_ID;
+  document.getElementById('pay-upi-name-display').textContent=UPI_NAME;
+  // Reset UTR input
+  document.getElementById('utr-input').value='';
+  document.getElementById('utr-input').className='utr-input';
+  document.getElementById('err-utr').style.display='none';
+  // Build UPI deep-link for QR
+  const upiUrl=`upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_NAME)}&am=${EXAM_PRICE}&cu=INR&tn=${encodeURIComponent('FullonBaan Cert: '+candidate.email)}`;
+  renderQR(upiUrl);
+  showScreen('payment');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderQR(text){
+  const canvas=document.getElementById('upi-qr-canvas');
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  // Use QRCode lib if available, else draw placeholder
+  if(typeof QRCode !== 'undefined'){
+    // QRCode.js works on a div — create temp div, grab canvas
+    const tmp=document.createElement('div');
+    tmp.style.display='none';
+    document.body.appendChild(tmp);
+    new QRCode(tmp,{text,width:180,height:180,colorDark:'#000',colorLight:'#fff',correctLevel:QRCode.CorrectLevel.M});
+    setTimeout(()=>{
+      const img=tmp.querySelector('img')||tmp.querySelector('canvas');
+      if(img){
+        const src=img.src||img.toDataURL();
+        const i=new Image();
+        i.onload=()=>{ctx.drawImage(i,0,0,180,180);};
+        i.src=src;
+      }
+      document.body.removeChild(tmp);
+    },100);
+  } else {
+    // Fallback: draw a nice placeholder
+    ctx.fillStyle='#fff';ctx.fillRect(0,0,180,180);
+    ctx.fillStyle='#1a1a2e';ctx.font='bold 13px Arial';ctx.textAlign='center';
+    ctx.fillText('Scan with UPI app',90,90);
+    ctx.font='11px Arial';ctx.fillStyle='#666';
+    ctx.fillText(UPI_ID,90,110);
+  }
+}
+
+function utrInputHandler(input){
+  const val=input.value.replace(/\s/g,'');
+  input.value=val;
+  document.getElementById('err-utr').style.display='none';
+  if(val.length>=12) input.className='utr-input valid';
+  else if(val.length>0) input.className='utr-input';
+  else input.className='utr-input';
+}
+
+function copyUpiId(){
+  navigator.clipboard.writeText(UPI_ID).then(()=>{
+    const btn=document.getElementById('copy-btn');
+    btn.className='pay-copy-btn copied';
+    btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg> Copied!';
+    setTimeout(()=>{
+      btn.className='pay-copy-btn';
+      btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy';
+    },2200);
+  }).catch(()=>toast('Copy failed — please copy manually','⚠️'));
+}
+
+function submitUTR(){
+  const utr=document.getElementById('utr-input').value.trim().replace(/\s/g,'');
+  if(!utr||utr.replace(/\D/g,'').length<12){
+    document.getElementById('err-utr').style.display='block';
+    document.getElementById('utr-input').className='utr-input invalid';
+    return;
+  }
+  utrSubmitted=utr;
+  // Notify admin via EmailJS (best-effort — won't block exam access)
+  notifyAdminPayment(utr);
+  // Show pending confirmation and unlock exam
+  showPendingAndProceed(utr);
+}
+
+function notifyAdminPayment(utr){
+  if(EMAILJS_PUB==='YOUR_PUBLIC_KEY') return; // not configured yet
+  const params={
+    to_email: FOB_EMAIL,
+    to_name: 'FullonBaan Admin',
+    candidate_name: candidate.name,
+    candidate_email: candidate.email,
+    candidate_mobile: candidate.mob,
+    exam_track: TRACKS[track].label,
+    utr_number: utr,
+    payment_amount: '₹'+EXAM_PRICE,
+    submission_time: new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),
+    reply_to: candidate.email,
+  };
+  emailjs.send(EMAILJS_SVC,'tpl_payment_utr',params).catch(()=>{});
+}
+
+function showPendingAndProceed(utr){
+  // Replace payment card with pending banner + proceed button
+  const card=document.querySelector('.pay-card');
+  card.innerHTML=`
+    <div class="pay-pending-banner">
+      <div class="pay-pending-icon">⏳</div>
+      <div style="flex:1;">
+        <div class="pay-pending-title">Payment Submitted — Thank You!</div>
+        <div class="pay-pending-body">Your UTR has been recorded. Our team will cross-verify it against the UPI statement shortly. Your exam access is now unlocked — please proceed immediately.</div>
+        <div class="pay-pending-meta">
+          <div class="pay-pending-row"><span class="pay-pending-key">UTR / Ref</span><span class="pay-pending-val">${utr}</span></div>
+          <div class="pay-pending-row"><span class="pay-pending-key">Amount</span><span class="pay-pending-val">₹${EXAM_PRICE}</span></div>
+          <div class="pay-pending-row"><span class="pay-pending-key">Track</span><span class="pay-pending-val">${TRACKS[track].label}</span></div>
+          <div class="pay-pending-row"><span class="pay-pending-key">Candidate</span><span class="pay-pending-val">${candidate.name} &nbsp;·&nbsp; ${candidate.email}</span></div>
+          <div class="pay-pending-row"><span class="pay-pending-key">Time</span><span class="pay-pending-val">${new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'})}</span></div>
+        </div>
+        <div style="margin-top:6px;font-size:12px;color:var(--textM);">📧 A confirmation will be sent to <strong>${candidate.email}</strong> once verified. Keep your UTR safe.</div>
+      </div>
+    </div>
+    <div style="text-align:center;padding:8px 0 4px;">
+      <button class="btn btn-success btn-xl" onclick="beginExamAfterPayment()" style="max-width:380px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg>
+        Begin Exam Now
+      </button>
+      <div style="font-size:12px;color:var(--textM);margin-top:10px;">⚠️ The 45-minute timer starts as soon as you click above. Do not close this window.</div>
+    </div>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function beginExamAfterPayment(){
+  paymentVerified=true;
   const QS_MAP={dev:QS_DEV,fin:QS_FIN,bod:QS_BOD,ion:QS_ION,ext:QS_EXT,scm:QS_SCM,mfg:QS_MFG};
   QS=[...QS_MAP[track]];
   answers={};skipped=new Set();curIdx=0;timeLeft=DURATION;
-  // Setup exam bar
+  const n=candidate.name;
   document.getElementById('cav').textContent=n.split(' ').filter(Boolean).map(x=>x[0]).slice(0,2).join('').toUpperCase();
   document.getElementById('cav').className='av '+track;
   document.getElementById('cname').textContent=n;
   document.getElementById('ctrack').textContent=TRACKS[track].label;
-  document.getElementById('prog-bar').className='prog-bar'+(track==='fin'?' fin':'');
+  document.getElementById('prog-bar').className='prog-bar'+(track!=='dev'?' '+track:'');
   showScreen('exam');renderDots();renderQ();startTimer();
 }
+
+
 
 /* ══════════════════════════════════════════
    TIMER
@@ -1724,12 +2110,21 @@ function showScreen(id){
 }
 function goHome(){
   clearInterval(timerInt);
+  // Reset payment state so a new payment is required for each attempt
+  paymentVerified=false;
+  utrSubmitted='';
   showScreen('home');
 }
 function retake(){
   clearInterval(timerInt);
-  answers={};skipped=new Set();curIdx=0;timeLeft=DURATION;
-  showScreen('exam');renderDots();renderQ();startTimer();
+  // Retake requires a new payment
+  paymentVerified=false;
+  utrSubmitted='';
+  if(candidate && candidate.name){
+    showPaymentScreen();
+  } else {
+    showScreen('home');
+  }
 }
 </script>
 </body>
