@@ -38,6 +38,12 @@
   --gEmerald:  linear-gradient(135deg,#34d399,#059669);
   --gRose:     linear-gradient(135deg,#f87171,#dc2626);
   --gAmber:    linear-gradient(135deg,#fbbf24,#d97706);
+  --gPurple:   linear-gradient(135deg,#a855f7,#7c3aed);
+  --gCyan:     linear-gradient(135deg,#22d3ee,#0891b2);
+  --gPink:     linear-gradient(135deg,#f472b6,#db2777);
+  --purple:    #a855f7;
+  --cyan:      #22d3ee;
+  --pink:      #f472b6;
   --text:      #eef2ff;
   --textS:     #8899bb;
   --textM:     #4a5a7a;
@@ -75,6 +81,12 @@
   --gEmerald:  linear-gradient(135deg,#059669,#047857);
   --gRose:     linear-gradient(135deg,#dc2626,#b91c1c);
   --gAmber:    linear-gradient(135deg,#d97706,#b45309);
+  --gPurple:   linear-gradient(135deg,#9333ea,#6d28d9);
+  --gCyan:     linear-gradient(135deg,#0891b2,#0e7490);
+  --gPink:     linear-gradient(135deg,#db2777,#9d174d);
+  --purple:    #9333ea;
+  --cyan:      #0891b2;
+  --pink:      #db2777;
   --text:      #0d1225;
   --textS:     #3a4a6a;
   --textM:     #7a8aaa;
@@ -198,7 +210,9 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .hero-sub{font-size:17px;line-height:1.8;color:var(--textS);max-width:580px;margin-bottom:60px;}
 
 /* Exam selector cards */
-.track-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:52px;}
+.track-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:52px;}
+@media(max-width:820px){.track-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:520px){.track-grid{grid-template-columns:1fr;}}
 .track-card{
   background:var(--surf);border:1px solid var(--rim);border-radius:26px;
   padding:40px 36px;cursor:pointer;
@@ -211,10 +225,16 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .track-card:hover{transform:translateY(-4px);box-shadow:var(--smLg);}
 .track-card.sel-dev{border-color:var(--blue);box-shadow:0 0 0 2px rgba(79,140,255,.2),var(--glBlue);}
 .track-card.sel-fin{border-color:var(--gold);box-shadow:0 0 0 2px rgba(233,189,85,.2),var(--glGold);}
+.track-card.sel-bod{border-color:var(--purple);box-shadow:0 0 0 2px rgba(168,85,247,.2),0 0 50px rgba(168,85,247,.12);}
+.track-card.sel-ion{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(34,211,238,.2),0 0 50px rgba(34,211,238,.12);}
+.track-card.sel-ext{border-color:var(--pink);box-shadow:0 0 0 2px rgba(244,114,182,.2),0 0 50px rgba(244,114,182,.12);}
 
 .track-icon{width:60px;height:60px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:22px;position:relative;z-index:1;box-shadow:var(--smSm);}
 .track-icon.dev{background:var(--gBlue);}
 .track-icon.fin{background:var(--gGold);}
+.track-icon.bod{background:var(--gPurple);}
+.track-icon.ion{background:var(--gCyan);}
+.track-icon.ext{background:var(--gPink);}
 .track-badge{
   position:absolute;top:20px;right:20px;z-index:2;
   font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
@@ -222,6 +242,9 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 }
 .track-badge.dev{background:rgba(79,140,255,.12);color:var(--blue);border:1px solid rgba(79,140,255,.25);}
 .track-badge.fin{background:rgba(233,189,85,.1);color:var(--gold);border:1px solid rgba(233,189,85,.22);}
+.track-badge.bod{background:rgba(168,85,247,.1);color:var(--purple);border:1px solid rgba(168,85,247,.25);}
+.track-badge.ion{background:rgba(34,211,238,.1);color:var(--cyan);border:1px solid rgba(34,211,238,.25);}
+.track-badge.ext{background:rgba(244,114,182,.1);color:var(--pink);border:1px solid rgba(244,114,182,.25);}
 .track-title{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:10px;position:relative;z-index:1;}
 .track-desc{font-size:13px;color:var(--textS);line-height:1.65;margin-bottom:22px;position:relative;z-index:1;}
 .track-tags{display:flex;flex-wrap:wrap;gap:7px;position:relative;z-index:1;}
@@ -235,8 +258,13 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 }
 .track-card.sel-dev .track-sel-ring{background:var(--gBlue);border-color:transparent;}
 .track-card.sel-fin .track-sel-ring{background:var(--gGold);border-color:transparent;}
+.track-card.sel-bod .track-sel-ring{background:var(--gPurple);border-color:transparent;}
+.track-card.sel-ion .track-sel-ring{background:var(--gCyan);border-color:transparent;}
+.track-card.sel-ext .track-sel-ring{background:var(--gPink);border-color:transparent;}
 .track-sel-ring::after{content:'✓';font-size:11px;font-weight:700;color:#fff;display:none;}
-.track-card.sel-dev .track-sel-ring::after,.track-card.sel-fin .track-sel-ring::after{display:block;}
+.track-card.sel-dev .track-sel-ring::after,.track-card.sel-fin .track-sel-ring::after,
+.track-card.sel-bod .track-sel-ring::after,.track-card.sel-ion .track-sel-ring::after,
+.track-card.sel-ext .track-sel-ring::after{display:block;}
 
 /* Reg card */
 .reg-card{background:var(--surf);border:1px solid var(--rim);border-radius:28px;padding:52px;box-shadow:var(--smLg);position:relative;overflow:hidden;}
@@ -278,6 +306,12 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(79,140,255,.55);}
 .btn-primary.gold-theme{background:var(--gGold);box-shadow:0 4px 24px rgba(233,189,85,.35),inset 0 1px 0 rgba(255,255,255,.2);}
 .btn-primary.gold-theme:hover{box-shadow:0 8px 32px rgba(233,189,85,.5);}
+.btn-primary.purple-theme{background:var(--gPurple);box-shadow:0 4px 24px rgba(168,85,247,.35),inset 0 1px 0 rgba(255,255,255,.2);}
+.btn-primary.purple-theme:hover{box-shadow:0 8px 32px rgba(168,85,247,.5);}
+.btn-primary.cyan-theme{background:var(--gCyan);box-shadow:0 4px 24px rgba(34,211,238,.3),inset 0 1px 0 rgba(255,255,255,.2);}
+.btn-primary.cyan-theme:hover{box-shadow:0 8px 32px rgba(34,211,238,.45);}
+.btn-primary.pink-theme{background:var(--gPink);box-shadow:0 4px 24px rgba(244,114,182,.3),inset 0 1px 0 rgba(255,255,255,.2);}
+.btn-primary.pink-theme:hover{box-shadow:0 8px 32px rgba(244,114,182,.45);}
 .btn-ghost{background:var(--surf2);border:1px solid var(--rim);color:var(--textS);}
 .btn-ghost:hover{border-color:var(--rim2);color:var(--text);}
 .btn-success{background:var(--gEmerald);color:#fff;box-shadow:0 4px 20px rgba(52,211,153,.35);}
@@ -301,6 +335,9 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .av{width:40px;height:40px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:17px;font-weight:700;flex-shrink:0;}
 .av.dev{background:var(--gBlue);box-shadow:0 3px 14px rgba(79,140,255,.4);}
 .av.fin{background:var(--gGold);box-shadow:0 3px 14px rgba(233,189,85,.4);}
+.av.bod{background:var(--gPurple);box-shadow:0 3px 14px rgba(168,85,247,.4);}
+.av.ion{background:var(--gCyan);box-shadow:0 3px 14px rgba(34,211,238,.4);}
+.av.ext{background:var(--gPink);box-shadow:0 3px 14px rgba(244,114,182,.4);}
 .c-name{font-size:14px;font-weight:600;}
 .c-track{font-size:11px;color:var(--textM);font-family:var(--mono);}
 .timer-box{text-align:right;}
@@ -317,6 +354,9 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .prog-track{height:4px;background:var(--surf3);border-radius:2px;overflow:hidden;}
 .prog-bar{height:100%;background:var(--gBlue);border-radius:2px;transition:width .5s var(--ease);box-shadow:0 0 12px rgba(79,140,255,.5);}
 .prog-bar.fin{background:var(--gGold);}
+.prog-bar.bod{background:var(--gPurple);}
+.prog-bar.ion{background:var(--gCyan);}
+.prog-bar.ext{background:var(--gPink);}
 
 .nav-dots{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px;}
 .nd{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;font-weight:500;cursor:pointer;background:var(--surf2);border:1px solid var(--rim);color:var(--textM);transition:all .15s var(--ease);}
@@ -324,6 +364,9 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .nd.done{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.35);color:var(--emerald);}
 .nd.now.dev{background:rgba(79,140,255,.14);border-color:var(--blue);color:var(--blue);box-shadow:0 0 0 2px rgba(79,140,255,.15);}
 .nd.now.fin{background:rgba(233,189,85,.14);border-color:var(--gold);color:var(--gold);box-shadow:0 0 0 2px rgba(233,189,85,.15);}
+.nd.now.bod{background:rgba(168,85,247,.14);border-color:var(--purple);color:var(--purple);box-shadow:0 0 0 2px rgba(168,85,247,.15);}
+.nd.now.ion{background:rgba(34,211,238,.14);border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 0 2px rgba(34,211,238,.15);}
+.nd.now.ext{background:rgba(244,114,182,.14);border-color:var(--pink);color:var(--pink);box-shadow:0 0 0 2px rgba(244,114,182,.15);}
 .nd.skip{background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.3);color:var(--amber);}
 
 .q-card{
@@ -354,6 +397,21 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .ch-s{background:rgba(52,211,153,.07);color:var(--emerald);border:1px solid rgba(52,211,153,.18);}
 .ch-m{background:rgba(233,189,85,.07);color:var(--gold);border:1px solid rgba(233,189,85,.18);}
 .ch-d{background:rgba(248,113,113,.07);color:var(--rose);border:1px solid rgba(248,113,113,.18);}
+/* BOD chips */
+.ch-bod{background:rgba(168,85,247,.1);color:var(--purple);border:1px solid rgba(168,85,247,.22);}
+.ch-noun{background:rgba(34,211,238,.08);color:var(--cyan);border:1px solid rgba(34,211,238,.2);}
+.ch-verb{background:rgba(52,211,153,.08);color:var(--emerald);border:1px solid rgba(52,211,153,.2);}
+.ch-sync{background:rgba(251,191,36,.08);color:var(--amber);border:1px solid rgba(251,191,36,.2);}
+/* ION chips */
+.ch-ion{background:rgba(34,211,238,.1);color:var(--cyan);border:1px solid rgba(34,211,238,.22);}
+.ch-iflow{background:rgba(79,140,255,.08);color:var(--blue);border:1px solid rgba(79,140,255,.2);}
+.ch-idoc{background:rgba(168,85,247,.08);color:var(--purple);border:1px solid rgba(168,85,247,.2);}
+.ch-iconn{background:rgba(244,114,182,.08);color:var(--pink);border:1px solid rgba(244,114,182,.2);}
+/* EXT chips */
+.ch-ext{background:rgba(244,114,182,.1);color:var(--pink);border:1px solid rgba(244,114,182,.22);}
+.ch-sdk{background:rgba(168,85,247,.08);color:var(--purple);border:1px solid rgba(168,85,247,.2);}
+.ch-api{background:rgba(79,140,255,.08);color:var(--blue);border:1px solid rgba(79,140,255,.2);}
+.ch-ui{background:rgba(45,212,191,.08);color:var(--teal);border:1px solid rgba(45,212,191,.2);}
 
 .q-text{font-family:var(--serif);font-size:19px;font-weight:600;line-height:1.62;color:var(--text);margin-bottom:10px;position:relative;z-index:1;}
 .q-hint{font-size:12px;color:var(--textM);font-family:var(--mono);margin-bottom:22px;letter-spacing:.05em;position:relative;z-index:1;}
@@ -364,11 +422,20 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .opt:hover{border-color:var(--rim2);background:var(--surf3);}
 .opt.sel.dev{border-color:var(--blue);background:rgba(79,140,255,.07);box-shadow:0 0 0 1px rgba(79,140,255,.15),var(--smSm);}
 .opt.sel.fin{border-color:var(--gold);background:rgba(233,189,85,.05);box-shadow:0 0 0 1px rgba(233,189,85,.15),var(--smSm);}
+.opt.sel.bod{border-color:var(--purple);background:rgba(168,85,247,.07);box-shadow:0 0 0 1px rgba(168,85,247,.15),var(--smSm);}
+.opt.sel.ion{border-color:var(--cyan);background:rgba(34,211,238,.06);box-shadow:0 0 0 1px rgba(34,211,238,.15),var(--smSm);}
+.opt.sel.ext{border-color:var(--pink);background:rgba(244,114,182,.06);box-shadow:0 0 0 1px rgba(244,114,182,.15),var(--smSm);}
 [data-theme="light"] .opt.sel.dev{background:rgba(59,111,224,.05);}
 [data-theme="light"] .opt.sel.fin{background:rgba(184,125,0,.04);}
+[data-theme="light"] .opt.sel.bod{background:rgba(147,51,234,.04);}
+[data-theme="light"] .opt.sel.ion{background:rgba(8,145,178,.04);}
+[data-theme="light"] .opt.sel.ext{background:rgba(219,39,119,.04);}
 .opt-key{width:30px;height:30px;border-radius:8px;border:1px solid var(--rim);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:600;color:var(--textM);flex-shrink:0;margin-top:1px;transition:all .18s;position:relative;z-index:1;}
 .opt.sel.dev .opt-key{background:var(--gBlue);border-color:transparent;color:#fff;box-shadow:0 3px 12px rgba(79,140,255,.45);}
 .opt.sel.fin .opt-key{background:var(--gGold);border-color:transparent;color:#fff;box-shadow:0 3px 12px rgba(233,189,85,.45);}
+.opt.sel.bod .opt-key{background:var(--gPurple);border-color:transparent;color:#fff;box-shadow:0 3px 12px rgba(168,85,247,.45);}
+.opt.sel.ion .opt-key{background:var(--gCyan);border-color:transparent;color:#fff;box-shadow:0 3px 12px rgba(34,211,238,.45);}
+.opt.sel.ext .opt-key{background:var(--gPink);border-color:transparent;color:#fff;box-shadow:0 3px 12px rgba(244,114,182,.45);}
 .opt-txt{font-size:14px;line-height:1.58;color:var(--textS);transition:color .18s;position:relative;z-index:1;padding-top:2px;}
 .opt.sel .opt-txt{color:var(--text);}
 
@@ -421,12 +488,24 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 
 .cert-panel{background:linear-gradient(135deg,rgba(79,140,255,.05),rgba(124,111,255,.05));border:1px solid rgba(79,140,255,.15);border-radius:24px;padding:40px;margin-bottom:28px;box-shadow:var(--glBlue);position:relative;overflow:hidden;}
 .cert-panel.gold{background:linear-gradient(135deg,rgba(233,189,85,.06),rgba(201,150,42,.04));border-color:rgba(233,189,85,.18);box-shadow:var(--glGold);}
+.cert-panel.purple{background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(124,58,237,.04));border-color:rgba(168,85,247,.2);box-shadow:0 0 50px rgba(168,85,247,.12);}
+.cert-panel.cyan{background:linear-gradient(135deg,rgba(34,211,238,.05),rgba(8,145,178,.04));border-color:rgba(34,211,238,.18);box-shadow:0 0 50px rgba(34,211,238,.12);}
+.cert-panel.pink{background:linear-gradient(135deg,rgba(244,114,182,.05),rgba(219,39,119,.04));border-color:rgba(244,114,182,.18);box-shadow:0 0 50px rgba(244,114,182,.12);}
 .cert-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(79,140,255,.4),transparent);}
 .cert-panel.gold::before{background:linear-gradient(90deg,transparent,rgba(233,189,85,.4),transparent);}
+.cert-panel.purple::before{background:linear-gradient(90deg,transparent,rgba(168,85,247,.4),transparent);}
+.cert-panel.cyan::before{background:linear-gradient(90deg,transparent,rgba(34,211,238,.4),transparent);}
+.cert-panel.pink::before{background:linear-gradient(90deg,transparent,rgba(244,114,182,.4),transparent);}
 .cert-ey{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;}
 .cert-panel.gold .cert-ey{color:var(--gold);}
+.cert-panel.purple .cert-ey{color:var(--purple);}
+.cert-panel.cyan .cert-ey{color:var(--cyan);}
+.cert-panel.pink .cert-ey{color:var(--pink);}
 .cert-name{font-family:var(--serif);font-size:32px;font-weight:700;margin-bottom:10px;background:var(--gBlue);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .cert-panel.gold .cert-name{background:var(--gGold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cert-panel.purple .cert-name{background:var(--gPurple);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cert-panel.cyan .cert-name{background:var(--gCyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cert-panel.pink .cert-name{background:var(--gPink);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .cert-body{font-size:15px;color:var(--textS);line-height:1.7;margin-bottom:20px;}
 .cert-meta{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;}
 .cert-mi{font-family:var(--mono);font-size:11px;color:var(--textM);display:flex;align-items:center;gap:8px;}
@@ -486,7 +565,7 @@ canvas#cert-canvas{display:none;}
       <div class="logo-tag">Education · Certification Center</div>
     </div>
   </a>
-  <div class="hdr-pill">Infor LN Certification Portal &nbsp;·&nbsp; V2.1</div>
+  <div class="hdr-pill">Infor LN Certification Portal &nbsp;·&nbsp; V3.0</div>
   <div class="tog-wrap">
     <span class="tog-lbl" id="tog-lbl">Dark</span>
     <div class="tog-track" onclick="toggleTheme()" role="switch" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleTheme()">
@@ -507,13 +586,9 @@ canvas#cert-canvas{display:none;}
         <div class="track-badge dev">Technical</div>
         <div class="track-icon dev">💻</div>
         <div class="track-title">Infor LN Development</div>
-        <div class="track-desc">Program Scripts, DAL, Database Transactions, SQL, Tables &amp; Domains, and Functional modules covering the technical development aspects of Baan / Infor LN.</div>
+        <div class="track-desc">Program Scripts, DAL, Database Transactions, SQL, Tables &amp; Domains, and Functional modules for Baan / Infor LN.</div>
         <div class="track-tags">
-          <span class="ttag">Program Script</span>
-          <span class="ttag">DAL</span>
-          <span class="ttag">SQL</span>
-          <span class="ttag">Tables</span>
-          <span class="ttag">Functional</span>
+          <span class="ttag">Program Script</span><span class="ttag">DAL</span><span class="ttag">SQL</span><span class="ttag">Tables</span>
         </div>
         <div class="track-sel-ring" id="ring-dev"></div>
       </div>
@@ -521,15 +596,41 @@ canvas#cert-canvas{display:none;}
         <div class="track-badge fin">Finance</div>
         <div class="track-icon fin">📊</div>
         <div class="track-title">Infor LN Finance</div>
-        <div class="track-desc">General Ledger, Accounts Payable, Accounts Receivable, Cash Management, Fixed Assets, Tax, and Period-End processes for the Infor LN Finance module.</div>
+        <div class="track-desc">General Ledger, AP, AR, Cash Management, Fixed Assets, Tax, and Period-End processes.</div>
         <div class="track-tags">
-          <span class="ttag">General Ledger</span>
-          <span class="ttag">AP / AR</span>
-          <span class="ttag">Fixed Assets</span>
-          <span class="ttag">Cash Mgmt</span>
-          <span class="ttag">Tax</span>
+          <span class="ttag">GL</span><span class="ttag">AP / AR</span><span class="ttag">Fixed Assets</span><span class="ttag">Tax</span>
         </div>
         <div class="track-sel-ring" id="ring-fin"></div>
+      </div>
+      <div class="track-card" id="card-bod" onclick="selectTrack('bod')">
+        <div class="track-badge bod">Technical</div>
+        <div class="track-icon bod">📡</div>
+        <div class="track-title">Infor BOD</div>
+        <div class="track-desc">Business Object Documents — structure, Nouns, Verbs, BOD lifecycle, sync/show/process patterns, and integration fundamentals.</div>
+        <div class="track-tags">
+          <span class="ttag">Nouns</span><span class="ttag">Verbs</span><span class="ttag">Sync</span><span class="ttag">Lifecycle</span>
+        </div>
+        <div class="track-sel-ring" id="ring-bod"></div>
+      </div>
+      <div class="track-card" id="card-ion" onclick="selectTrack('ion')">
+        <div class="track-badge ion">Technical</div>
+        <div class="track-icon ion">🔗</div>
+        <div class="track-title">Infor ION</div>
+        <div class="track-desc">Integration middleware — ION Connect, IonDesk, Document Flows, Connection Points, API Gateway, and monitoring.</div>
+        <div class="track-tags">
+          <span class="ttag">ION Connect</span><span class="ttag">Flows</span><span class="ttag">API Gateway</span>
+        </div>
+        <div class="track-sel-ring" id="ring-ion"></div>
+      </div>
+      <div class="track-card" id="card-ext" onclick="selectTrack('ext')">
+        <div class="track-badge ext">Technical</div>
+        <div class="track-icon ext">🧩</div>
+        <div class="track-title">Infor LN Extensibility</div>
+        <div class="track-desc">Extension Points, UI Extensibility, Landmark / MT, REST &amp; OData APIs, custom fields, hooks, and extension SDK patterns.</div>
+        <div class="track-tags">
+          <span class="ttag">Ext Points</span><span class="ttag">REST / OData</span><span class="ttag">UI Ext</span><span class="ttag">SDK</span>
+        </div>
+        <div class="track-sel-ring" id="ring-ext"></div>
       </div>
     </div>
 
@@ -877,6 +978,204 @@ const QS_FIN=[
 ];
 
 /* ══════════════════════════════════════════
+   BOD QUESTION BANK  50 pts
+══════════════════════════════════════════ */
+const QS_BOD=[
+  {id:1,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What does BOD stand for in the Infor integration framework?',
+   opts:[{k:'a',t:'Business Object Document'},{k:'b',t:'Back Office Database'},{k:'c',t:'Binary Output Definition'},{k:'d',t:'Base Object Definition'}],correct:['a']},
+  {id:2,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'A BOD is composed of two main parts. Which are they?',
+   opts:[{k:'a',t:'ApplicationArea (header / metadata)'},{k:'b',t:'DataArea (the business payload)'},{k:'c',t:'SecurityZone'},{k:'d',t:'RoutingKey'}],correct:['a','b']},
+  {id:3,cat:'noun',cl:'ch-noun',catL:'Nouns & Verbs',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In BOD terminology, what is a "Noun"?',
+   opts:[{k:'a',t:'The action to be performed (e.g. Sync, Process).'},{k:'b',t:'The business entity or data object the BOD carries (e.g. CustomerParty, SalesOrder).'},{k:'c',t:'The transport protocol used to send the BOD.'},{k:'d',t:'The error-handling instruction embedded in the BOD.'}],correct:['b']},
+  {id:4,cat:'noun',cl:'ch-noun',catL:'Nouns & Verbs',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which of the following are standard BOD Verbs in the Infor framework?',
+   opts:[{k:'a',t:'Sync'},{k:'b',t:'Process'},{k:'c',t:'Show'},{k:'d',t:'Execute'},{k:'e',t:'Acknowledge'}],correct:['a','b','c','e']},
+  {id:5,cat:'verb',cl:'ch-verb',catL:'Verbs & Patterns',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is the purpose of the "Sync" verb in a BOD?',
+   opts:[{k:'a',t:'It requests acknowledgement from the receiving system.'},{k:'b',t:'It instructs the receiving system to synchronise its master data with the BOD content.'},{k:'c',t:'It deletes the corresponding record in the target system.'},{k:'d',t:'It initiates a workflow approval process.'}],correct:['b']},
+  {id:6,cat:'verb',cl:'ch-verb',catL:'Verbs & Patterns',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'When would you use the "Process" verb rather than "Sync"?',
+   opts:[{k:'a',t:'When you want to replicate master data across systems.'},{k:'b',t:'When you are sending a transactional document (e.g. a PO or Invoice) that requires action by the receiving application.'},{k:'c',t:'When you want to query the status of a record.'},{k:'d',t:'When you want to delete a record in the target system.'}],correct:['b']},
+  {id:7,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'Which fields are part of the ApplicationArea of a BOD?',
+   opts:[{k:'a',t:'Sender (identifies the originating application)'},{k:'b',t:'CreationDateTime'},{k:'c',t:'BODID (unique identifier for the BOD instance)'},{k:'d',t:'The business payload (e.g. order lines)'}],correct:['a','b','c']},
+  {id:8,cat:'sync',cl:'ch-sync',catL:'Sync & Lifecycle',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What does the "Show" verb in a BOD typically indicate?',
+   opts:[{k:'a',t:'A request to display data on a UI screen.'},{k:'b',t:'A response BOD sent back to the requester, containing the requested business data.'},{k:'c',t:'A notification that a record has been deleted.'},{k:'d',t:'An instruction to activate a dormant record.'}],correct:['b']},
+  {id:9,cat:'sync',cl:'ch-sync',catL:'Sync & Lifecycle',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'Which statements about the SyncCustomerParty BOD are correct?',
+   opts:[{k:'a',t:'It carries customer master data.'},{k:'b',t:'The receiving system should create or update its customer record based on BOD content.'},{k:'c',t:'It uses the Process verb.'},{k:'d',t:'It can deactivate a customer by setting Status to Inactive.'}],correct:['a','b','d']},
+  {id:10,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What uniquely identifies a specific BOD instance across the integration landscape?',
+   opts:[{k:'a',t:'The Noun name combined with the Verb.'},{k:'b',t:'The BODID — a globally unique identifier assigned to each BOD instance.'},{k:'c',t:'The Sender ID of the originating application.'},{k:'d',t:'The timestamp in the ApplicationArea.'}],correct:['b']},
+  {id:11,cat:'noun',cl:'ch-noun',catL:'Nouns & Verbs',diff:'medium',dc:'ch-m',pts:3,multi:false,
+   text:'Which BOD would be used to send a supplier invoice from a procurement application to a finance application?',
+   opts:[{k:'a',t:'SyncSupplierInvoice'},{k:'b',t:'ProcessSupplierInvoice'},{k:'c',t:'ShowSupplierInvoice'},{k:'d',t:'AcknowledgeSupplierInvoice'}],correct:['b']},
+  {id:12,cat:'sync',cl:'ch-sync',catL:'Sync & Lifecycle',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'In Infor BOD handling, which statements about "Acknowledge" BODs are correct?',
+   opts:[{k:'a',t:'An Acknowledge BOD is sent by the receiving system back to the sender after processing.'},{k:'b',t:'It carries a response code indicating success or failure.'},{k:'c',t:'It is mandatory for every BOD exchange.'},{k:'d',t:'It contains the original BODID from the source BOD for correlation.'}],correct:['a','b','d']},
+  {id:13,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What XML namespace prefix is typically associated with BOD schemas in Infor?',
+   opts:[{k:'a',t:'"bod"'},{k:'b',t:'"oa" (Open Applications Group)'},{k:'c',t:'"inf"'},{k:'d',t:'"oagis"'}],correct:['b']},
+  {id:14,cat:'verb',cl:'ch-verb',catL:'Verbs & Patterns',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'Which best describe the differences between "Sync" and "Process" verbs?',
+   opts:[{k:'a',t:'"Sync" is for master/reference data; "Process" is for transactional documents.'},{k:'b',t:'"Sync" implies idempotent upsert behaviour; "Process" may trigger business logic and workflow.'},{k:'c',t:'Both verbs always produce an Acknowledge response.'},{k:'d',t:'"Process" is exclusively used for financial documents.'}],correct:['a','b']},
+  {id:15,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In a BOD, what does the "AccountingEntity" element in the ApplicationArea represent?',
+   opts:[{k:'a',t:'The chart of accounts used by the sender.'},{k:'b',t:'The logical company or tenant identifier within the sending application.'},{k:'c',t:'The database schema used for financial data.'},{k:'d',t:'The currency of the transaction.'}],correct:['b']},
+  {id:16,cat:'sync',cl:'ch-sync',catL:'Sync & Lifecycle',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What triggers a BOD to be published in Infor LN?',
+   opts:[{k:'a',t:'Only manual export jobs run by administrators.'},{k:'b',t:'Business events — such as saving a sales order or confirming a receipt — configured to generate BODs.'},{k:'c',t:'A scheduled overnight batch process only.'},{k:'d',t:'Importing data from an external CSV file.'}],correct:['b']},
+  {id:17,cat:'noun',cl:'ch-noun',catL:'Nouns & Verbs',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which of the following are common BOD Nouns used in supply chain integration?',
+   opts:[{k:'a',t:'SalesOrder'},{k:'b',t:'ReceiveDelivery'},{k:'c',t:'ItemMaster'},{k:'d',t:'GeneralLedger'}],correct:['a','b','c']},
+  {id:18,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which attributes must be present in every well-formed BOD?',
+   opts:[{k:'a',t:'releaseID (schema version)'},{k:'b',t:'systemEnvironmentCode (production / test)'},{k:'c',t:'languageCode'},{k:'d',t:'The physical database connection string'}],correct:['a','b','c']},
+  {id:19,cat:'sync',cl:'ch-sync',catL:'Sync & Lifecycle',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'What are valid strategies for handling duplicate or out-of-order BODs in an integration solution?',
+   opts:[{k:'a',t:'Using the BODID to detect and discard already-processed BODs.'},{k:'b',t:'Relying on CreationDateTime to sequence BODs and reject older ones.'},{k:'c',t:'Configuring the middleware to maintain a message journal for deduplication.'},{k:'d',t:'Ignoring duplicates entirely, since BOD processing is idempotent for all verbs.'}],correct:['a','b','c']},
+  {id:20,cat:'noun',cl:'ch-noun',catL:'Nouns & Verbs',diff:'medium',dc:'ch-m',pts:3,multi:false,
+   text:'Which BOD is used to synchronise item/part master data between Infor LN and another application such as a WMS?',
+   opts:[{k:'a',t:'ProcessItemMaster'},{k:'b',t:'SyncItemMaster'},{k:'c',t:'ShowItem'},{k:'d',t:'AcknowledgeItemMaster'}],correct:['b']}
+];
+
+/* ══════════════════════════════════════════
+   ION QUESTION BANK  50 pts
+══════════════════════════════════════════ */
+const QS_ION=[
+  {id:1,cat:'ion',cl:'ch-ion',catL:'ION Overview',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is the primary role of Infor ION in the Infor ecosystem?',
+   opts:[{k:'a',t:'A reporting and analytics engine for Infor applications.'},{k:'b',t:'An integration middleware platform that routes, transforms, and orchestrates BODs between Infor and third-party applications.'},{k:'c',t:'A database management system for Infor LN.'},{k:'d',t:'A UI framework for building Infor applications.'}],correct:['b']},
+  {id:2,cat:'iconn',cl:'ch-iconn',catL:'ION Connect',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which of the following are types of Connection Points in Infor ION Connect?',
+   opts:[{k:'a',t:'Infor Application Connection Point'},{k:'b',t:'Generic Application Connection Point (GENERICWS)'},{k:'c',t:'File-based Connection Point'},{k:'d',t:'Direct SQL Connection Point'}],correct:['a','b','c']},
+  {id:3,cat:'iflow',cl:'ch-iflow',catL:'Document Flows',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor ION, what is a "Document Flow"?',
+   opts:[{k:'a',t:'A PDF document generated by Infor for printing.'},{k:'b',t:'A configured route defining how a specific BOD travels from a source to one or more target Connection Points.'},{k:'c',t:'A financial approval workflow in Infor LN.'},{k:'d',t:'An audit trail document for integration errors.'}],correct:['b']},
+  {id:4,cat:'ion',cl:'ch-ion',catL:'ION Overview',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which components are part of the Infor ION Suite?',
+   opts:[{k:'a',t:'ION Connect (connection & routing)'},{k:'b',t:'ION Desk (monitoring & management)'},{k:'c',t:'ION API Gateway'},{k:'d',t:'ION Report Designer'}],correct:['a','b','c']},
+  {id:5,cat:'iconn',cl:'ch-iconn',catL:'ION Connect',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is the purpose of a "Logical ID" in Infor ION?',
+   opts:[{k:'a',t:'The physical server hostname of the Infor application.'},{k:'b',t:'A unique identifier assigned to each application connection point, used to address messages to and from that application.'},{k:'c',t:'The database schema name of the connected application.'},{k:'d',t:'Used exclusively for authentication between ION and the application.'}],correct:['b']},
+  {id:6,cat:'iflow',cl:'ch-iflow',catL:'Document Flows',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which elements can be configured in an ION Document Flow?',
+   opts:[{k:'a',t:'Source Connection Point'},{k:'b',t:'Target Connection Point(s)'},{k:'c',t:'BOD type (Noun + Verb)'},{k:'d',t:'Data transformation / mapping rules'}],correct:['a','b','c','d']},
+  {id:7,cat:'idoc',cl:'ch-idoc',catL:'ION Desk & Monitoring',diff:'medium',dc:'ch-m',pts:3,multi:false,
+   text:'In Infor ION Desk, what does "Message Resubmission" allow an administrator to do?',
+   opts:[{k:'a',t:'Edit the content of a failed BOD and resend it.'},{k:'b',t:'Replay a previously failed or undelivered BOD through the Document Flow without editing the payload.'},{k:'c',t:'Delete all failed messages from the ION queue permanently.'},{k:'d',t:'Convert a failed BOD into a CSV for manual processing.'}],correct:['b']},
+  {id:8,cat:'ion',cl:'ch-ion',catL:'ION Overview',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What transport is primarily used by Infor ION to exchange BODs with connected applications?',
+   opts:[{k:'a',t:'FTP / SFTP file transfer'},{k:'b',t:'AMQP / message queue via Infor Messaging Service'},{k:'c',t:'Direct JDBC database calls'},{k:'d',t:'SOAP XML over HTTP only'}],correct:['b']},
+  {id:9,cat:'iconn',cl:'ch-iconn',catL:'ION Connect',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'Which statements about the Generic Application Connection Point (GENERICWS) in ION are correct?',
+   opts:[{k:'a',t:'It allows non-Infor applications to publish and subscribe to BODs via REST or SOAP.'},{k:'b',t:'It can only receive BODs, not publish them.'},{k:'c',t:'It requires a unique Logical ID like any other connection point.'},{k:'d',t:'It supports file-based exchange as well as web services.'}],correct:['a','c']},
+  {id:10,cat:'iflow',cl:'ch-iflow',catL:'Document Flows',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What happens to a BOD published by Infor LN if no active Document Flow is configured for that BOD type?',
+   opts:[{k:'a',t:'The BOD is automatically sent to all connected applications.'},{k:'b',t:'The BOD is discarded — no routing occurs unless a Document Flow subscribes to it.'},{k:'c',t:'The BOD is stored in a pending queue indefinitely.'},{k:'d',t:'ION returns an error to LN and blocks the originating transaction.'}],correct:['b']},
+  {id:11,cat:'idoc',cl:'ch-idoc',catL:'ION Desk & Monitoring',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'Which information is visible in the ION Desk Message Viewer for a processed BOD?',
+   opts:[{k:'a',t:'The full BOD XML payload'},{k:'b',t:'Source and target Connection Points'},{k:'c',t:'Processing status (success / failed / pending)'},{k:'d',t:'The source code of the originating Infor LN session'}],correct:['a','b','c']},
+  {id:12,cat:'ion',cl:'ch-ion',catL:'ION Overview',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'Which are valid use cases for the Infor ION API Gateway?',
+   opts:[{k:'a',t:'Exposing ION-connected application APIs securely to external consumers.'},{k:'b',t:'Managing OAuth 2.0 token issuance for API authentication.'},{k:'c',t:'Replacing the need for Document Flows entirely.'},{k:'d',t:'Rate-limiting and throttling API requests to backend applications.'}],correct:['a','b','d']},
+  {id:13,cat:'iconn',cl:'ch-iconn',catL:'ION Connect',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'When configuring an Infor LN Connection Point in ION Connect, what must be provided to identify the company / tenant?',
+   opts:[{k:'a',t:'The LN database name only.'},{k:'b',t:'The Logical ID in the format "lid://infor.ln.<logicalID>".'},{k:'c',t:'The IP address of the Infor LN server.'},{k:'d',t:'The Infor LN administrator username and password.'}],correct:['b']},
+  {id:14,cat:'iflow',cl:'ch-iflow',catL:'Document Flows',diff:'medium',dc:'ch-m',pts:3,multi:false,
+   text:'In an ION Document Flow, what is the function of a "Mapping" step?',
+   opts:[{k:'a',t:'It filters BODs based on content criteria before routing.'},{k:'b',t:'It transforms the BOD structure or field values to match the format expected by the target application.'},{k:'c',t:'It logs the BOD to the ION audit trail without routing it.'},{k:'d',t:'It converts the BOD from XML to JSON format automatically.'}],correct:['b']},
+  {id:15,cat:'ion',cl:'ch-ion',catL:'ION Overview',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is "ION Grid" in the Infor technology stack?',
+   opts:[{k:'a',t:'A spreadsheet-like reporting grid in Infor LN.'},{k:'b',t:'The underlying distributed runtime platform hosting ION services and other Infor components in cloud or on-premise environments.'},{k:'c',t:'A data-grid component used in ION Desk dashboards.'},{k:'d',t:'A load-balancing appliance for Infor application servers.'}],correct:['b']},
+  {id:16,cat:'idoc',cl:'ch-idoc',catL:'ION Desk & Monitoring',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which actions can be performed from ION Desk on a failed integration message?',
+   opts:[{k:'a',t:'Resubmit the message'},{k:'b',t:'View the full BOD XML'},{k:'c',t:'Edit the BOD payload and resubmit'},{k:'d',t:'Delete the message from the queue'}],correct:['a','b','d']},
+  {id:17,cat:'iconn',cl:'ch-iconn',catL:'ION Connect',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is the purpose of the "Tenant" concept in a multi-tenant Infor ION deployment?',
+   opts:[{k:'a',t:'It separates integration configurations, connection points, and message flows between different organisations sharing the same ION infrastructure.'},{k:'b',t:'It defines the server hardware assigned to each ION node.'},{k:'c',t:'It controls the number of BODs a customer can send per day.'},{k:'d',t:'It is only relevant for cloud deployments with no on-premise equivalent.'}],correct:['a']},
+  {id:18,cat:'iflow',cl:'ch-iflow',catL:'Document Flows',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which BOD routing patterns are supported in Infor ION Document Flows?',
+   opts:[{k:'a',t:'One-to-one (single source → single target)'},{k:'b',t:'One-to-many (single source → multiple targets)'},{k:'c',t:'Content-based routing (route based on BOD field values)'},{k:'d',t:'Many-to-one aggregation'}],correct:['a','b','c']},
+  {id:19,cat:'ion',cl:'ch-ion',catL:'ION Overview',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'Which statements about ION and multi-tenant cloud deployments on Infor CloudSuite are correct?',
+   opts:[{k:'a',t:'ION is pre-configured and managed by Infor in a CloudSuite deployment.'},{k:'b',t:'Customers configure their own Document Flows but share the underlying ION infrastructure.'},{k:'c',t:'Each CloudSuite tenant has a fully isolated ION instance with dedicated hardware.'},{k:'d',t:'ION API Gateway provides OAuth 2.0 token services for CloudSuite APIs.'}],correct:['a','b','d']},
+  {id:20,cat:'idoc',cl:'ch-idoc',catL:'ION Desk & Monitoring',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'SyncCustomerParty BODs from Infor LN are not arriving in the target CRM. Which are valid troubleshooting steps in ION?',
+   opts:[{k:'a',t:'Verify the Document Flow for SyncCustomerParty is active and correctly configured.'},{k:'b',t:'Check ION Desk Message Viewer for failed or pending messages.'},{k:'c',t:'Confirm the LN Connection Point Logical ID matches the Sender in the BOD ApplicationArea.'},{k:'d',t:'Restart the Infor LN database server to force BOD regeneration.'}],correct:['a','b','c']}
+];
+
+/* ══════════════════════════════════════════
+   EXTENSIBILITY QUESTION BANK  50 pts
+══════════════════════════════════════════ */
+const QS_EXT=[
+  {id:1,cat:'ext',cl:'ch-ext',catL:'Extensibility Overview',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is the primary purpose of the Infor LN Extensibility framework?',
+   opts:[{k:'a',t:'To replace the core Infor LN codebase with customer-specific code.'},{k:'b',t:'To allow customers and partners to add or extend functionality without changing standard code, preserving upgradability.'},{k:'c',t:'To provide a scripting language for automating database backups.'},{k:'d',t:'To configure user security roles and permissions.'}],correct:['b']},
+  {id:2,cat:'ext',cl:'ch-ext',catL:'Extensibility Overview',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which of the following are valid types of Extension Points in Infor LN?',
+   opts:[{k:'a',t:'Hook Scripts (before/after business logic)'},{k:'b',t:'Custom Fields (user-defined fields on standard tables)'},{k:'c',t:'Replacement of standard DAL functions'},{k:'d',t:'UI Extensions (adding fields or buttons to standard sessions)'}],correct:['a','b','d']},
+  {id:3,cat:'sdk',cl:'ch-sdk',catL:'Extension SDK',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is the Infor LN Extension SDK used for?',
+   opts:[{k:'a',t:'A set of tools and APIs to build, test, and package extensions for Infor LN without modifying the core installation.'},{k:'b',t:'A database schema toolkit for creating new Infor LN tables from scratch.'},{k:'c',t:'An end-user configuration tool for adjusting print layouts.'},{k:'d',t:'It replaces Infor LN Tools as the primary development environment.'}],correct:['a']},
+  {id:4,cat:'api',cl:'ch-api',catL:'REST & OData APIs',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'Infor LN exposes its data through REST APIs. Which protocol standard are these primarily based on?',
+   opts:[{k:'a',t:'SOAP / WSDL'},{k:'b',t:'OData (Open Data Protocol) over HTTPS'},{k:'c',t:'GraphQL'},{k:'d',t:'XML-RPC'}],correct:['b']},
+  {id:5,cat:'api',cl:'ch-api',catL:'REST & OData APIs',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which of the following are true about Infor LN OData APIs?',
+   opts:[{k:'a',t:'They allow external applications to query and manipulate Infor LN data over HTTPS.'},{k:'b',t:'They support standard OData query options such as $filter, $select, and $expand.'},{k:'c',t:'Authentication is handled via OAuth 2.0 tokens.'},{k:'d',t:'They require direct database access to the Infor LN schema.'}],correct:['a','b','c']},
+  {id:6,cat:'ui',cl:'ch-ui',catL:'UI Extensibility',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is the function of UI Extensibility in Infor LN?',
+   opts:[{k:'a',t:'Allows customers to add custom fields, buttons, and logic to standard sessions without modifying standard source code.'},{k:'b',t:'A tool for changing the colour theme and branding of the Infor LN web client.'},{k:'c',t:'Provides access to underlying database tables for custom reporting.'},{k:'d',t:'Replaces the standard Infor LN session generator.'}],correct:['a']},
+  {id:7,cat:'ext',cl:'ch-ext',catL:'Extensibility Overview',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'Which statements about Hook Scripts in Infor LN Extensibility are correct?',
+   opts:[{k:'a',t:'Hook scripts are triggered at defined extension points in the standard business logic.'},{k:'b',t:'They can read and modify data before or after standard processing.'},{k:'c',t:'Hook scripts replace the standard DAL entirely when activated.'},{k:'d',t:'They are written in a scripting language compatible with standard Baan script.'}],correct:['a','b','d']},
+  {id:8,cat:'sdk',cl:'ch-sdk',catL:'Extension SDK',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is a "Custom Field" in Infor LN Extensibility?',
+   opts:[{k:'a',t:'A field added by the customer to a standard table, visible in sessions and accessible via APIs, without modifying the standard schema in an unsupported way.'},{k:'b',t:'A field that replaces a standard field in an Infor LN table.'},{k:'c',t:'A calculated field defined only in a BI report, not stored in the database.'},{k:'d',t:'A field exclusive to customised sessions and not available via the API.'}],correct:['a']},
+  {id:9,cat:'api',cl:'ch-api',catL:'REST & OData APIs',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'Which HTTP methods are typically supported by Infor LN OData REST APIs for CRUD operations?',
+   opts:[{k:'a',t:'GET (read)'},{k:'b',t:'POST (create)'},{k:'c',t:'PATCH / PUT (update)'},{k:'d',t:'DELETE'}],correct:['a','b','c','d']},
+  {id:10,cat:'ui',cl:'ch-ui',catL:'UI Extensibility',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN UI extensibility, what is a "Widget"?',
+   opts:[{k:'a',t:'A custom UI component embedded into a standard session to display additional data or provide custom actions.'},{k:'b',t:'A standard Infor LN form field with a dropdown list.'},{k:'c',t:'A navigation shortcut in the Infor LN main menu.'},{k:'d',t:'An automated test script for Infor LN UI regression testing.'}],correct:['a']},
+  {id:11,cat:'ext',cl:'ch-ext',catL:'Extensibility Overview',diff:'medium',dc:'ch-m',pts:3,multi:false,
+   text:'Why is it important to use the Infor LN Extensibility framework rather than directly modifying standard source code?',
+   opts:[{k:'a',t:'Direct modifications are faster but produce the same upgrade impact as extension points.'},{k:'b',t:'Using the extensibility framework ensures customer changes are isolated from standard code, allowing upgrades without overwriting customisations.'},{k:'c',t:'Direct source modifications are fully supported by Infor for production environments.'},{k:'d',t:'The extensibility framework only supports UI changes; DAL changes must still be done in source.'}],correct:['b']},
+  {id:12,cat:'sdk',cl:'ch-sdk',catL:'Extension SDK',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'Which are valid components of an Infor LN Extension Package?',
+   opts:[{k:'a',t:'Extension metadata (manifest file describing the package)'},{k:'b',t:'Hook scripts or DAL extension scripts'},{k:'c',t:'Custom field definitions'},{k:'d',t:'Standard Infor LN core source code'}],correct:['a','b','c']},
+  {id:13,cat:'api',cl:'ch-api',catL:'REST & OData APIs',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'How does an external application authenticate when calling an Infor LN OData REST API?',
+   opts:[{k:'a',t:'Using Basic Authentication (username and password in the header).'},{k:'b',t:'Using an OAuth 2.0 Bearer Token obtained from the Infor OS / Infor Identity Service.'},{k:'c',t:'Using an API Key stored as a URL parameter.'},{k:'d',t:'No authentication is required for OData calls within the same network.'}],correct:['b']},
+  {id:14,cat:'ui',cl:'ch-ui',catL:'UI Extensibility',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'Which customisations can be achieved using Infor LN UI Extensibility without modifying source code?',
+   opts:[{k:'a',t:'Adding custom fields to a standard session form'},{k:'b',t:'Adding a custom button that triggers a hook script'},{k:'c',t:'Hiding or repositioning standard fields on a form'},{k:'d',t:'Replacing the standard database stored procedure for a session'}],correct:['a','b','c']},
+  {id:15,cat:'ext',cl:'ch-ext',catL:'Extensibility Overview',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is "Infor Landmark Technology" in relation to Infor LN extensibility?',
+   opts:[{k:'a',t:'The underlying multi-tenant application development platform powering Infor LN and providing the runtime environment for extensions, scripts, and APIs.'},{k:'b',t:'An external ETL tool used to extract data from Infor LN.'},{k:'c',t:"Infor LN's standard reporting module."},{k:'d',t:'A hardware infrastructure component for Infor cloud deployments.'}],correct:['a']},
+  {id:16,cat:'sdk',cl:'ch-sdk',catL:'Extension SDK',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which describe best practices when developing Infor LN extensions?',
+   opts:[{k:'a',t:'Document all extension points used for future maintainability.'},{k:'b',t:'Test extensions in a non-production environment before deploying live.'},{k:'c',t:'Modify standard Infor tables directly to achieve faster performance.'},{k:'d',t:'Version-control your extension packages.'}],correct:['a','b','d']},
+  {id:17,cat:'api',cl:'ch-api',catL:'REST & OData APIs',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:"In an OData URL such as \"/LN/V1/SalesOrders?$filter=Company eq '100'\", what does \"$filter\" do?",
+   opts:[{k:'a',t:'It sorts the results by the Company field.'},{k:'b',t:"It limits the API response to records where Company equals '100'."},{k:'c',t:'It selects only the Company column in the response.'},{k:'d',t:'It deletes all SalesOrders for Company 100.'}],correct:['b']},
+  {id:18,cat:'ui',cl:'ch-ui',catL:'UI Extensibility',diff:'simple',dc:'ch-s',pts:2,multi:true,
+   text:'Which technologies are typically used to build UI extensions and widgets for Infor LN sessions?',
+   opts:[{k:'a',t:'HTML5 / CSS3'},{k:'b',t:'JavaScript / TypeScript'},{k:'c',t:'Infor Xi platform framework'},{k:'d',t:'Baan 4GL (OAL)'}],correct:['a','b','c']},
+  {id:19,cat:'ext',cl:'ch-ext',catL:'Extensibility Overview',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'A customer needs to add a custom approval step whenever a Sales Order value exceeds $100,000. Which extensibility mechanisms are appropriate?',
+   opts:[{k:'a',t:'A Hook Script triggered at the "after commit" extension point of the Sales Order DAL.'},{k:'b',t:'A custom field on the Sales Order to track approval status.'},{k:'c',t:'A UI extension to display approval status and an Approve button on the Sales Order session.'},{k:'d',t:'Directly editing the standard SalesOrder DAL source file.'}],correct:['a','b','c']},
+  {id:20,cat:'sdk',cl:'ch-sdk',catL:'Extension SDK',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'Which statements about deploying an Infor LN Extension Package are correct?',
+   opts:[{k:'a',t:'Extension packages are deployed via Infor LN Tools / Extension Manager without reinstalling Infor LN.'},{k:'b',t:'A package can be activated and deactivated independently from the core application.'},{k:'c',t:'Deploying an extension package requires a full Infor LN upgrade.'},{k:'d',t:'Packages can be scoped to specific companies or environments within the LN installation.'}],correct:['a','b','d']}
+];
+
+/* ══════════════════════════════════════════
    STATE
 ══════════════════════════════════════════ */
 const TOTAL_PTS=50, PASS_PCT=70, DURATION=45*60;
@@ -885,19 +1184,29 @@ let track='', QS=[], candidate={}, answers={}, skipped=new Set(), curIdx=0, time
 /* ══════════════════════════════════════════
    TRACK SELECTION
 ══════════════════════════════════════════ */
+const TRACKS={
+  dev:{label:'Infor LN Development Certification',color:'var(--blue)',btnCls:'',certCls:'',certColor:'#4f8cff',certColor2:'#7c6fff',icon:'💻'},
+  fin:{label:'Infor LN Finance Certification',color:'var(--gold)',btnCls:' gold-theme',certCls:' gold',certColor:'#e9bd55',certColor2:'#c9962a',icon:'📊'},
+  bod:{label:'Infor BOD Certification',color:'var(--purple)',btnCls:' purple-theme',certCls:' purple',certColor:'#a855f7',certColor2:'#7c3aed',icon:'📡'},
+  ion:{label:'Infor ION Certification',color:'var(--cyan)',btnCls:' cyan-theme',certCls:' cyan',certColor:'#22d3ee',certColor2:'#0891b2',icon:'🔗'},
+  ext:{label:'Infor LN Extensibility Certification',color:'var(--pink)',btnCls:' pink-theme',certCls:' pink',certColor:'#f472b6',certColor2:'#db2777',icon:'🧩'},
+};
+
 function selectTrack(t){
   track=t;
-  document.getElementById('card-dev').className='track-card'+(t==='dev'?' sel-dev':'');
-  document.getElementById('card-fin').className='track-card'+(t==='fin'?' sel-fin':'');
+  ['dev','fin','bod','ion','ext'].forEach(k=>{
+    const c=document.getElementById('card-'+k);
+    if(c) c.className='track-card'+(k===t?' sel-'+t:'');
+  });
+  const cfg=TRACKS[t];
   const lbl=document.getElementById('reg-track-label');
-  lbl.textContent=t==='dev'?'📋 Infor LN Development Certification selected':'📋 Infor LN Finance Certification selected';
-  lbl.style.color=t==='dev'?'var(--blue)':'var(--gold)';
+  lbl.textContent=cfg.icon+' '+cfg.label+' selected';
+  lbl.style.color=cfg.color;
   const btn=document.getElementById('begin-btn');
-  btn.className='btn btn-primary btn-xl'+(t==='fin'?' gold-theme':'');
-  btn.innerHTML=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg> Begin ${t==='dev'?'Development':'Finance'} Certification`;
-  // update rules accent color
-  document.querySelector('.rules-h').style.color=t==='fin'?'var(--gold)':'var(--blue)';
-  document.querySelector('.rules').style.borderColor=t==='fin'?'rgba(233,189,85,.18)':'rgba(79,140,255,.12)';
+  btn.className='btn btn-primary btn-xl'+cfg.btnCls;
+  btn.innerHTML=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg> Begin ${cfg.label.replace(' Certification','')} Exam`;
+  document.querySelector('.rules-h').style.color=cfg.color;
+  document.querySelector('.rules').style.borderColor=cfg.color.replace('var(','').replace(')','');
 }
 
 /* ══════════════════════════════════════════
@@ -916,7 +1225,8 @@ function startExam(){
   if(!m||m.replace(/\D/g,'').length<8){document.getElementById('err-m').style.display='block';document.getElementById('rm').style.borderColor='var(--rose)';ok=false;}
   if(!ok)return;
   candidate={name:n,email:e,mob:m};
-  QS=track==='dev'?[...QS_DEV]:[...QS_FIN];
+  const QS_MAP={dev:QS_DEV,fin:QS_FIN,bod:QS_BOD,ion:QS_ION,ext:QS_EXT};
+  QS=[...QS_MAP[track]];
   answers={};skipped=new Set();curIdx=0;timeLeft=DURATION;
   // Setup exam bar
   document.getElementById('cav').textContent=n.split(' ').filter(Boolean).map(x=>x[0]).slice(0,2).join('').toUpperCase();
@@ -1021,7 +1331,7 @@ async function showResults(){
   const passed=pct>=PASS_PCT;
   const certId=`FOB-${track.toUpperCase()}-${new Date().getFullYear()}${String(new Date().getMonth()+1).padStart(2,'0')}-${randId()}`;
   const examDate=fmt(new Date());
-  const trackFull=track==='dev'?'Infor LN Development':'Infor LN Finance';
+  const trackFull=TRACKS[track].label.replace(' Certification','');
 
   showScreen('results');
   const hero=document.getElementById('res-hero');
@@ -1043,8 +1353,8 @@ async function showResults(){
 
   const ca=document.getElementById('cert-area');
   if(passed){
-    const isGold=track==='fin';
-    ca.innerHTML=`<div class="cert-panel${isGold?' gold':''}">
+    const certCls=TRACKS[track].certCls;
+    ca.innerHTML=`<div class="cert-panel${certCls}">
       <div class="cert-ey">FullonBaan Education · Certificate of Achievement</div>
       <div class="cert-name">${candidate.name}</div>
       <div class="cert-body">has successfully completed the<br><strong>${trackFull} Certification</strong><br>with a passing score of <strong>${pct}%</strong></div>
@@ -1077,103 +1387,79 @@ function drawCert(name,pct,certId,date,trackFull){
     const ctx=cv.getContext('2d');
     const W=1200,H=850;
     cv.width=W;cv.height=H;
-    const isFin=track==='fin';
+    const cfg=TRACKS[track];
+    const c1=cfg.certColor, c2=cfg.certColor2;
+    const icon=cfg.icon;
     // BG
     const bg=ctx.createLinearGradient(0,0,W,H);
     bg.addColorStop(0,'#04070e');bg.addColorStop(.5,'#0a1220');bg.addColorStop(1,'#06090f');
     ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
     // Glow
     const gl=ctx.createRadialGradient(W/2,0,0,W/2,0,520);
-    gl.addColorStop(0,isFin?'rgba(233,189,85,.1)':'rgba(79,140,255,.1)');
-    gl.addColorStop(1,'transparent');
+    gl.addColorStop(0,c1+'33'); gl.addColorStop(1,'transparent');
     ctx.fillStyle=gl;ctx.fillRect(0,0,W,H);
     // Borders
     const brd=ctx.createLinearGradient(0,0,W,0);
     brd.addColorStop(0,'transparent');
-    brd.addColorStop(.25,isFin?'#e9bd55':'#4f8cff');
-    brd.addColorStop(.5,isFin?'#c9962a':'#7c6fff');
-    brd.addColorStop(.75,isFin?'#e9bd55':'#4f8cff');
+    brd.addColorStop(.25,c1);brd.addColorStop(.5,c2);brd.addColorStop(.75,c1);
     brd.addColorStop(1,'transparent');
     ctx.strokeStyle=brd;ctx.lineWidth=2;ctx.strokeRect(34,34,W-68,H-68);
-    ctx.strokeStyle=isFin?'rgba(233,189,85,.12)':'rgba(79,140,255,.12)';
-    ctx.lineWidth=1;ctx.strokeRect(48,48,W-96,H-96);
+    ctx.strokeStyle=c1+'22';ctx.lineWidth=1;ctx.strokeRect(48,48,W-96,H-96);
     // Corners
     [[68,68],[W-68,68],[68,H-68],[W-68,H-68]].forEach(([x,y])=>{
       ctx.beginPath();ctx.arc(x,y,20,0,Math.PI*2);
-      ctx.strokeStyle=isFin?'rgba(233,189,85,.45)':'rgba(79,140,255,.45)';
-      ctx.lineWidth=1.5;ctx.stroke();
+      ctx.strokeStyle=c1+'77';ctx.lineWidth=1.5;ctx.stroke();
       ctx.beginPath();ctx.arc(x,y,10,0,Math.PI*2);
-      ctx.fillStyle=isFin?'rgba(233,189,85,.15)':'rgba(79,140,255,.15)';
-      ctx.fill();
+      ctx.fillStyle=c1+'28';ctx.fill();
     });
     // Header
-    ctx.textAlign='center';
-    ctx.fillStyle=isFin?'rgba(233,189,85,.65)':'rgba(79,140,255,.65)';
-    ctx.font='bold 13px Arial';
-    ctx.fillText('FULLONBAAN EDUCATION', W/2,108);
-    // Gold divider
+    ctx.textAlign='center';ctx.fillStyle=c1+'bb';
+    ctx.font='bold 13px Arial';ctx.fillText('FULLONBAAN EDUCATION',W/2,108);
+    // divider
     const dv=ctx.createLinearGradient(W/2-220,0,W/2+220,0);
-    dv.addColorStop(0,'transparent');
-    dv.addColorStop(.5,isFin?'rgba(233,189,85,.65)':'rgba(79,140,255,.5)');
-    dv.addColorStop(1,'transparent');
+    dv.addColorStop(0,'transparent');dv.addColorStop(.5,c1+'aa');dv.addColorStop(1,'transparent');
     ctx.beginPath();ctx.strokeStyle=dv;ctx.lineWidth=1;
     ctx.moveTo(W/2-220,126);ctx.lineTo(W/2+220,126);ctx.stroke();
-    ctx.fillStyle='rgba(180,200,230,.45)';
-    ctx.font='14px Arial';
+    ctx.fillStyle='rgba(180,200,230,.45)';ctx.font='14px Arial';
     ctx.fillText('CERTIFICATE OF ACHIEVEMENT',W/2,166);
     // Icon
-    ctx.font='58px Arial';ctx.fillText(isFin?'📊':'💻',W/2,248);
+    ctx.font='58px Arial';ctx.fillText(icon,W/2,248);
     // Sub
-    ctx.fillStyle='rgba(136,160,200,.8)';
-    ctx.font='italic 17px Georgia,serif';
+    ctx.fillStyle='rgba(136,160,200,.8)';ctx.font='italic 17px Georgia,serif';
     ctx.fillText('This certifies that',W/2,305);
     // Name
     const ng=ctx.createLinearGradient(W/2-300,0,W/2+300,0);
-    ng.addColorStop(0,isFin?'#e9bd55':'#4f8cff');
-    ng.addColorStop(.5,isFin?'#f5d98a':'#a0c4ff');
-    ng.addColorStop(1,isFin?'#c9962a':'#7c6fff');
-    ctx.fillStyle=ng;
-    ctx.font='bold 50px Georgia,serif';
-    ctx.fillText(name,W/2,374);
+    ng.addColorStop(0,c1);ng.addColorStop(.5,'#ffffff99');ng.addColorStop(1,c2);
+    ctx.fillStyle=ng;ctx.font='bold 50px Georgia,serif';ctx.fillText(name,W/2,374);
     // Underline
     const uw=Math.min(ctx.measureText(name).width+80,580);
     const ul=ctx.createLinearGradient(W/2-uw/2,0,W/2+uw/2,0);
-    ul.addColorStop(0,'transparent');
-    ul.addColorStop(.5,isFin?'rgba(233,189,85,.55)':'rgba(79,140,255,.55)');
-    ul.addColorStop(1,'transparent');
+    ul.addColorStop(0,'transparent');ul.addColorStop(.5,c1+'88');ul.addColorStop(1,'transparent');
     ctx.beginPath();ctx.strokeStyle=ul;ctx.lineWidth=1.5;
     ctx.moveTo(W/2-uw/2,388);ctx.lineTo(W/2+uw/2,388);ctx.stroke();
     // Body
-    ctx.fillStyle='rgba(178,198,234,.82)';
-    ctx.font='17px Georgia,serif';
+    ctx.fillStyle='rgba(178,198,234,.82)';ctx.font='17px Georgia,serif';
     ctx.fillText('has successfully passed the',W/2,434);
-    ctx.font='bold 22px Georgia,serif';
-    ctx.fillStyle='rgba(210,225,255,.95)';
+    ctx.font='bold 22px Georgia,serif';ctx.fillStyle='rgba(210,225,255,.95)';
     ctx.fillText(`${trackFull} Certification`,W/2,464);
     // Score
-    ctx.fillStyle='rgba(136,160,200,.75)';
-    ctx.font='15px Arial';
+    ctx.fillStyle='rgba(136,160,200,.75)';ctx.font='15px Arial';
     ctx.fillText('with a score of',W/2,512);
     ctx.font='bold 38px Georgia,serif';
     const sg=ctx.createLinearGradient(W/2-50,0,W/2+50,0);
     sg.addColorStop(0,'#34d399');sg.addColorStop(1,'#10b981');
-    ctx.fillStyle=sg;
-    ctx.fillText(`${pct}%`,W/2,556);
-    // Divider
+    ctx.fillStyle=sg;ctx.fillText(`${pct}%`,W/2,556);
+    // Footer divider
     const fd=ctx.createLinearGradient(W/2-300,0,W/2+300,0);
-    fd.addColorStop(0,'transparent');
-    fd.addColorStop(.5,isFin?'rgba(233,189,85,.28)':'rgba(79,140,255,.28)');
-    fd.addColorStop(1,'transparent');
+    fd.addColorStop(0,'transparent');fd.addColorStop(.5,c1+'44');fd.addColorStop(1,'transparent');
     ctx.beginPath();ctx.strokeStyle=fd;ctx.lineWidth=1;
     ctx.moveTo(W/2-300,598);ctx.lineTo(W/2+300,598);ctx.stroke();
     // Meta
-    ctx.font='13px "Courier New",monospace';
-    ctx.fillStyle='rgba(74,100,148,.88)';
+    ctx.font='13px "Courier New",monospace';ctx.fillStyle='rgba(74,100,148,.88)';
     ctx.fillText(`Date: ${date}`,W/2-200,634);
     ctx.fillText(`Certificate ID: ${certId}`,W/2+130,634);
-    // Footer
-    ctx.fillStyle='rgba(79,140,255,.28)';
-    ctx.font='12px Arial';
+    // Footer text
+    ctx.fillStyle=c1+'44';ctx.font='12px Arial';
     ctx.fillText('FullonBaan Education · One Stop Destination for Baan Solutions',W/2,778);
     resolve(cv.toDataURL('image/png'));
   });
