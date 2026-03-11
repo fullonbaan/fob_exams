@@ -1078,7 +1078,6 @@ canvas#cert-canvas{display:none;}
     </div>
     <div style="text-align:center;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
       <button class="btn btn-outline btn-md" onclick="goHome()">← Back to Portal</button>
-      <button class="btn btn-outline btn-md" onclick="retake()">↺ Retake Exam</button>
     </div>
   </div>
 </div>
@@ -1792,7 +1791,7 @@ function submitUTR(){
 }
 
 function notifyAdminPayment(utr){
-  if(EMAILJS_PUB==='YOUR_PUBLIC_KEY') return; // not configured yet
+  if(!EMAILJS_PUB || EMAILJS_PUB==='YOUR_PUBLIC_KEY') return; // not configured yet
   const params={
     to_email: FOB_EMAIL,
     to_name: 'FullonBaan Admin',
@@ -2095,7 +2094,6 @@ async function sendEmails({score,pct,passed,correct,wrong,skip,certId,examDate,t
     /* Candidate details */
     to_name          : candidate.name,
     to_email         : candidate.email,
-    cc_email         : CC_EMAIL,
     reply_to         : FOB_EMAIL,
     candidate_name   : candidate.name,
     candidate_email  : candidate.email,
@@ -2116,8 +2114,11 @@ async function sendEmails({score,pct,passed,correct,wrong,skip,certId,examDate,t
   };
 
   try{
-    /* ── EMAIL 1: Exam Score Notification (sent to every candidate) ── */
-    await emailjs.send(EMAILJS_SVC, TPL_RESULT, base);
+    /* ── EMAIL 1a: Score report → candidate ── */
+    await emailjs.send(EMAILJS_SVC, TPL_RESULT, {...base, to_email: candidate.email, to_name: candidate.name});
+
+    /* ── EMAIL 1b: Score report CC → fobsupport ── */
+    await emailjs.send(EMAILJS_SVC, TPL_RESULT, {...base, to_email: CC_EMAIL, to_name: 'FullonBaan Support'});
 
     /* ── EMAIL 2: Completion Certificate (sent only if passed) ── */
     if(passed){
@@ -2127,13 +2128,16 @@ async function sendEmails({score,pct,passed,correct,wrong,skip,certId,examDate,t
         cert_image : certDataUrl,
         cert_title : trackFull + ' Certification'
       };
-      await emailjs.send(EMAILJS_SVC, TPL_CERT, certPayload);
+      /* 2a → candidate */
+      await emailjs.send(EMAILJS_SVC, TPL_CERT, {...certPayload, to_email: candidate.email, to_name: candidate.name});
+      /* 2b → fobsupport CC */
+      await emailjs.send(EMAILJS_SVC, TPL_CERT, {...certPayload, to_email: CC_EMAIL, to_name: 'FullonBaan Support'});
 
       box.innerHTML=`<div class="email-box">
         <span class="email-icon">✅</span>
         <div>
           <div>🏆 <strong>Score report</strong> &amp; <strong>Completion Certificate</strong> sent to <strong>${candidate.email}</strong></div>
-          <div style="font-size:12px;color:var(--textM);margin-top:4px;">CC'd to ${CC_EMAIL} · Certificate attached as image</div>
+          <div style="font-size:12px;color:var(--textM);margin-top:4px;">Copy sent to ${CC_EMAIL} · Certificate attached as image</div>
         </div>
       </div>`;
       toast('Certificate emailed successfully!','🏆');
@@ -2142,14 +2146,14 @@ async function sendEmails({score,pct,passed,correct,wrong,skip,certId,examDate,t
         <span class="email-icon">✅</span>
         <div>
           <div>📋 <strong>Score report</strong> sent to <strong>${candidate.email}</strong></div>
-          <div style="font-size:12px;color:var(--textM);margin-top:4px;">CC'd to ${CC_EMAIL}</div>
+          <div style="font-size:12px;color:var(--textM);margin-top:4px;">Copy sent to ${CC_EMAIL}</div>
         </div>
       </div>`;
       toast('Score report emailed!','✉️');
     }
   } catch(err){
     console.error(err);
-    box.innerHTML=`<div class="email-box" style="border-color:rgba(248,113,113,.2);background:rgba(248,113,113,.04)"><span class="email-icon">⚠️</span><div><div>Email delivery failed — EmailJS not configured yet.</div><div style="font-size:11px;opacity:.65;font-family:var(--mono);margin-top:4px">Set EMAILJS_PUB, EMAILJS_SVC, and template IDs at the top of the script. Ensure <em>cc_email</em> is mapped in your EmailJS templates.</div></div></div>`;
+    box.innerHTML=`<div class="email-box" style="border-color:rgba(248,113,113,.2);background:rgba(248,113,113,.04)"><span class="email-icon">⚠️</span><div><div>Email could not be sent — please contact <strong>fobsupport@gmail.com</strong> with your Exam ID.</div><div style="font-size:11px;opacity:.65;font-family:var(--mono);margin-top:4px">Error: ${err.text||err.message||JSON.stringify(err)}</div></div></div>`;
   }
 }
 
