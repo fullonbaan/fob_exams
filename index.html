@@ -2149,158 +2149,53 @@ function drawCert(name,pct,certId,date,trackFull){
 
 /* ── Build a full Q&A review block as plain text for the email ── */
 function buildExamReviewText(){
-  return QS.map((q, i) => {
-    const sel       = answers[q.id] || [];
-    const isCorrect = sel.length > 0 && JSON.stringify([...sel].sort()) === JSON.stringify([...q.correct].sort());
-    const status    = sel.length === 0 ? 'SKIPPED' : isCorrect ? 'CORRECT' : 'WRONG';
-
-    /* Option labels */
-    const optLines = q.opts.map(o => {
-      const chosen  = sel.includes(o.k)   ? ' ← Your Answer' : '';
-      const correct = q.correct.includes(o.k) ? ' ✓ Correct'  : '';
-      return `   [${o.k.toUpperCase()}] ${o.t}${chosen}${correct}`;
-    }).join('\n');
-
-    return [
-      `Q${i+1}. [${status}] ${q.text}`,
-      optLines,
-      `   Your selection : ${sel.length ? sel.map(k=>k.toUpperCase()).join(', ') : 'None'}`,
-      `   Correct answer : ${q.correct.map(k=>k.toUpperCase()).join(', ')}`,
-      `   Points         : ${isCorrect ? q.pts : 0} / ${q.pts}`,
-      '─'.repeat(72)
-    ].join('\n');
-  }).join('\n\n');
+  /* Plain-text fallback — kept for reference, not sent via EmailJS */
+  return QS.map((q,i)=>{
+    const sel=answers[q.id]||[];
+    const ok=sel.length>0&&JSON.stringify([...sel].sort())===JSON.stringify([...q.correct].sort());
+    const st=sel.length===0?'SKIP':ok?'OK':'WRONG';
+    const opts=q.opts.map(o=>`[${o.k.toUpperCase()}]${sel.includes(o.k)?'*':''}${q.correct.includes(o.k)?'+':''} ${o.t}`).join(' | ');
+    return `Q${i+1}[${st}] ${q.text} || ${opts} || Yours:${sel.map(k=>k.toUpperCase()).join(',')||'-'} Correct:${q.correct.map(k=>k.toUpperCase()).join(',')} Pts:${ok?q.pts:0}/${q.pts}`;
+  }).join('\n');
 }
 
-/* ── Build the same block as an HTML table for richer email clients ── */
+/* ── Compact HTML review — stays well under EmailJS 50kb limit ── */
 function buildExamReviewHTML(){
-  const rows = QS.map((q, i) => {
-    const sel       = answers[q.id] || [];
-    const isCorrect = sel.length > 0 && JSON.stringify([...sel].sort()) === JSON.stringify([...q.correct].sort());
-    const isSkipped = sel.length === 0;
-
-    /* Status badge colours — matching the gold template palette */
-    const statusLabel = isSkipped ? 'SKIPPED' : isCorrect ? 'CORRECT' : 'WRONG';
-    const statusBg    = isCorrect ? '#dcfce7' : isSkipped ? '#fef9c3' : '#fee2e2';
-    const statusClr   = isCorrect ? '#15803d' : isSkipped ? '#92400e' : '#b91c1c';
-    const headerBg    = isCorrect ? '#f0fdf4' : isSkipped ? '#fefce8' : '#fff5f5';
-    const borderClr   = isCorrect ? 'rgba(21,128,61,0.25)' : isSkipped ? 'rgba(146,64,14,0.25)' : 'rgba(185,28,28,0.25)';
-
-    /* Option rows */
-    const optRows = q.opts.map(o => {
-      const chosen  = sel.includes(o.k);
-      const correct = q.correct.includes(o.k);
-
-      let bgStyle = '';
-      let textDeco = '';
-      let weightStyle = '';
-      let marker = '';
-      let keyBg = 'background:#f5f0e8; color:#7a5500;';
-
-      if (correct && chosen) {
-        bgStyle    = 'background:#dcfce7;';
-        weightStyle = 'font-weight:700;';
-        marker     = ' &nbsp;<span style="color:#15803d;font-size:11px;">&#10003; Your Answer &amp; Correct</span>';
-        keyBg      = 'background:#15803d; color:#fff;';
-      } else if (correct) {
-        bgStyle    = 'background:#dcfce7;';
-        marker     = ' &nbsp;<span style="color:#15803d;font-size:11px;">&#10003; Correct Answer</span>';
-        keyBg      = 'background:#15803d; color:#fff;';
-      } else if (chosen) {
-        bgStyle    = 'background:#fee2e2;';
-        textDeco   = 'text-decoration:line-through; opacity:0.75;';
-        marker     = ' &nbsp;<span style="color:#b91c1c;font-size:11px;">&#10007; Your Answer</span>';
-        keyBg      = 'background:#b91c1c; color:#fff;';
-      }
-
-      return `<tr>
-        <td style="padding:7px 10px; ${bgStyle} border-bottom:1px solid rgba(184,134,11,0.1); vertical-align:top;">
-          <span style="display:inline-block; width:22px; height:22px; border-radius:4px; ${keyBg}
-                       text-align:center; line-height:22px; font-size:11px; font-weight:700;
-                       font-family:'Courier New',monospace; margin-right:10px; flex-shrink:0; vertical-align:middle;">
-            ${o.k.toUpperCase()}
-          </span>
-          <span style="font-family:'Cormorant Garamond',Georgia,serif; font-size:14px; color:#3d2a00; ${textDeco} ${weightStyle} vertical-align:middle;">
-            ${o.t}${marker}
-          </span>
-        </td>
-      </tr>`;
+  /* Shared inline styles as short variables to avoid repetition */
+  const fA='font-family:Arial,sans-serif;';
+  const rows=QS.map((q,i)=>{
+    const sel=answers[q.id]||[];
+    const ok=sel.length>0&&JSON.stringify([...sel].sort())===JSON.stringify([...q.correct].sort());
+    const sk=sel.length===0;
+    /* Row header colour */
+    const hBg=ok?'#f0fdf4':sk?'#fefce8':'#fff5f5';
+    const hCl=ok?'#15803d':sk?'#92400e':'#b91c1c';
+    const lbl=ok?'&#10003; CORRECT':sk?'&#9675; SKIPPED':'&#10007; WRONG';
+    const pts=ok?q.pts:0;
+    /* Options — one line each, colour-coded */
+    const optHtml=q.opts.map(o=>{
+      const ch=sel.includes(o.k), cr=q.correct.includes(o.k);
+      const bg=cr&&ch?'#d1fae5':cr?'#d1fae5':ch?'#fee2e2':'#fff';
+      const fw=cr?'bold':'normal';
+      const mk=cr&&ch?' &#10003;':cr?' &#10003;':ch?' &#10007;':'';
+      const cl=cr?'#15803d':ch?'#b91c1c':'#3d2a00';
+      return `<tr><td style="${fA}font-size:13px;padding:5px 10px;background:${bg};border-bottom:1px solid #f0e8d0;color:${cl};font-weight:${fw};"><b>${o.k.toUpperCase()}.</b> ${o.t}${mk}</td></tr>`;
     }).join('');
-
-    /* Summary footer inside each question card */
-    const yourAns   = sel.length ? sel.map(k => k.toUpperCase()).join(', ') : '— None —';
-    const corrAns   = q.correct.map(k => k.toUpperCase()).join(', ');
-    const earnedPts = isCorrect ? q.pts : 0;
-
-    return `
-      <table width="100%" cellpadding="0" cellspacing="0" border="0"
-        style="margin-bottom:14px; border:1px solid ${borderClr}; border-radius:0; overflow:hidden;">
-        <!-- Question header -->
-        <tr>
-          <td style="background:${headerBg}; padding:11px 16px; border-bottom:1px solid ${borderClr};">
-            <table width="100%" cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                <td valign="middle">
-                  <span style="font-family:'Josefin Sans',Arial,sans-serif; font-size:9px; letter-spacing:2px;
-                               text-transform:uppercase; color:#a07828; font-weight:600;">
-                    Question ${i+1}
-                  </span>
-                  &nbsp;&nbsp;
-                  <span style="font-family:'Josefin Sans',Arial,sans-serif; font-size:9px; letter-spacing:1px;
-                               text-transform:uppercase; color:#b8a070;">
-                    ${q.catL} &nbsp;·&nbsp; ${q.pts} pt${q.pts > 1 ? 's' : ''}
-                  </span>
-                </td>
-                <td align="right" valign="middle">
-                  <span style="display:inline-block; padding:3px 12px; background:${statusBg}; color:${statusClr};
-                               font-family:'Josefin Sans',Arial,sans-serif; font-size:9px; font-weight:700;
-                               letter-spacing:2px; text-transform:uppercase;">
-                    ${statusLabel} &nbsp; ${earnedPts}/${q.pts}
-                  </span>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-        <!-- Question text -->
-        <tr>
-          <td style="background:#fffdf7; padding:14px 16px 10px; border-bottom:1px solid rgba(184,134,11,0.1);">
-            <span style="font-family:'Playfair Display',Georgia,serif; font-size:14px; font-weight:600;
-                         color:#2c1f00; line-height:1.6;">
-              ${q.text}
-            </span>
-            ${q.multi ? '<span style="display:inline-block;margin-left:10px;padding:2px 8px;background:#fef3c7;color:#92400e;font-size:10px;font-family:Arial,sans-serif;letter-spacing:1px;">MULTI-SELECT</span>' : ''}
-          </td>
-        </tr>
-        <!-- Options -->
-        <tr>
-          <td style="background:#ffffff;">
-            <table width="100%" cellpadding="0" cellspacing="0" border="0">
-              ${optRows}
-            </table>
-          </td>
-        </tr>
-        <!-- Answer summary footer -->
-        <tr>
-          <td style="background:#fdf8ec; padding:9px 16px; border-top:1px solid rgba(184,134,11,0.18);">
-            <table width="100%" cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                <td style="font-family:'Josefin Sans',Arial,sans-serif; font-size:10px; color:#8b6520; letter-spacing:1px; text-transform:uppercase;">
-                  Your Answer:
-                  <strong style="color:#5c3d00; margin-left:4px;">${yourAns}</strong>
-                </td>
-                <td align="right" style="font-family:'Josefin Sans',Arial,sans-serif; font-size:10px; color:#8b6520; letter-spacing:1px; text-transform:uppercase;">
-                  Correct Answer:
-                  <strong style="color:#15803d; margin-left:4px;">${corrAns}</strong>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>`;
+    const ya=sel.length?sel.map(k=>k.toUpperCase()).join(', '):'None';
+    const ca=q.correct.map(k=>k.toUpperCase()).join(', ');
+    return `<table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:10px;border:1px solid #e5d5a0;">` +
+      `<tr><td style="${fA}font-size:11px;padding:7px 10px;background:${hBg};border-bottom:1px solid #e5d5a0;">` +
+        `<b style="color:#7a5500;">Q${i+1}</b> <span style="color:#a07828;">${q.catL} · ${q.pts}pt${q.pts>1?'s':''}</span>` +
+        `<span style="float:right;color:${hCl};font-weight:700;">${lbl} ${pts}/${q.pts}</span>` +
+      `</td></tr>` +
+      `<tr><td style="${fA}font-size:13px;padding:8px 10px;background:#fffdf7;border-bottom:1px solid #f0e8d0;color:#2c1f00;font-weight:600;">${q.text}${q.multi?' <span style="font-size:10px;color:#92400e;font-weight:400;">(multi)</span>':''}</td></tr>` +
+      `<tr><td style="padding:0;"><table width="100%" cellpadding="0" cellspacing="0">${optHtml}</table></td></tr>` +
+      `<tr><td style="${fA}font-size:11px;padding:6px 10px;background:#fdf8ec;color:#7a5500;">` +
+        `Your answer: <b>${ya}</b> &nbsp;|&nbsp; Correct: <b style="color:#15803d;">${ca}</b>` +
+      `</td></tr>` +
+    `</table>`;
   }).join('');
-
-  return `<div style="font-family:'Josefin Sans',Arial,sans-serif;">${rows}</div>`;
+  return `<div style="${fA}">${rows}</div>`;
 }
 
 async function sendEmails({score,pct,passed,correct,wrong,skip,certId,examDate,trackFull}){
