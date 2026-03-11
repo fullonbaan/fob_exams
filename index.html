@@ -741,7 +741,7 @@ canvas#cert-canvas{display:none;}
   <div id="home-inner" style="max-width:980px;margin:0 auto;padding:80px 48px 100px;">
     <div class="eyebrow"><span class="eyebrow-dot"></span>Official Certification Portal</div>
     <h1 class="hero-h">FullonBaan <span class="g">Certification</span> Centre</h1>
-    <p class="hero-sub">Select your certification track below. Each exam is 20 questions, 50 points total, and requires a minimum of 30% to pass and earn your FullonBaan certificate.</p>
+    <p class="hero-sub">Select your certification track below. Each exam is 20 questions, 50 points total, and requires a minimum of 75% to pass and earn your FullonBaan certificate.</p>
 
     <!-- ── Technical Track Group ── -->
     <div class="track-group-label">
@@ -798,7 +798,7 @@ canvas#cert-canvas{display:none;}
     </div>
     <div class="track-grid" id="track-grid-func">
       <div class="track-card" id="card-fin" onclick="selectTrack('fin')">
-        <div class="track-badge fin">Finance</div>
+        <div class="track-badge fin">Functional</div>
         <div class="track-icon fin"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
         <div class="track-title">Infor LN Finance</div>
         <div class="track-desc">General Ledger, AP, AR, Cash Management, Fixed Assets, Tax, and Period-End processes.</div>
@@ -856,7 +856,7 @@ canvas#cert-canvas{display:none;}
           <li><strong>₹499 fee</strong> per track, payable via UPI. You will be directed to payment after registration.</li>
           <li>20 multiple-choice questions — some require selecting multiple correct answers.</li>
           <li>You have <strong>45 minutes</strong> from the moment you click Begin Exam.</li>
-          <li>A minimum of <strong>30% (15 / 50 points)</strong> is required to pass and earn your FullonBaan certificate.</li>
+          <li>A minimum of <strong>75% (38 / 50 points)</strong> is required to pass and earn your FullonBaan certificate.</li>
           <li>Results are shown immediately. Confirmation email and certificate (if passed) are sent automatically.</li>
           <li>Do not refresh or navigate away — your progress will be lost.</li>
         </ul>
@@ -1095,7 +1095,7 @@ emailjs.init(EMAILJS_PUB);
 /* ══════════════════════════════════════════
    PAYMENT CONFIG  — replace with your UPI ID
 ══════════════════════════════════════════ */
-const UPI_ID      = 'fullonbaan@upi';        // ← YOUR UPI ID here
+const UPI_ID      = 'nikivernekar@okicici';   // ← YOUR UPI ID here
 const UPI_NAME    = 'FullonBaan Education';   // ← Payee name as in UPI
 const EXAM_PRICE  = 499;                       // ₹ per track
 
@@ -1514,7 +1514,7 @@ const QS_EXT=[
 /* ══════════════════════════════════════════
    STATE
 ══════════════════════════════════════════ */
-const TOTAL_PTS=50, PASS_PCT=30, DURATION=45*60;
+const TOTAL_PTS=50, PASS_PCT=75, DURATION=45*60;
 let track='', QS=[], candidate={}, answers={}, skipped=new Set(), curIdx=0, timerInt=null, timeLeft=DURATION;
 
 /* ══════════════════════════════════════════
@@ -2150,8 +2150,8 @@ async function sendEmails({score,pct,passed,correct,wrong,skip,certId,examDate,t
 
     /* ── EMAIL 2: Certificate notification → candidate (only if passed) ── */
     if(passed){
-      const certPayload = {...base, cert_title: trackFull + ' Certification'};
-      await emailjs.send(EMAILJS_SVC, TPL_CERT, {...certPayload, to_email: candidate.email, to_name: candidate.name});
+      const certPayload = {...base, cert_title: trackFull + ' Certification', cc_email: ''};
+      await emailjs.send(EMAILJS_SVC, TPL_CERT, {...certPayload, to_email: candidate.email, to_name: candidate.name, cc_email: ''});
       await pause(700);
     }
 
