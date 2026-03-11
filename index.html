@@ -175,6 +175,72 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 
 .hdr-pill{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);background:rgba(79,140,255,.07);border:1px solid rgba(79,140,255,.18);padding:6px 16px;border-radius:20px;}
 [data-theme="light"] .hdr-pill{background:rgba(59,111,224,.05);border-color:rgba(59,111,224,.14);}
+/* ────────────────────────────────────────────
+   SITE FOOTER
+──────────────────────────────────────────── */
+.site-footer{
+  position:relative;z-index:1;
+  margin-top:0;
+  background:var(--surf);
+  border-top:1px solid var(--rim2);
+}
+.site-footer::before{
+  content:'';display:block;height:2px;
+  background:linear-gradient(90deg,transparent,var(--blue) 20%,var(--indigo) 50%,var(--blue) 80%,transparent);
+}
+.footer-inner{
+  max-width:1100px;margin:0 auto;
+  padding:36px 52px 28px;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:20px;
+}
+@media(max-width:700px){
+  .footer-inner{grid-template-columns:1fr;text-align:center;padding:28px 24px 20px;}
+  .footer-links{justify-content:center;}
+  .footer-copy{text-align:center;}
+}
+.footer-brand{}
+.footer-brand-name{
+  font-family:var(--serif);font-size:16px;font-weight:700;
+  background:var(--gBlue);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:5px;
+}
+.footer-brand-tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--textM);}
+.footer-links{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.footer-contact-row{display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:center;}
+.footer-contact-item{
+  display:flex;align-items:center;gap:7px;
+  font-family:var(--mono);font-size:11px;color:var(--textS);
+  text-decoration:none;
+  transition:color var(--dur);
+}
+.footer-contact-item:hover{color:var(--blue);}
+.footer-contact-item svg{flex-shrink:0;opacity:.7;}
+.footer-contact-item:hover svg{opacity:1;}
+.footer-divider{height:1px;width:100%;background:var(--rim);margin-top:10px;}
+.footer-copy{
+  text-align:right;
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--textM);
+  line-height:1.8;
+}
+[data-theme="light"] .footer-copy{color:var(--textM);}
+.footer-copy a{color:var(--blue);text-decoration:none;}
+.footer-copy a:hover{text-decoration:underline;}
+.footer-bottom{
+  border-top:1px solid var(--rim);
+  padding:12px 52px;
+  display:flex;align-items:center;justify-content:center;
+  gap:8px;
+}
+@media(max-width:700px){.footer-bottom{padding:12px 24px;flex-wrap:wrap;gap:6px;}}
+.footer-bottom-txt{
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--textM);
+}
+.footer-bottom-dot{color:var(--textM);font-size:10px;}
 
 /* Theme toggle */
 .tog-wrap{display:flex;align-items:center;gap:10px;}
@@ -1080,6 +1146,56 @@ canvas#cert-canvas{display:none;}
 </div>
 
 </div><!-- .page -->
+<!-- ══════════════════════════════════════════
+     SITE FOOTER
+══════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+
+    <!-- Left: Brand -->
+    <div class="footer-brand">
+      <div class="footer-brand-name">FullonBaan</div>
+      <div class="footer-brand-tag">Education &nbsp;·&nbsp; Infor LN &amp; Baan ERP</div>
+    </div>
+
+    <!-- Centre: Contact -->
+    <div class="footer-links">
+      <div class="footer-contact-row">
+        <a class="footer-contact-item" href="https://www.fullonbaan.com" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          www.fullonbaan.com
+        </a>
+        <a class="footer-contact-item" href="mailto:fobsupport@gmail.com">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+          fobsupport@gmail.com
+        </a>
+        <a class="footer-contact-item" href="tel:+916360593122">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.27-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +91 63605 93122
+        </a>
+      </div>
+      <div class="footer-divider"></div>
+    </div>
+
+    <!-- Right: Copyright -->
+    <div class="footer-copy">
+      &copy; <span id="footer-year"></span> FullonBaan Education<br/>
+      All rights reserved.<br/>
+      <a href="https://www.fullonbaan.com" target="_blank" rel="noopener">fullonbaan.com</a>
+    </div>
+
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-bottom-txt">&copy; <span class="footer-year-b"></span> FullonBaan Education. All rights reserved.</span>
+    <span class="footer-bottom-dot">·</span>
+    <span class="footer-bottom-txt">Unauthorised reproduction of exam content is prohibited.</span>
+  </div>
+</footer>
+<script>
+  const y=new Date().getFullYear();
+  document.querySelectorAll('#footer-year,.footer-year-b').forEach(el=>el.textContent=y);
+</script>
+
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ══════════════════════════════════════════
    EMAIL JS CONFIG  — replace with your keys
