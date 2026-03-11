@@ -1084,12 +1084,16 @@ canvas#cert-canvas{display:none;}
 /* ══════════════════════════════════════════
    EMAIL JS CONFIG  — replace with your keys
 ══════════════════════════════════════════ */
-const EMAILJS_PUB  = 'XBnki8YGih-0vhoiZ';
-const EMAILJS_SVC  = 'service_gf2q1sn';
-const TPL_RESULT   = 'template_ybiasrk';  // score report
-const TPL_CERT     = 'template_q0dm4fh';  // completion certificate
-const FOB_EMAIL    = 'fullonbaan@gmail.com';
-const CC_EMAIL     = 'fobsupport@gmail.com';
+const EMAILJS_PUB        = 'XBnki8YGih-0vhoiZ';
+const EMAILJS_SVC        = 'service_gf2q1sn';
+const TPL_RESULT         = 'template_ybiasrk';  // score report
+const TPL_CERT           = 'template_q0dm4fh';  // completion certificate
+const FOB_EMAIL          = 'fullonbaan@gmail.com';
+const CC_EMAIL           = 'fobsupport@gmail.com';
+/* ── Payment confirmation email (separate service) ── */
+const PAY_EMAILJS_SVC    = 'service_t9cqgtn';
+const PAY_EMAILJS_TPL    = 'template_ezdle7f';
+const PAY_EMAILJS_PUB    = 'aDL0FEenlYJ8WaJne';
 emailjs.init(EMAILJS_PUB);
 
 /* ══════════════════════════════════════════
@@ -1787,21 +1791,51 @@ function submitUTR(){
   showPendingAndProceed(utr);
 }
 
-function notifyAdminPayment(utr){
-  if(!EMAILJS_PUB || EMAILJS_PUB==='YOUR_PUBLIC_KEY') return; // not configured yet
-  const params={
-    to_email: FOB_EMAIL,
-    to_name: 'FullonBaan Admin',
-    candidate_name: candidate.name,
-    candidate_email: candidate.email,
-    candidate_mobile: candidate.mob,
-    exam_track: TRACKS[track].label,
-    utr_number: utr,
-    payment_amount: '₹'+EXAM_PRICE,
-    submission_time: new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),
-    reply_to: candidate.email,
+async function notifyAdminPayment(utr){
+  /* Build shared payload matching the email template variables */
+  const submissionTime = new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'});
+  const baseParams = {
+    cust_name        : candidate.name,
+    candidate_name   : candidate.name,
+    to_email         : candidate.email,
+    candidate_email  : candidate.email,
+    cust_mobile      : candidate.mob,
+    candidate_mobile : candidate.mob,
+    guide            : TRACKS[track].label,
+    exam_track       : TRACKS[track].label,
+    utr_number       : utr,
+    amount           : '₹' + EXAM_PRICE,
+    payment_amount   : '₹' + EXAM_PRICE,
+    order_ref        : 'FOB-' + Date.now().toString(36).toUpperCase(),
+    submission_time  : submissionTime,
+    reply_to         : 'fobsupport@gmail.com',
   };
-  emailjs.send(EMAILJS_SVC,'tpl_payment_utr',params).catch(()=>{});
+
+  const pause = ms => new Promise(r => setTimeout(r, ms));
+
+  try {
+    /* Email 1 — confirmation to the candidate */
+    await emailjs.send(
+      PAY_EMAILJS_SVC,
+      PAY_EMAILJS_TPL,
+      { ...baseParams, to_email: candidate.email, to_name: candidate.name },
+      PAY_EMAILJS_PUB
+    );
+    await pause(600);
+
+    /* Email 2 — copy to FOB support */
+    await emailjs.send(
+      PAY_EMAILJS_SVC,
+      PAY_EMAILJS_TPL,
+      { ...baseParams, to_email: 'fobsupport@gmail.com', to_name: 'FullonBaan Support' },
+      PAY_EMAILJS_PUB
+    );
+
+    toast('Payment confirmation sent!', '✅');
+  } catch(err) {
+    console.error('Payment email error:', err);
+    /* Non-blocking — exam flow continues regardless */
+  }
 }
 
 function showPendingAndProceed(utr){
