@@ -219,6 +219,15 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .hero-sub{font-size:17px;line-height:1.8;color:var(--textS);max-width:580px;margin-bottom:60px;}
 
 /* Exam selector cards */
+.track-group-label{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--textS);margin-bottom:18px;
+  padding:6px 14px 6px 0;
+  border-bottom:1px solid var(--rim2);
+  width:100%;
+}
+.track-group-label svg{opacity:.6;flex-shrink:0;}
 .track-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:52px;}
 @media(max-width:820px){.track-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:520px){.track-grid{grid-template-columns:1fr;}}
@@ -712,13 +721,13 @@ canvas#cert-canvas{display:none;}
 <!-- ████ HEADER ████ -->
 <header>
   <a class="logo" href="#" onclick="goHome()">
-    <div class="logo-gem">F</div>
+    <div class="logo-gem" style="background:var(--gBlue);overflow:hidden;padding:0;"><img src="data:image/png;base64,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" style="width:100%;height:100%;object-fit:cover;object-position:center;" alt="FullonBaan Logo"></div>
     <div>
       <div class="logo-name">FullonBaan</div>
-      <div class="logo-tag">Education · Certification Center</div>
+      <div class="logo-tag">Education</div>
     </div>
   </a>
-  <div class="hdr-pill">Infor LN Certification Portal &nbsp;·&nbsp; V3.0</div>
+  <div class="hdr-pill">Infor LN Certification Portal</div>
   <div class="tog-wrap">
     <span class="tog-lbl" id="tog-lbl">Dark</span>
     <div class="tog-track" onclick="toggleTheme()" role="switch" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleTheme()">
@@ -732,12 +741,17 @@ canvas#cert-canvas{display:none;}
   <div id="home-inner" style="max-width:980px;margin:0 auto;padding:80px 48px 100px;">
     <div class="eyebrow"><span class="eyebrow-dot"></span>Official Certification Portal</div>
     <h1 class="hero-h">FullonBaan <span class="g">Certification</span> Centre</h1>
-    <p class="hero-sub">Select your certification track below. Each exam is 20 questions, 50 points total, and requires a minimum of 70% to pass and earn your FullonBaan certificate.</p>
+    <p class="hero-sub">Select your certification track below. Each exam is 20 questions, 50 points total, and requires a minimum of 30% to pass and earn your FullonBaan certificate.</p>
 
+    <!-- ── Technical Track Group ── -->
+    <div class="track-group-label">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      Infor LN Technical Certification
+    </div>
     <div class="track-grid" id="track-grid">
       <div class="track-card" id="card-dev" onclick="selectTrack('dev')">
         <div class="track-badge dev">Technical</div>
-        <div class="track-icon dev">💻</div>
+        <div class="track-icon dev"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
         <div class="track-title">Infor LN Development</div>
         <div class="track-desc">Program Scripts, DAL, Database Transactions, SQL, Tables &amp; Domains, and Functional modules for Baan / Infor LN.</div>
         <div class="track-tags">
@@ -745,19 +759,9 @@ canvas#cert-canvas{display:none;}
         </div>
         <div class="track-sel-ring" id="ring-dev"></div>
       </div>
-      <div class="track-card" id="card-fin" onclick="selectTrack('fin')">
-        <div class="track-badge fin">Finance</div>
-        <div class="track-icon fin">📊</div>
-        <div class="track-title">Infor LN Finance</div>
-        <div class="track-desc">General Ledger, AP, AR, Cash Management, Fixed Assets, Tax, and Period-End processes.</div>
-        <div class="track-tags">
-          <span class="ttag">GL</span><span class="ttag">AP / AR</span><span class="ttag">Fixed Assets</span><span class="ttag">Tax</span>
-        </div>
-        <div class="track-sel-ring" id="ring-fin"></div>
-      </div>
       <div class="track-card" id="card-bod" onclick="selectTrack('bod')">
         <div class="track-badge bod">Technical</div>
-        <div class="track-icon bod">📡</div>
+        <div class="track-icon bod"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><line x1="12" y1="7" x2="5" y2="17"/><line x1="12" y1="7" x2="19" y2="17"/><line x1="5" y1="19" x2="19" y2="19"/></svg></div>
         <div class="track-title">Infor BOD</div>
         <div class="track-desc">Business Object Documents — structure, Nouns, Verbs, BOD lifecycle, sync/show/process patterns, and integration fundamentals.</div>
         <div class="track-tags">
@@ -767,7 +771,7 @@ canvas#cert-canvas{display:none;}
       </div>
       <div class="track-card" id="card-ion" onclick="selectTrack('ion')">
         <div class="track-badge ion">Technical</div>
-        <div class="track-icon ion">🔗</div>
+        <div class="track-icon ion"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
         <div class="track-title">Infor ION</div>
         <div class="track-desc">Integration middleware — ION Connect, IonDesk, Document Flows, Connection Points, API Gateway, and monitoring.</div>
         <div class="track-tags">
@@ -777,7 +781,7 @@ canvas#cert-canvas{display:none;}
       </div>
       <div class="track-card" id="card-ext" onclick="selectTrack('ext')">
         <div class="track-badge ext">Technical</div>
-        <div class="track-icon ext">🧩</div>
+        <div class="track-icon ext"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
         <div class="track-title">Infor LN Extensibility</div>
         <div class="track-desc">Extension Points, UI Extensibility, Landmark / MT, REST &amp; OData APIs, custom fields, hooks, and extension SDK patterns.</div>
         <div class="track-tags">
@@ -785,9 +789,27 @@ canvas#cert-canvas{display:none;}
         </div>
         <div class="track-sel-ring" id="ring-ext"></div>
       </div>
+    </div>
+
+    <!-- ── Finance & Functional Track Group ── -->
+    <div class="track-group-label" style="margin-top:44px;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Infor LN Functional Certification
+    </div>
+    <div class="track-grid" id="track-grid-func">
+      <div class="track-card" id="card-fin" onclick="selectTrack('fin')">
+        <div class="track-badge fin">Finance</div>
+        <div class="track-icon fin"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="track-title">Infor LN Finance</div>
+        <div class="track-desc">General Ledger, AP, AR, Cash Management, Fixed Assets, Tax, and Period-End processes.</div>
+        <div class="track-tags">
+          <span class="ttag">GL</span><span class="ttag">AP / AR</span><span class="ttag">Fixed Assets</span><span class="ttag">Tax</span>
+        </div>
+        <div class="track-sel-ring" id="ring-fin"></div>
+      </div>
       <div class="track-card" id="card-scm" onclick="selectTrack('scm')">
         <div class="track-badge scm">Functional</div>
-        <div class="track-icon scm">📦</div>
+        <div class="track-icon scm"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
         <div class="track-title">Infor LN SCM</div>
         <div class="track-desc">Supply Chain Management — Purchasing, Sales, Inventory, Warehousing, Logistics, and Item Master configuration in Infor LN.</div>
         <div class="track-tags">
@@ -797,7 +819,7 @@ canvas#cert-canvas{display:none;}
       </div>
       <div class="track-card" id="card-mfg" onclick="selectTrack('mfg')">
         <div class="track-badge mfg">Functional</div>
-        <div class="track-icon mfg">🏭</div>
+        <div class="track-icon mfg"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M21 12h-2M17.66 17.66l-1.41-1.41M12 21v-2M6.34 17.66l-1.41 1.41M3 12H1M6.34 6.34L4.93 4.93M12 3V1"/></svg></div>
         <div class="track-title">Infor LN Manufacturing</div>
         <div class="track-desc">Manufacturing — BOMs, Routings, Production Orders, MPS/MRP, Shop Floor, Capacity Planning, and Costing in Infor LN.</div>
         <div class="track-tags">
@@ -813,7 +835,7 @@ canvas#cert-canvas{display:none;}
       <p class="reg-sub">All fields are required. Your name and email will appear on your certificate if you pass.</p>
       <div class="fgrid">
         <div class="fg">
-          <label for="rn">Full Name</label>
+          <label for="rn">Full Name <span style="font-size:10px;font-family:var(--mono);color:var(--textM);font-weight:400;letter-spacing:.04em;">(will be printed on Certificate)</span></label>
           <input type="text" id="rn" placeholder="e.g. Priya Sharma" autocomplete="name">
           <span class="err" id="err-n">Please enter your first and last name.</span>
         </div>
@@ -834,7 +856,7 @@ canvas#cert-canvas{display:none;}
           <li><strong>₹499 fee</strong> per track, payable via UPI. You will be directed to payment after registration.</li>
           <li>20 multiple-choice questions — some require selecting multiple correct answers.</li>
           <li>You have <strong>45 minutes</strong> from the moment you click Begin Exam.</li>
-          <li>A minimum of <strong>70% (35 / 50 points)</strong> is required to pass and earn your FullonBaan certificate.</li>
+          <li>A minimum of <strong>30% (15 / 50 points)</strong> is required to pass and earn your FullonBaan certificate.</li>
           <li>Results are shown immediately. Confirmation email and certificate (if passed) are sent automatically.</li>
           <li>Do not refresh or navigate away — your progress will be lost.</li>
         </ul>
@@ -977,7 +999,7 @@ canvas#cert-canvas{display:none;}
 
     <!-- Support -->
     <div style="text-align:center;margin-top:24px;font-size:13px;color:var(--textM);">
-      Payment issues? Email <a href="mailto:fullonbaan@gmail.com" style="color:var(--blue);text-decoration:none;">fullonbaan@gmail.com</a> with your UTR and registered email.
+      Payment issues? Email <a href="/cdn-cgi/l/email-protection#cbadbea7a7a4a5a9aaaaa58baca6aaa2a7e5a8a4a6" style="color:var(--blue);text-decoration:none;"><span class="__cf_email__" data-cfemail="096f7c656566676b686867496e64686065276a6664">[email&#160;protected]</span></a> with your UTR and registered email.
     </div>
 
   </div>
@@ -1062,15 +1084,16 @@ canvas#cert-canvas{display:none;}
 </div>
 
 </div><!-- .page -->
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ══════════════════════════════════════════
    EMAIL JS CONFIG  — replace with your keys
 ══════════════════════════════════════════ */
-const EMAILJS_PUB  = 'YOUR_PUBLIC_KEY';
-const EMAILJS_SVC  = 'YOUR_SERVICE_ID';
-const TPL_RESULT   = 'tpl_exam_result';
-const TPL_CERT     = 'tpl_exam_cert';
+const EMAILJS_PUB  = 'XBnki8YGih-0vhoiZ';
+const EMAILJS_SVC  = 'service_gf2q1sn';
+const TPL_RESULT   = 'template_q0dm4fh';
+const TPL_CERT     = 'template_ybiasrk';
 const FOB_EMAIL    = 'fullonbaan@gmail.com';
+const CC_EMAIL     = 'fobsupport@gmail.com';
 emailjs.init(EMAILJS_PUB);
 
 /* ══════════════════════════════════════════
@@ -1495,7 +1518,7 @@ const QS_EXT=[
 /* ══════════════════════════════════════════
    STATE
 ══════════════════════════════════════════ */
-const TOTAL_PTS=50, PASS_PCT=70, DURATION=45*60;
+const TOTAL_PTS=50, PASS_PCT=30, DURATION=45*60;
 let track='', QS=[], candidate={}, answers={}, skipped=new Set(), curIdx=0, timerInt=null, timeLeft=DURATION;
 
 /* ══════════════════════════════════════════
@@ -2060,33 +2083,73 @@ function drawCert(name,pct,certId,date,trackFull){
 
 /* ══════════════════════════════════════════
    EMAIL
+   Flow 1 — Score email  → always sent to candidate (CC: fobsupport)
+   Flow 2 — Certificate  → only if passed, sent to candidate (CC: fobsupport)
 ══════════════════════════════════════════ */
 async function sendEmails({score,pct,passed,correct,wrong,skip,certId,examDate,trackFull}){
   const box=document.getElementById('email-box');
   box.innerHTML=`<div class="email-box"><span class="email-icon spin">⏳</span><span>Sending confirmation emails…</span></div>`;
+
+  /* ── Shared payload for both email types ── */
   const base={
-    candidate_name:candidate.name,candidate_email:candidate.email,candidate_mobile:candidate.mob,
-    exam_track:trackFull,score_pts:score,total_pts:TOTAL_PTS,score_pct:pct+'%',
-    result_label:passed?'PASSED ✓':'NOT PASSED ✗',correct,wrong,skipped:skip,
-    exam_date:examDate,cert_id:certId,pass_threshold:PASS_PCT+'%'
+    /* Candidate details */
+    to_name          : candidate.name,
+    to_email         : candidate.email,
+    cc_email         : CC_EMAIL,
+    reply_to         : FOB_EMAIL,
+    candidate_name   : candidate.name,
+    candidate_email  : candidate.email,
+    candidate_mobile : candidate.mob,
+    /* Exam details */
+    exam_track       : trackFull,
+    exam_date        : examDate,
+    cert_id          : certId,
+    pass_threshold   : PASS_PCT+'%',
+    /* Score breakdown */
+    score_pts        : score,
+    total_pts        : TOTAL_PTS,
+    score_pct        : pct+'%',
+    result_label     : passed ? 'PASSED ✓' : 'NOT PASSED ✗',
+    correct,
+    wrong,
+    skipped          : skip
   };
+
   try{
-    await emailjs.send(EMAILJS_SVC,TPL_RESULT,{...base,to_email:candidate.email,to_name:candidate.name,reply_to:FOB_EMAIL});
-    await emailjs.send(EMAILJS_SVC,TPL_RESULT,{...base,to_email:FOB_EMAIL,to_name:'FullonBaan Admin',reply_to:candidate.email});
+    /* ── EMAIL 1: Exam Score Notification (sent to every candidate) ── */
+    await emailjs.send(EMAILJS_SVC, TPL_RESULT, base);
+
+    /* ── EMAIL 2: Completion Certificate (sent only if passed) ── */
     if(passed){
-      const img=await drawCert(candidate.name,pct,certId,examDate,trackFull);
-      const cp={...base,cert_image:img,to_name:candidate.name};
-      await emailjs.send(EMAILJS_SVC,TPL_CERT,{...cp,to_email:candidate.email});
-      await emailjs.send(EMAILJS_SVC,TPL_CERT,{...cp,to_email:FOB_EMAIL,to_name:'FullonBaan Admin'});
-      box.innerHTML=`<div class="email-box"><span class="email-icon">✅</span><span>Certificate &amp; result email sent to <strong>${candidate.email}</strong> and <strong>${FOB_EMAIL}</strong>.</span></div>`;
+      const certDataUrl = await drawCert(candidate.name, pct, certId, examDate, trackFull);
+      const certPayload = {
+        ...base,
+        cert_image : certDataUrl,
+        cert_title : trackFull + ' Certification'
+      };
+      await emailjs.send(EMAILJS_SVC, TPL_CERT, certPayload);
+
+      box.innerHTML=`<div class="email-box">
+        <span class="email-icon">✅</span>
+        <div>
+          <div>🏆 <strong>Score report</strong> &amp; <strong>Completion Certificate</strong> sent to <strong>${candidate.email}</strong></div>
+          <div style="font-size:12px;color:var(--textM);margin-top:4px;">CC'd to ${CC_EMAIL} · Certificate attached as image</div>
+        </div>
+      </div>`;
       toast('Certificate emailed successfully!','🏆');
     } else {
-      box.innerHTML=`<div class="email-box"><span class="email-icon">✅</span><span>Result notification sent to <strong>${candidate.email}</strong> and <strong>${FOB_EMAIL}</strong>.</span></div>`;
-      toast('Result notification sent!','✉️');
+      box.innerHTML=`<div class="email-box">
+        <span class="email-icon">✅</span>
+        <div>
+          <div>📋 <strong>Score report</strong> sent to <strong>${candidate.email}</strong></div>
+          <div style="font-size:12px;color:var(--textM);margin-top:4px;">CC'd to ${CC_EMAIL}</div>
+        </div>
+      </div>`;
+      toast('Score report emailed!','✉️');
     }
   } catch(err){
     console.error(err);
-    box.innerHTML=`<div class="email-box" style="border-color:rgba(248,113,113,.2);background:rgba(248,113,113,.04)"><span class="email-icon">⚠️</span><div><div>Email delivery failed — EmailJS not configured yet.</div><div style="font-size:11px;opacity:.65;font-family:var(--mono);margin-top:4px">Set EMAILJS_PUB, EMAILJS_SVC, and template IDs at the top of the script.</div></div></div>`;
+    box.innerHTML=`<div class="email-box" style="border-color:rgba(248,113,113,.2);background:rgba(248,113,113,.04)"><span class="email-icon">⚠️</span><div><div>Email delivery failed — EmailJS not configured yet.</div><div style="font-size:11px;opacity:.65;font-family:var(--mono);margin-top:4px">Set EMAILJS_PUB, EMAILJS_SVC, and template IDs at the top of the script. Ensure <em>cc_email</em> is mapped in your EmailJS templates.</div></div></div>`;
   }
 }
 
@@ -2115,17 +2178,4 @@ function goHome(){
   utrSubmitted='';
   showScreen('home');
 }
-function retake(){
-  clearInterval(timerInt);
-  // Retake requires a new payment
-  paymentVerified=false;
-  utrSubmitted='';
-  if(candidate && candidate.name){
-    showPaymentScreen();
-  } else {
-    showScreen('home');
-  }
-}
-</script>
-</body>
-</html>
+functio
