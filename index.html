@@ -1078,6 +1078,7 @@ canvas#cert-canvas{display:none;}
     </div>
     <div style="text-align:center;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
       <button class="btn btn-outline btn-md" onclick="goHome()">← Back to Portal</button>
+      <button class="btn btn-primary btn-md" id="dl-cert-btn" style="display:none;" onclick="downloadCertificate()">⬇ Download Certificate</button>
     </div>
   </div>
 </div>
@@ -1979,6 +1980,9 @@ async function showResults(){
         <div class="cert-mi">📧 <span>${candidate.email}</span></div>
       </div>
     </div>`;
+    // Store cert details for download and show the button
+    window._certParams={name:candidate.name,pct,certId,date:examDate,trackFull};
+    document.getElementById('dl-cert-btn').style.display='inline-flex';
   } else {
     ca.innerHTML=`<div class="fail-panel"><h3>Exam Not Passed</h3><p>You scored <strong>${pct}%</strong> (${score} / ${TOTAL_PTS} points). A minimum of <strong>${PASS_PCT}%</strong> is required.<br>Review the topics where you struggled and retake the exam when ready.</p></div>`;
   }
@@ -1994,8 +1998,28 @@ async function showResults(){
 }
 
 /* ══════════════════════════════════════════
-   CERTIFICATE CANVAS
+   DOWNLOAD CERTIFICATE
 ══════════════════════════════════════════ */
+async function downloadCertificate(){
+  const btn=document.getElementById('dl-cert-btn');
+  const p=window._certParams;
+  if(!p) return;
+  btn.textContent='⏳ Generating…';
+  btn.disabled=true;
+  try{
+    const dataUrl=await drawCert(p.name,p.pct,p.certId,p.date,p.trackFull);
+    const a=document.createElement('a');
+    a.href=dataUrl;
+    a.download=`FullonBaan_Certificate_${p.name.replace(/\s+/g,'_')}_${p.certId}.png`;
+    a.click();
+    btn.innerHTML='✅ Downloaded';
+    setTimeout(()=>{btn.innerHTML='⬇ Download Certificate';btn.disabled=false;},3000);
+  } catch(e){
+    btn.innerHTML='⬇ Download Certificate';
+    btn.disabled=false;
+    toast('Download failed — please try again.','⚠️');
+  }
+}
 function drawCert(name,pct,certId,date,trackFull){
   return new Promise(resolve=>{
     const cv=document.getElementById('cert-canvas');
@@ -2114,30 +2138,29 @@ async function sendEmails({score,pct,passed,correct,wrong,skip,certId,examDate,t
   };
 
   try{
-    /* ── EMAIL 1a: Score report → candidate ── */
-    await emailjs.send(EMAILJS_SVC, TPL_RESULT, {...base, to_email: candidate.email, to_name: candidate.name});
+    /* helper to avoid EmailJS rate-limit on rapid consecutive sends */
+    const pause = ms => new Promise(r => setTimeout(r, ms));
 
-    /* ── EMAIL 1b: Score report CC → fobsupport ── */
+    /* ── EMAIL 1: Score report → candidate (always sent first) ── */
+    await emailjs.send(EMAILJS_SVC, TPL_RESULT, {...base, to_email: candidate.email, to_name: candidate.name});
+    await pause(700);
+
+    /* ── EMAIL 2: Certificate notification → candidate (only if passed) ── */
+    if(passed){
+      const certPayload = {...base, cert_title: trackFull + ' Certification'};
+      await emailjs.send(EMAILJS_SVC, TPL_CERT, {...certPayload, to_email: candidate.email, to_name: candidate.name});
+      await pause(700);
+    }
+
+    /* ── EMAIL 3: Score report copy → fobsupport (single combined copy, always last) ── */
     await emailjs.send(EMAILJS_SVC, TPL_RESULT, {...base, to_email: CC_EMAIL, to_name: 'FullonBaan Support'});
 
-    /* ── EMAIL 2: Completion Certificate (sent only if passed) ── */
     if(passed){
-      const certDataUrl = await drawCert(candidate.name, pct, certId, examDate, trackFull);
-      const certPayload = {
-        ...base,
-        cert_image : certDataUrl,
-        cert_title : trackFull + ' Certification'
-      };
-      /* 2a → candidate */
-      await emailjs.send(EMAILJS_SVC, TPL_CERT, {...certPayload, to_email: candidate.email, to_name: candidate.name});
-      /* 2b → fobsupport CC */
-      await emailjs.send(EMAILJS_SVC, TPL_CERT, {...certPayload, to_email: CC_EMAIL, to_name: 'FullonBaan Support'});
-
       box.innerHTML=`<div class="email-box">
         <span class="email-icon">✅</span>
         <div>
           <div>🏆 <strong>Score report</strong> &amp; <strong>Completion Certificate</strong> sent to <strong>${candidate.email}</strong></div>
-          <div style="font-size:12px;color:var(--textM);margin-top:4px;">Copy sent to ${CC_EMAIL} · Certificate attached as image</div>
+          <div style="font-size:12px;color:var(--textM);margin-top:4px;">Copy sent to ${CC_EMAIL}</div>
         </div>
       </div>`;
       toast('Certificate emailed successfully!','🏆');
