@@ -176,71 +176,150 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .hdr-pill{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);background:rgba(79,140,255,.07);border:1px solid rgba(79,140,255,.18);padding:6px 16px;border-radius:20px;}
 [data-theme="light"] .hdr-pill{background:rgba(59,111,224,.05);border-color:rgba(59,111,224,.14);}
 /* ────────────────────────────────────────────
-   SITE FOOTER
+   SITE FOOTER — PREMIUM
 ──────────────────────────────────────────── */
 .site-footer{
   position:relative;z-index:1;
   margin-top:0;
-  background:var(--surf);
-  border-top:1px solid var(--rim2);
+  background:var(--bg2);
+  border-top:1px solid var(--rim);
 }
+/* Multi-stop gradient cap line */
 .site-footer::before{
   content:'';display:block;height:2px;
-  background:linear-gradient(90deg,transparent,var(--blue) 20%,var(--indigo) 50%,var(--blue) 80%,transparent);
+  background:linear-gradient(90deg,
+    transparent 0%,
+    var(--blue) 20%,
+    var(--indigo) 45%,
+    var(--teal) 65%,
+    var(--blue) 80%,
+    transparent 100%);
+  opacity:.85;
 }
-.footer-inner{
+[data-theme="light"] .site-footer{background:var(--surf2);}
+
+/* ── Main footer body ── */
+.footer-body{
   max-width:1100px;margin:0 auto;
-  padding:36px 52px 28px;
+  padding:52px 52px 40px;
   display:grid;
-  grid-template-columns:1fr auto 1fr;
-  align-items:center;
-  gap:20px;
+  grid-template-columns:1.6fr 1fr 1fr;
+  gap:48px;
 }
-@media(max-width:700px){
-  .footer-inner{grid-template-columns:1fr;text-align:center;padding:28px 24px 20px;}
-  .footer-links{justify-content:center;}
-  .footer-copy{text-align:center;}
+@media(max-width:860px){
+  .footer-body{grid-template-columns:1fr 1fr;gap:36px;padding:40px 32px 32px;}
 }
-.footer-brand{}
-.footer-brand-name{
-  font-family:var(--serif);font-size:16px;font-weight:700;
+@media(max-width:560px){
+  .footer-body{grid-template-columns:1fr;gap:32px;padding:32px 24px 28px;}
+}
+
+/* ── Brand column ── */
+.ft-brand{}
+.ft-logo{display:flex;align-items:center;gap:13px;margin-bottom:16px;text-decoration:none;}
+.ft-logo-gem{
+  width:40px;height:40px;border-radius:12px;
+  background:var(--gBlue);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:20px;font-weight:700;
+  box-shadow:0 4px 18px rgba(79,140,255,.38),inset 0 1px 0 rgba(255,255,255,.22);
+  flex-shrink:0;position:relative;overflow:hidden;
+}
+.ft-logo-gem::after{content:'';position:absolute;top:0;left:0;right:0;height:50%;background:rgba(255,255,255,.15);border-radius:12px 12px 50% 50%;}
+.ft-logo-name{
+  font-family:var(--serif);font-size:19px;font-weight:700;line-height:1;
   background:var(--gBlue);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  margin-bottom:5px;
 }
-.footer-brand-tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--textM);}
-.footer-links{
-  display:flex;flex-direction:column;align-items:center;gap:10px;
+.ft-tagline{
+  font-size:13px;color:var(--textS);line-height:1.7;margin-bottom:22px;max-width:280px;
 }
-.footer-contact-row{display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:center;}
-.footer-contact-item{
-  display:flex;align-items:center;gap:7px;
-  font-family:var(--mono);font-size:11px;color:var(--textS);
+.ft-badges{display:flex;flex-wrap:wrap;gap:8px;}
+.ft-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;
+  padding:5px 11px;border-radius:20px;
+  color:var(--textM);background:var(--surf);border:1px solid var(--rim);
+}
+.ft-badge-dot{width:5px;height:5px;border-radius:50%;}
+.ft-badge-dot.blue{background:var(--blue);}
+.ft-badge-dot.teal{background:var(--teal);}
+.ft-badge-dot.gold{background:var(--gold);}
+
+/* ── Nav column ── */
+.ft-nav-title{
+  font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--textM);font-weight:700;margin-bottom:18px;
+  padding-bottom:10px;border-bottom:1px solid var(--rim);
+}
+.ft-nav-list{display:flex;flex-direction:column;gap:2px;}
+.ft-nav-item{
+  display:flex;align-items:center;gap:9px;
+  text-decoration:none;color:var(--textS);font-size:13px;
+  padding:7px 10px;border-radius:10px;
+  transition:background var(--dur),color var(--dur);
+}
+.ft-nav-item:hover{background:var(--surf);color:var(--text);}
+.ft-nav-item svg{opacity:.5;flex-shrink:0;transition:opacity var(--dur);}
+.ft-nav-item:hover svg{opacity:1;}
+.ft-nav-badge{
+  margin-left:auto;
+  font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;
+  padding:2px 7px;border-radius:20px;
+  background:rgba(79,140,255,.1);color:var(--blue);border:1px solid rgba(79,140,255,.2);
+}
+
+/* ── Contact column ── */
+.ft-contact-title{
+  font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--textM);font-weight:700;margin-bottom:18px;
+  padding-bottom:10px;border-bottom:1px solid var(--rim);
+}
+.ft-contact-list{display:flex;flex-direction:column;gap:10px;}
+.ft-contact-pill{
+  display:flex;align-items:center;gap:12px;
   text-decoration:none;
-  transition:color var(--dur);
+  padding:10px 14px;border-radius:12px;
+  background:var(--surf);border:1px solid var(--rim);
+  transition:border-color var(--dur),box-shadow var(--dur),background var(--dur);
 }
-.footer-contact-item:hover{color:var(--blue);}
-.footer-contact-item svg{flex-shrink:0;opacity:.7;}
-.footer-contact-item:hover svg{opacity:1;}
-.footer-divider{height:1px;width:100%;background:var(--rim);margin-top:10px;}
-.footer-copy{
-  text-align:right;
-  font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--textM);
-  line-height:1.8;
+.ft-contact-pill:hover{border-color:var(--rim2);box-shadow:var(--smSm);background:var(--surf2);}
+.ft-contact-icon{
+  width:30px;height:30px;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
 }
-[data-theme="light"] .footer-copy{color:var(--textM);}
-.footer-copy a{color:var(--blue);text-decoration:none;}
-.footer-copy a:hover{text-decoration:underline;}
+.ft-contact-icon.web  {background:rgba(79,140,255,.1);}
+.ft-contact-icon.mail {background:rgba(45,212,191,.1);}
+.ft-contact-icon.tel  {background:rgba(52,211,153,.1);}
+.ft-contact-icon.web  svg{color:var(--blue);}
+.ft-contact-icon.mail svg{color:var(--teal);}
+.ft-contact-icon.tel  svg{color:var(--emerald);}
+[data-theme="light"] .ft-contact-icon.web  {background:rgba(59,111,224,.07);}
+[data-theme="light"] .ft-contact-icon.mail {background:rgba(15,158,138,.07);}
+[data-theme="light"] .ft-contact-icon.tel  {background:rgba(5,150,105,.07);}
+.ft-contact-text{}
+.ft-contact-label{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--textM);margin-bottom:2px;}
+.ft-contact-value{font-size:12px;font-weight:500;color:var(--textS);}
+.ft-contact-pill:hover .ft-contact-value{color:var(--text);}
+
+/* ── Footer bottom bar ── */
 .footer-bottom{
   border-top:1px solid var(--rim);
-  padding:12px 52px;
-  display:flex;align-items:center;justify-content:center;
-  gap:8px;
+  padding:14px 52px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;
+  max-width:100%;
 }
-@media(max-width:700px){.footer-bottom{padding:12px 24px;flex-wrap:wrap;gap:6px;}}
-.footer-bottom-txt{
-  font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--textM);
+@media(max-width:700px){.footer-bottom{padding:14px 24px;flex-direction:column;gap:8px;text-align:center;}}
+.footer-bottom-left{display:flex;align-items:center;gap:16px;}
+.footer-bottom-txt{font-family:var(--mono);font-size:10px;letter-spacing:.07em;color:var(--textM);}
+.footer-bottom-dot{color:var(--textM);font-size:10px;opacity:.4;}
+.footer-bottom-right{display:flex;align-items:center;gap:6px;}
+.ft-bottom-link{
+  font-family:var(--mono);font-size:10px;letter-spacing:.07em;
+  color:var(--textM);text-decoration:none;
+  transition:color var(--dur);
 }
-.footer-bottom-dot{color:var(--textM);font-size:10px;}
+.ft-bottom-link:hover{color:var(--blue);}
+.ft-bottom-sep{color:var(--textM);font-size:10px;opacity:.3;margin:0 2px;}
 
 /* Theme toggle */
 .tog-wrap{display:flex;align-items:center;gap:10px;}
@@ -778,6 +857,154 @@ canvas#cert-canvas{display:none;}
   .rs-grid{grid-template-columns:repeat(2,1fr);}
   .res-hero{padding:40px 24px 40px;}
 }
+
+/* ────────────────────────────────────────────
+   FOB ECOSYSTEM GRID
+──────────────────────────────────────────── */
+/* ────────────────────────────────────────────
+   FOB ECOSYSTEM — PREMIUM
+──────────────────────────────────────────── */
+.eco-section{margin-top:64px;margin-bottom:60px;}
+.eco-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:28px;
+  padding-bottom:18px;
+  border-bottom:1px solid var(--rim);
+  position:relative;
+}
+.eco-header::after{
+  content:'';position:absolute;bottom:-1px;left:0;width:80px;height:2px;
+  background:var(--gBlue);border-radius:2px;
+}
+.eco-header-left{display:flex;align-items:center;gap:12px;}
+.eco-header-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:32px;height:32px;border-radius:9px;
+  background:var(--gBlue);
+  box-shadow:0 4px 14px rgba(79,140,255,.35);
+}
+.eco-header-text{}
+.eco-header-title{
+  font-family:var(--serif);font-size:18px;font-weight:700;
+  background:var(--gBlue);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  line-height:1.2;
+}
+.eco-header-sub{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--textM);margin-top:2px;}
+.eco-header-link{
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--blue);text-decoration:none;
+  display:flex;align-items:center;gap:5px;
+  opacity:.7;transition:opacity var(--dur);
+}
+.eco-header-link:hover{opacity:1;}
+
+.eco-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+@media(max-width:900px){.eco-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.eco-grid{grid-template-columns:repeat(2,1fr);gap:12px;}}
+
+.eco-card{
+  display:flex;flex-direction:column;
+  background:var(--surf);
+  border:1px solid var(--rim);
+  border-radius:22px;
+  padding:26px 22px 22px;
+  text-decoration:none;color:var(--text);
+  position:relative;overflow:hidden;
+  box-shadow:var(--smSm);
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow var(--dur),border-color var(--dur);
+  group:true;
+}
+/* Top sheen */
+.eco-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--rim2) 40%,var(--rim2) 60%,transparent);
+  transition:opacity var(--dur);
+}
+/* Inner glow on hover — colour set per card via custom prop */
+.eco-card::after{
+  content:'';position:absolute;inset:0;border-radius:22px;opacity:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%, var(--eco-glow,rgba(79,140,255,.08)) 0%, transparent 70%);
+  transition:opacity .35s;pointer-events:none;
+}
+.eco-card:hover{transform:translateY(-5px) scale(1.018);box-shadow:var(--smMd);}
+.eco-card:hover::after{opacity:1;}
+.eco-card:hover{border-color:var(--eco-rim,var(--rim2));}
+
+/* Per-card accent colours */
+.eco-card.c-repo  {--eco-glow:rgba(79,140,255,.1); --eco-rim:rgba(79,140,255,.35); --eco-tag-bg:rgba(79,140,255,.1); --eco-tag-cl:var(--blue);}
+.eco-card.c-int   {--eco-glow:rgba(168,85,247,.1);  --eco-rim:rgba(168,85,247,.35); --eco-tag-bg:rgba(168,85,247,.1); --eco-tag-cl:var(--purple);}
+.eco-card.c-train {--eco-glow:rgba(45,212,191,.09); --eco-rim:rgba(45,212,191,.35); --eco-tag-bg:rgba(45,212,191,.09);--eco-tag-cl:var(--teal);}
+.eco-card.c-jobs  {--eco-glow:rgba(52,211,153,.09); --eco-rim:rgba(52,211,153,.35); --eco-tag-bg:rgba(52,211,153,.09);--eco-tag-cl:var(--emerald);}
+
+[data-theme="light"] .eco-card.c-repo  {--eco-glow:rgba(59,111,224,.07); --eco-rim:rgba(59,111,224,.3);}
+[data-theme="light"] .eco-card.c-int   {--eco-glow:rgba(147,51,234,.07); --eco-rim:rgba(147,51,234,.3);}
+[data-theme="light"] .eco-card.c-train {--eco-glow:rgba(15,158,138,.06); --eco-rim:rgba(15,158,138,.3);}
+[data-theme="light"] .eco-card.c-jobs  {--eco-glow:rgba(5,150,105,.06);  --eco-rim:rgba(5,150,105,.3);}
+
+.eco-icon-wrap{
+  width:54px;height:54px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:18px;
+  position:relative;z-index:1;
+  flex-shrink:0;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow var(--dur);
+}
+.eco-card:hover .eco-icon-wrap{transform:scale(1.1) rotate(-4deg);}
+
+.eco-icon-wrap.c-repo  {background:var(--gBlue);   box-shadow:0 6px 20px rgba(79,140,255,.38);}
+.eco-icon-wrap.c-int   {background:var(--gPurple); box-shadow:0 6px 20px rgba(168,85,247,.38);}
+.eco-icon-wrap.c-train {background:var(--gTeal);   box-shadow:0 6px 20px rgba(45,212,191,.35);}
+.eco-icon-wrap.c-jobs  {background:var(--gEmerald);box-shadow:0 6px 20px rgba(52,211,153,.35);}
+
+.eco-card:hover .eco-icon-wrap.c-repo  {box-shadow:0 10px 28px rgba(79,140,255,.55);}
+.eco-card:hover .eco-icon-wrap.c-int   {box-shadow:0 10px 28px rgba(168,85,247,.55);}
+.eco-card:hover .eco-icon-wrap.c-train {box-shadow:0 10px 28px rgba(45,212,191,.5);}
+.eco-card:hover .eco-icon-wrap.c-jobs  {box-shadow:0 10px 28px rgba(52,211,153,.5);}
+
+.eco-body{flex:1;position:relative;z-index:1;}
+.eco-title{
+  font-size:14px;font-weight:700;margin-bottom:6px;
+  color:var(--text);letter-spacing:-.01em;
+}
+.eco-desc{
+  font-size:12px;color:var(--textS);line-height:1.6;
+  margin-bottom:16px;
+}
+.eco-tag{
+  display:inline-flex;align-items:center;
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;
+  padding:3px 9px;border-radius:20px;
+  background:var(--eco-tag-bg);color:var(--eco-tag-cl);
+  border:1px solid var(--eco-rim,var(--rim));
+}
+.eco-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:auto;padding-top:14px;
+  border-top:1px solid var(--rim);
+  position:relative;z-index:1;
+}
+.eco-launch{
+  display:flex;align-items:center;gap:5px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--textM);
+  transition:color var(--dur),gap var(--dur);
+}
+.eco-card:hover .eco-launch{color:var(--eco-tag-cl,var(--blue));gap:8px;}
+.eco-launch-arrow{
+  width:22px;height:22px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--surf2);border:1px solid var(--rim);font-size:11px;
+  transition:background var(--dur),border-color var(--dur),transform var(--dur);
+}
+.eco-card:hover .eco-launch-arrow{
+  background:var(--eco-tag-bg,rgba(79,140,255,.1));
+  border-color:var(--eco-rim,var(--rim2));
+  transform:translate(2px,-2px);
+}
 </style>
 </head>
 <body>
@@ -932,6 +1159,115 @@ canvas#cert-canvas{display:none;}
         Select a Track to Proceed
       </button>
     </div>
+
+    <!-- ── FOB Ecosystem ── -->
+    <div class="eco-section">
+      <div class="eco-header">
+        <div class="eco-header-left">
+          <div class="eco-header-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <div class="eco-header-text">
+            <div class="eco-header-title">FOB Ecosystem</div>
+            <div class="eco-header-sub">Explore the full suite of Baan tools</div>
+          </div>
+        </div>
+        <a class="eco-header-link" href="https://www.fullonbaan.com" target="_blank" rel="noopener">
+          View all
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <div class="eco-grid">
+
+        <!-- Repository -->
+        <a class="eco-card c-repo" href="https://fobrepo.vercel.app/" target="_blank" rel="noopener">
+          <div class="eco-icon-wrap c-repo">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+              <line x1="12" y1="2" x2="12" y2="22" opacity=".5"/>
+            </svg>
+          </div>
+          <div class="eco-body">
+            <div class="eco-title">Repository</div>
+            <div class="eco-desc">Scripts, DAL snippets &amp; Infor LN developer reference code.</div>
+            <span class="eco-tag">Dev Resources</span>
+          </div>
+          <div class="eco-footer">
+            <div class="eco-launch">
+              Open
+              <div class="eco-launch-arrow">↗</div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Interview -->
+        <a class="eco-card c-int" href="https://fobinterview.vercel.app/" target="_blank" rel="noopener">
+          <div class="eco-icon-wrap c-int">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              <line x1="9" y1="10" x2="15" y2="10" opacity=".6"/><line x1="9" y1="14" x2="12" y2="14" opacity=".6"/>
+            </svg>
+          </div>
+          <div class="eco-body">
+            <div class="eco-title">Interview Prep</div>
+            <div class="eco-desc">Curated Q&amp;A to ace Baan &amp; Infor LN interviews.</div>
+            <span class="eco-tag">Career</span>
+          </div>
+          <div class="eco-footer">
+            <div class="eco-launch">
+              Open
+              <div class="eco-launch-arrow">↗</div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Training -->
+        <a class="eco-card c-train" href="https://fobtraining.vercel.app/" target="_blank" rel="noopener">
+          <div class="eco-icon-wrap c-train">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+          </div>
+          <div class="eco-body">
+            <div class="eco-title">Training</div>
+            <div class="eco-desc">Structured learning paths &amp; step-by-step tutorials.</div>
+            <span class="eco-tag">Learning</span>
+          </div>
+          <div class="eco-footer">
+            <div class="eco-launch">
+              Open
+              <div class="eco-launch-arrow">↗</div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Jobs -->
+        <a class="eco-card c-jobs" href="https://fobjobs.vercel.app/" target="_blank" rel="noopener">
+          <div class="eco-icon-wrap c-jobs">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2"/>
+              <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+              <circle cx="12" cy="14" r="2" fill="white" stroke="none"/>
+              <line x1="2" y1="12" x2="22" y2="12" opacity=".4"/>
+            </svg>
+          </div>
+          <div class="eco-body">
+            <div class="eco-title">Jobs Board</div>
+            <div class="eco-desc">Live Infor LN &amp; Baan ERP opportunities worldwide.</div>
+            <span class="eco-tag">Opportunities</span>
+          </div>
+          <div class="eco-footer">
+            <div class="eco-launch">
+              Open
+              <div class="eco-launch-arrow">↗</div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div><!-- /eco-section -->
   </div>
 </div>
 
@@ -1065,7 +1401,7 @@ canvas#cert-canvas{display:none;}
 
     <!-- Support -->
     <div style="text-align:center;margin-top:24px;font-size:13px;color:var(--textM);">
-      Payment issues? Email <a href="/cdn-cgi/l/email-protection#cbadbea7a7a4a5a9aaaaa58baca6aaa2a7e5a8a4a6" style="color:var(--blue);text-decoration:none;"><span class="__cf_email__" data-cfemail="096f7c656566676b686867496e64686065276a6664">[email&#160;protected]</span></a> with your UTR and registered email.
+      Payment issues? Email <a href="mailto:fullonbaan@gmail.com?subject=Payment%20Issue%20-%20UTR%20Verification&body=Hi%20FullonBaan%20Team%2C%0A%0AUTR%20%2F%20Transaction%20ID%3A%20%0ARegistered%20Email%3A%20%0AExam%20Track%3A%20" style="color:var(--blue);text-decoration:none;">fullonbaan@gmail.com</a> with your UTR and registered email.
     </div>
 
   </div>
@@ -1150,45 +1486,98 @@ canvas#cert-canvas{display:none;}
      SITE FOOTER
 ══════════════════════════════════════════ -->
 <footer class="site-footer">
-  <div class="footer-inner">
+  <div class="footer-body">
 
-    <!-- Left: Brand -->
-    <div class="footer-brand">
-      <div class="footer-brand-name">FullonBaan</div>
-      <div class="footer-brand-tag">Education &nbsp;·&nbsp; Infor LN &amp; Baan ERP</div>
+    <!-- ── Brand ── -->
+    <div class="ft-brand">
+      <a class="ft-logo" href="https://www.fullonbaan.com" target="_blank" rel="noopener">
+        <div class="ft-logo-gem">F</div>
+        <div class="ft-logo-name">FullonBaan</div>
+      </a>
+      <p class="ft-tagline">Your one-stop destination for Infor LN &amp; Baan ERP — certifications, training, interview prep, and job opportunities.</p>
+      <div class="ft-badges">
+        <span class="ft-badge"><span class="ft-badge-dot blue"></span>Infor LN</span>
+        <span class="ft-badge"><span class="ft-badge-dot teal"></span>Baan ERP</span>
+        <span class="ft-badge"><span class="ft-badge-dot gold"></span>Certifications</span>
+      </div>
     </div>
 
-    <!-- Centre: Contact -->
-    <div class="footer-links">
-      <div class="footer-contact-row">
-        <a class="footer-contact-item" href="https://www.fullonbaan.com" target="_blank" rel="noopener">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          www.fullonbaan.com
+    <!-- ── Ecosystem links ── -->
+    <div>
+      <div class="ft-nav-title">Ecosystem</div>
+      <nav class="ft-nav-list">
+        <a class="ft-nav-item" href="https://fobrepo.vercel.app/" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Repository
         </a>
-        <a class="footer-contact-item" href="mailto:fobsupport@gmail.com">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
-          fobsupport@gmail.com
+        <a class="ft-nav-item" href="https://fobinterview.vercel.app/" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Interview Prep
         </a>
-        <a class="footer-contact-item" href="tel:+916360593122">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.27-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          +91 63605 93122
+        <a class="ft-nav-item" href="https://fobtraining.vercel.app/" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          Training
+        </a>
+        <a class="ft-nav-item" href="https://fobjobs.vercel.app/" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+          Jobs Board
+          <span class="ft-nav-badge">Hiring</span>
+        </a>
+        <a class="ft-nav-item" href="https://fobexams.vercel.app/" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          Practice Exams
+        </a>
+      </nav>
+    </div>
+
+    <!-- ── Contact ── -->
+    <div>
+      <div class="ft-contact-title">Get in touch</div>
+      <div class="ft-contact-list">
+        <a class="ft-contact-pill" href="https://www.fullonbaan.com" target="_blank" rel="noopener">
+          <div class="ft-contact-icon web">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="ft-contact-text">
+            <div class="ft-contact-label">Website</div>
+            <div class="ft-contact-value">www.fullonbaan.com</div>
+          </div>
+        </a>
+        <a class="ft-contact-pill" href="mailto:fullonbaan@gmail.com?subject=FullonBaan%20Enquiry">
+          <div class="ft-contact-icon mail">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+          </div>
+          <div class="ft-contact-text">
+            <div class="ft-contact-label">Email</div>
+            <div class="ft-contact-value">fullonbaan@gmail.com</div>
+          </div>
+        </a>
+        <a class="ft-contact-pill" href="tel:+916360593122">
+          <div class="ft-contact-icon tel">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.27-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="ft-contact-text">
+            <div class="ft-contact-label">Phone</div>
+            <div class="ft-contact-value">+91 63605 93122</div>
+          </div>
         </a>
       </div>
-      <div class="footer-divider"></div>
-    </div>
-
-    <!-- Right: Copyright -->
-    <div class="footer-copy">
-      &copy; <span id="footer-year"></span> FullonBaan Education<br/>
-      All rights reserved.<br/>
-      <a href="https://www.fullonbaan.com" target="_blank" rel="noopener">fullonbaan.com</a>
     </div>
 
   </div>
+
+  <!-- ── Bottom bar ── -->
   <div class="footer-bottom">
-    <span class="footer-bottom-txt">&copy; <span class="footer-year-b"></span> FullonBaan Education. All rights reserved.</span>
-    <span class="footer-bottom-dot">·</span>
-    <span class="footer-bottom-txt">Unauthorised reproduction of exam content is prohibited.</span>
+    <div class="footer-bottom-left">
+      <span class="footer-bottom-txt">&copy; <span id="footer-year"></span> FullonBaan Education. All rights reserved.</span>
+      <span class="footer-bottom-dot">·</span>
+      <span class="footer-bottom-txt">Unauthorised reproduction of exam content is prohibited.</span>
+    </div>
+    <div class="footer-bottom-right">
+      <a class="ft-bottom-link" href="https://www.fullonbaan.com" target="_blank" rel="noopener">fullonbaan.com</a>
+      <span class="ft-bottom-sep">·</span>
+      <a class="ft-bottom-link" href="mailto:fullonbaan@gmail.com?subject=FullonBaan%20Enquiry">Contact</a>
+    </div>
   </div>
 </footer>
 <script>
@@ -1196,7 +1585,7 @@ canvas#cert-canvas{display:none;}
   document.querySelectorAll('#footer-year,.footer-year-b').forEach(el=>el.textContent=y);
 </script>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ══════════════════════════════════════════
    EMAIL JS CONFIG  — replace with your keys
 ══════════════════════════════════════════ */
@@ -2411,10 +2800,7 @@ function showScreen(id){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function goHome(){
-  clearInterval(timerInt);
-  // Reset payment state so a new payment is required for each attempt
-  paymentVerified=false;
-  utrSubmitted='';
+  clearInterval(examTimer);
   showScreen('home');
 }
 </script>
