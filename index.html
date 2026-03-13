@@ -1970,6 +1970,38 @@ canvas#cert-canvas{display:none;}
     </div>
 
     <div id="submissions-list"></div>
+
+    <!-- ── Cert Management (seed missing / past certs) ── -->
+    <details style="margin-top:36px;border:1px solid var(--rim);border-radius:12px;overflow:hidden;">
+      <summary style="padding:14px 20px;cursor:pointer;font-weight:700;font-size:14px;background:var(--surf);user-select:none;">🔐 Certificate Management — Seed / Lookup</summary>
+      <div style="padding:20px;background:var(--bg);">
+        <p style="font-size:13px;color:var(--textS);margin:0 0 16px;">Use this to manually register a certificate that was issued before auto-save was enabled, or to look up existing certs.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+          <div><label style="font-size:12px;color:var(--textM);font-weight:600;display:block;margin-bottom:4px;">Full Name</label>
+            <input id="sc-name" type="text" placeholder="e.g. Raviraj Raikar" style="width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--rim2);font-size:13px;box-sizing:border-box;"></div>
+          <div><label style="font-size:12px;color:var(--textM);font-weight:600;display:block;margin-bottom:4px;">Email</label>
+            <input id="sc-email" type="email" placeholder="e.g. user@example.com" style="width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--rim2);font-size:13px;box-sizing:border-box;"></div>
+          <div><label style="font-size:12px;color:var(--textM);font-weight:600;display:block;margin-bottom:4px;">Certificate ID</label>
+            <input id="sc-certid" type="text" placeholder="e.g. FOB-DEV-202603-NLI5K51" style="width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--rim2);font-size:13px;box-sizing:border-box;"></div>
+          <div><label style="font-size:12px;color:var(--textM);font-weight:600;display:block;margin-bottom:4px;">Track</label>
+            <select id="sc-track" style="width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--rim2);font-size:13px;box-sizing:border-box;">
+              <option value="dev">Development</option><option value="fin">Finance</option>
+              <option value="bod">BOD/ION</option><option value="ion">ION</option>
+              <option value="ext">Extensions</option><option value="scm">SCM</option><option value="mfg">Manufacturing</option>
+            </select></div>
+          <div><label style="font-size:12px;color:var(--textM);font-weight:600;display:block;margin-bottom:4px;">Score %</label>
+            <input id="sc-pct" type="number" min="0" max="100" placeholder="e.g. 85" style="width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--rim2);font-size:13px;box-sizing:border-box;"></div>
+          <div><label style="font-size:12px;color:var(--textM);font-weight:600;display:block;margin-bottom:4px;">Issue Date</label>
+            <input id="sc-date" type="text" placeholder="e.g. 13 Mar 2026" style="width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--rim2);font-size:13px;box-sizing:border-box;"></div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+          <button class="btn btn-primary btn-sm" onclick="adminSeedCert()">💾 Save Certificate</button>
+          <button class="btn btn-ghost btn-sm" onclick="adminLookupCerts()">🔍 View All Certs in Store</button>
+        </div>
+        <div id="sc-msg" style="margin-top:12px;font-size:13px;display:none;"></div>
+        <pre id="sc-list" style="margin-top:12px;font-size:11px;background:var(--surf);border:1px solid var(--rim);border-radius:8px;padding:12px;overflow:auto;max-height:300px;display:none;"></pre>
+      </div>
+    </details>
   </div>
 </div>
 
@@ -2187,7 +2219,7 @@ async function ghSave(submissions){
 ══════════════════════════════════════════ */
 const GITHUB_OWNER     = 'fullonbaan';
 const GITHUB_REPO      = 'fob-cert-store';
-const GITHUB_TOKEN     = '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';
+const GITHUB_TOKEN     = GH_TOKEN;
 const GITHUB_CERT_FILE = 'certs/certificates.json';
 
 const GH_CERT_API = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_CERT_FILE}`;
@@ -2237,6 +2269,58 @@ async function fetchCertFromGitHub(email, certId){
   } catch(e){
     console.warn('GitHub cert lookup failed:', e);
     return null;
+  }
+}
+
+/* ── Admin: seed a cert manually ── */
+async function adminSeedCert(){
+  const name=(document.getElementById('sc-name').value||'').trim();
+  const email=(document.getElementById('sc-email').value||'').trim().toLowerCase();
+  const certId=(document.getElementById('sc-certid').value||'').trim().toUpperCase();
+  const track=(document.getElementById('sc-track').value||'').trim();
+  const pct=parseInt(document.getElementById('sc-pct').value||'0',10);
+  const date=(document.getElementById('sc-date').value||'').trim();
+  const msg=document.getElementById('sc-msg');
+
+  if(!name||!email||!certId||!track||!pct||!date){
+    msg.style.display='block';msg.style.color='var(--red,#e05)';
+    msg.textContent='⚠️ Please fill in all fields.';return;
+  }
+  const trackFull=TRACKS[track]?TRACKS[track].label.replace(' Certification',''):track.toUpperCase();
+  const record={name,email,track,trackFull,pct,certId,date};
+
+  // Save to localStorage
+  try{
+    const ex=JSON.parse(localStorage.getItem('fob_certs')||'[]');
+    if(!ex.find(c=>c.certId===certId)){ex.push(record);localStorage.setItem('fob_certs',JSON.stringify(ex));}
+  }catch(e){}
+
+  msg.style.display='block';msg.style.color='var(--textS)';
+  msg.textContent='⏳ Saving to GitHub cert store…';
+
+  try{
+    await saveCertToGitHub(record);
+    msg.style.color='#00c878';
+    msg.textContent=`✅ Certificate ${certId} saved successfully! The owner can now retrieve it.`;
+  }catch(e){
+    msg.style.color='#f5a623';
+    msg.textContent=`⚠️ GitHub save failed but cert is in localStorage. Error: ${e.message}`;
+  }
+}
+
+async function adminLookupCerts(){
+  const pre=document.getElementById('sc-list');
+  const msg=document.getElementById('sc-msg');
+  msg.style.display='block';msg.style.color='var(--textS)';msg.textContent='⏳ Fetching certs from GitHub…';
+  pre.style.display='none';
+  try{
+    const {certs}=await ghReadCerts();
+    pre.textContent=JSON.stringify(certs,null,2);
+    pre.style.display='block';
+    msg.textContent=`✅ Found ${certs.length} certificate(s) in GitHub store.`;
+    msg.style.color='#00c878';
+  }catch(e){
+    msg.style.color='var(--red,#e05)';msg.textContent=`⚠️ Lookup failed: ${e.message}`;
   }
 }
 
@@ -3962,6 +4046,24 @@ async function showResults(){
     // Store cert details for download and show the button
     window._certParams={name:candidate.name,pct,certId,date:examDate,trackFull};
     document.getElementById('dl-cert-btn').style.display='inline-flex';
+    // ── Persist cert record so Retrieve Certificate works ──
+    const _certRecord={
+      name:candidate.name,
+      email:candidate.email.toLowerCase(),
+      track,
+      trackFull,
+      pct,
+      certId,
+      date:examDate
+    };
+    try{
+      const _existing=JSON.parse(localStorage.getItem('fob_certs')||'[]');
+      if(!_existing.find(c=>c.certId===certId)){
+        _existing.push(_certRecord);
+        localStorage.setItem('fob_certs',JSON.stringify(_existing));
+      }
+    }catch(e){}
+    saveCertToGitHub(_certRecord).catch(()=>{});
   } else {
     ca.innerHTML=`<div class="fail-panel"><h3>Exam Not Passed</h3><p>You scored <strong>${pct}%</strong> (${score} / ${TOTAL_PTS} points). A minimum of <strong>${PASS_PCT}%</strong> is required.<br>Review the topics where you struggled and retake the exam when ready.</p></div>`;
   }
