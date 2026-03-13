@@ -2217,14 +2217,12 @@ async function ghSave(submissions){
    All certs live in one JSON file in the repo.
    We read → append/search → write back.
 ══════════════════════════════════════════ */
-const GITHUB_OWNER     = 'fullonbaan';
-const GITHUB_REPO      = 'fob-cert-store';
-const GITHUB_TOKEN     = GH_TOKEN;
-const GITHUB_CERT_FILE = 'certs/certificates.json';
+/* Certs stored in the same fob-data repo (same token) — different file */
+const GITHUB_CERT_FILE = 'certificates.json';
 
-const GH_CERT_API = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_CERT_FILE}`;
+const GH_CERT_API = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GITHUB_CERT_FILE}`;
 const GH_CERT_HDR = () => ({
-  'Authorization': `token ${GITHUB_TOKEN}`,
+  'Authorization': `token ${GH_TOKEN}`,
   'Accept': 'application/vnd.github+json',
   'Content-Type': 'application/json'
 });
