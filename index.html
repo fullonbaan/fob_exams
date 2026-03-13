@@ -1005,6 +1005,168 @@ canvas#cert-canvas{display:none;}
   border-color:var(--eco-rim,var(--rim2));
   transform:translate(2px,-2px);
 }
+
+/* ════════════════════════════════════════
+   UPI APP DEEP-LINK BUTTONS
+════════════════════════════════════════ */
+.upi-app-section{margin:18px 0 4px;}
+.upi-app-label{font-size:12px;color:var(--textM);margin-bottom:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;}
+.upi-app-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+@media(max-width:500px){.upi-app-grid{grid-template-columns:repeat(2,1fr);}}
+.upi-app-chip{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;border-radius:12px;
+  background:var(--surf2);border:1px solid var(--rim);cursor:pointer;transition:background .15s,border-color .15s,transform .15s;
+  font-size:11px;font-weight:600;color:var(--text);text-decoration:none;user-select:none;}
+.upi-app-chip:hover{background:rgba(79,140,255,.08);border-color:var(--blue);transform:translateY(-2px);}
+.upi-app-chip svg,.upi-app-chip img{width:32px;height:32px;border-radius:8px;}
+
+/* ════════════════════════════════════════
+   SCREENSHOT UPLOAD
+════════════════════════════════════════ */
+.screenshot-upload-wrap{margin-top:16px;}
+.screenshot-upload-label{font-size:12px;color:var(--textM);font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px;}
+.screenshot-upload-zone{border:2px dashed var(--rim2);border-radius:12px;padding:18px;text-align:center;cursor:pointer;
+  transition:border-color .15s,background .15s;background:var(--surf2);position:relative;}
+.screenshot-upload-zone:hover,.screenshot-upload-zone.drag-over{border-color:var(--blue);background:rgba(79,140,255,.06);}
+.screenshot-upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.screenshot-upload-zone .upload-icon{font-size:28px;margin-bottom:6px;}
+.screenshot-upload-zone .upload-text{font-size:13px;color:var(--textM);}
+.screenshot-upload-zone .upload-text strong{color:var(--blue);}
+.screenshot-preview{margin-top:10px;display:none;}
+.screenshot-preview img{max-width:100%;max-height:180px;border-radius:8px;border:1px solid var(--rim);}
+.screenshot-preview-close{font-size:11px;color:var(--textM);cursor:pointer;margin-top:4px;display:inline-block;}
+.screenshot-preview-close:hover{color:var(--red,#e05);}
+
+/* ════════════════════════════════════════
+   PENDING SCREEN
+════════════════════════════════════════ */
+#pending.screen{background:var(--bg);}
+.pending-wrap{max-width:640px;margin:0 auto;padding:60px 32px 100px;text-align:center;}
+.pending-icon-big{font-size:64px;margin-bottom:16px;animation:pulse-pending 2s ease-in-out infinite;}
+@keyframes pulse-pending{0%,100%{transform:scale(1);}50%{transform:scale(1.12);}}
+.pending-title{font-family:var(--serif);font-size:30px;font-weight:700;margin-bottom:10px;}
+.pending-body{font-size:15px;color:var(--textS);line-height:1.7;margin-bottom:28px;}
+.pending-details-card{background:var(--surf);border:1px solid var(--rim);border-radius:16px;padding:20px 24px;text-align:left;margin-bottom:28px;}
+.pending-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--rim);}
+.pending-row:last-child{border-bottom:none;}
+.pending-key{font-size:12px;color:var(--textM);font-weight:600;text-transform:uppercase;letter-spacing:.04em;}
+.pending-val{font-size:13px;color:var(--text);font-family:var(--mono);}
+.pending-have-code{margin-top:20px;font-size:14px;color:var(--textM);}
+.pending-have-code a{color:var(--blue);cursor:pointer;text-decoration:underline;}
+
+/* Inline approval code card on pending screen */
+.inline-code-card{background:var(--surf);border:1.5px solid rgba(0,200,120,.3);border-radius:16px;
+  padding:20px 22px;text-align:left;margin-bottom:4px;
+  box-shadow:0 0 0 4px rgba(0,200,120,.05);}
+.inline-code-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;}
+.inline-code-row{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;}
+
+/* ════════════════════════════════════════
+   UNLOCK SCREEN
+════════════════════════════════════════ */
+#unlock.screen{background:var(--bg);}
+.unlock-wrap{max-width:520px;margin:0 auto;padding:80px 32px 100px;text-align:center;}
+.unlock-lock-icon{font-size:56px;margin-bottom:16px;}
+.unlock-title{font-family:var(--serif);font-size:28px;font-weight:700;margin-bottom:8px;}
+.unlock-body{font-size:14px;color:var(--textS);line-height:1.6;margin-bottom:32px;}
+.unlock-input-wrap{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;margin-bottom:8px;}
+.unlock-input{flex:1;min-width:200px;font-family:var(--mono);font-size:20px;letter-spacing:.15em;
+  padding:14px 16px;border-radius:10px;border:1.5px solid var(--rim2);background:var(--surf);
+  color:var(--text);text-transform:uppercase;text-align:center;transition:border-color .15s;}
+.unlock-input:focus{outline:none;border-color:var(--blue);}
+.unlock-input.invalid{border-color:var(--red,#e05);}
+.unlock-back-link{font-size:13px;color:var(--textM);margin-top:16px;cursor:pointer;}
+.unlock-back-link:hover{color:var(--blue);}
+
+/* ════════════════════════════════════════
+   ADMIN LOGIN SCREEN
+════════════════════════════════════════ */
+#admin-login.screen{background:var(--bg);}
+.admin-login-wrap{max-width:420px;margin:0 auto;padding:80px 32px 100px;text-align:center;}
+.admin-login-icon{font-size:48px;margin-bottom:16px;}
+.admin-login-title{font-family:var(--serif);font-size:26px;font-weight:700;margin-bottom:8px;}
+.admin-login-body{font-size:14px;color:var(--textS);margin-bottom:28px;}
+.admin-pw-input{width:100%;padding:13px 16px;border-radius:10px;border:1.5px solid var(--rim2);
+  background:var(--surf);color:var(--text);font-size:15px;margin-bottom:12px;transition:border-color .15s;}
+.admin-pw-input:focus{outline:none;border-color:var(--blue);}
+.admin-pw-input.invalid{border-color:var(--red,#e05);}
+.err-admin-pw{font-size:12px;color:var(--red,#e05);margin-bottom:12px;display:none;}
+
+/* ════════════════════════════════════════
+   ADMIN DASHBOARD
+════════════════════════════════════════ */
+#admin-dashboard.screen{background:var(--bg);}
+.admin-wrap{max-width:860px;margin:0 auto;padding:48px 32px 100px;}
+.admin-topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;flex-wrap:wrap;gap:12px;}
+.admin-topbar-title{font-family:var(--serif);font-size:28px;font-weight:700;}
+.admin-stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px;}
+.admin-stat{background:var(--surf);border:1px solid var(--rim);border-radius:12px;padding:14px 20px;min-width:110px;}
+.admin-stat-val{font-size:26px;font-weight:700;color:var(--blue);}
+.admin-stat-lbl{font-size:11px;color:var(--textM);text-transform:uppercase;letter-spacing:.06em;margin-top:2px;}
+.admin-filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.admin-filter-btn{padding:6px 14px;border-radius:20px;border:1px solid var(--rim);background:var(--surf2);
+  color:var(--textM);font-size:12px;cursor:pointer;transition:all .15s;}
+.admin-filter-btn.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+.submission-card{background:var(--surf);border:1px solid var(--rim);border-radius:14px;padding:20px 22px;
+  margin-bottom:16px;transition:border-color .15s;}
+.submission-card:hover{border-color:var(--rim2);}
+.submission-card-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+.submission-name{font-size:16px;font-weight:700;}
+.submission-email{font-size:13px;color:var(--textM);margin-top:2px;}
+.submission-badge{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;}
+.badge-pending{background:rgba(255,190,11,.15);color:#f5a623;border:1px solid rgba(255,190,11,.3);}
+.badge-approved{background:rgba(0,200,120,.12);color:#00c878;border:1px solid rgba(0,200,120,.25);}
+.badge-rejected{background:rgba(220,50,50,.12);color:#dc3232;border:1px solid rgba(220,50,50,.25);}
+.badge-completed{background:rgba(79,140,255,.12);color:var(--blue);border:1px solid rgba(79,140,255,.25);}
+.submission-meta-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-bottom:14px;}
+.submission-meta-item{font-size:12px;color:var(--textM);}
+.submission-meta-item strong{color:var(--text);display:block;font-size:13px;}
+.submission-screenshot{margin-bottom:14px;}
+.submission-screenshot img{max-width:100%;max-height:200px;border-radius:8px;border:1px solid var(--rim);cursor:pointer;}
+.submission-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.code-chip{font-family:var(--mono);font-size:15px;letter-spacing:.12em;background:var(--surf2);
+  border:1px solid var(--rim2);border-radius:8px;padding:8px 14px;color:var(--emerald,#00c878);font-weight:700;
+  cursor:pointer;user-select:all;transition:background .15s;}
+.code-chip:hover{background:rgba(0,200,120,.1);}
+.admin-empty{text-align:center;padding:60px 0;color:var(--textM);font-size:15px;}
+
+/* ════════════════════════════════════════
+   MODAL / LIGHTBOX
+════════════════════════════════════════ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;display:flex;
+  align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
+.modal-overlay img{max-width:90vw;max-height:85vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.modal-close-btn{position:fixed;top:16px;right:20px;font-size:28px;color:#fff;cursor:pointer;z-index:10000;
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5);border-radius:50%;}
+
+/* ════════════════════════════════════════
+   RESUME EXAM MODAL (home screen)
+════════════════════════════════════════ */
+.resume-modal-box{background:var(--surf);border:1px solid var(--rim2);border-radius:20px;
+  padding:32px 28px;max-width:440px;width:100%;box-shadow:0 24px 80px rgba(0,0,0,.4);position:relative;}
+.resume-modal-title{font-family:var(--serif);font-size:22px;font-weight:700;margin-bottom:6px;}
+.resume-modal-body{font-size:13px;color:var(--textS);line-height:1.6;margin-bottom:22px;}
+.resume-field{margin-bottom:14px;}
+.resume-field label{display:block;font-size:11px;font-weight:700;color:var(--textM);
+  text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+.resume-field input{width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid var(--rim2);
+  background:var(--surf2);color:var(--text);font-size:14px;transition:border-color .15s;box-sizing:border-box;}
+.resume-field input:focus{outline:none;border-color:var(--blue);}
+.resume-field input.invalid{border-color:var(--red,#e05);}
+.resume-field input.code-field{font-family:var(--mono);font-size:18px;letter-spacing:.18em;text-align:center;text-transform:uppercase;}
+.resume-modal-close{position:absolute;top:14px;right:16px;background:none;border:none;
+  font-size:20px;color:var(--textM);cursor:pointer;line-height:1;padding:4px;}
+.resume-modal-close:hover{color:var(--text);}
+.resume-banner{background:rgba(0,200,120,.08);border:1px solid rgba(0,200,120,.2);border-radius:10px;
+  padding:10px 14px;font-size:13px;color:var(--textS);margin-bottom:20px;display:none;}
+/* Home screen resume entry point */
+.home-resume-bar{display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:18px;padding:14px 20px;border-radius:12px;
+  background:var(--surf);border:1px solid var(--rim);cursor:pointer;
+  transition:border-color .15s,background .15s;}
+.home-resume-bar:hover{border-color:var(--blue);background:rgba(79,140,255,.05);}
+.home-resume-bar-text{font-size:13px;color:var(--textS);}
+.home-resume-bar-text strong{color:var(--text);}
+.home-resume-bar-arrow{font-size:16px;color:var(--blue);}
 </style>
 </head>
 <body>
@@ -1158,6 +1320,15 @@ canvas#cert-canvas{display:none;}
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg>
         Select a Track to Proceed
       </button>
+
+      <!-- Already paid? Resume bar -->
+      <div class="home-resume-bar" onclick="showResumeModal()" title="Enter your approval code to resume your exam">
+        <span style="font-size:20px;">🔑</span>
+        <div class="home-resume-bar-text">
+          <strong>Already paid?</strong> Enter your approval code to resume your exam — even if you closed the browser.
+        </div>
+        <span class="home-resume-bar-arrow">→</span>
+      </div>
     </div>
 
     <!-- ── FOB Ecosystem ── -->
@@ -1371,6 +1542,29 @@ canvas#cert-canvas{display:none;}
         </div>
       </div>
 
+      <!-- UPI App Buttons -->
+      <div class="upi-app-section">
+        <div class="upi-app-label">Or open your UPI app directly</div>
+        <div class="upi-app-grid">
+          <a class="upi-app-chip" onclick="openUpiApp('gpay')" href="javascript:void(0)">
+            <svg width="32" height="32" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#fff"/><text x="4" y="34" font-size="26" font-family="Arial">G</text><text x="18" y="34" font-size="26" font-family="Arial" fill="#4285F4">P</text></svg>
+            Google Pay
+          </a>
+          <a class="upi-app-chip" onclick="openUpiApp('phonepe')" href="javascript:void(0)">
+            <svg width="32" height="32" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#5f259f"/><text x="8" y="34" font-size="22" font-family="Arial" fill="#fff">Pe</text></svg>
+            PhonePe
+          </a>
+          <a class="upi-app-chip" onclick="openUpiApp('paytm')" href="javascript:void(0)">
+            <svg width="32" height="32" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#00baf2"/><text x="4" y="32" font-size="16" font-family="Arial" fill="#fff" font-weight="bold">PAYTM</text></svg>
+            Paytm
+          </a>
+          <a class="upi-app-chip" onclick="openUpiApp('bhim')" href="javascript:void(0)">
+            <svg width="32" height="32" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#00529b"/><text x="6" y="32" font-size="18" font-family="Arial" fill="#fff" font-weight="bold">BHIM</text></svg>
+            BHIM
+          </a>
+        </div>
+      </div>
+
       <!-- UTR Entry -->
       <div class="pay-utr-section">
         <div class="pay-utr-hd">
@@ -1389,6 +1583,22 @@ canvas#cert-canvas{display:none;}
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             Verify &amp; Proceed
           </button>
+        </div>
+        <!-- Screenshot Upload -->
+        <div class="screenshot-upload-wrap">
+          <div class="screenshot-upload-label">Payment Screenshot (optional but recommended)</div>
+          <div class="screenshot-upload-zone" id="screenshot-zone"
+               ondragover="event.preventDefault();this.classList.add('drag-over')"
+               ondragleave="this.classList.remove('drag-over')"
+               ondrop="handleScreenshotDrop(event)">
+            <input type="file" id="screenshot-input" accept="image/*" onchange="handleScreenshotSelect(this)">
+            <div class="upload-icon">📷</div>
+            <div class="upload-text">Drag &amp; drop or <strong>click to upload</strong> payment screenshot</div>
+          </div>
+          <div class="screenshot-preview" id="screenshot-preview">
+            <img id="screenshot-img" src="" alt="Payment screenshot">
+            <div class="screenshot-preview-close" onclick="clearScreenshot()">✕ Remove</div>
+          </div>
         </div>
       </div>
 
@@ -1478,6 +1688,171 @@ canvas#cert-canvas{display:none;}
       <button class="btn btn-outline btn-md" onclick="goHome()">← Back to Portal</button>
       <button class="btn btn-primary btn-md" id="dl-cert-btn" style="display:none;" onclick="downloadCertificate()">⬇ Download Certificate</button>
     </div>
+  </div>
+</div>
+
+
+<!-- ████ PENDING APPROVAL ████ -->
+<div id="pending" class="screen">
+  <div class="pending-wrap">
+    <div class="pending-icon-big">⏳</div>
+    <h2 class="pending-title">Payment Submitted — Awaiting Approval</h2>
+    <p class="pending-body">Your payment details have been recorded and sent to the FullonBaan team for verification. Once the admin approves your payment, you will receive an <strong>8-character approval code</strong> via WhatsApp or email. Enter that code below to unlock your exam.</p>
+
+    <div class="pending-details-card" id="pending-details">
+      <div class="pending-row">
+        <span class="pending-key">Candidate</span>
+        <span class="pending-val" id="pd-name">—</span>
+      </div>
+      <div class="pending-row">
+        <span class="pending-key">Email</span>
+        <span class="pending-val" id="pd-email">—</span>
+      </div>
+      <div class="pending-row">
+        <span class="pending-key">Exam Track</span>
+        <span class="pending-val" id="pd-track">—</span>
+      </div>
+      <div class="pending-row">
+        <span class="pending-key">UTR / Ref</span>
+        <span class="pending-val" id="pd-utr">—</span>
+      </div>
+      <div class="pending-row">
+        <span class="pending-key">Amount</span>
+        <span class="pending-val">₹499</span>
+      </div>
+      <div class="pending-row">
+        <span class="pending-key">Status</span>
+        <span class="pending-val" style="color:var(--blue);">🕐 Pending Admin Approval</span>
+      </div>
+    </div>
+
+    <div style="background:rgba(79,140,255,.08);border:1px solid rgba(79,140,255,.2);border-radius:12px;padding:16px 20px;font-size:14px;color:var(--textS);line-height:1.7;margin-bottom:24px;text-align:left;">
+      📱 The FullonBaan admin will verify your payment and share an <strong style="color:var(--text);">8-character approval code</strong> with you via WhatsApp or email. As soon as you receive it, enter it below to start your exam immediately.
+    </div>
+
+    <!-- ── Inline Approval Code Entry ── -->
+    <div class="inline-code-card">
+      <div class="inline-code-header">
+        <span style="font-size:20px;">🔑</span>
+        <div>
+          <div style="font-weight:700;font-size:15px;">Already received your approval code?</div>
+          <div style="font-size:12px;color:var(--textM);margin-top:2px;">Enter the 8-character code shared by the admin to unlock your exam instantly.</div>
+        </div>
+      </div>
+      <div class="inline-code-row">
+        <input type="text" id="approval-code-inline" class="unlock-input" placeholder="e.g. AB3F7K2X"
+               maxlength="8" autocomplete="off" spellcheck="false"
+               oninput="this.value=this.value.toUpperCase();document.getElementById('err-code-inline').style.display='none';this.classList.remove('invalid')"
+               onkeydown="if(event.key==='Enter')verifyCode('approval-code-inline','err-code-inline')"
+               style="font-size:18px;letter-spacing:.18em;text-align:center;flex:1;min-width:160px;">
+        <button class="btn btn-success btn-md" onclick="verifyCode('approval-code-inline','err-code-inline')" style="white-space:nowrap;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg>
+          Unlock &amp; Begin Exam
+        </button>
+      </div>
+      <span class="err" id="err-code-inline" style="display:none;font-size:12px;margin-top:6px;">Invalid code — please double-check the code sent by the admin.</span>
+    </div>
+
+    <div class="pending-have-code" style="margin-top:20px;">
+      Questions? Email <a href="mailto:fullonbaan@gmail.com" style="color:var(--blue);">fullonbaan@gmail.com</a>
+    </div>
+  </div>
+</div>
+
+<!-- ████ UNLOCK / CODE ENTRY ████ -->
+<div id="unlock" class="screen">
+  <div class="unlock-wrap">
+    <div class="unlock-lock-icon">🔑</div>
+    <h2 class="unlock-title">Enter Your Approval Code</h2>
+    <p class="unlock-body">Enter the 8-character code shared by the FullonBaan admin after verifying your payment. The code is case-insensitive.</p>
+    <div class="unlock-input-wrap">
+      <input type="text" id="approval-code-input" class="unlock-input" placeholder="e.g. AB3F7K2X"
+             maxlength="8" autocomplete="off" spellcheck="false"
+             oninput="this.value=this.value.toUpperCase();document.getElementById('err-code').style.display='none';this.classList.remove('invalid')"
+             onkeydown="if(event.key==='Enter')verifyCode('approval-code-input','err-code')">
+      <button class="btn btn-primary btn-md" onclick="verifyCode('approval-code-input','err-code')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Unlock Exam
+      </button>
+    </div>
+    <span class="err" id="err-code" style="display:none;font-size:13px;">Invalid code. Please check with the admin.</span>
+    <div class="unlock-back-link" onclick="showScreen('pending')">← Back to waiting screen</div>
+  </div>
+</div>
+
+<!-- ████ RESUME MODAL (hidden, shown via JS) ████ -->
+<div id="resume-modal-overlay" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closeResumeModal()">
+  <div class="resume-modal-box">
+    <button class="resume-modal-close" onclick="closeResumeModal()" title="Close">✕</button>
+    <div style="font-size:36px;margin-bottom:10px;">🔑</div>
+    <div class="resume-modal-title">Resume Your Exam</div>
+    <p class="resume-modal-body">Already paid but closed the browser? Enter your registered email and the 8-character approval code the admin shared with you — your exam will pick up right where it left off.</p>
+    <div class="resume-banner" id="resume-banner"></div>
+    <div class="resume-field">
+      <label for="resume-email">Registered Email Address</label>
+      <input type="email" id="resume-email" placeholder="e.g. priya@company.com" autocomplete="email"
+             oninput="document.getElementById('resume-email').classList.remove('invalid');hideResumeBanner()"
+             onkeydown="if(event.key==='Enter')document.getElementById('resume-code').focus()">
+    </div>
+    <div class="resume-field">
+      <label for="resume-code">Approval Code (8 characters)</label>
+      <input type="text" id="resume-code" class="code-field" placeholder="e.g. AB3F7K2X"
+             maxlength="8" autocomplete="off" spellcheck="false"
+             oninput="this.value=this.value.toUpperCase();this.classList.remove('invalid');hideResumeBanner()"
+             onkeydown="if(event.key==='Enter')resumeWithCode()">
+    </div>
+    <button class="btn btn-success" style="width:100%;margin-top:4px;" onclick="resumeWithCode()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg>
+      Verify &amp; Begin Exam
+    </button>
+    <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--textM);">
+      Code not received yet? Email <a href="mailto:fullonbaan@gmail.com" style="color:var(--blue);">fullonbaan@gmail.com</a>
+    </div>
+  </div>
+</div>
+
+<!-- ████ ADMIN LOGIN ████ -->
+<div id="admin-login" class="screen">
+  <div class="admin-login-wrap">
+    <div class="admin-login-icon">🛡️</div>
+    <h2 class="admin-login-title">Admin Access</h2>
+    <p class="admin-login-body">Enter the admin password to access the payment verification dashboard.</p>
+    <input type="password" id="admin-pw-input" class="admin-pw-input" placeholder="Admin password"
+           onkeydown="if(event.key==='Enter')adminLogin()">
+    <div class="err err-admin-pw" id="err-admin-pw">Incorrect password. Please try again.</div>
+    <button class="btn btn-primary" style="width:100%;" onclick="adminLogin()">Sign In to Dashboard</button>
+    <div style="margin-top:20px;"><a href="javascript:void(0)" onclick="goHome()" style="font-size:13px;color:var(--textM);">← Back to Portal</a></div>
+  </div>
+</div>
+
+<!-- ████ ADMIN DASHBOARD ████ -->
+<div id="admin-dashboard" class="screen">
+  <div class="admin-wrap">
+    <div class="admin-topbar">
+      <div class="admin-topbar-title">Payment Verification Dashboard</div>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-ghost btn-sm" onclick="loadAdminDashboard()">↻ Refresh</button>
+        <button class="btn btn-ghost btn-sm" onclick="adminLogout()">Sign Out</button>
+      </div>
+    </div>
+
+    <div class="admin-stats" id="admin-stats">
+      <div class="admin-stat"><div class="admin-stat-val" id="stat-total">0</div><div class="admin-stat-lbl">Total</div></div>
+      <div class="admin-stat"><div class="admin-stat-val" id="stat-pending" style="color:#f5a623;">0</div><div class="admin-stat-lbl">Pending</div></div>
+      <div class="admin-stat"><div class="admin-stat-val" id="stat-approved" style="color:#00c878;">0</div><div class="admin-stat-lbl">Approved</div></div>
+      <div class="admin-stat"><div class="admin-stat-val" id="stat-completed" style="color:var(--blue);">0</div><div class="admin-stat-lbl">Completed</div></div>
+      <div class="admin-stat"><div class="admin-stat-val" id="stat-rejected" style="color:#dc3232;">0</div><div class="admin-stat-lbl">Rejected</div></div>
+    </div>
+
+    <div class="admin-filter-row">
+      <button class="admin-filter-btn active" data-filter="all" onclick="setAdminFilter('all',this)">All</button>
+      <button class="admin-filter-btn" data-filter="pending" onclick="setAdminFilter('pending',this)">Pending</button>
+      <button class="admin-filter-btn" data-filter="approved" onclick="setAdminFilter('approved',this)">Approved</button>
+      <button class="admin-filter-btn" data-filter="completed" onclick="setAdminFilter('completed',this)">Completed</button>
+      <button class="admin-filter-btn" data-filter="rejected" onclick="setAdminFilter('rejected',this)">Rejected</button>
+    </div>
+
+    <div id="submissions-list"></div>
   </div>
 </div>
 
@@ -2194,7 +2569,7 @@ function selectTrack(t){
    REGISTRATION & START
 ══════════════════════════════════════════ */
 /* payment state */
-let utrSubmitted='', paymentVerified=false;
+let utrSubmitted='', paymentVerified=false, currentRegId='';
 
 function startExam(){
   if(!track){ toast('Please select a certification track first.','☝️'); return; }
@@ -2290,9 +2665,30 @@ function submitUTR(){
     return;
   }
   utrSubmitted=utr;
-  // Notify admin via EmailJS (best-effort — won't block exam access)
+
+  // Build a unique registration ID
+  const regId='FOB-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).slice(2,6).toUpperCase();
+  currentRegId=regId;
+
+  // Capture screenshot dataURL if provided
+  const imgEl=document.getElementById('screenshot-img');
+  const screenshotData=imgEl&&imgEl.src&&imgEl.src.startsWith('data:')?imgEl.src:'';
+
+  // Save submission to localStorage
+  const submissions=JSON.parse(localStorage.getItem('fob_submissions')||'[]');
+  submissions.push({
+    regId, name:candidate.name, email:candidate.email,
+    phone:candidate.mob||'', examId:track,
+    txnId:utr, screenshot:screenshotData,
+    status:'pending', approvalCode:'', approvedAt:'',
+    submittedAt:new Date().toISOString()
+  });
+  localStorage.setItem('fob_submissions',JSON.stringify(submissions));
+
+  // Notify admin via EmailJS (best-effort)
   notifyAdminPayment(utr);
-  // Show pending confirmation and unlock exam
+
+  // Navigate to pending screen
   showPendingAndProceed(utr);
 }
 
@@ -2344,32 +2740,15 @@ async function notifyAdminPayment(utr){
 }
 
 function showPendingAndProceed(utr){
-  // Replace payment card with pending banner + proceed button
-  const card=document.querySelector('.pay-card');
-  card.innerHTML=`
-    <div class="pay-pending-banner">
-      <div class="pay-pending-icon">⏳</div>
-      <div style="flex:1;">
-        <div class="pay-pending-title">Payment Submitted — Thank You!</div>
-        <div class="pay-pending-body">Your UTR has been recorded. Our team will cross-verify it against the UPI statement shortly. Your exam access is now unlocked — please proceed immediately.</div>
-        <div class="pay-pending-meta">
-          <div class="pay-pending-row"><span class="pay-pending-key">UTR / Ref</span><span class="pay-pending-val">${utr}</span></div>
-          <div class="pay-pending-row"><span class="pay-pending-key">Amount</span><span class="pay-pending-val">₹${EXAM_PRICE}</span></div>
-          <div class="pay-pending-row"><span class="pay-pending-key">Track</span><span class="pay-pending-val">${TRACKS[track].label}</span></div>
-          <div class="pay-pending-row"><span class="pay-pending-key">Candidate</span><span class="pay-pending-val">${candidate.name} &nbsp;·&nbsp; ${candidate.email}</span></div>
-          <div class="pay-pending-row"><span class="pay-pending-key">Time</span><span class="pay-pending-val">${new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'})}</span></div>
-        </div>
-        <div style="margin-top:6px;font-size:12px;color:var(--textM);">📧 A confirmation will be sent to <strong>${candidate.email}</strong> once verified. Keep your UTR safe.</div>
-      </div>
-    </div>
-    <div style="text-align:center;padding:8px 0 4px;">
-      <button class="btn btn-success btn-xl" onclick="beginExamAfterPayment()" style="max-width:380px;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg>
-        Begin Exam Now
-      </button>
-      <div style="font-size:12px;color:var(--textM);margin-top:10px;">⚠️ The 45-minute timer starts as soon as you click above. Do not close this window.</div>
-    </div>`;
-  window.scrollTo({top:0,behavior:'smooth'});
+  // Populate the pending screen with submission details
+  const el=id=>document.getElementById(id);
+  if(el('pd-name'))el('pd-name').textContent=candidate.name||'—';
+  if(el('pd-email'))el('pd-email').textContent=candidate.email||'—';
+  if(el('pd-track'))el('pd-track').textContent=TRACKS[track]?TRACKS[track].label:'—';
+  if(el('pd-utr'))el('pd-utr').textContent=utr||'—';
+  // Also store regId on the unlock screen so verifyApprovalCode can find the submission
+  if(el('approval-code-input'))el('approval-code-input').dataset.regId=currentRegId||'';
+  showScreen('pending');
 }
 
 function beginExamAfterPayment(){
@@ -2384,6 +2763,348 @@ function beginExamAfterPayment(){
   document.getElementById('ctrack').textContent=TRACKS[track].label;
   document.getElementById('prog-bar').className='prog-bar'+(track!=='dev'?' '+track:'');
   showScreen('exam');renderDots();renderQ();startTimer();
+}
+
+/* ══════════════════════════════════════════
+   UPI DEEP-LINK HELPERS
+══════════════════════════════════════════ */
+function openUpiApp(app){
+  const upiStr=`upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_NAME)}&am=${EXAM_PRICE}&cu=INR&tn=${encodeURIComponent('FullonBaan Exam Fee')}`;
+  const appLinks={
+    gpay:`tez://upi/pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_NAME)}&am=${EXAM_PRICE}&cu=INR&tn=${encodeURIComponent('FullonBaan Exam Fee')}`,
+    phonepe:`phonepe://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_NAME)}&am=${EXAM_PRICE}&cu=INR&tn=${encodeURIComponent('FullonBaan Exam Fee')}`,
+    paytm:`paytmmp://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_NAME)}&am=${EXAM_PRICE}&cu=INR&tn=${encodeURIComponent('FullonBaan Exam Fee')}`,
+    bhim:upiStr
+  };
+  const fallbacks={
+    gpay:'https://pay.google.com/intl/en_in/about/pay/',
+    phonepe:'https://www.phonepe.com/en/',
+    paytm:'https://paytm.com/',
+    bhim:'https://www.bhimupi.org.in/'
+  };
+  const deepLink=appLinks[app]||upiStr;
+  const start=Date.now();
+  window.location.href=deepLink;
+  setTimeout(()=>{
+    if(Date.now()-start<2000) window.open(fallbacks[app]||'https://upi.link/','_blank');
+  },1500);
+}
+
+/* ══════════════════════════════════════════
+   SCREENSHOT HELPERS
+══════════════════════════════════════════ */
+function handleScreenshotSelect(input){
+  const file=input.files[0];
+  if(!file)return;
+  if(!file.type.startsWith('image/')){toast('Please upload an image file','⚠️');return;}
+  const reader=new FileReader();
+  reader.onload=e=>showScreenshotPreview(e.target.result);
+  reader.readAsDataURL(file);
+}
+function handleScreenshotDrop(e){
+  e.preventDefault();
+  document.getElementById('screenshot-zone').classList.remove('drag-over');
+  const file=e.dataTransfer.files[0];
+  if(!file||!file.type.startsWith('image/')){toast('Please drop an image file','⚠️');return;}
+  const reader=new FileReader();
+  reader.onload=ev=>showScreenshotPreview(ev.target.result);
+  reader.readAsDataURL(file);
+}
+function showScreenshotPreview(dataUrl){
+  const img=document.getElementById('screenshot-img');
+  img.src=dataUrl;
+  const preview=document.getElementById('screenshot-preview');
+  preview.style.display='block';
+}
+function clearScreenshot(){
+  document.getElementById('screenshot-img').src='';
+  document.getElementById('screenshot-preview').style.display='none';
+  document.getElementById('screenshot-input').value='';
+}
+
+/* ══════════════════════════════════════════
+   APPROVAL CODE — deterministic, cross-device
+══════════════════════════════════════════ */
+const ADMIN_PASSWORD='Admin@FOB2024'; // Change to match your admin password
+
+function hashStr(str){
+  /* Simple deterministic numeric hash → 8 alphanum chars */
+  let h=0;
+  for(let i=0;i<str.length;i++){h=Math.imul(31,h)+str.charCodeAt(i)|0;}
+  const abs=Math.abs(h)>>>0;
+  return abs.toString(36).toUpperCase().padStart(8,'0').slice(-8);
+}
+function generateApprovalCode(regId){
+  return hashStr(ADMIN_PASSWORD+'|'+regId);
+}
+
+/* Shared code-verification logic — called from both pending screen and unlock screen */
+function verifyCode(inputId, errId){
+  const inp=document.getElementById(inputId);
+  const err=document.getElementById(errId);
+  const entered=(inp.value||'').trim().toUpperCase();
+
+  if(!entered||entered.length<8){
+    err.textContent='Please enter the full 8-character code.';
+    err.style.display='block';inp.classList.add('invalid');return;
+  }
+
+  // Find the matching submission
+  const submissions=JSON.parse(localStorage.getItem('fob_submissions')||'[]');
+  let sub=null;
+  // First try the exact reg ID stored on the input element or in currentRegId
+  const storedReg=(inp.dataset&&inp.dataset.regId)||currentRegId;
+  if(storedReg){sub=submissions.find(s=>s.regId===storedReg);}
+  // Fallback: latest non-rejected submission for this candidate/track
+  if(!sub&&candidate&&candidate.email){
+    const matches=submissions.filter(s=>s.email===candidate.email&&s.examId===track&&s.status!=='rejected');
+    if(matches.length) sub=matches.sort((a,b)=>new Date(b.submittedAt)-new Date(a.submittedAt))[0];
+  }
+
+  if(!sub){
+    err.textContent='No pending submission found. Please go back and re-submit payment details.';
+    err.style.display='block';inp.classList.add('invalid');return;
+  }
+
+  // Block if exam already completed with this code
+  if(sub.status==='completed'){
+    err.textContent='This exam has already been completed. Each approval code can only be used once. Please contact fullonbaan@gmail.com if you need assistance.';
+    err.style.display='block';inp.classList.add('invalid');return;
+  }
+
+  const expected=generateApprovalCode(sub.regId);
+  if(entered!==expected){
+    err.textContent='Invalid code — please double-check the code sent by the admin.';
+    err.style.display='block';inp.classList.add('invalid');return;
+  }
+
+  // ✅ Code is valid — mark approved and launch exam
+  err.style.display='none';inp.classList.remove('invalid');
+  sub.status='approved';sub.approvedAt=new Date().toISOString();
+  const idx=submissions.findIndex(s=>s.regId===sub.regId);
+  if(idx>=0){submissions[idx]=sub;localStorage.setItem('fob_submissions',JSON.stringify(submissions));}
+  toast('Code verified! Starting your exam…','🎉');
+  setTimeout(()=>beginExamAfterPayment(),1200);
+}
+
+/* Legacy alias — keeps any old call sites working */
+function verifyApprovalCode(){verifyCode('approval-code-input','err-code');}
+
+/* ══════════════════════════════════════════
+   RESUME EXAM FROM HOME PAGE
+   Works even if the user closed the browser —
+   looks up submission in localStorage by email.
+══════════════════════════════════════════ */
+function showResumeModal(){
+  document.getElementById('resume-modal-overlay').style.display='flex';
+  document.getElementById('resume-email').value='';
+  document.getElementById('resume-code').value='';
+  document.getElementById('resume-email').classList.remove('invalid');
+  document.getElementById('resume-code').classList.remove('invalid');
+  hideResumeBanner();
+  setTimeout(()=>document.getElementById('resume-email').focus(),100);
+}
+function closeResumeModal(){
+  document.getElementById('resume-modal-overlay').style.display='none';
+}
+function hideResumeBanner(){
+  const b=document.getElementById('resume-banner');
+  b.style.display='none';b.textContent='';
+}
+function showResumeBanner(msg,isError){
+  const b=document.getElementById('resume-banner');
+  b.textContent=msg;
+  b.style.display='block';
+  b.style.background=isError?'rgba(220,50,50,.08)':'rgba(0,200,120,.08)';
+  b.style.borderColor=isError?'rgba(220,50,50,.25)':'rgba(0,200,120,.2)';
+  b.style.color=isError?'var(--red,#e05)':'var(--emerald,#00c878)';
+}
+
+function resumeWithCode(){
+  const emailEl=document.getElementById('resume-email');
+  const codeEl=document.getElementById('resume-code');
+  const email=(emailEl.value||'').trim().toLowerCase();
+  const entered=(codeEl.value||'').trim().toUpperCase();
+
+  // Basic validation
+  let hasError=false;
+  if(!email||!email.includes('@')){emailEl.classList.add('invalid');hasError=true;}
+  if(!entered||entered.length<8){codeEl.classList.add('invalid');hasError=true;}
+  if(hasError){showResumeBanner('Please fill in both fields correctly.', true);return;}
+
+  // Find all non-rejected submissions for this email
+  const submissions=JSON.parse(localStorage.getItem('fob_submissions')||'[]');
+  const candidates=submissions.filter(s=>
+    (s.email||'').toLowerCase()===email && s.status!=='rejected'
+  ).sort((a,b)=>new Date(b.submittedAt)-new Date(a.submittedAt));
+
+  if(!candidates.length){
+    emailEl.classList.add('invalid');
+    showResumeBanner('No pending submission found for this email. Please check the email address or re-register.', true);
+    return;
+  }
+
+  // Try to match approval code against any of the candidate's submissions
+  let matched=null;
+  for(const sub of candidates){
+    const expected=generateApprovalCode(sub.regId);
+    if(entered===expected){matched=sub;break;}
+  }
+
+  if(!matched){
+    codeEl.classList.add('invalid');
+    showResumeBanner('Invalid approval code. Please double-check the code shared by the admin.', true);
+    return;
+  }
+
+  // Block if exam already taken with this code
+  if(matched.status==='completed'){
+    codeEl.classList.add('invalid');
+    showResumeBanner('This exam has already been completed and cannot be retaken with the same code. Please contact fullonbaan@gmail.com if you need assistance.', true);
+    return;
+  }
+
+  // ✅ Match found — restore session state from stored submission
+  candidate={
+    name : matched.name  || 'Candidate',
+    email: matched.email || email,
+    mob  : matched.phone || ''
+  };
+  track=matched.examId||'dev';
+  utrSubmitted=matched.txnId||'';
+  currentRegId=matched.regId||'';
+
+  // Mark as approved in localStorage
+  matched.status='approved';
+  matched.approvedAt=new Date().toISOString();
+  const idx=submissions.findIndex(s=>s.regId===matched.regId);
+  if(idx>=0){submissions[idx]=matched;localStorage.setItem('fob_submissions',JSON.stringify(submissions));}
+
+  closeResumeModal();
+  toast('Welcome back, '+candidate.name.split(' ')[0]+'! Starting your exam…','🎉');
+  setTimeout(()=>beginExamAfterPayment(), 1200);
+}
+
+/* ══════════════════════════════════════════
+   ADMIN PANEL
+══════════════════════════════════════════ */
+let adminFilter='all';
+function adminLogin(){
+  const pw=document.getElementById('admin-pw-input').value;
+  if(pw===ADMIN_PASSWORD){
+    document.getElementById('err-admin-pw').style.display='none';
+    document.getElementById('admin-pw-input').classList.remove('invalid');
+    document.getElementById('admin-pw-input').value='';
+    loadAdminDashboard();
+    showScreen('admin-dashboard');
+  }else{
+    document.getElementById('err-admin-pw').style.display='block';
+    document.getElementById('admin-pw-input').classList.add('invalid');
+  }
+}
+function adminLogout(){
+  showScreen('home');
+}
+function setAdminFilter(filter,btn){
+  adminFilter=filter;
+  document.querySelectorAll('.admin-filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderSubmissions();
+}
+function loadAdminDashboard(){
+  const submissions=JSON.parse(localStorage.getItem('fob_submissions')||'[]');
+  const total=submissions.length;
+  const pending=submissions.filter(s=>s.status==='pending').length;
+  const approved=submissions.filter(s=>s.status==='approved').length;
+  const rejected=submissions.filter(s=>s.status==='rejected').length;
+  const completed=submissions.filter(s=>s.status==='completed').length;
+  document.getElementById('stat-total').textContent=total;
+  document.getElementById('stat-pending').textContent=pending;
+  document.getElementById('stat-approved').textContent=approved;
+  document.getElementById('stat-rejected').textContent=rejected;
+  const sc=document.getElementById('stat-completed');
+  if(sc)sc.textContent=completed;
+  renderSubmissions();
+}
+function renderSubmissions(){
+  const submissions=JSON.parse(localStorage.getItem('fob_submissions')||'[]');
+  const filtered=adminFilter==='all'?submissions:submissions.filter(s=>s.status===adminFilter);
+  const list=document.getElementById('submissions-list');
+  if(!filtered.length){list.innerHTML='<div class="admin-empty">No submissions found.</div>';return;}
+  // Sort newest first
+  filtered.sort((a,b)=>new Date(b.submittedAt)-new Date(a.submittedAt));
+  list.innerHTML=filtered.map(s=>{
+    const code=generateApprovalCode(s.regId);
+    const badgeClass=s.status==='approved'?'badge-approved':s.status==='rejected'?'badge-rejected':s.status==='completed'?'badge-completed':'badge-pending';
+    const badgeLabel=s.status.charAt(0).toUpperCase()+s.status.slice(1);
+    const screenshotHtml=s.screenshot?`<div class="submission-screenshot"><img src="${s.screenshot}" alt="Screenshot" onclick="openImageModal('${s.screenshot}')"></div>`:'';
+    const submittedTime=s.submittedAt?new Date(s.submittedAt).toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}):'—';
+    return `<div class="submission-card" data-regid="${s.regId}">
+      <div class="submission-card-top">
+        <div>
+          <div class="submission-name">${escHtml(s.name)}</div>
+          <div class="submission-email">${escHtml(s.email)}${s.phone?' · '+escHtml(s.phone):''}</div>
+        </div>
+        <span class="submission-badge ${badgeClass}">${badgeLabel}</span>
+      </div>
+      <div class="submission-meta-grid">
+        <div class="submission-meta-item"><strong>${escHtml(s.txnId)}</strong>UTR / Ref</div>
+        <div class="submission-meta-item"><strong>${escHtml(s.examId?s.examId.toUpperCase():'—')}</strong>Track</div>
+        <div class="submission-meta-item"><strong>₹499</strong>Amount</div>
+        <div class="submission-meta-item"><strong>${submittedTime}</strong>Submitted</div>
+        <div class="submission-meta-item"><strong>${escHtml(s.regId)}</strong>Reg ID</div>
+      </div>
+      ${screenshotHtml}
+      <div class="submission-actions">
+        ${s.status==='pending'?`
+          <button class="btn btn-success btn-sm" onclick="approveSubmission('${s.regId}')">✓ Approve</button>
+          <button class="btn btn-ghost btn-sm" style="color:var(--red,#e05);border-color:var(--red,#e05);" onclick="rejectSubmission('${s.regId}')">✗ Reject</button>`
+        :s.status==='approved'?`<button class="btn btn-ghost btn-sm" onclick="rejectSubmission('${s.regId}')">✗ Reject</button>`
+        :s.status==='completed'?`<span style="font-size:12px;color:var(--textM);">✅ Exam completed — code locked</span>`
+        :`<button class="btn btn-ghost btn-sm" onclick="approveSubmission('${s.regId}')">✓ Approve</button>`}
+        <div>
+          <div style="font-size:11px;color:var(--textM);margin-bottom:4px;">Approval Code (share with student):</div>
+          <div class="code-chip" title="Click to copy" onclick="copyCode('${code}','${s.regId}')">${code}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function approveSubmission(regId){
+  updateSubmissionStatus(regId,'approved');
+  toast('Submission approved','✅');
+}
+function rejectSubmission(regId){
+  if(!confirm('Reject this submission?'))return;
+  updateSubmissionStatus(regId,'rejected');
+  toast('Submission rejected','❌');
+}
+function updateSubmissionStatus(regId,status){
+  const submissions=JSON.parse(localStorage.getItem('fob_submissions')||'[]');
+  const idx=submissions.findIndex(s=>s.regId===regId);
+  if(idx>=0){
+    submissions[idx].status=status;
+    if(status==='approved')submissions[idx].approvedAt=new Date().toISOString();
+    localStorage.setItem('fob_submissions',JSON.stringify(submissions));
+  }
+  loadAdminDashboard();
+}
+function copyCode(code,regId){
+  navigator.clipboard.writeText(code).then(()=>{
+    const chip=document.querySelector(`[data-regid="${regId}"] .code-chip`);
+    if(chip){const orig=chip.textContent;chip.textContent='Copied!';setTimeout(()=>chip.textContent=orig,2000);}
+    toast('Code copied: '+code,'📋');
+  }).catch(()=>toast('Code: '+code+' (copy manually)','📋'));
+}
+function openImageModal(src){
+  const overlay=document.createElement('div');
+  overlay.className='modal-overlay';
+  overlay.innerHTML=`<div class="modal-close-btn" onclick="this.parentElement.remove()">✕</div><img src="${src}" alt="Screenshot">`;
+  overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.remove();});
+  document.body.appendChild(overlay);
+}
+function escHtml(s){
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 
@@ -2467,7 +3188,30 @@ function submitExam(auto=false){
   const ua=QS.filter(q=>!answers[q.id]||!answers[q.id].length).length;
   if(!auto&&ua>0&&!confirm(`${ua} question(s) unanswered. Submit anyway?`))return;
   clearInterval(timerInt);
+  // Mark this submission as completed so the same code cannot be reused
+  markSubmissionCompleted();
   showResults();
+}
+
+function markSubmissionCompleted(){
+  if(!currentRegId&&!(candidate&&candidate.email))return;
+  const submissions=JSON.parse(localStorage.getItem('fob_submissions')||'[]');
+  let idx=-1;
+  // Prefer exact regId match
+  if(currentRegId) idx=submissions.findIndex(s=>s.regId===currentRegId);
+  // Fallback: latest approved submission for this candidate/track
+  if(idx<0&&candidate&&candidate.email){
+    idx=submissions.map((s,i)=>({s,i}))
+      .filter(({s})=>(s.email||'').toLowerCase()===(candidate.email||'').toLowerCase()
+                    && s.examId===track && s.status==='approved')
+      .sort((a,b)=>new Date(b.s.approvedAt||b.s.submittedAt)-new Date(a.s.approvedAt||a.s.submittedAt))
+      .map(({i})=>i)[0]??-1;
+  }
+  if(idx>=0){
+    submissions[idx].status='completed';
+    submissions[idx].completedAt=new Date().toISOString();
+    localStorage.setItem('fob_submissions',JSON.stringify(submissions));
+  }
 }
 
 async function showResults(){
@@ -2803,6 +3547,22 @@ function goHome(){
   clearInterval(examTimer);
   showScreen('home');
 }
+
+/* ══════════════════════════════════════════
+   HASH ROUTING  — open admin directly via #admin
+══════════════════════════════════════════ */
+(function initHashRouting(){
+  function handleHash(){
+    if(window.location.hash==='#admin'){showScreen('admin-login');}
+  }
+  window.addEventListener('hashchange',handleHash);
+  // Run on page load after DOM is ready
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',handleHash);
+  }else{
+    handleHash();
+  }
+})();
 </script>
 </body>
 </html>
