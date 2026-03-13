@@ -1017,7 +1017,7 @@ canvas#cert-canvas{display:none;}
   background:var(--surf2);border:1px solid var(--rim);cursor:pointer;transition:background .15s,border-color .15s,transform .15s;
   font-size:11px;font-weight:600;color:var(--text);text-decoration:none;user-select:none;}
 .upi-app-chip:hover{background:rgba(79,140,255,.08);border-color:var(--blue);transform:translateY(-2px);}
-.upi-app-chip svg,.upi-app-chip img{width:32px;height:32px;border-radius:8px;}
+.upi-app-chip svg,.upi-app-chip img{width:40px;height:40px;border-radius:9px;}
 
 /* ════════════════════════════════════════
    SCREENSHOT UPLOAD
@@ -1546,22 +1546,81 @@ canvas#cert-canvas{display:none;}
       <div class="upi-app-section">
         <div class="upi-app-label">Or open your UPI app directly</div>
         <div class="upi-app-grid">
+
+          <!-- Google Pay -->
           <a class="upi-app-chip" onclick="openUpiApp('gpay')" href="javascript:void(0)">
-            <svg width="32" height="32" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#fff"/><text x="4" y="34" font-size="26" font-family="Arial">G</text><text x="18" y="34" font-size="26" font-family="Arial" fill="#4285F4">P</text></svg>
+            <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="9" fill="#fff" stroke="#e0e0e0" stroke-width=".8"/>
+              <!-- 4-colour G ring -->
+              <path d="M20 5 A15 15 0 0 0 5 20 L11 20 A9 9 0 0 1 20 11 Z" fill="#EA4335"/>
+              <path d="M5 20 A15 15 0 0 0 20 35 L20 29 A9 9 0 0 1 11 20 Z" fill="#FBBC04"/>
+              <path d="M20 35 A15 15 0 0 0 35 20 L29 20 A9 9 0 0 1 20 29 Z" fill="#34A853"/>
+              <path d="M35 20 A15 15 0 0 0 20 5 L20 11 A9 9 0 0 1 29 20 Z" fill="#4285F4"/>
+              <!-- White inner circle -->
+              <circle cx="20" cy="20" r="9" fill="#fff"/>
+              <!-- Blue G crossbar -->
+              <rect x="20" y="17.5" width="8.5" height="5" fill="#4285F4" rx="1.2"/>
+            </svg>
             Google Pay
           </a>
+
+          <!-- PhonePe -->
           <a class="upi-app-chip" onclick="openUpiApp('phonepe')" href="javascript:void(0)">
-            <svg width="32" height="32" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#5f259f"/><text x="8" y="34" font-size="22" font-family="Arial" fill="#fff">Pe</text></svg>
+            <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="9" fill="#5f259f"/>
+              <!-- P: vertical stem -->
+              <rect x="9" y="10" width="4.5" height="21" fill="#fff" rx="2"/>
+              <!-- P: bowl (semicircle right of stem) -->
+              <path d="M13.5 10 Q23 10 23 16 Q23 22 13.5 22" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- h: vertical stem -->
+              <rect x="25" y="10" width="4.5" height="21" fill="#fff" rx="2"/>
+              <!-- h: arch leg -->
+              <path d="M29.5 18.5 Q34 18.5 34 23 L34 31 L29.5 31 L29.5 24 Q29.5 22 27.5 22 L25 22" fill="#fff"/>
+              <!-- Upward arrow above h — PhonePe's signature -->
+              <polygon points="27.5,4 23.5,11 31.5,11" fill="#fff"/>
+            </svg>
             PhonePe
           </a>
+
+          <!-- Paytm -->
           <a class="upi-app-chip" onclick="openUpiApp('paytm')" href="javascript:void(0)">
-            <svg width="32" height="32" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#00baf2"/><text x="4" y="32" font-size="16" font-family="Arial" fill="#fff" font-weight="bold">PAYTM</text></svg>
+            <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="9" fill="#002970"/>
+              <!-- Cyan P icon, top-left -->
+              <rect x="7" y="8" width="4" height="14" fill="#00baf2" rx="1.5"/>
+              <path d="M11 8 Q18 8 18 14 Q18 20 11 20" fill="none" stroke="#00baf2" stroke-width="4" stroke-linecap="round"/>
+              <!-- White "aytm" beside P -->
+              <text x="28" y="18" text-anchor="middle" font-size="9.5" font-family="Arial,sans-serif" font-weight="800" fill="#fff">aytm</text>
+              <!-- Cyan rule -->
+              <rect x="7" y="25" width="26" height="2.5" fill="#00baf2" rx="1.2"/>
+              <!-- White tagline -->
+              <text x="20" y="34" text-anchor="middle" font-size="7" font-family="Arial,sans-serif" fill="#7bb8e8">Paytm</text>
+            </svg>
             Paytm
           </a>
+
+          <!-- BHIM UPI (India's official UPI app) -->
           <a class="upi-app-chip" onclick="openUpiApp('bhim')" href="javascript:void(0)">
-            <svg width="32" height="32" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#00529b"/><text x="6" y="32" font-size="18" font-family="Arial" fill="#fff" font-weight="bold">BHIM</text></svg>
+            <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <clipPath id="bhim-clip">
+                  <rect width="40" height="40" rx="9"/>
+                </clipPath>
+              </defs>
+              <!-- Navy base -->
+              <rect width="40" height="40" rx="9" fill="#003087"/>
+              <!-- Indian tricolour bands -->
+              <rect x="0" y="0" width="40" height="8" fill="#FF9933" clip-path="url(#bhim-clip)"/>
+              <rect x="0" y="8" width="40" height="5" fill="#fff" opacity=".2"/>
+              <rect x="0" y="33" width="40" height="7" fill="#138808" clip-path="url(#bhim-clip)"/>
+              <!-- Ashoka-style small circle (centre dot) -->
+              <circle cx="20" cy="10.5" r="2" fill="#003087"/>
+              <!-- Bold BHIM lettering -->
+              <text x="20" y="27" text-anchor="middle" font-size="13.5" font-family="Arial,sans-serif" font-weight="900" fill="#fff" letter-spacing="1.8">BHIM</text>
+            </svg>
             BHIM
           </a>
+
         </div>
       </div>
 
@@ -2414,7 +2473,8 @@ const QS_SCM=[
    opts:[{k:'a',t:'It is a one-time purchase request raised by a department.'},{k:'b',t:'It is a long-term agreement with a supplier that defines pricing, terms, and conditions for future purchases.'},{k:'c',t:'It is the document that physically records goods received from a supplier.'},{k:'d',t:'It is used exclusively for inter-company purchase transactions.'}],correct:['b']},
   {id:2,cat:'po',cl:'ch-po',catL:'Purchasing',diff:'simple',dc:'ch-s',pts:2,multi:true,
    text:'Which of the following are valid statuses for a Purchase Order in Infor LN?',
-   opts:[{k:'a',t:'Open'},{k:'b',t:'Confirmed'},{k:'c',t:'Closed'},{k:'d',t:'Invoiced'}],correct:['a','b','c','d']},
+   opts:[{k:'a',t:'Free'},{k:'b',t:'Confirmed'},{k:'c',t:'Closed'},{k:'d',t:'Invoiced'}],correct:['a','b','c'],
+   explanation:'"Free" (not "Open") is the initial Purchase Order header status in Infor LN (pur.hdst domain). "Confirmed" and "Closed" are also valid PO header statuses. "Invoiced" is NOT a PO header status — invoice matching is handled separately in the AP module (tfacp).'},
   {id:3,cat:'po',cl:'ch-po',catL:'Purchasing',diff:'simple',dc:'ch-s',pts:2,multi:false,
    text:'What is a "Purchase Requisition" (PR) in Infor LN?',
    opts:[{k:'a',t:'An internal request from a department or MRP to procure goods or services, which can be converted into a Purchase Order.'},{k:'b',t:'The document sent to the supplier confirming the order.'},{k:'c',t:'A goods receipt document created when items arrive in the warehouse.'},{k:'d',t:'A financial document that records the supplier liability.'}],correct:['a']},
@@ -2526,7 +2586,8 @@ const QS_MFG=[
    opts:[{k:'a',t:'The production order is deleted from the system.'},{k:'b',t:'Materials are reserved, operations are scheduled, and the order becomes visible to the shop floor for execution.'},{k:'c',t:'Actual costs are automatically posted to the General Ledger.'},{k:'d',t:'The finished goods are automatically received into inventory.'}],correct:['b']},
   {id:17,cat:'bom',cl:'ch-bom',catL:'BOM & Routing',diff:'simple',dc:'ch-s',pts:2,multi:true,
    text:'Which of the following are valid work centre types in Infor LN Manufacturing?',
-   opts:[{k:'a',t:'Machine work centre'},{k:'b',t:'Labour work centre'},{k:'c',t:'Subcontracting work centre'},{k:'d',t:'Virtual (planning) work centre'}],correct:['a','b','c','d']},
+   opts:[{k:'a',t:'Machine work centre'},{k:'b',t:'Labour work centre'},{k:'c',t:'Subcontracting work centre'},{k:'d',t:'Virtual (planning) work centre'}],correct:['a','b','c'],
+   explanation:'The formal Work Center Type domain (kowc) in Infor LN has three values: Machine, Labour, and Subcontracting. "Virtual (planning) work centre" is NOT a formal work center type in the kowc domain — "virtual" is a routing/planning concept (e.g., virtual operations in a routing), not a work center type classification.'},
   {id:18,cat:'ep',cl:'ch-ep',catL:'MPS / MRP',diff:'simple',dc:'ch-s',pts:2,multi:true,
    text:'Which statements about "Safety Stock" in Infor LN are correct?',
    opts:[{k:'a',t:'Safety stock is a buffer quantity maintained to protect against demand variability and supply uncertainty.'},{k:'b',t:'MRP treats safety stock as additional demand when calculating requirements.'},{k:'c',t:'Safety stock is only applicable to purchased items, not manufactured items.'},{k:'d',t:'Safety stock level can be defined as a fixed quantity or a dynamic coverage time.'}],correct:['a','b','d']},
