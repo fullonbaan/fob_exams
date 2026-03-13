@@ -175,6 +175,25 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 
 .hdr-pill{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);background:rgba(79,140,255,.07);border:1px solid rgba(79,140,255,.18);padding:6px 16px;border-radius:20px;}
 [data-theme="light"] .hdr-pill{background:rgba(59,111,224,.05);border-color:rgba(59,111,224,.14);}
+
+/* ── Header nav links ── */
+.hdr-nav{display:flex;align-items:center;gap:8px;}
+.hdr-nav-btn{
+  display:flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:600;font-family:var(--sans);
+  padding:7px 14px;border-radius:20px;border:1px solid var(--gb2);
+  background:var(--surf2);color:var(--textS);
+  cursor:pointer;text-decoration:none;
+  transition:background var(--dur),color var(--dur),border-color var(--dur),transform var(--dur);
+  white-space:nowrap;
+}
+.hdr-nav-btn:hover{background:var(--surf3);color:var(--text);transform:translateY(-1px);}
+.hdr-nav-btn.gold{border-color:rgba(233,189,85,.28);background:rgba(233,189,85,.07);color:var(--gold);}
+.hdr-nav-btn.gold:hover{background:rgba(233,189,85,.14);color:var(--gold);}
+.hdr-nav-btn.teal{border-color:rgba(45,212,191,.28);background:rgba(45,212,191,.07);color:var(--teal);}
+.hdr-nav-btn.teal:hover{background:rgba(45,212,191,.14);color:var(--teal);}
+@media(max-width:760px){.hdr-nav-btn span.hdr-nav-label{display:none;}.hdr-pill{display:none;}}
+@media(max-width:480px){.hdr-nav{gap:5px;}.hdr-nav-btn{padding:6px 10px;}}
 /* ────────────────────────────────────────────
    SITE FOOTER — PREMIUM
 ──────────────────────────────────────────── */
@@ -1159,6 +1178,18 @@ canvas#cert-canvas{display:none;}
     </div>
   </a>
   <div class="hdr-pill">Infor LN Certification Portal</div>
+
+  <!-- Quick-access nav -->
+  <nav class="hdr-nav">
+    <button class="hdr-nav-btn teal" onclick="showResumeModal()" title="Already paid? Enter approval code">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <span class="hdr-nav-label">Already Paid?</span>
+    </button>
+    <button class="hdr-nav-btn gold" onclick="showScreen('retrieve-cert')" title="Already passed? Re-download certificate">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <span class="hdr-nav-label">Get Certificate</span>
+    </button>
+  </nav>
   <div class="tog-wrap">
     <span class="tog-lbl" id="tog-lbl">Dark</span>
     <div class="tog-track" onclick="toggleTheme()" role="switch" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleTheme()">
@@ -2088,7 +2119,7 @@ emailjs.init(EMAILJS_PUB);
 ══════════════════════════════════════════ */
 const GITHUB_OWNER     = 'fullonbaan';              // your GitHub username / org
 const GITHUB_REPO      = 'fob-cert-store';          // your private repo name
-const GITHUB_TOKEN     = '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'; // PAT with repo scope
+const GITHUB_TOKEN     = 'ghp_REPLACE_WITH_YOUR_TOKEN'; // PAT with repo scope
 const GITHUB_CERT_FILE = 'certs/certificates.json'; // path inside repo
 
 /* ══════════════════════════════════════════
@@ -4197,12 +4228,19 @@ function goHome(){
   showScreen('home');
 }
 
-/* ── Handle #retrieve-cert hash on page load ── */
-window.addEventListener('DOMContentLoaded',()=>{
-  if(window.location.hash==='#retrieve-cert'){
-    showScreen('retrieve-cert');
-  }
-});
+/* ── Hash-based routing — handles deep links on page load ── */
+const HASH_ROUTES = {
+  '#admin'         : 'admin-login',
+  '#retrieve-cert' : 'retrieve-cert',
+  '#pending'       : 'pending',
+  '#unlock'        : 'unlock',
+};
+function handleHash(){
+  const target = HASH_ROUTES[window.location.hash];
+  if(target) showScreen(target);
+}
+window.addEventListener('DOMContentLoaded', handleHash);
+window.addEventListener('hashchange', handleHash);
 </script>
 </body>
 </html>
