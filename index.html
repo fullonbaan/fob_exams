@@ -2126,7 +2126,8 @@ const QS_DEV=[
    opts:[{k:'a',t:"Run 'Create table' first for physical creation, then 'Convert to Runtime DD'."},{k:'b',t:"Run 'Convert to Runtime DD' first (creates definitions), then 'Create table' to physically create the table in the database."},{k:'c',t:"Both operations are independent and can be done in any order."},{k:'d',t:"Only 'Convert to Runtime DD' is needed — 'Create table' is automatic."}],correct:['b']},
   {id:20,cat:'fn',cl:'ch-fn',catL:'Functional',diff:'simple',dc:'ch-s',pts:2,multi:false,
    text:'In Infor LN, can a line of a Sales Order be deleted?',
-   opts:[{k:'a',t:'Yes, always.'},{k:'b',t:'No — a sales order line cannot be deleted once created.'},{k:'c',t:'Yes, but only if the line quantity or price is zero.'}],correct:['b']}
+   opts:[{k:'a',t:'Yes, always — regardless of the order status.'},{k:'b',t:'No — a sales order line can never be deleted once created; it must be cancelled or terminated.'},{k:'c',t:'Yes, but only if the line has not yet been confirmed or processed (i.e., the line is still in Free status).'}],correct:['c'],
+   explanation:'In Infor LN, a sales order line CAN be deleted — but only while it is in "Free" (unconfirmed/unprocessed) status. Once a line has been confirmed, shipped, or invoiced, it cannot be deleted; instead it must be cancelled (tdsls4201s300) or terminated (tdsls4201s400). The "Archive and Delete Sales Orders" session (tdsls4224m000) confirms that deletion is possible under the right conditions.'}
 ];
 
 /* ══════════════════════════════════════════
