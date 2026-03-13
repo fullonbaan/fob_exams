@@ -2127,7 +2127,128 @@ const QS_DEV=[
   {id:20,cat:'fn',cl:'ch-fn',catL:'Functional',diff:'simple',dc:'ch-s',pts:2,multi:false,
    text:'In Infor LN, can a line of a Sales Order be deleted?',
    opts:[{k:'a',t:'Yes, always — regardless of the order status.'},{k:'b',t:'No — a sales order line can never be deleted once created; it must be cancelled or terminated.'},{k:'c',t:'Yes, but only if the line has not yet been confirmed or processed (i.e., the line is still in Free status).'}],correct:['c'],
-   explanation:'In Infor LN, a sales order line CAN be deleted — but only while it is in "Free" (unconfirmed/unprocessed) status. Once a line has been confirmed, shipped, or invoiced, it cannot be deleted; instead it must be cancelled (tdsls4201s300) or terminated (tdsls4201s400). The "Archive and Delete Sales Orders" session (tdsls4224m000) confirms that deletion is possible under the right conditions.'}
+   explanation:'In Infor LN, a sales order line CAN be deleted — but only while it is in "Free" (unconfirmed/unprocessed) status. Once a line has been confirmed, shipped, or invoiced, it cannot be deleted; instead it must be cancelled (tdsls4201s300) or terminated (tdsls4201s400). The "Archive and Delete Sales Orders" session (tdsls4224m000) confirms that deletion is possible under the right conditions.'},
+/* ── NEW POOL QUESTIONS Q21–Q60 ── */
+ {id:21,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is the effect of calling abort.transaction() in Baan?',
+  opts:[{k:'a',t:'It exits the program immediately without saving any data.'},{k:'b',t:'It rolls back all database changes made since the last commit.transaction() or since the start of the current transaction.'},{k:'c',t:'It deletes the current record from the database.'},{k:'d',t:'It cancels only the most recent db.insert() or db.update() call.'}],correct:['b']},
+ {id:22,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In a Baan select...from...endselect loop, what happens when no records match the query?',
+  opts:[{k:'a',t:'The program throws a runtime error and stops.'},{k:'b',t:'The loop body executes zero times and control passes to the statement after endselect.'},{k:'c',t:'selecterror is automatically set to true and a warning is displayed.'},{k:'d',t:'The first record found in the table is returned as a default.'}],correct:['b']},
+ {id:23,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Infor LN, what is a "Zoom" session?',
+  opts:[{k:'a',t:'A session that opens in full screen to display large data sets.'},{k:'b',t:'A lookup session that opens (typically via F5) allowing users to search and select a valid value from a related table.'},{k:'c',t:'A read-only version of a session that displays compressed records.'},{k:'d',t:'A debugging tool that traces program execution step by step.'}],correct:['b']},
+ {id:24,cat:'tbl',cl:'ch-tbl',catL:'Tables & Domains',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Baan, what is an "Enumerated Domain"?',
+  opts:[{k:'a',t:'A domain that stores numeric values within a defined min/max range.'},{k:'b',t:'A domain that defines a fixed set of named constant values (e.g., status: Free=0, Confirmed=1, Closed=2).'},{k:'c',t:'A domain that links a field to another table for foreign key validation.'},{k:'d',t:'A domain used exclusively for monetary amounts with currency codes.'}],correct:['b']},
+ {id:25,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'Which type of Baan session allows a user to create, read, update, and delete records interactively?',
+  opts:[{k:'a',t:'Display session'},{k:'b',t:'Print session'},{k:'c',t:'Maintain session'},{k:'d',t:'Report session'}],correct:['c']},
+ {id:26,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is the purpose of the before.program section in a Baan UI script?',
+  opts:[{k:'a',t:'It executes once when the program first starts — used to initialise variables, set defaults, and configure the session before any data is shown.'},{k:'b',t:'It executes before every database write operation.'},{k:'c',t:'It executes each time the user moves to a new record.'},{k:'d',t:'It executes before each field is displayed on the form.'}],correct:['a']},
+ {id:27,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is the difference between db.read() and db.select() in Baan?',
+  opts:[{k:'a',t:'db.read() retrieves a single record using the current index key values; db.select() opens a cursor to retrieve multiple records matching a query.'},{k:'b',t:'db.read() is used for DAL tables; db.select() is used for non-DAL tables.'},{k:'c',t:'They are identical and can be used interchangeably.'},{k:'d',t:'db.read() reads all columns; db.select() reads only specified columns.'}],correct:['a']},
+ {id:28,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Baan 4GL, what is the scope of a "local" variable?',
+  opts:[{k:'a',t:'Accessible from all scripts within the same session.'},{k:'b',t:'Accessible only within the function or section where it is declared.'},{k:'c',t:'Accessible from all programs called from the current program.'},{k:'d',t:'Accessible from all sessions in the current Baan runtime.'}],correct:['b']},
+ {id:29,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What does the Baan built-in function message() do?',
+  opts:[{k:'a',t:'Sends an email notification to the system administrator.'},{k:'b',t:'Writes a message to the Baan error log file.'},{k:'c',t:'Displays an informational message to the user in the session status bar or message box.'},{k:'d',t:'Transmits a BOD message to Infor ION middleware.'}],correct:['c']},
+ {id:30,cat:'tbl',cl:'ch-tbl',catL:'Tables & Domains',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is a "Reference Domain" in Baan?',
+  opts:[{k:'a',t:'A domain used for text fields that reference external documents.'},{k:'b',t:'A domain that links a field to another table, enabling zoom (lookup) navigation to sessions of that table.'},{k:'c',t:'A domain used only for primary key fields.'},{k:'d',t:'A domain that stores the last-modified timestamp of a record.'}],correct:['b']},
+ {id:31,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In a Baan UI script, which section is executed when the user activates a user-defined menu option (custom choice)?',
+  opts:[{k:'a',t:'check.input'},{k:'b',t:'after.field'},{k:'c',t:'choice.xxx — the choice section defined for that specific option'},{k:'d',t:'before.display'}],correct:['c']},
+ {id:32,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Baan, what is the difference between the "abort" keyword and "abort.transaction()"?',
+  opts:[{k:'a',t:'They are identical in all situations.'},{k:'b',t:'"abort" stops the program only; "abort.transaction()" rolls back the transaction only.'},{k:'c',t:'"abort" stops the program AND rolls back the current transaction; "abort.transaction()" rolls back the transaction while allowing the program to continue.'},{k:'d',t:'"abort" is used in DAL scripts only; "abort.transaction()" is used in UI scripts only.'}],correct:['c']},
+ {id:33,cat:'fn',cl:'ch-fn',catL:'Functional',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Infor LN, what is a "Financial Company"?',
+  opts:[{k:'a',t:'A legal entity within LN that maintains its own chart of accounts, financial periods, and produces its own financial statements.'},{k:'b',t:'A group of warehouses sharing the same currency and inventory valuation method.'},{k:'c',t:'A reporting unit that only aggregates data from multiple logistical companies.'},{k:'d',t:'An LN user group with AP and AR posting rights.'}],correct:['a']},
+ {id:34,cat:'fn',cl:'ch-fn',catL:'Functional',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Infor LN, which statement best describes the relationship between a Logistical Company and a Financial Company?',
+  opts:[{k:'a',t:'A logistical company handles physical goods flows (orders, inventory, production), while a financial company handles accounting (GL, AP, AR). A logistical company must be linked to a financial company for postings.'},{k:'b',t:'They are the same concept used in different modules — every logistical company IS a financial company.'},{k:'c',t:'A financial company always owns multiple logistical companies with no separate linking step.'},{k:'d',t:'Logistical companies cannot generate financial postings independently.'}],correct:['a']},
+ {id:35,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'To call a function defined in a Baan DLL from a UI script, what must the developer do?',
+  opts:[{k:'a',t:'Re-code the DLL function body directly in the UI script.'},{k:'b',t:'Declare a function header (extern declaration) referencing the DLL name and function signature in the UI script, then call it normally.'},{k:'c',t:'Convert the DLL to a DAL before it can be used in a UI script.'},{k:'d',t:'No special declaration is needed — Baan resolves all DLL functions automatically at runtime.'}],correct:['b']},
+ {id:36,cat:'tbl',cl:'ch-tbl',catL:'Tables & Domains',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Baan, what is true about secondary indices (Index 2, 3, etc.) compared to the primary index (Index 1)?',
+  opts:[{k:'a',t:'Secondary indices are always unique, just like Index 1.'},{k:'b',t:'Secondary indices allow duplicate key values, unlike Index 1 which must be unique (no duplicates).'},{k:'c',t:'Secondary indices are used only for reporting and have no effect on query execution.'},{k:'d',t:'Secondary indices must have fewer fields than Index 1.'}],correct:['b']},
+ {id:37,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Baan, what is the key difference between when.field.changes and on.input?',
+  opts:[{k:'a',t:'"when.field.changes" fires only if the field value actually changed from its previous value; "on.input" fires whenever the user provides any input to the field, even if unchanged.'},{k:'b',t:'"when.field.changes" fires before check.input; "on.input" fires after.'},{k:'c',t:'"on.input" fires only for display fields; "when.field.changes" fires only for input fields.'},{k:'d',t:'They are identical — both fire whenever the user modifies any field.'}],correct:['a']},
+ {id:38,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is the purpose of a "Print Session" (Report session) in Infor LN?',
+  opts:[{k:'a',t:'A session used to print physical barcodes for warehouse items.'},{k:'b',t:'A session that queries data and generates formatted output (screen, printer, or file) without allowing data entry.'},{k:'c',t:'A session that prints only PDF documents to the default printer.'},{k:'d',t:'A session type exclusive to the Finance module for printing invoices.'}],correct:['b']},
+ {id:39,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'Can a user enter or modify data directly in a Baan "Display Session"?',
+  opts:[{k:'a',t:'Yes — display sessions support full create, update, and delete operations.'},{k:'b',t:'No — display sessions are read-only; they show data but do not allow modification.'},{k:'c',t:'Yes, but only if the session is unlocked by a system administrator.'},{k:'d',t:'Yes, but only calculated (non-database) fields can be edited.'}],correct:['b']},
+ {id:40,cat:'tbl',cl:'ch-tbl',catL:'Tables & Domains',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Baan table design, what does marking a field as "Mandatory" enforce?',
+  opts:[{k:'a',t:'The field must always be included in every SQL SELECT query on that table.'},{k:'b',t:'The field cannot be left empty — a value must be provided before the record can be saved.'},{k:'c',t:'The field is automatically populated by the system and cannot be changed by the user.'},{k:'d',t:'The field is included in every index of the table.'}],correct:['b']},
+ {id:41,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What does "OAL" stand for in Infor LN / Baan development?',
+  opts:[{k:'a',t:'Object Application Language — the 4GL scripting language used to write Baan program scripts.'},{k:'b',t:'Open API Layer — the REST interface for Infor LN external integrations.'},{k:'c',t:'Operational Audit Log — the built-in audit trail framework.'},{k:'d',t:'Object Abstraction Library — a set of standard utility functions.'}],correct:['a']},
+ {id:42,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In a Baan UI script, what is a "non-database field"?',
+  opts:[{k:'a',t:'A field on the form that is directly linked to a column in a database table.'},{k:'b',t:'A field that exists only in the user interface — not stored in any database table; used for calculations, user prompts, or display purposes.'},{k:'c',t:'A read-only field derived from another table using a zoom lookup.'},{k:'d',t:'A field that stores binary data and cannot be displayed on the form.'}],correct:['b']},
+ {id:43,cat:'tbl',cl:'ch-tbl',catL:'Tables & Domains',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Baan, what are the three main types of domains?',
+  opts:[{k:'a',t:'Numeric, String, and Boolean'},{k:'b',t:'Enumerated (fixed list of values), Range (min/max numeric), and Reference (link to another table)'},{k:'c',t:'Primary, Secondary, and Composite'},{k:'d',t:'Input, Display, and Calculated'}],correct:['b']},
+ {id:44,cat:'fn',cl:'ch-fn',catL:'Functional',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Infor LN, what is an "Item" in the item master?',
+  opts:[{k:'a',t:'A physical warehouse location where goods are stored.'},{k:'b',t:'A uniquely identified product, component, or service that is bought, sold, produced, or stocked — described by attributes such as unit of measure, item type, and costing method.'},{k:'c',t:'A financial transaction line recorded during a goods receipt.'},{k:'d',t:'A document type used in the sales order module.'}],correct:['b']},
+ {id:45,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is the purpose of the after.program section in a Baan UI script?',
+  opts:[{k:'a',t:'It executes after every field on the form is processed.'},{k:'b',t:'It executes once when the user exits the program — typically used for cleanup, releasing resources, or writing summary data.'},{k:'c',t:'It executes after every database commit.'},{k:'d',t:'It executes after the first record is displayed to the user.'}],correct:['b']},
+ {id:46,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Baan, what does the before.display section do?',
+  opts:[{k:'a',t:'It fires before each individual field on the form is displayed to the user.'},{k:'b',t:'It fires once before the entire form is rendered — used to set field visibility, protect attributes, and display-time defaults.'},{k:'c',t:'It fires before every database SELECT operation in the program.'},{k:'d',t:'It fires before the before.program section executes.'}],correct:['b']},
+ {id:47,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'medium',dc:'ch-m',pts:3,multi:true,
+  text:'Which statements correctly describe differences between db.insert() and dal.new() in Baan?',
+  opts:[{k:'a',t:'db.insert() writes directly to the physical table, bypassing DAL integrity rules and hooks.'},{k:'b',t:'dal.new() triggers the DAL\'s before.new and after.new method hooks, enforcing all defined business rules.'},{k:'c',t:'db.insert() requires a separate commit.transaction(), while dal.new() commits automatically.'},{k:'d',t:'Using dal.new() is the preferred approach when a DAL exists, ensuring data integrity across all access paths.'}],correct:['a','b','d']},
+ {id:48,cat:'tbl',cl:'ch-tbl',catL:'Tables & Domains',diff:'medium',dc:'ch-m',pts:3,multi:true,
+  text:'Which statements about Baan table indices are correct?',
+  opts:[{k:'a',t:'Index 1 is always the primary key — it must be unique (no duplicate key combinations).'},{k:'b',t:'The key fields of Index 1 are used by db.read() to locate a single record by exact key.'},{k:'c',t:'All indices in a table must use completely different, non-overlapping key fields.'},{k:'d',t:'Index 2 and higher are non-unique and can contain duplicate key combinations.'}],correct:['a','b','d']},
+ {id:49,cat:'fn',cl:'ch-fn',catL:'Functional',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'In Infor LN\'s three-tier application architecture, which tier is responsible for executing Baan 4GL business logic and program scripts?',
+  opts:[{k:'a',t:'The Presentation tier (web browser or Windows client)'},{k:'b',t:'The Application Server tier (Infor LN Tools / business logic engine)'},{k:'c',t:'The Database tier (SQL Server or Oracle)'},{k:'d',t:'The Integration tier (Infor ION / middleware)'}],correct:['b']},
+ {id:50,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'medium',dc:'ch-m',pts:3,multi:true,
+  text:'Which of the following are valid DAL property hooks in Baan?',
+  opts:[{k:'a',t:'before.set.fieldname — fires before a specific field\'s value is set'},{k:'b',t:'after.set.fieldname — fires after a specific field\'s value has been set'},{k:'c',t:'on.get.fieldname — fires when a specific field\'s value is read/retrieved'},{k:'d',t:'before.delete — fires before the entire record is physically deleted'}],correct:['a','b','c']},
+ {id:51,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'A developer needs to reuse a complex tax-calculation function across 15 different Baan sessions. What is the BEST approach?',
+  opts:[{k:'a',t:'Copy and paste the function code into each of the 15 session scripts.'},{k:'b',t:'Implement the function in a DLL, compile it, and call it from each session — saving memory through shared code and enabling updates without recompiling all 15 sessions.'},{k:'c',t:'Implement the function inside a DAL linked to the tax table.'},{k:'d',t:'Create a Display session that performs the calculation and invoke it as a zoom from each session.'}],correct:['b']},
+ {id:52,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'medium',dc:'ch-m',pts:3,multi:true,
+  text:'In Baan, which of the following are valid techniques for handling an expected error condition (e.g., invalid user input)?',
+  opts:[{k:'a',t:'Call abort.transaction() to roll back any database changes made so far in the transaction.'},{k:'b',t:'Call error() or message() to inform the user and prevent the session from saving invalid data.'},{k:'c',t:'Use try-catch blocks, which are natively supported in Baan 4GL.'},{k:'d',t:'Use abort to immediately stop the program when a critical validation rule is violated.'}],correct:['a','b','d']},
+ {id:53,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'In Infor LN, what is the purpose of the "save.data" standard option section in a Baan Maintain session UI script?',
+  opts:[{k:'a',t:'It fires automatically whenever the database transaction commits, regardless of the originating action.'},{k:'b',t:'It is the standard option section that executes when the user chooses to save/process the current record — developer logic here validates or transforms data immediately before writing.'},{k:'c',t:'It replaces check.input validation for all fields on the form.'},{k:'d',t:'It is called only by the DAL when dal.new() or dal.update() is invoked.'}],correct:['b']},
+ {id:54,cat:'fn',cl:'ch-fn',catL:'Functional',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'In Infor LN, what is an "Inter-company" transaction?',
+  opts:[{k:'a',t:'A transaction between two cost centres within the same legal entity.'},{k:'b',t:'A business transaction (sale, purchase, or inventory transfer) between two legally separate companies both defined within the same Infor LN installation, automatically generating corresponding documents in both companies.'},{k:'c',t:'Any transaction that posts to more than one General Ledger account.'},{k:'d',t:'A transaction that spans two consecutive financial periods.'}],correct:['b']},
+ {id:55,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+  text:'A developer calls dal.new() to insert a record inside an open transaction. A second concurrent session immediately queries the same table with db.select() before commit.transaction() is called. Which are valid explanations for why the new record may NOT be visible to the second session?',
+  opts:[{k:'a',t:'The transaction has not been committed — the new record exists only in an uncommitted state, not visible to other sessions under standard isolation levels.'},{k:'b',t:'dal.new() does not write to the physical table — it only updates the DAL in-memory object cache.'},{k:'c',t:'The second session uses a read-consistent snapshot taken before the insert, depending on the database isolation level configured (e.g., READ COMMITTED).'},{k:'d',t:'Baan always uses SERIALIZABLE isolation, so no other session can see any data until a full session restart.'}],correct:['a','c']},
+ {id:56,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+  text:'A business rule states: "If field A > 1000, field B must not be empty." This must apply regardless of which session accesses the table. Which DAL hooks correctly implement this?',
+  opts:[{k:'a',t:'before.new and before.update method hooks in the DAL — at this point all field values are accessible, the rule fires for every insert/update regardless of the access path.'},{k:'b',t:'check.input in every UI session that uses the table.'},{k:'c',t:'after.new and after.update method hooks — can inspect all field values after the write and call abort.transaction() to roll back if the rule is violated.'},{k:'d',t:'The rule can only be enforced in UI scripts, not in the DAL.'}],correct:['a','c']},
+ {id:57,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+  text:'A UI script has check.input for a non-database field AND a DAL exists for the main table with before.set hooks on two main table fields. The user modifies the non-database field AND one main table field. Which events fire?',
+  opts:[{k:'a',t:'check.input fires for the non-database field — the DAL does not intercept non-database form fields.'},{k:'b',t:'check.input fires for the main table field — because the user explicitly changed it.'},{k:'c',t:'before.set fires in the DAL for the modified main table field — the DAL intercepts changes to its table fields.'},{k:'d',t:'before.set fires for the non-database field — the DAL intercepts all form field changes.'}],correct:['a','c']},
+ {id:58,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+  text:'In Baan, which of the following scenarios could result in a database deadlock between two concurrent sessions?',
+  opts:[{k:'a',t:'Session 1 locks Record A with "for update" then tries to lock Record B, while Session 2 has locked Record B and is waiting to lock Record A.'},{k:'b',t:'Two sessions simultaneously calling commit.transaction() on completely different records in different tables.'},{k:'c',t:'Session 1 executes a read-only db.select() on a table while Session 2 is updating an unrelated record in a different table.'},{k:'d',t:'Session 1 and Session 2 both calling abort.transaction() at the same time on their respective transactions.'}],correct:['a']},
+ {id:59,cat:'fn',cl:'ch-fn',catL:'Functional',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+  text:'An Infor LN consultant must set up a new legal entity that will independently manage logistics and finance. Which configuration steps are required in Infor LN?',
+  opts:[{k:'a',t:'Create a new Logistical Company with its own item master, order parameters, and inventory settings.'},{k:'b',t:'Create a new Financial Company with its own chart of accounts and financial period calendar.'},{k:'c',t:'Link the Logistical Company to the Financial Company so that logistics transactions generate the correct financial postings.'},{k:'d',t:'Share the existing chart of accounts from a parent company to avoid setting up GL accounts from scratch (this is mandatory).'}],correct:['a','b','c']},
+ {id:60,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+  text:'A Baan program is intermittently failing with database errors under high-concurrency load. Which are valid investigation and resolution strategies?',
+  opts:[{k:'a',t:'Add retry.point() around transaction blocks so Baan can automatically re-execute the transaction after a database-triggered abort.'},{k:'b',t:'Reduce the transaction scope — commit more frequently to minimise lock hold time and contention.'},{k:'c',t:'Replace all db.insert()/db.update() calls with dal.new()/dal.update() — this enables automatic deadlock resolution.'},{k:'d',t:'Review index design to ensure queries use efficient key paths, reducing lock contention on frequently-accessed records.'}],correct:['a','b','d']}
 ];
 
 /* ══════════════════════════════════════════
@@ -2816,10 +2937,30 @@ function showPendingAndProceed(utr){
   showScreen('pending');
 }
 
+/* ── Stratified random picker ──────────────────────────────────────
+   Picks nS simple + nM medium + nD difficult questions from pool,
+   then shuffles the combined set so order is random each exam.
+───────────────────────────────────────────────────────────────── */
+function pickStratified(pool, nS, nM, nD){
+  function shuffle(arr){
+    const a=[...arr];
+    for(let i=a.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [a[i],a[j]]=[a[j],a[i]];
+    }
+    return a;
+  }
+  const s=shuffle(pool.filter(q=>q.diff==='simple'));
+  const m=shuffle(pool.filter(q=>q.diff==='medium'));
+  const d=shuffle(pool.filter(q=>q.diff==='difficult'));
+  return shuffle([...s.slice(0,nS),...m.slice(0,nM),...d.slice(0,nD)]);
+}
+
 function beginExamAfterPayment(){
   paymentVerified=true;
   const QS_MAP={dev:QS_DEV,fin:QS_FIN,bod:QS_BOD,ion:QS_ION,ext:QS_EXT,scm:QS_SCM,mfg:QS_MFG};
-  QS=[...QS_MAP[track]];
+  /* DEV pool has 60 questions — pick 20 stratified at random (13 simple + 4 medium + 3 difficult = 50 pts) */
+  QS = (track==='dev') ? pickStratified(QS_DEV,13,4,3) : [...QS_MAP[track]];
   answers={};skipped=new Set();curIdx=0;timeLeft=DURATION;
   const n=candidate.name;
   document.getElementById('cav').textContent=n.split(' ').filter(Boolean).map(x=>x[0]).slice(0,2).join('').toUpperCase();
