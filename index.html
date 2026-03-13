@@ -1305,6 +1305,15 @@ canvas#cert-canvas{display:none;}
         </div>
         <span class="home-resume-bar-arrow">→</span>
       </div>
+
+      <!-- Retrieve certificate bar -->
+      <div class="home-resume-bar" onclick="showScreen('retrieve-cert')" title="Re-download your certificate" style="margin-top:10px;border-color:rgba(52,211,153,.18);background:rgba(52,211,153,.04);">
+        <span style="font-size:20px;">🏆</span>
+        <div class="home-resume-bar-text">
+          <strong>Already passed?</strong> Re-download your certificate anytime using your email and Certificate ID.
+        </div>
+        <span class="home-resume-bar-arrow">→</span>
+      </div>
     </div>
 
     <!-- ── FOB Ecosystem ── -->
@@ -1646,7 +1655,7 @@ canvas#cert-canvas{display:none;}
 
     <!-- Support -->
     <div style="text-align:center;margin-top:24px;font-size:13px;color:var(--textM);">
-      Payment issues? Email <a href="mailto:fullonbaan@gmail.com?subject=Payment%20Issue%20-%20UTR%20Verification&body=Hi%20FullonBaan%20Team%2C%0A%0AUTR%20%2F%20Transaction%20ID%3A%20%0ARegistered%20Email%3A%20%0AExam%20Track%3A%20" style="color:var(--blue);text-decoration:none;">fullonbaan@gmail.com</a> with your UTR and registered email.
+      Payment issues? Email <a href="mailto:fullonbaan@gmail.com?subject=Payment%20Issue%20-%20Exam%20Registration&body=Hi%20FullonBaan%20Team%2C%0A%0AI%20have%20an%20issue%20with%20my%20payment.%0A%0AUTR%2FRef%3A%20%0ARegistered%20Email%3A%20%0AExam%20Track%3A%20%0A%0APlease%20help." style="color:var(--blue);text-decoration:none;">fullonbaan@gmail.com</a> with your UTR and registered email.
     </div>
 
   </div>
@@ -1727,6 +1736,56 @@ canvas#cert-canvas{display:none;}
 </div>
 
 
+<!-- ████ RETRIEVE CERTIFICATE ████ -->
+<div id="retrieve-cert" class="screen">
+  <div style="max-width:600px;margin:0 auto;padding:60px 32px 100px;text-align:center;">
+    <div style="font-size:56px;margin-bottom:16px;">🏆</div>
+    <h2 style="font-family:var(--serif);font-size:28px;font-weight:700;margin-bottom:10px;">Retrieve Your Certificate</h2>
+    <p style="color:var(--textS);font-size:14px;line-height:1.7;margin-bottom:32px;">
+      Already passed your exam? Enter your registered email and Certificate ID to re-download your certificate at any time.
+    </p>
+    <div style="background:var(--surf);border:1px solid var(--gb2);border-radius:20px;padding:32px 28px;text-align:left;">
+      <div style="margin-bottom:18px;">
+        <label style="font-size:13px;font-weight:600;color:var(--textS);display:block;margin-bottom:7px;">Registered Email Address</label>
+        <input type="email" id="rc-email" placeholder="you@example.com"
+          style="width:100%;padding:12px 16px;border-radius:10px;border:1px solid var(--gb2);background:var(--surf2);color:var(--text);font-size:14px;outline:none;"
+          oninput="document.getElementById('rc-err').style.display='none'">
+      </div>
+      <div style="margin-bottom:24px;">
+        <label style="font-size:13px;font-weight:600;color:var(--textS);display:block;margin-bottom:7px;">Certificate ID</label>
+        <input type="text" id="rc-certid" placeholder="e.g. FOB-DEV-202501-AB3F7K2"
+          style="width:100%;padding:12px 16px;border-radius:10px;border:1px solid var(--gb2);background:var(--surf2);color:var(--text);font-size:14px;font-family:var(--mono);letter-spacing:.05em;outline:none;"
+          oninput="this.value=this.value.toUpperCase();document.getElementById('rc-err').style.display='none'"
+          onkeydown="if(event.key==='Enter')retrieveCertificate()">
+        <div style="font-size:11px;color:var(--textM);margin-top:6px;">Found in your certificate email — format: FOB-TRACK-YYYYMM-XXXXXXX</div>
+      </div>
+      <span id="rc-err" style="display:none;font-size:13px;color:var(--rose);margin-bottom:12px;display:none;">
+        ⚠️ No matching certificate found. Please check your email and Certificate ID.
+      </span>
+      <button class="btn btn-primary btn-md" onclick="retrieveCertificate()" style="width:100%;justify-content:center;gap:10px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download My Certificate
+      </button>
+    </div>
+    <div id="rc-preview" style="display:none;margin-top:28px;">
+      <div style="background:var(--surf);border:1px solid rgba(52,211,153,.25);border-radius:16px;padding:24px 20px;">
+        <div style="font-size:22px;margin-bottom:8px;">✅</div>
+        <div style="font-weight:700;font-size:15px;margin-bottom:4px;" id="rc-found-name"></div>
+        <div style="font-size:13px;color:var(--textS);margin-bottom:16px;" id="rc-found-detail"></div>
+        <button class="btn btn-success btn-md" onclick="downloadRetrievedCert()" style="justify-content:center;gap:8px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Certificate
+        </button>
+      </div>
+    </div>
+    <div style="margin-top:28px;font-size:13px;color:var(--textM);">
+      Can't find your Certificate ID?
+      <a href="mailto:fullonbaan@gmail.com?subject=Certificate%20Retrieval%20Help&body=Hi%20FullonBaan%20Team%2C%0A%0AI%20need%20help%20retrieving%20my%20certificate.%0A%0AName%3A%20%0ARegistered%20Email%3A%20%0AExam%20Track%3A%20%0AApprox%20Exam%20Date%3A%20%0A%0AThank%20you." style="color:var(--blue);text-decoration:none;font-weight:600;">Email us</a>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="goHome()" style="margin-top:24px;">← Back to Portal</button>
+  </div>
+</div>
+
 <!-- ████ PENDING APPROVAL ████ -->
 <div id="pending" class="screen">
   <div class="pending-wrap">
@@ -1789,7 +1848,7 @@ canvas#cert-canvas{display:none;}
     </div>
 
     <div class="pending-have-code" style="margin-top:20px;">
-      Questions? Email <a href="mailto:fullonbaan@gmail.com" style="color:var(--blue);">fullonbaan@gmail.com</a>
+      Questions? Email <a href="mailto:fullonbaan@gmail.com?subject=Exam%20Approval%20Code%20Query&body=Hi%20FullonBaan%20Team%2C%0A%0AI%20am%20waiting%20for%20my%20approval%20code.%0A%0AName%3A%20%0AEmail%3A%20%0AExam%20Track%3A%20%0AUTR%2FRef%3A%20%0A%0APlease%20help." style="color:var(--blue);">fullonbaan@gmail.com</a>
     </div>
   </div>
 </div>
@@ -1841,7 +1900,7 @@ canvas#cert-canvas{display:none;}
       Verify &amp; Begin Exam
     </button>
     <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--textM);">
-      Code not received yet? Email <a href="mailto:fullonbaan@gmail.com" style="color:var(--blue);">fullonbaan@gmail.com</a>
+      Code not received yet? Email <a href="mailto:fullonbaan@gmail.com?subject=Approval%20Code%20Not%20Received&body=Hi%20FullonBaan%20Team%2C%0A%0AI%20have%20not%20received%20my%20approval%20code.%0A%0AName%3A%20%0AEmail%3A%20%0AExam%20Track%3A%20%0AUTR%2FRef%3A%20%0A%0APlease%20help." style="color:var(--blue);">fullonbaan@gmail.com</a>
     </div>
   </div>
 </div>
@@ -1953,7 +2012,7 @@ canvas#cert-canvas{display:none;}
             <div class="ft-contact-value">www.fullonbaan.com</div>
           </div>
         </a>
-        <a class="ft-contact-pill" href="mailto:fullonbaan@gmail.com?subject=FullonBaan%20Enquiry">
+        <a class="ft-contact-pill" href="mailto:fullonbaan@gmail.com?subject=Enquiry%20-%20FullonBaan%20Exams">
           <div class="ft-contact-icon mail">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
           </div>
@@ -1986,7 +2045,7 @@ canvas#cert-canvas{display:none;}
     <div class="footer-bottom-right">
       <a class="ft-bottom-link" href="https://www.fullonbaan.com" target="_blank" rel="noopener">fullonbaan.com</a>
       <span class="ft-bottom-sep">·</span>
-      <a class="ft-bottom-link" href="mailto:fullonbaan@gmail.com?subject=FullonBaan%20Enquiry">Contact</a>
+      <a class="ft-bottom-link" href="mailto:fullonbaan@gmail.com?subject=Enquiry%20-%20FullonBaan%20Exams">Contact</a>
     </div>
   </div>
 </footer>
@@ -2010,6 +2069,27 @@ const PAY_EMAILJS_SVC    = 'service_t9cqgtn';
 const PAY_EMAILJS_TPL    = 'template_ezdle7f';
 const PAY_EMAILJS_PUB    = 'aDL0FEenlYJ8WaJne';
 emailjs.init(EMAILJS_PUB);
+
+/* ══════════════════════════════════════════
+   GITHUB CERT STORE CONFIG
+   ─────────────────────────────────────────
+   Certificates are stored as a JSON file in
+   a GitHub repo so they survive across devices
+   and browser clears.
+
+   Setup (one-time):
+   1. Create a PRIVATE GitHub repo, e.g. "fob-cert-store"
+   2. Generate a Personal Access Token (classic) at
+      https://github.com/settings/tokens
+      Scope needed: repo (full)  — keep this secret!
+   3. Fill in the three constants below.
+   4. The file GITHUB_CERT_FILE will be created
+      automatically on the first certificate issued.
+══════════════════════════════════════════ */
+const GITHUB_OWNER     = 'fullonbaan';              // your GitHub username / org
+const GITHUB_REPO      = 'fob-cert-store';          // your private repo name
+const GITHUB_TOKEN     = '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'; // PAT with repo scope
+const GITHUB_CERT_FILE = 'certs/certificates.json'; // path inside repo
 
 /* ══════════════════════════════════════════
    PAYMENT CONFIG  — replace with your UPI ID
@@ -3613,8 +3693,21 @@ async function showResults(){
       </div>
     </div>`;
     // Store cert details for download and show the button
-    window._certParams={name:candidate.name,pct,certId,date:examDate,trackFull};
+    window._certParams={name:candidate.name,pct,certId,date:examDate,trackFull,email:candidate.email};
     document.getElementById('dl-cert-btn').style.display='inline-flex';
+
+    // Persist cert record — localStorage (instant) + GitHub (cross-device)
+    const certRecord = {
+      certId, name: candidate.name, email: candidate.email.toLowerCase(),
+      trackFull, pct, date: examDate, issuedAt: new Date().toISOString()
+    };
+    try{
+      const certs=JSON.parse(localStorage.getItem('fob_certs')||'[]');
+      if(!certs.find(c=>c.certId===certId)) certs.push(certRecord);
+      localStorage.setItem('fob_certs',JSON.stringify(certs));
+    }catch(e){console.warn('localStorage cert save failed:',e);}
+    // Save to GitHub in the background (non-blocking)
+    saveCertToGitHub(certRecord);
   } else {
     ca.innerHTML=`<div class="fail-panel"><h3>Exam Not Passed</h3><p>You scored <strong>${pct}%</strong> (${score} / ${TOTAL_PTS} points). A minimum of <strong>${PASS_PCT}%</strong> is required.<br>Review the topics where you struggled and retake the exam when ready.</p></div>`;
   }
@@ -3647,6 +3740,153 @@ async function downloadCertificate(){
     toast('Download failed — please try again.','⚠️');
   }
 }
+
+/* ══════════════════════════════════════════
+   RETRIEVE CERTIFICATE
+   Looks up a saved cert by email + certId
+   (stored in localStorage during exam session)
+══════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   GITHUB CERT STORE — helpers
+   All certs live in one JSON file in the repo.
+   We read → append/search → write back.
+══════════════════════════════════════════ */
+
+const GH_API = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_CERT_FILE}`;
+const GH_HDR = () => ({
+  'Authorization': `token ${GITHUB_TOKEN}`,
+  'Accept': 'application/vnd.github+json',
+  'Content-Type': 'application/json'
+});
+
+/* Read the cert JSON file from GitHub.
+   Returns { certs: [...], sha: '...' }
+   If file doesn't exist yet, returns { certs: [], sha: null } */
+async function ghReadCerts(){
+  const res = await fetch(GH_API, { headers: GH_HDR() });
+  if(res.status === 404) return { certs: [], sha: null };
+  if(!res.ok) throw new Error(`GitHub read failed: ${res.status}`);
+  const data = await res.json();
+  const content = JSON.parse(atob(data.content.replace(/\n/g,'')));
+  return { certs: content, sha: data.sha };
+}
+
+/* Append a new cert record and write the file back to GitHub */
+async function saveCertToGitHub(record){
+  try{
+    const { certs, sha } = await ghReadCerts();
+    // Avoid duplicate certIds
+    if(certs.find(c => c.certId === record.certId)) return;
+    certs.push(record);
+    const body = {
+      message: `cert: ${record.certId} — ${record.name}`,
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(certs, null, 2)))),
+      ...(sha ? { sha } : {})
+    };
+    const res = await fetch(GH_API, {
+      method: 'PUT',
+      headers: GH_HDR(),
+      body: JSON.stringify(body)
+    });
+    if(!res.ok) throw new Error(`GitHub write failed: ${res.status}`);
+    console.log('✅ Cert saved to GitHub:', record.certId);
+  } catch(e){
+    console.warn('GitHub cert save failed (localStorage still has it):', e);
+  }
+}
+
+/* Look up a cert in GitHub by email + certId */
+async function fetchCertFromGitHub(email, certId){
+  try{
+    const { certs } = await ghReadCerts();
+    return certs.find(c =>
+      c.email === email.toLowerCase() && c.certId === certId.toUpperCase()
+    ) || null;
+  } catch(e){
+    console.warn('GitHub cert lookup failed:', e);
+    return null;
+  }
+}
+
+/* ══════════════════════════════════════════ */
+
+let _retrievedCert=null;
+
+function retrieveCertificate(){
+  const email=(document.getElementById('rc-email').value||'').trim().toLowerCase();
+  const certId=(document.getElementById('rc-certid').value||'').trim().toUpperCase();
+  const err=document.getElementById('rc-err');
+  const preview=document.getElementById('rc-preview');
+  err.style.display='none';
+  preview.style.display='none';
+  _retrievedCert=null;
+
+  if(!email||!certId){
+    err.textContent='⚠️ Please enter both your email address and Certificate ID.';
+    err.style.display='block';
+    return;
+  }
+
+  // Show searching state on button
+  const btn=document.querySelector('#retrieve-cert .btn-primary');
+  const origHTML=btn.innerHTML;
+  btn.innerHTML='⏳ Searching…';
+  btn.disabled=true;
+
+  // Try GitHub first, then fall back to localStorage
+  fetchCertFromGitHub(email, certId).then(found => {
+    // GitHub lookup done — also check localStorage as fallback
+    if(!found){
+      try{
+        const certs=JSON.parse(localStorage.getItem('fob_certs')||'[]');
+        found=certs.find(c=>c.email===email && c.certId===certId)||null;
+      }catch(e){}
+    }
+
+    btn.innerHTML=origHTML;
+    btn.disabled=false;
+
+    if(!found){
+      err.textContent='⚠️ No matching certificate found. Please double-check your email and Certificate ID. If the issue persists, email fullonbaan@gmail.com.';
+      err.style.display='block';
+      return;
+    }
+
+    _retrievedCert=found;
+    document.getElementById('rc-found-name').textContent=`${found.name} — ${found.trackFull}`;
+    document.getElementById('rc-found-detail').textContent=`Scored ${found.pct}% · Issued ${found.date} · ID: ${found.certId}`;
+    preview.style.display='block';
+    preview.scrollIntoView({behavior:'smooth',block:'center'});
+
+  }).catch(e=>{
+    btn.innerHTML=origHTML;
+    btn.disabled=false;
+    err.textContent='⚠️ Could not reach certificate store — please check your connection and try again.';
+    err.style.display='block';
+  });
+}
+
+async function downloadRetrievedCert(){
+  if(!_retrievedCert){toast('No certificate selected.','⚠️');return;}
+  const btn=document.querySelector('#rc-preview button');
+  btn.textContent='⏳ Generating…';
+  btn.disabled=true;
+  try{
+    const {name,pct,certId,date,trackFull}=_retrievedCert;
+    const dataUrl=await drawCert(name,pct,certId,date,trackFull);
+    const a=document.createElement('a');
+    a.href=dataUrl;
+    a.download=`FullonBaan_Certificate_${name.replace(/\s+/g,'_')}_${certId}.png`;
+    a.click();
+    btn.innerHTML='✅ Downloaded';
+    setTimeout(()=>{btn.innerHTML='⬇ Download Certificate';btn.disabled=false;},3000);
+  }catch(e){
+    btn.innerHTML='⬇ Download Certificate';
+    btn.disabled=false;
+    toast('Download failed — please try again.','⚠️');
+  }
+}
+
 function drawCert(name,pct,certId,date,trackFull){
   return new Promise(async resolve=>{
     const cv=document.getElementById('cert-canvas');
@@ -3847,7 +4087,15 @@ async function sendEmails({score,pct,passed,correct,wrong,skip,certId,examDate,t
 
     /* ── EMAIL 2: Certificate notification → candidate (only if passed) ── */
     if(passed){
-      const certPayload = {...base, cert_title: trackFull + ' Certification', cc_email: ''};
+      const retrieveUrl = `${window.location.origin}${window.location.pathname}#retrieve-cert`;
+      const certPayload = {
+        ...base,
+        cert_title      : trackFull + ' Certification',
+        cc_email        : '',
+        retrieve_url    : retrieveUrl,
+        portal_url      : window.location.origin + window.location.pathname,
+        download_steps  : `To download your certificate:\n1. Visit ${window.location.origin}${window.location.pathname}\n2. Click "Already passed? Re-download your certificate" on the home page\n3. Enter your registered email: ${candidate.email}\n4. Enter your Certificate ID: ${certId}\n5. Click "Download My Certificate"`
+      };
       await emailjs.send(EMAILJS_SVC, TPL_CERT, {...certPayload, to_email: candidate.email, to_name: candidate.name, cc_email: ''});
       await pause(700);
     }
@@ -3856,11 +4104,16 @@ async function sendEmails({score,pct,passed,correct,wrong,skip,certId,examDate,t
     await emailjs.send(EMAILJS_SVC, TPL_RESULT, {...base, to_email: CC_EMAIL, to_name: 'FullonBaan Support'});
 
     if(passed){
-      box.innerHTML=`<div class="email-box">
-        <span class="email-icon">✅</span>
-        <div>
-          <div>🏆 <strong>Score report</strong> &amp; <strong>Completion Certificate</strong> sent to <strong>${candidate.email}</strong></div>
-          <div style="font-size:12px;color:var(--textM);margin-top:4px;">Copy sent to ${CC_EMAIL}</div>
+      box.innerHTML=`<div class="email-box" style="flex-direction:column;align-items:flex-start;gap:10px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="email-icon">✅</span>
+          <div>
+            <div>🏆 <strong>Score report</strong> &amp; <strong>Certificate</strong> sent to <strong>${candidate.email}</strong></div>
+            <div style="font-size:12px;color:var(--textM);margin-top:3px;">Copy also sent to ${CC_EMAIL}</div>
+          </div>
+        </div>
+        <div style="background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.2);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--textS);line-height:1.65;width:100%;">
+          💡 <strong>Need your certificate later?</strong> Use your Certificate ID <code style="font-family:var(--mono);font-size:11px;background:rgba(52,211,153,.12);padding:1px 5px;border-radius:4px;">${certId}</code> and registered email to re-download anytime from the portal's <a href="#" onclick="showScreen('retrieve-cert');return false;" style="color:var(--teal);text-decoration:none;font-weight:600;">Retrieve Certificate</a> page — or use the ⬇&nbsp;Download button below right now.
         </div>
       </div>`;
       toast('Certificate emailed successfully!','🏆');
@@ -3925,29 +4178,31 @@ function goHome(){
   /* Hide cert download button and clear result areas */
   const dlBtn=document.getElementById('dl-cert-btn');
   if(dlBtn){dlBtn.style.display='none';}
-  const emailBox=document.getElementById('email-box');
-  if(emailBox) emailBox.innerHTML='';
-  const certArea=document.getElementById('cert-area');
-  if(certArea) certArea.innerHTML='';
+  const ca=document.getElementById('cert-area');
+  if(ca){ca.innerHTML='';}
+  const eb=document.getElementById('email-box');
+  if(eb){eb.innerHTML='';}
+
+  /* Clear retrieve cert screen */
+  const rcEmail=document.getElementById('rc-email');
+  const rcCertId=document.getElementById('rc-certid');
+  const rcErr=document.getElementById('rc-err');
+  const rcPreview=document.getElementById('rc-preview');
+  if(rcEmail)rcEmail.value='';
+  if(rcCertId)rcCertId.value='';
+  if(rcErr)rcErr.style.display='none';
+  if(rcPreview)rcPreview.style.display='none';
+  _retrievedCert=null;
 
   showScreen('home');
 }
 
-/* ══════════════════════════════════════════
-   HASH ROUTING  — open admin directly via #admin
-══════════════════════════════════════════ */
-(function initHashRouting(){
-  function handleHash(){
-    if(window.location.hash==='#admin'){showScreen('admin-login');}
+/* ── Handle #retrieve-cert hash on page load ── */
+window.addEventListener('DOMContentLoaded',()=>{
+  if(window.location.hash==='#retrieve-cert'){
+    showScreen('retrieve-cert');
   }
-  window.addEventListener('hashchange',handleHash);
-  // Run on page load after DOM is ready
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',handleHash);
-  }else{
-    handleHash();
-  }
-})();
+});
 </script>
 </body>
 </html>
