@@ -785,37 +785,13 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .spin{animation:spin 1s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-.cert-panel{background:linear-gradient(135deg,rgba(79,140,255,.05),rgba(124,111,255,.05));border:1px solid rgba(79,140,255,.15);border-radius:24px;padding:40px;margin-bottom:28px;box-shadow:var(--glBlue);position:relative;overflow:hidden;}
-.cert-panel.gold{background:linear-gradient(135deg,rgba(233,189,85,.06),rgba(201,150,42,.04));border-color:rgba(233,189,85,.18);box-shadow:var(--glGold);}
-.cert-panel.purple{background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(124,58,237,.04));border-color:rgba(168,85,247,.2);box-shadow:0 0 50px rgba(168,85,247,.12);}
-.cert-panel.cyan{background:linear-gradient(135deg,rgba(34,211,238,.05),rgba(8,145,178,.04));border-color:rgba(34,211,238,.18);box-shadow:0 0 50px rgba(34,211,238,.12);}
-.cert-panel.pink{background:linear-gradient(135deg,rgba(244,114,182,.05),rgba(219,39,119,.04));border-color:rgba(244,114,182,.18);box-shadow:0 0 50px rgba(244,114,182,.12);}
-.cert-panel.orange{background:linear-gradient(135deg,rgba(251,146,60,.06),rgba(234,88,12,.04));border-color:rgba(251,146,60,.18);box-shadow:0 0 50px rgba(251,146,60,.12);}
-.cert-panel.lime{background:linear-gradient(135deg,rgba(163,230,53,.05),rgba(101,163,13,.04));border-color:rgba(163,230,53,.18);box-shadow:0 0 50px rgba(163,230,53,.12);}
-.cert-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(79,140,255,.4),transparent);}
-.cert-panel.gold::before{background:linear-gradient(90deg,transparent,rgba(233,189,85,.4),transparent);}
-.cert-panel.purple::before{background:linear-gradient(90deg,transparent,rgba(168,85,247,.4),transparent);}
-.cert-panel.cyan::before{background:linear-gradient(90deg,transparent,rgba(34,211,238,.4),transparent);}
-.cert-panel.pink::before{background:linear-gradient(90deg,transparent,rgba(244,114,182,.4),transparent);}
-.cert-panel.orange::before{background:linear-gradient(90deg,transparent,rgba(251,146,60,.4),transparent);}
-.cert-panel.lime::before{background:linear-gradient(90deg,transparent,rgba(163,230,53,.4),transparent);}
-.cert-ey{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;}
-.cert-panel.gold .cert-ey{color:var(--gold);}
-.cert-panel.purple .cert-ey{color:var(--purple);}
-.cert-panel.cyan .cert-ey{color:var(--cyan);}
-.cert-panel.pink .cert-ey{color:var(--pink);}
-.cert-panel.orange .cert-ey{color:var(--orange);}
-.cert-panel.lime .cert-ey{color:var(--lime);}
-.cert-name{font-family:var(--serif);font-size:32px;font-weight:700;margin-bottom:10px;background:var(--gBlue);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.cert-panel.gold .cert-name{background:var(--gGold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.cert-panel.purple .cert-name{background:var(--gPurple);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.cert-panel.cyan .cert-name{background:var(--gCyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.cert-panel.pink .cert-name{background:var(--gPink);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.cert-panel.orange .cert-name{background:var(--gOrange);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.cert-panel.lime .cert-name{background:var(--gLime);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.cert-body{font-size:15px;color:var(--textS);line-height:1.7;margin-bottom:20px;}
+.cert-panel{background:linear-gradient(135deg,#FDFAF0,#FBF7E6,#F8F4DC);border:2px solid #C9930A;border-radius:24px;padding:40px;margin-bottom:28px;box-shadow:0 0 48px rgba(201,147,10,.20),0 0 20px rgba(212,175,55,.12);position:relative;overflow:hidden;}
+.cert-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#D4AF37,#FFD700,#D4AF37,transparent);}
+.cert-ey{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#B8860B;margin-bottom:14px;}
+.cert-name{font-family:var(--serif);font-size:32px;font-weight:700;margin-bottom:10px;background:linear-gradient(90deg,#8B6914,#D4AF37,#FFD700,#D4AF37,#8B6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cert-body{font-size:15px;color:#5A3800;line-height:1.7;margin-bottom:20px;}
 .cert-meta{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;}
-.cert-mi{font-family:var(--mono);font-size:11px;color:var(--textM);display:flex;align-items:center;gap:8px;}
+.cert-mi{font-family:var(--mono);font-size:11px;color:#8B6914;display:flex;align-items:center;gap:8px;}
 
 .fail-panel{background:rgba(248,113,113,.05);border:1px solid rgba(248,113,113,.15);border-radius:20px;padding:32px;text-align:center;margin-bottom:28px;}
 .fail-panel h3{font-family:var(--serif);font-size:22px;color:var(--rose);margin-bottom:10px;}
@@ -1196,7 +1172,7 @@ canvas#cert-canvas{display:none;}
   <div id="home-inner" style="max-width:980px;margin:0 auto;padding:80px 48px 100px;">
     <div class="eyebrow"><span class="eyebrow-dot"></span>Official Certification Portal</div>
     <h1 class="hero-h">FullonBaan <span class="g">Certification</span> Centre</h1>
-    <p class="hero-sub">Select your certification track below. Each exam is 20 questions, 50 points total, and requires a minimum of 75% to pass and earn your FullonBaan certificate.</p>
+    <p class="hero-sub">Select your certification track below. Each exam is 20 questions, 50 points total, and requires a minimum of 70% to pass and earn your FullonBaan certificate.</p>
 
     <!-- ── Technical Track Group ── -->
     <div class="track-group-label">
@@ -1311,7 +1287,7 @@ canvas#cert-canvas{display:none;}
           <li><strong>₹499 fee</strong> per track, payable via UPI. You will be directed to payment after registration.</li>
           <li>20 multiple-choice questions — some require selecting multiple correct answers.</li>
           <li>You have <strong>45 minutes</strong> from the moment you click Begin Exam.</li>
-          <li>A minimum of <strong>75% (38 / 50 points)</strong> is required to pass and earn your FullonBaan certificate.</li>
+          <li>A minimum of <strong>70% (35 / 50 points)</strong> is required to pass and earn your FullonBaan certificate.</li>
           <li>Results are shown immediately. Confirmation email and certificate (if passed) are sent automatically.</li>
           <li>Do not refresh or navigate away — your progress will be lost.</li>
         </ul>
@@ -2124,10 +2100,10 @@ const QS_DEV=[
   {id:19,cat:'tbl',cl:'ch-tbl',catL:'Tables & Domains',diff:'difficult',dc:'ch-d',pts:4,multi:false,
    text:"After defining a table in Baan, what is the correct operation sequence?",
    opts:[{k:'a',t:"Run 'Create table' first for physical creation, then 'Convert to Runtime DD'."},{k:'b',t:"Run 'Convert to Runtime DD' first (creates definitions), then 'Create table' to physically create the table in the database."},{k:'c',t:"Both operations are independent and can be done in any order."},{k:'d',t:"Only 'Convert to Runtime DD' is needed — 'Create table' is automatic."}],correct:['b']},
-  {id:20,cat:'fn',cl:'ch-fn',catL:'Functional',diff:'simple',dc:'ch-s',pts:2,multi:false,
-   text:'In Infor LN, can a line of a Sales Order be deleted?',
-   opts:[{k:'a',t:'Yes, always — regardless of the order status.'},{k:'b',t:'No — a sales order line can never be deleted once created; it must be cancelled or terminated.'},{k:'c',t:'Yes, but only if the line has not yet been confirmed or processed (i.e., the line is still in Free status).'}],correct:['c'],
-   explanation:'In Infor LN, a sales order line CAN be deleted — but only while it is in "Free" (unconfirmed/unprocessed) status. Once a line has been confirmed, shipped, or invoiced, it cannot be deleted; instead it must be cancelled (tdsls4201s300) or terminated (tdsls4201s400). The "Archive and Delete Sales Orders" session (tdsls4224m000) confirms that deletion is possible under the right conditions.'},
+  {id:20,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Baan 4GL, within a select...from...endselect loop, what is the difference between the "where" clause and the "while" clause?',
+   opts:[{k:'a',t:'They are interchangeable — both apply the same server-side SQL filter.'},{k:'b',t:'"where" filters records at the database server level (SQL WHERE); "while" is evaluated client-side and terminates the entire loop when its condition becomes false, even if more matching records remain in the database.'},{k:'c',t:'"where" is for string-based conditions; "while" is for numeric comparisons only.'},{k:'d',t:'"where" specifies the join between two tables; "while" specifies the sort order of results.'}],correct:['b'],
+   explanation:'In Baan 4GL, the "where" clause becomes a SQL WHERE condition at the database server, reducing records before they are transferred. The "while" clause is evaluated on the application server for each record retrieved — when false, the loop terminates immediately even if more records exist. Using "while" for conditions that cannot be expressed in SQL is valid but less efficient than "where" because more records are transferred from the database.'},
 /* ── NEW POOL QUESTIONS Q21–Q60 ── */
  {id:21,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
   text:'What is the effect of calling abort.transaction() in Baan?',
@@ -2165,12 +2141,14 @@ const QS_DEV=[
  {id:32,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
   text:'In Baan, what is the difference between the "abort" keyword and "abort.transaction()"?',
   opts:[{k:'a',t:'They are identical in all situations.'},{k:'b',t:'"abort" stops the program only; "abort.transaction()" rolls back the transaction only.'},{k:'c',t:'"abort" stops the program AND rolls back the current transaction; "abort.transaction()" rolls back the transaction while allowing the program to continue.'},{k:'d',t:'"abort" is used in DAL scripts only; "abort.transaction()" is used in UI scripts only.'}],correct:['c']},
- {id:33,cat:'fn',cl:'ch-fn',catL:'Functional',diff:'simple',dc:'ch-s',pts:2,multi:false,
-  text:'In Infor LN, what is a "Financial Company"?',
-  opts:[{k:'a',t:'A legal entity within LN that maintains its own chart of accounts, financial periods, and produces its own financial statements.'},{k:'b',t:'A group of warehouses sharing the same currency and inventory valuation method.'},{k:'c',t:'A reporting unit that only aggregates data from multiple logistical companies.'},{k:'d',t:'An LN user group with AP and AR posting rights.'}],correct:['a']},
- {id:34,cat:'fn',cl:'ch-fn',catL:'Functional',diff:'simple',dc:'ch-s',pts:2,multi:false,
-  text:'In Infor LN, which statement best describes the relationship between a Logistical Company and a Financial Company?',
-  opts:[{k:'a',t:'A logistical company handles physical goods flows (orders, inventory, production), while a financial company handles accounting (GL, AP, AR). A logistical company must be linked to a financial company for postings.'},{k:'b',t:'They are the same concept used in different modules — every logistical company IS a financial company.'},{k:'c',t:'A financial company always owns multiple logistical companies with no separate linking step.'},{k:'d',t:'Logistical companies cannot generate financial postings independently.'}],correct:['a']},
+ {id:33,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Baan / Infor LN program scripting, what does the built-in variable "currentcompany" hold?',
+  opts:[{k:'a',t:'The name of the active database schema for the current session.'},{k:'b',t:'The enterprise unit (company code) under which the current user session is running, used to scope database table queries to the correct company partition.'},{k:'c',t:'The financial company number linked to the user\'s current logistical session.'},{k:'d',t:'The user\'s department or cost-centre code within their company.'}],correct:['b'],
+  explanation:'"currentcompany" is a Baan 4GL built-in variable that holds the company code (enterprise unit number) of the active session. Database reads and writes are scoped to this company. Developers use currentcompany when building multi-company logic, passing company context to called functions, or constructing queries that must explicitly filter by company partition.'},
+ {id:34,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Baan 4GL, what is the purpose of the db.clear(table) function?',
+  opts:[{k:'a',t:'It deletes all records from the specified table in the database.'},{k:'b',t:'It resets all fields of the specified table\'s record buffer (variable) to their default empty values without touching the database.'},{k:'c',t:'It commits the current database transaction and closes the table\'s cursor.'},{k:'d',t:'It removes all database locks held by the current program on the specified table.'}],correct:['b'],
+  explanation:'db.clear(table) in Baan 4GL initialises all fields of the specified table variable to empty/default values (e.g. 0 for numerics, empty string for chars). It operates entirely in memory — it does NOT delete, update, or affect any database records. It is typically used before db.insert() to ensure no stale values remain in the buffer from a previous read.'},
  {id:35,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
   text:'To call a function defined in a Baan DLL from a UI script, what must the developer do?',
   opts:[{k:'a',t:'Re-code the DLL function body directly in the UI script.'},{k:'b',t:'Declare a function header (extern declaration) referencing the DLL name and function signature in the UI script, then call it normally.'},{k:'c',t:'Convert the DLL to a DAL before it can be used in a UI script.'},{k:'d',t:'No special declaration is needed — Baan resolves all DLL functions automatically at runtime.'}],correct:['b']},
@@ -2198,9 +2176,10 @@ const QS_DEV=[
  {id:43,cat:'tbl',cl:'ch-tbl',catL:'Tables & Domains',diff:'simple',dc:'ch-s',pts:2,multi:false,
   text:'In Baan, what are the three main types of domains?',
   opts:[{k:'a',t:'Numeric, String, and Boolean'},{k:'b',t:'Enumerated (fixed list of values), Range (min/max numeric), and Reference (link to another table)'},{k:'c',t:'Primary, Secondary, and Composite'},{k:'d',t:'Input, Display, and Calculated'}],correct:['b']},
- {id:44,cat:'fn',cl:'ch-fn',catL:'Functional',diff:'simple',dc:'ch-s',pts:2,multi:false,
-  text:'In Infor LN, what is an "Item" in the item master?',
-  opts:[{k:'a',t:'A physical warehouse location where goods are stored.'},{k:'b',t:'A uniquely identified product, component, or service that is bought, sold, produced, or stocked — described by attributes such as unit of measure, item type, and costing method.'},{k:'c',t:'A financial transaction line recorded during a goods receipt.'},{k:'d',t:'A document type used in the sales order module.'}],correct:['b']},
+ {id:44,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Infor LN / Baan 4GL program scripts, what is a "session parameter" and how is it typically used?',
+  opts:[{k:'a',t:'A global configuration value stored in the database that all sessions read at startup.'},{k:'b',t:'A value passed to a session at invocation time that customises its behaviour — for example, pre-setting a filter, opening the session in a specific mode, or passing a key to pre-select a record.'},{k:'c',t:'A user-specific preference stored in the employee master record.'},{k:'d',t:'A database connection string defined in the application server configuration.'}],correct:['b'],
+  explanation:'Session parameters in Baan are variables passed to a session when it is invoked from another session or menu. They allow the calling session to control the called session\'s behaviour — such as filtering to a specific item or company, opening in add-only mode, or transferring a key value. In 4GL code, parameters appear in the main function signature of the session script.'},
  {id:45,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
   text:'What is the purpose of the after.program section in a Baan UI script?',
   opts:[{k:'a',t:'It executes after every field on the form is processed.'},{k:'b',t:'It executes once when the user exits the program — typically used for cleanup, releasing resources, or writing summary data.'},{k:'c',t:'It executes after every database commit.'},{k:'d',t:'It executes after the first record is displayed to the user.'}],correct:['b']},
@@ -2213,9 +2192,10 @@ const QS_DEV=[
  {id:48,cat:'tbl',cl:'ch-tbl',catL:'Tables & Domains',diff:'medium',dc:'ch-m',pts:3,multi:true,
   text:'Which statements about Baan table indices are correct?',
   opts:[{k:'a',t:'Index 1 is always the primary key — it must be unique (no duplicate key combinations).'},{k:'b',t:'The key fields of Index 1 are used by db.read() to locate a single record by exact key.'},{k:'c',t:'All indices in a table must use completely different, non-overlapping key fields.'},{k:'d',t:'Index 2 and higher are non-unique and can contain duplicate key combinations.'}],correct:['a','b','d']},
- {id:49,cat:'fn',cl:'ch-fn',catL:'Functional',diff:'medium',dc:'ch-m',pts:3,multi:false,
-  text:'In Infor LN\'s three-tier application architecture, which tier is responsible for executing Baan 4GL business logic and program scripts?',
-  opts:[{k:'a',t:'The Presentation tier (web browser or Windows client)'},{k:'b',t:'The Application Server tier (Infor LN Tools / business logic engine)'},{k:'c',t:'The Database tier (SQL Server or Oracle)'},{k:'d',t:'The Integration tier (Infor ION / middleware)'}],correct:['b']},
+ {id:49,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'medium',dc:'ch-m',pts:3,multi:true,
+  text:'In Baan 4GL, which of the following statements about table variables (record buffers) are correct?',
+  opts:[{k:'a',t:'A table variable declared with the "table" keyword gives access to all fields of that table using dot notation (e.g. t_items.t_item).'},{k:'b',t:'Multiple table variables for the same database table can be declared in one program to hold different record values simultaneously.'},{k:'c',t:'Modifying a field value in a table variable automatically updates the corresponding record in the database.'},{k:'d',t:'A db.clear() call on a table variable resets all its fields to defaults without affecting the database.'}],correct:['a','b','d'],
+  explanation:'Table variables in Baan 4GL act as in-memory record buffers: (a) fields are accessed via dot notation; (b) multiple variables of the same table type can be declared independently to hold different records; (d) db.clear() resets the buffer only. Option C is incorrect — modifying a table variable only changes the in-memory buffer; you must call db.insert() for a new record or db.update() after reading an existing one to persist changes to the database.'},
  {id:50,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'medium',dc:'ch-m',pts:3,multi:true,
   text:'Which of the following are valid DAL property hooks in Baan?',
   opts:[{k:'a',t:'before.set.fieldname — fires before a specific field\'s value is set'},{k:'b',t:'after.set.fieldname — fires after a specific field\'s value has been set'},{k:'c',t:'on.get.fieldname — fires when a specific field\'s value is read/retrieved'},{k:'d',t:'before.delete — fires before the entire record is physically deleted'}],correct:['a','b','c']},
@@ -2228,9 +2208,10 @@ const QS_DEV=[
  {id:53,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'medium',dc:'ch-m',pts:3,multi:false,
   text:'In Infor LN, what is the purpose of the "save.data" standard option section in a Baan Maintain session UI script?',
   opts:[{k:'a',t:'It fires automatically whenever the database transaction commits, regardless of the originating action.'},{k:'b',t:'It is the standard option section that executes when the user chooses to save/process the current record — developer logic here validates or transforms data immediately before writing.'},{k:'c',t:'It replaces check.input validation for all fields on the form.'},{k:'d',t:'It is called only by the DAL when dal.new() or dal.update() is invoked.'}],correct:['b']},
- {id:54,cat:'fn',cl:'ch-fn',catL:'Functional',diff:'medium',dc:'ch-m',pts:3,multi:false,
-  text:'In Infor LN, what is an "Inter-company" transaction?',
-  opts:[{k:'a',t:'A transaction between two cost centres within the same legal entity.'},{k:'b',t:'A business transaction (sale, purchase, or inventory transfer) between two legally separate companies both defined within the same Infor LN installation, automatically generating corresponding documents in both companies.'},{k:'c',t:'Any transaction that posts to more than one General Ledger account.'},{k:'d',t:'A transaction that spans two consecutive financial periods.'}],correct:['b']},
+ {id:54,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'medium',dc:'ch-m',pts:3,multi:true,
+  text:'In Baan / Infor LN development, which of the following statements correctly describe how a zoom session works?',
+  opts:[{k:'a',t:'A zoom session is linked to a specific field in the calling session; when the user activates it (e.g. via F2), it opens a list for the user to select a value from.'},{k:'b',t:'The calling session can pass pre-filter values to the zoom session to narrow the displayed records.'},{k:'c',t:'When the user selects a record in the zoom, the selected key field value(s) are returned and populated into the calling session\'s field.'},{k:'d',t:'A zoom session always runs inside the same database transaction as the calling session and can directly commit changes to the caller\'s main table.'}],correct:['a','b','c'],
+  explanation:'Zoom sessions are read-only look-up sessions: (a) they are linked to a field and open on user request; (b) the caller can pass pre-filter values; (c) the selected record\'s key is returned to the calling field. Option D is incorrect — zoom sessions are selection helpers that do not commit changes to the calling session\'s table. The caller receives the returned key and then performs any further database operations itself.'},
  {id:55,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'difficult',dc:'ch-d',pts:4,multi:true,
   text:'A developer calls dal.new() to insert a record inside an open transaction. A second concurrent session immediately queries the same table with db.select() before commit.transaction() is called. Which are valid explanations for why the new record may NOT be visible to the second session?',
   opts:[{k:'a',t:'The transaction has not been committed — the new record exists only in an uncommitted state, not visible to other sessions under standard isolation levels.'},{k:'b',t:'dal.new() does not write to the physical table — it only updates the DAL in-memory object cache.'},{k:'c',t:'The second session uses a read-consistent snapshot taken before the insert, depending on the database isolation level configured (e.g., READ COMMITTED).'},{k:'d',t:'Baan always uses SERIALIZABLE isolation, so no other session can see any data until a full session restart.'}],correct:['a','c']},
@@ -2243,9 +2224,10 @@ const QS_DEV=[
  {id:58,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'difficult',dc:'ch-d',pts:4,multi:true,
   text:'In Baan, which of the following scenarios could result in a database deadlock between two concurrent sessions?',
   opts:[{k:'a',t:'Session 1 locks Record A with "for update" then tries to lock Record B, while Session 2 has locked Record B and is waiting to lock Record A.'},{k:'b',t:'Two sessions simultaneously calling commit.transaction() on completely different records in different tables.'},{k:'c',t:'Session 1 executes a read-only db.select() on a table while Session 2 is updating an unrelated record in a different table.'},{k:'d',t:'Session 1 and Session 2 both calling abort.transaction() at the same time on their respective transactions.'}],correct:['a']},
- {id:59,cat:'fn',cl:'ch-fn',catL:'Functional',diff:'difficult',dc:'ch-d',pts:4,multi:true,
-  text:'An Infor LN consultant must set up a new legal entity that will independently manage logistics and finance. Which configuration steps are required in Infor LN?',
-  opts:[{k:'a',t:'Create a new Logistical Company with its own item master, order parameters, and inventory settings.'},{k:'b',t:'Create a new Financial Company with its own chart of accounts and financial period calendar.'},{k:'c',t:'Link the Logistical Company to the Financial Company so that logistics transactions generate the correct financial postings.'},{k:'d',t:'Share the existing chart of accounts from a parent company to avoid setting up GL accounts from scratch (this is mandatory).'}],correct:['a','b','c']},
+ {id:59,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+  text:'A developer is designing multiple Infor LN sessions for different business requirements. Which of the following requirement-to-session-type mappings are correct?',
+  opts:[{k:'a',t:'"Users need to view, add, edit, and delete records interactively" → Maintain Session'},{k:'b',t:'"An overnight batch process must process thousands of records and write results to a log" → Process (Batch) Session'},{k:'c',t:'"Users need to select a value from a lookup list for a field in another session" → Display Session (used as a Zoom)'},{k:'d',t:'"Users need to print a formatted document such as a purchase order confirmation" → Maintain Session with a custom print button'}],correct:['a','b','c'],
+  explanation:'In Infor LN / Baan: (a) Maintain Sessions support full CRUD (create/read/update/delete); (b) Process/Batch Sessions are designed for background or high-volume processing without an interactive form; (c) Display Sessions used as zoom sessions provide read-only record selection for field lookups. Option D is incorrect — formatted document printing requires a dedicated Print/Report Session (structured output to paper or PDF); a Maintain Session with a print button is non-standard and lacks proper report layout control.'},
  {id:60,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'difficult',dc:'ch-d',pts:4,multi:true,
   text:'A Baan program is intermittently failing with database errors under high-concurrency load. Which are valid investigation and resolution strategies?',
   opts:[{k:'a',t:'Add retry.point() around transaction blocks so Baan can automatically re-execute the transaction after a database-triggered abort.'},{k:'b',t:'Reduce the transaction scope — commit more frequently to minimise lock hold time and contention.'},{k:'c',t:'Replace all db.insert()/db.update() calls with dal.new()/dal.update() — this enables automatic deadlock resolution.'},{k:'d',t:'Review index design to ensure queries use efficient key paths, reducing lock contention on frequently-accessed records.'}],correct:['a','b','d']}
@@ -2580,7 +2562,7 @@ const QS_EXT=[
 /* ══════════════════════════════════════════
    STATE
 ══════════════════════════════════════════ */
-const TOTAL_PTS=50, PASS_PCT=75, DURATION=45*60;
+const TOTAL_PTS=50, PASS_PCT=70, DURATION=45*60;
 let track='', QS=[], candidate={}, answers={}, skipped=new Set(), curIdx=0, timerInt=null, timeLeft=DURATION;
 
 /* ══════════════════════════════════════════
@@ -2653,7 +2635,170 @@ const QS_SCM=[
    opts:[{k:'a',t:'Enabling "Lot Controlled" on the item master.'},{k:'b',t:'Defining a lot numbering sequence.'},{k:'c',t:'Activating lot tracking in the warehouse parameters.'},{k:'d',t:'Disabling serialisation on the item before enabling lots.'}],correct:['a','b','c']},
   {id:20,cat:'wh',cl:'ch-wh',catL:'Warehousing',diff:'difficult',dc:'ch-d',pts:4,multi:true,
    text:'A warehouse team is experiencing incorrect inventory counts in Infor LN. Which are valid root causes to investigate?',
-   opts:[{k:'a',t:'Goods receipts posted to the wrong warehouse location.'},{k:'b',t:'Outbound shipments confirmed without completing the pick order.'},{k:'c',t:'The item master having an incorrect unit of measure conversion.'},{k:'d',t:'Open transfer orders that have not been confirmed.'}],correct:['a','b','c','d']}
+   opts:[{k:'a',t:'Goods receipts posted to the wrong warehouse location.'},{k:'b',t:'Outbound shipments confirmed without completing the pick order.'},{k:'c',t:'The item master having an incorrect unit of measure conversion.'},{k:'d',t:'Open transfer orders that have not been confirmed.'}],correct:['a','b','c','d']},
+  /* ── Q21-Q45: SIMPLE (25 new) ── */
+  {id:21,cat:'po',cl:'ch-po',catL:'Purchasing',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Purchasing, when is a "Goods Receipt" (GR) typically created?',
+   opts:[{k:'a',t:'When the Purchase Order is approved by management.'},{k:'b',t:'When the supplier\'s invoice is received in Accounts Payable.'},{k:'c',t:'When the ordered goods physically arrive in the warehouse and are confirmed as received.'},{k:'d',t:'When the Purchase Requisition is converted into a Purchase Order.'}],correct:['c'],
+   explanation:'A Goods Receipt (GR) in Infor LN is created when physical goods arrive and are confirmed in the warehouse (inbound processing). It is distinct from PO approval (a procurement step) or invoice receipt (an AP step).'},
+  {id:22,cat:'scm',cl:'ch-scm',catL:'Sales',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Sales, what is a "Sold-to Business Partner"?',
+   opts:[{k:'a',t:'The carrier responsible for delivering goods to the end customer.'},{k:'b',t:'The business partner (customer) who legally places and is responsible for the sales order, including payment obligations.'},{k:'c',t:'The warehouse location from which goods are dispatched.'},{k:'d',t:'The supplier from whom goods are purchased for resale.'}],correct:['b'],
+   explanation:'The Sold-to Business Partner is the legal customer entity responsible for the sales order. A separate Ship-to Business Partner defines the physical delivery destination, which may differ from the Sold-to (e.g., a customer with multiple delivery addresses).'},
+  {id:23,cat:'inv',cl:'ch-inv',catL:'Inventory',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Inventory, what does "ABC Classification" of items represent?',
+   opts:[{k:'a',t:'A financial coding system for item taxation categories (A=taxable, B=exempt, C=reduced rate).'},{k:'b',t:'A method of categorising items by their relative value or transaction activity (A=high, B=medium, C=low) to prioritise inventory management efforts.'},{k:'c',t:'A three-level quality grading system for raw materials.'},{k:'d',t:'The three approval levels required for purchase requisitions above certain thresholds.'}],correct:['b'],
+   explanation:'ABC Classification (based on the Pareto/80-20 principle) categorises inventory items by annual consumption value or activity: A items are high-value/high-activity requiring close control, B items are moderate, and C items are low-value requiring less frequent attention.'},
+  {id:24,cat:'inv',cl:'ch-inv',catL:'Inventory',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN, what is the key distinction between a "Purchased Item" and a "Manufactured Item"?',
+   opts:[{k:'a',t:'Purchased items are obtained from external suppliers via purchase orders; manufactured items are produced internally using a Bill of Materials and Routing.'},{k:'b',t:'Purchased items are always raw materials; manufactured items are always finished goods.'},{k:'c',t:'Manufactured items cannot be stored in a warehouse after production.'},{k:'d',t:'Purchased items never have a standard cost assigned to them.'}],correct:['a'],
+   explanation:'In Infor LN, item type (Purchased vs Manufactured) drives procurement vs production planning. Purchased items trigger purchase orders; manufactured items trigger production orders using BOM + Routing. Note: a purchased item can be a raw material, semi-finished, or finished good depending on the supply source.'},
+  {id:25,cat:'wh',cl:'ch-wh',catL:'Warehousing',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is the correct hierarchy of physical location organisation in Infor LN Warehousing?',
+   opts:[{k:'a',t:'Zone → Warehouse → Location'},{k:'b',t:'Location → Zone → Warehouse'},{k:'c',t:'Warehouse → Zone → Location'},{k:'d',t:'Warehouse → Location → Zone'}],correct:['c'],
+   explanation:'In Infor LN, the physical warehouse is divided into Zones (areas with shared characteristics such as temperature or function), and each Zone contains Locations (individual storage slots/bin addresses). The hierarchy is: Warehouse → Zone → Location.'},
+  {id:26,cat:'scm',cl:'ch-scm',catL:'Sales',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Sales, what happens when a Sales Order is "Confirmed"?',
+   opts:[{k:'a',t:'The goods are immediately shipped to the customer.'},{k:'b',t:'The order is financially settled and an invoice is generated.'},{k:'c',t:'The order moves from Free status, committing resources (inventory or production) and enabling subsequent warehouse and shipment processing.'},{k:'d',t:'The customer\'s payment is automatically authorised and collected.'}],correct:['c'],
+   explanation:'Confirming a Sales Order in Infor LN transitions it from "Free" (editable) to "Confirmed", committing inventory reservations or triggering production/procurement, and enabling downstream processes such as picking and shipment. It does not immediately ship goods or generate an invoice.'},
+  {id:27,cat:'scm',cl:'ch-scm',catL:'Sales',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Sales, what is a "Credit Check"?',
+   opts:[{k:'a',t:'A verification that checks whether a customer\'s outstanding balance and new order value fall within their approved credit limit, potentially blocking orders that exceed it.'},{k:'b',t:'A process that verifies the customer\'s bank account details before accepting payment.'},{k:'c',t:'A periodic audit of all open sales invoices for overdue amounts.'},{k:'d',t:'An automated collection call triggered when a customer invoice is overdue.'}],correct:['a'],
+   explanation:'Infor LN Sales performs a Credit Check by comparing the customer\'s current outstanding balance plus the new order value against their approved credit limit. If exceeded, the order (or line) is placed on hold, blocking further processing until released by a credit controller.'},
+  {id:28,cat:'po',cl:'ch-po',catL:'Purchasing',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Purchasing, what is a "Request for Quotation" (RFQ)?',
+   opts:[{k:'a',t:'A report listing all open purchase orders awaiting supplier confirmation.'},{k:'b',t:'An internal form used to request management approval for a purchase above a threshold.'},{k:'c',t:'A document sent to one or more suppliers requesting pricing and terms for specific goods or services before a purchase order is created.'},{k:'d',t:'A financial document that records the final payment made to the supplier.'}],correct:['c'],
+   explanation:'An RFQ (Request for Quotation) in Infor LN Purchasing is sent to potential suppliers to solicit competitive bids. Supplier responses (quotations) are compared and the winning quote can be converted into a Purchase Order or Purchase Contract.'},
+  {id:29,cat:'inv',cl:'ch-inv',catL:'Inventory',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Inventory, when would you typically use an "Inventory Adjustment"?',
+   opts:[{k:'a',t:'To reserve inventory for a specific sales order before it is confirmed.'},{k:'b',t:'To correct discrepancies between the physical stock count and the system inventory balance discovered during a cycle count or physical count.'},{k:'c',t:'To transfer inventory between two separate warehouse locations.'},{k:'d',t:'To record goods received from a supplier against a purchase order.'}],correct:['b'],
+   explanation:'An Inventory Adjustment in Infor LN is used to correct inventory balance discrepancies — for example, after a physical count reveals the actual quantity differs from the system quantity. It directly increases or decreases the inventory balance and posts a corresponding financial transaction.'},
+  {id:30,cat:'po',cl:'ch-po',catL:'Purchasing',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN, which sequence correctly represents the standard status progression of a Purchase Order header?',
+   opts:[{k:'a',t:'Open → Approved → Confirmed → Closed'},{k:'b',t:'Draft → Submitted → Approved → Posted'},{k:'c',t:'Free → Approved → Confirmed → Closed'},{k:'d',t:'Created → Released → Completed → Archived'}],correct:['c'],
+   explanation:'The formal Purchase Order header status domain (pur.hdst) in Infor LN uses: Free (initial, editable) → Approved (authorised) → Confirmed (sent to supplier) → Closed (fully received and matched). "Open" is not a formal LN status — the initial status is "Free".'},
+  {id:31,cat:'wh',cl:'ch-wh',catL:'Warehousing',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Warehousing, which option best represents the correct general sequence for a standard outbound (customer delivery) process?',
+   opts:[{k:'a',t:'Ship → Pick → Inspect → Invoice'},{k:'b',t:'Invoice → Ship → Confirm → Close'},{k:'c',t:'Release Outbound Order → Allocate Inventory → Pick → Confirm Shipment'},{k:'d',t:'Receive → Inspect → Putaway → Ship'}],correct:['c'],
+   explanation:'The standard outbound process in Infor LN follows: Release the outbound warehousing order (from the sales order) → Allocate/reserve inventory → Generate pick tasks → Physically pick items → Confirm shipment. Option D describes the inbound (receiving) process.'},
+  {id:32,cat:'scm',cl:'ch-scm',catL:'Sales',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is a "Price List" in Infor LN Sales?',
+   opts:[{k:'a',t:'A list of all items ranked by their standard manufacturing cost.'},{k:'b',t:'A defined set of selling prices for items or item groups, assigned to customers or customer groups to automatically populate sales order pricing.'},{k:'c',t:'A financial report showing the highest-revenue items sold in a period.'},{k:'d',t:'A document recording the prices paid to all active suppliers.'}],correct:['b'],
+   explanation:'A Price List in Infor LN Sales defines structured selling prices (and optionally discounts) for items or item groups. Price lists are linked to customers or customer groups, enabling automatic price defaulting on sales orders. Multiple price lists can exist with different currencies or effective dates.'},
+  {id:33,cat:'inv',cl:'ch-inv',catL:'Inventory',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Inventory, what is the "Reorder Point" (ROP)?',
+   opts:[{k:'a',t:'The maximum quantity allowed in a single warehouse location.'},{k:'b',t:'The point in the procurement cycle at which the goods receipt is confirmed and payment is authorised.'},{k:'c',t:'The minimum inventory level at which a replenishment order should be triggered to avoid a stockout.'},{k:'d',t:'The price threshold above which management approval is required for a purchase order.'}],correct:['c'],
+   explanation:'The Reorder Point (ROP) is the inventory level at which a replenishment action should be initiated. It is typically calculated as: (Average Daily Demand × Lead Time) + Safety Stock. When on-hand inventory falls to or below the ROP, LN generates a replenishment signal.'},
+  {id:34,cat:'po',cl:'ch-po',catL:'Purchasing',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN, what is a "Purchase Schedule"?',
+   opts:[{k:'a',t:'A vendor-managed inventory arrangement where the supplier holds stock on-site at the customer\'s warehouse.'},{k:'b',t:'An agreement with a supplier defining planned delivery quantities and dates over a period, based on forecasts or requirements, allowing call-offs without raising a full PO for each delivery.'},{k:'c',t:'A fixed delivery timetable used by the carrier company for all shipments.'},{k:'d',t:'A calendar of planned physical inventory counts for a warehouse.'}],correct:['b'],
+   explanation:'A Purchase Schedule in Infor LN supports high-frequency repetitive purchasing. Rather than raising a new PO for every delivery, a schedule defines planned call-off quantities and dates. Releases (actual deliveries) are confirmed against the schedule, reducing administrative overhead for frequent supply arrangements.'},
+  {id:35,cat:'po',cl:'ch-po',catL:'Purchasing',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Purchasing, what is a "Return to Supplier" (RTS) order used for?',
+   opts:[{k:'a',t:'To send a sample item to the supplier for quality testing before the main order.'},{k:'b',t:'To record and process the return of defective, excess, or incorrect goods back to the supplier, typically resulting in a credit note or replacement.'},{k:'c',t:'To request the supplier redeliver goods after a failed first shipment.'},{k:'d',t:'To cancel an approved purchase order before goods have been received.'}],correct:['b'],
+   explanation:'A Return to Supplier (RTS) order in Infor LN handles the reverse logistics of returning goods to a supplier. It manages the physical return process and triggers a financial adjustment (credit from the supplier). It differs from a PO cancellation — the goods have already been received and must be physically returned.'},
+  {id:36,cat:'wh',cl:'ch-wh',catL:'Warehousing',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is "Cross-docking" in Infor LN Warehousing?',
+   opts:[{k:'a',t:'Moving inventory from one warehouse zone to another for reorganisation.'},{k:'b',t:'A process where inbound goods are transferred directly from the receiving dock to an outbound shipment without being put away into warehouse storage.'},{k:'c',t:'A method of combining multiple purchase orders into a single consolidated delivery.'},{k:'d',t:'A technique for splitting one large shipment into multiple smaller customer deliveries.'}],correct:['b'],
+   explanation:'Cross-docking in Infor LN allows goods arriving from a supplier to be immediately allocated and moved to an outbound shipment for a waiting customer order, bypassing storage entirely. This reduces handling, space requirements, and order lead time.'},
+  {id:37,cat:'inv',cl:'ch-inv',catL:'Inventory',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN, what is the purpose of "Unit of Measure (UoM) Conversion" on an item?',
+   opts:[{k:'a',t:'To convert the item\'s financial value between different currency codes.'},{k:'b',t:'To allow an item to be purchased, stored, and sold in different units of measure, with conversion factors automatically applied between them.'},{k:'c',t:'To change the item\'s standard cost at the start of a new financial period.'},{k:'d',t:'To map an item\'s internal code to the supplier\'s part number for EDI purposes.'}],correct:['b'],
+   explanation:'UoM Conversion in Infor LN enables an item to use different units in different processes — e.g., purchased in pallets, stored in cases, sold in individual pieces. Conversion factors defined on the item ensure quantities are automatically converted between units throughout the system.'},
+  {id:38,cat:'scm',cl:'ch-scm',catL:'Sales',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Sales, what is the difference between a "Sold-to Business Partner" and a "Ship-to Business Partner"?',
+   opts:[{k:'a',t:'The Sold-to BP is the entity legally responsible for payment; the Ship-to BP is the physical delivery address where goods are sent, which may be different (e.g., a customer branch or third-party recipient).'},{k:'b',t:'The Sold-to BP is the internal warehouse; the Ship-to BP is the external carrier company.'},{k:'c',t:'There is no operational difference — both always refer to the same customer entity.'},{k:'d',t:'The Sold-to BP places orders via EDI; the Ship-to BP places orders via manual entry.'}],correct:['a'],
+   explanation:'The Sold-to BP is the legal customer responsible for contractual terms and payment. The Ship-to BP is the physical goods destination, which may differ — for example, a head office orders on behalf of multiple delivery branches. Both are stored on the sales order.'},
+  {id:39,cat:'po',cl:'ch-po',catL:'Purchasing',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Accounts Payable, what does "2-Way Matching" mean?',
+   opts:[{k:'a',t:'Matching two separate supplier invoices for the same delivered goods.'},{k:'b',t:'Matching the supplier invoice directly against the Purchase Order only (without a Goods Receipt), validating quantities and prices between the two documents.'},{k:'c',t:'A two-step financial approval workflow required for all purchase invoices above a value threshold.'},{k:'d',t:'Matching a supplier credit note against a previously issued debit note.'}],correct:['b'],
+   explanation:'2-Way Matching in Infor LN AP matches the supplier invoice against the Purchase Order only (PO ↔ Invoice). This is used when a Goods Receipt is not part of the process (e.g., for services). 3-Way Matching adds the Goods Receipt (PO ↔ GR ↔ Invoice) and is most common for physical goods.'},
+  {id:40,cat:'wh',cl:'ch-wh',catL:'Warehousing',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Warehousing, what is a "Warehousing Order"?',
+   opts:[{k:'a',t:'A financial approval document for warehouse storage rental costs.'},{k:'b',t:'An internal warehouse instruction document that coordinates inbound, outbound, or transfer activities, generated from source documents such as purchase orders, sales orders, or transfer orders.'},{k:'c',t:'A report listing all items stored in a specific warehouse location.'},{k:'d',t:'A carrier booking document for transporting goods between company warehouses.'}],correct:['b'],
+   explanation:'A Warehousing Order in Infor LN is the operative document within the warehouse management module. It is generated from source documents (PO, SO, transfer order) and drives physical warehouse tasks (putaway, picking, replenishment). Warehousing orders can be inbound, outbound, or internal.'},
+  {id:41,cat:'inv',cl:'ch-inv',catL:'Inventory',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN, what is "Consignment Inventory"?',
+   opts:[{k:'a',t:'Inventory that has failed quality inspection and is held in quarantine pending disposition.'},{k:'b',t:'Inventory that is physically located at a customer\'s or partner\'s site but remains owned by the supplying company until it is consumed or sold.'},{k:'c',t:'Emergency buffer stock reserved exclusively for production breakdowns.'},{k:'d',t:'Inventory from multiple suppliers combined into a single lot for blended processing.'}],correct:['b'],
+   explanation:'Consignment Inventory in Infor LN represents stock held at a customer location where ownership remains with the supplier until consumption or sale. LN tracks the consignment balance separately, with financial transfer triggered upon consumption — not upon physical delivery.'},
+  {id:42,cat:'scm',cl:'ch-scm',catL:'Sales',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Sales, what is a "Delivery Schedule"?',
+   opts:[{k:'a',t:'A calendar showing warehouse staff shift rotations and task assignments.'},{k:'b',t:'A plan defining the quantities and dates for delivering goods to a customer, often linked to a sales contract or long-term agreement.'},{k:'c',t:'A list of all shipments currently in transit with their expected arrival times.'},{k:'d',t:'A financial instalment schedule for customer invoice payment terms.'}],correct:['b'],
+   explanation:'A Delivery Schedule in Infor LN Sales defines planned delivery call-offs for a customer — quantities and dates — typically based on a long-term sales contract or customer forecast. It enables the supply chain to plan production, procurement, and warehousing in advance.'},
+  {id:43,cat:'po',cl:'ch-po',catL:'Purchasing',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'What is a "Direct Delivery" (drop-ship) in Infor LN?',
+   opts:[{k:'a',t:'A delivery made exclusively using the company\'s own fleet without third-party carriers.'},{k:'b',t:'An urgent same-day delivery option triggered for critical stock-out situations.'},{k:'c',t:'A process where goods are delivered directly from the supplier to the end customer, bypassing the company\'s own warehouse entirely.'},{k:'d',t:'A transfer of goods between two internal company warehouses using a company vehicle.'}],correct:['c'],
+   explanation:'Direct Delivery (drop-shipping) in Infor LN links a Sales Order to a Purchase Order and directs the supplier to ship goods directly to the customer. The company acts as an intermediary (financially and contractually) but never physically handles the goods, reducing warehousing costs and lead time.'},
+  {id:44,cat:'inv',cl:'ch-inv',catL:'Inventory',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN, what is the purpose of a "Physical Inventory Count" (Full Stock Count)?',
+   opts:[{k:'a',t:'To update standard costs for all items in the warehouse at period end.'},{k:'b',t:'To count all items in a warehouse at a specific point in time in order to verify and reconcile system inventory balances against actual physical quantities.'},{k:'c',t:'To audit the quality and condition of all items before dispatch to customers.'},{k:'d',t:'To automatically generate replenishment purchase orders for all items below their reorder point.'}],correct:['b'],
+   explanation:'A Physical Inventory Count (Full Stock Count) in Infor LN freezes inventory transactions for a warehouse, records physical counts, and reconciles them against system quantities. Variances are posted as inventory adjustments. Unlike a cycle count (rolling partial count), a full stock count covers all items at once.'},
+  {id:45,cat:'inv',cl:'ch-inv',catL:'Inventory',diff:'simple',dc:'ch-s',pts:2,multi:false,
+   text:'In Infor LN Inventory, what is "Safety Stock"?',
+   opts:[{k:'a',t:'Inventory set aside strictly for emergency use that is never available for normal order fulfilment.'},{k:'b',t:'A minimum buffer inventory level held to protect against demand variability and supply lead time uncertainty, preventing stockouts during replenishment cycles.'},{k:'c',t:'The maximum permissible inventory quantity for a warehouse location.'},{k:'d',t:'A financial reserve created by the finance department to provision for potential inventory write-downs.'}],correct:['b'],
+   explanation:'Safety Stock in Infor LN is a buffer quantity maintained above the expected demand during lead time, protecting against unpredictable demand spikes or supplier delays. It is factored into the Reorder Point calculation: ROP = (Avg. Daily Demand × Lead Time) + Safety Stock.'},
+  /* ── Q46-Q54: MEDIUM (9 new) ── */
+  {id:46,cat:'po',cl:'ch-po',catL:'Purchasing',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'In Infor LN Purchasing, which statements about "Purchase Price Agreements" (PPAs) are correct?',
+   opts:[{k:'a',t:'PPAs define agreed prices and discounts with suppliers for specific items or item groups.'},{k:'b',t:'PPAs can be structured with quantity breaks, where the unit price decreases as ordered volume increases.'},{k:'c',t:'PPAs can be time-limited with an effective-from and effective-to date.'},{k:'d',t:'Activating a PPA automatically generates a purchase order for the agreed minimum quantity.'}],correct:['a','b','c'],
+   explanation:'Purchase Price Agreements (PPAs) in Infor LN capture negotiated pricing structures with suppliers, including quantity-based discounts and time-limited terms. When a PO is created for an item/supplier covered by a PPA, the agreed price is automatically defaulted. PPAs do NOT auto-generate purchase orders — procurement is initiated by demand (MRP, PR, or manual).'},
+  {id:47,cat:'inv',cl:'ch-inv',catL:'Inventory',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'In Infor LN, which statements correctly describe the differences between "Lot" and "Serial" number tracking?',
+   opts:[{k:'a',t:'Lot tracking assigns a single identifier to a group (batch) of identical items produced or received together.'},{k:'b',t:'Serial number tracking assigns a unique identifier to each individual physical unit.'},{k:'c',t:'An item in Infor LN can be configured for both lot and serial tracking simultaneously if required.'},{k:'d',t:'Lot numbers in Infor LN are always assigned at sales order creation, before goods are picked.'}],correct:['a','b','c'],
+   explanation:'In Infor LN, Lot tracking manages batches (one lot number per group), while Serial tracking identifies individual units uniquely. Both can be enabled simultaneously on an item. Lot numbers are assigned at goods receipt or production completion — not at sales order creation (option D is incorrect).'},
+  {id:48,cat:'inv',cl:'ch-inv',catL:'Inventory',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'Which of the following statements about "Inventory Reservations" in Infor LN are correct?',
+   opts:[{k:'a',t:'A reservation links available inventory to a specific demand document (e.g., a sales order line) to ensure it is set aside for that demand.'},{k:'b',t:'Reserved inventory is excluded from the Available-to-Promise (ATP) calculation for new orders.'},{k:'c',t:'Reservations can be made at the item, warehouse, lot, or serial number level depending on the item\'s tracking configuration.'},{k:'d',t:'Once inventory is reserved in Infor LN, it cannot be unreserved without first cancelling the source sales order.'}],correct:['a','b','c'],
+   explanation:'Inventory Reservations in Infor LN commit specific stock to a demand. Reserved stock is excluded from ATP calculations for new orders. Reservations can be granular (lot/serial level) for tracked items. Option D is incorrect: reservations can be manually unreserved by a planner or warehouse manager without cancelling the sales order.'},
+  {id:49,cat:'scm',cl:'ch-scm',catL:'Sales',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'In Infor LN Sales, which of the following can result in a sales order being placed "On Hold"?',
+   opts:[{k:'a',t:'The customer\'s outstanding balance exceeds their approved credit limit.'},{k:'b',t:'The customer\'s account is blocked or marked as inactive in the business partner master.'},{k:'c',t:'A manual hold is applied by a sales administrator pending additional approval.'},{k:'d',t:'The item ordered has been discontinued in the item master.'}],correct:['a','b','c'],
+   explanation:'Sales orders in Infor LN can be placed On Hold due to: credit limit breach (automatic credit hold), a blocked/inactive customer account, or a manual hold by an authorised user. A discontinued item (option D) would typically generate a validation error rather than applying a hold to an existing order.'},
+  {id:50,cat:'po',cl:'ch-po',catL:'Purchasing',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'In Infor LN Purchasing, which statements about "Approved Supplier Lists" (ASL) are correct?',
+   opts:[{k:'a',t:'An ASL defines which suppliers are approved to supply specific items or item groups.'},{k:'b',t:'Infor LN can be configured to warn or block the creation of purchase orders from non-listed suppliers.'},{k:'c',t:'ASL entries can distinguish between preferred suppliers and approved (alternative) suppliers for the same item.'},{k:'d',t:'ASL entries are restricted to direct material purchases and cannot be applied to service items.'}],correct:['a','b','c'],
+   explanation:'Approved Supplier Lists (ASL) in Infor LN enforce sourcing policies by defining which suppliers are permitted for specific items. The system can warn or hard-block POs to unapproved suppliers. Preferred vs approved status supports tiered sourcing strategies. Option D is incorrect: ASLs can apply to services as well as direct materials.'},
+  {id:51,cat:'scm',cl:'ch-scm',catL:'Sales',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'In Infor LN, which statements about "Order-Based Production" (Back-to-Back / OBP) are correct?',
+   opts:[{k:'a',t:'A production order is created specifically to fulfil the demand of a linked sales order line.'},{k:'b',t:'The sales order line and the production order are pegged together, reserving the produced inventory for that specific customer demand.'},{k:'c',t:'Inventory produced under OBP is not available for other sales orders once the peg is established.'},{k:'d',t:'OBP eliminates the need for a Bill of Materials because production details are derived from the sales order.'}],correct:['a','b','c'],
+   explanation:'Order-Based Production (OBP) in Infor LN creates a direct peg between a sales order line and a dedicated production order. The produced goods are reserved for the specific customer and not available to other demands. Option D is incorrect: OBP still uses a BOM and Routing — these are always required for manufactured items.'},
+  {id:52,cat:'wh',cl:'ch-wh',catL:'Warehousing',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'In Infor LN Warehousing, which activities are part of the standard inbound (receiving) process?',
+   opts:[{k:'a',t:'Creating an inbound warehousing order linked to a purchase order or ASN.'},{k:'b',t:'Registering the receipt — verifying actual quantities against the expected delivery.'},{k:'c',t:'Putaway — moving confirmed goods to their designated storage locations.'},{k:'d',t:'Generating a sales invoice for the received goods to bill the supplying entity.'}],correct:['a','b','c'],
+   explanation:'The standard inbound process in Infor LN covers: creating the inbound warehousing order (from PO or ASN) → registering receipt (quantity confirmation) → putaway (assigning goods to storage locations). Option D is incorrect: sales invoicing is an outbound/financial activity, not part of the receiving process.'},
+  {id:53,cat:'wh',cl:'ch-wh',catL:'Warehousing',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'In Infor LN Warehousing, which statements about "Warehouse Tasks" are correct?',
+   opts:[{k:'a',t:'Warehouse tasks are the detailed physical work instructions generated from warehousing orders, directing operators to perform specific actions (pick, put, move).'},{k:'b',t:'Tasks can be assigned to specific warehouse operators, zones, or equipment types.'},{k:'c',t:'A single warehousing order can generate multiple warehouse tasks (e.g., one per storage location or pick line).'},{k:'d',t:'Warehouse tasks are posted directly to the financial general ledger as cost centre transactions.'}],correct:['a','b','c'],
+   explanation:'Warehouse Tasks in Infor LN are the granular work instructions derived from warehousing orders. They guide operators to specific locations for picking, putaway, or internal moves. Multiple tasks can arise from one order. Option D is incorrect: financial postings occur at the warehousing order confirmation level, not at individual task level.'},
+  {id:54,cat:'wh',cl:'ch-wh',catL:'Warehousing',diff:'medium',dc:'ch-m',pts:3,multi:true,
+   text:'In Infor LN, which of the following correctly describe stages in the lifecycle of an outbound warehousing order?',
+   opts:[{k:'a',t:'Release — the order is made available for warehouse processing and task generation.'},{k:'b',t:'Allocation — specific inventory (and optionally lot/serial) is assigned to fulfil the outbound demand.'},{k:'c',t:'Picking — warehouse operators physically collect items from their storage locations.'},{k:'d',t:'Shipment Confirmation — the system is updated to reflect goods have left the warehouse, triggering inventory reduction and financial posting.'}],correct:['a','b','c','d'],
+   explanation:'The outbound warehousing order lifecycle in Infor LN includes all four stages: Release (enable processing) → Allocation (inventory assignment) → Picking (physical collection) → Shipment Confirmation (system and financial update). All four options are correct stages.'},
+  /* ── Q55-Q60: DIFFICULT (6 new) ── */
+  {id:55,cat:'po',cl:'ch-po',catL:'Purchasing',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'In Infor LN Accounts Payable, a supplier invoice has arrived with a higher quantity than what was recorded on the Goods Receipt. Which of the following are valid resolution approaches?',
+   opts:[{k:'a',t:'Match and post the invoice for the GR quantity only, and block the excess pending a supplementary GR or supplier credit note.'},{k:'b',t:'Use the invoice matching tolerances configured in the system to automatically approve small quantity variances within the defined threshold.'},{k:'c',t:'Request a credit note from the supplier for the overbilled quantity not supported by a Goods Receipt.'},{k:'d',t:'Retroactively increase the original Purchase Order quantity to match the invoice quantity without any additional goods receipt.'}],correct:['a','b','c'],
+   explanation:'When a supplier invoice exceeds the GR quantity: (a) partial matching with a block on the excess is standard practice; (b) configured tolerances can auto-approve minor variances; (c) requesting a supplier credit note resolves the financial discrepancy. Option D — retroactively changing the PO without a corresponding GR — bypasses three-way match controls and is not a valid AP resolution approach.'},
+  {id:56,cat:'inv',cl:'ch-inv',catL:'Inventory',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'A cycle count in Infor LN reveals a significant negative variance (the system shows more stock than the actual physical quantity). Which of the following are valid root causes to investigate?',
+   opts:[{k:'a',t:'Outbound shipments or inventory issues that were physically executed but not yet confirmed in the system.'},{k:'b',t:'Goods returned by a customer registered in the system but not yet physically placed back into the counted location.'},{k:'c',t:'Open transfer orders that moved inventory out of the location physically but have not yet been confirmed in the system.'},{k:'d',t:'Goods received in excess of the PO quantity but not yet processed in a GR correction or supplementary receipt.'}],correct:['a','b','c'],
+   explanation:'Negative variance (system > physical) means inventory physically left but was not yet recorded. Valid causes: (a) unconfirmed shipments/issues; (b) customer returns booked in system but not physically back in that location; (c) unconfirmed transfer orders that moved goods out. Option D describes an incoming excess that would cause physical > system (positive variance) — not negative variance.'},
+  {id:57,cat:'wh',cl:'ch-wh',catL:'Warehousing',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'In Infor LN, which conditions can prevent a sales order shipment from being released for outbound warehouse processing?',
+   opts:[{k:'a',t:'The sales order is on a credit hold due to the customer exceeding their credit limit.'},{k:'b',t:'The planned ship date is in the future and the system\'s early shipment tolerance window has not yet opened.'},{k:'c',t:'Insufficient available (unreserved) inventory in the warehouse for the ordered quantity.'},{k:'d',t:'The ship-to business partner delivery address is incomplete or missing from the order.'}],correct:['a','b','c','d'],
+   explanation:'All four conditions can block outbound shipment release in Infor LN: (a) credit hold prevents order processing; (b) early shipment restrictions enforce delivery date discipline; (c) insufficient inventory means no pick tasks can be generated; (d) a missing delivery address prevents shipping document creation. Each requires a different team to resolve (Finance, Planning, Procurement, Master Data).'},
+  {id:58,cat:'wh',cl:'ch-wh',catL:'Warehousing',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'A company is configuring multiple warehouses in Infor LN for different functions (raw materials, WIP, finished goods). Which of the following are correct configuration considerations?',
+   opts:[{k:'a',t:'Each warehouse can be configured with its own inventory valuation parameters and cycle count frequency.'},{k:'b',t:'Transfer orders must be used to move inventory between different warehouses, creating a formal audit trail.'},{k:'c',t:'Item availability and ATP calculations are performed at the individual warehouse level, not aggregated across all warehouses by default.'},{k:'d',t:'A single warehouse in Infor LN must be linked to exactly one logistical company and cannot serve multiple companies simultaneously.'}],correct:['a','b','c','d'],
+   explanation:'All four statements are correct. Each LN warehouse has its own valuation and count configuration. Inter-warehouse movements require transfer orders (no informal stock moves). ATP/availability is warehouse-specific by default. Warehouses are defined within a logistical company — cross-company stock movements require inter-company transactions.'},
+  {id:59,cat:'po',cl:'ch-po',catL:'Purchasing',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'In Infor LN, which statements correctly distinguish between a "Purchase Contract", a "Purchase Order", and a "Purchase Schedule"?',
+   opts:[{k:'a',t:'A Purchase Contract is a long-term framework agreement capturing pricing and terms; actual procurement is executed via Purchase Orders or Schedules that reference the contract.'},{k:'b',t:'A Purchase Order is typically used for one-time or non-repetitive purchases with a defined quantity, price, and single delivery date.'},{k:'c',t:'A Purchase Schedule is used for repetitive, high-frequency deliveries against an ongoing agreement, with individual call-offs confirmed as needed.'},{k:'d',t:'All three document types create an immediate financial liability (accounts payable balance) upon creation.'}],correct:['a','b','c'],
+   explanation:'In Infor LN: Purchase Contract = framework agreement (no direct financial posting on creation). Purchase Order = operational procurement document for one-time/periodic buys (commitment on approval, liability on GR). Purchase Schedule = repetitive call-off arrangement. Option D is incorrect: none of the three create an AP liability at creation — financial liability arises at goods receipt and invoice matching.'},
+  {id:60,cat:'inv',cl:'ch-inv',catL:'Inventory',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+   text:'After a system migration, an Infor LN warehouse reports inventory balance discrepancies across multiple items. Which investigative steps are appropriate before posting inventory adjustments?',
+   opts:[{k:'a',t:'Review inventory transaction logs to identify transactions that failed, were duplicated, or were incompletely processed during the migration.'},{k:'b',t:'Run a reconciliation report comparing current item inventory balances against the sum of all inventory transactions for those items.'},{k:'c',t:'Check whether any warehousing orders or transfer orders were in an intermediate (partially processed) status at the time of migration and were not correctly finalised.'},{k:'d',t:'Immediately perform a full physical count of all affected items and post inventory adjustments to override the system balances without further investigation.'}],correct:['a','b','c'],
+   explanation:'Post-migration inventory discrepancies require systematic investigation before adjustments: (a) transaction log review identifies failed or duplicate postings; (b) balance-vs-transaction reconciliation pinpoints affected items and variance amounts; (c) open/intermediate order status review catches transactions frozen mid-process. Option D is incorrect — immediately overriding balances without investigation masks the root cause and creates audit trail problems; adjustments should only follow after the root cause is identified and resolved.'}
 ];
 
 /* ══════════════════════════════════════════
@@ -2959,8 +3104,10 @@ function pickStratified(pool, nS, nM, nD){
 function beginExamAfterPayment(){
   paymentVerified=true;
   const QS_MAP={dev:QS_DEV,fin:QS_FIN,bod:QS_BOD,ion:QS_ION,ext:QS_EXT,scm:QS_SCM,mfg:QS_MFG};
-  /* DEV pool has 60 questions — pick 20 stratified at random (13 simple + 4 medium + 3 difficult = 50 pts) */
-  QS = (track==='dev') ? pickStratified(QS_DEV,13,4,3) : [...QS_MAP[track]];
+  /* DEV and SCM pools have 60 questions — pick 20 stratified at random (13 simple + 4 medium + 3 difficult = 50 pts) */
+  QS = (track==='dev') ? pickStratified(QS_DEV,13,4,3)
+     : (track==='scm') ? pickStratified(QS_SCM,13,4,3)
+     : [...QS_MAP[track]];
   answers={};skipped=new Set();curIdx=0;timeLeft=DURATION;
   const n=candidate.name;
   document.getElementById('cav').textContent=n.split(' ').filter(Boolean).map(x=>x[0]).slice(0,2).join('').toUpperCase();
@@ -3506,91 +3653,93 @@ function drawCert(name,pct,certId,date,trackFull){
     const ctx=cv.getContext('2d');
     const W=1200,H=850;
     cv.width=W;cv.height=H;
-    const cfg=TRACKS[track];
-    const c1=cfg.certColor, c2=cfg.certColor2;
-    const icon=cfg.icon;
-    // BG
+    // Ivory BG
     const bg=ctx.createLinearGradient(0,0,W,H);
-    bg.addColorStop(0,'#04070e');bg.addColorStop(.5,'#0a1220');bg.addColorStop(1,'#06090f');
+    bg.addColorStop(0,'#FDFAF0');bg.addColorStop(.5,'#FBF7E6');bg.addColorStop(1,'#F8F4DC');
     ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
-    // Glow
+    // Warm gold glow
     const gl=ctx.createRadialGradient(W/2,0,0,W/2,0,520);
-    gl.addColorStop(0,c1+'33'); gl.addColorStop(1,'transparent');
+    gl.addColorStop(0,'rgba(212,175,55,.12)'); gl.addColorStop(1,'transparent');
     ctx.fillStyle=gl;ctx.fillRect(0,0,W,H);
-    // Borders
+    // Outer border — gold gradient
     const brd=ctx.createLinearGradient(0,0,W,0);
     brd.addColorStop(0,'transparent');
-    brd.addColorStop(.25,c1);brd.addColorStop(.5,c2);brd.addColorStop(.75,c1);
+    brd.addColorStop(.25,'#D4AF37');brd.addColorStop(.5,'#FFD700');brd.addColorStop(.75,'#D4AF37');
     brd.addColorStop(1,'transparent');
-    ctx.strokeStyle=brd;ctx.lineWidth=2;ctx.strokeRect(34,34,W-68,H-68);
-    ctx.strokeStyle=c1+'22';ctx.lineWidth=1;ctx.strokeRect(48,48,W-96,H-96);
-    // Corners
+    ctx.strokeStyle=brd;ctx.lineWidth=3;ctx.strokeRect(34,34,W-68,H-68);
+    // Inner border — soft gold
+    const brd2=ctx.createLinearGradient(0,0,W,0);
+    brd2.addColorStop(0,'transparent');brd2.addColorStop(.5,'rgba(212,175,55,.38)');brd2.addColorStop(1,'transparent');
+    ctx.strokeStyle=brd2;ctx.lineWidth=1;ctx.strokeRect(48,48,W-96,H-96);
+    // Corner ornaments
     [[68,68],[W-68,68],[68,H-68],[W-68,H-68]].forEach(([x,y])=>{
       ctx.beginPath();ctx.arc(x,y,20,0,Math.PI*2);
-      ctx.strokeStyle=c1+'77';ctx.lineWidth=1.5;ctx.stroke();
+      ctx.strokeStyle='rgba(201,147,10,.55)';ctx.lineWidth=1.5;ctx.stroke();
       ctx.beginPath();ctx.arc(x,y,10,0,Math.PI*2);
-      ctx.fillStyle=c1+'28';ctx.fill();
+      ctx.fillStyle='rgba(212,175,55,.22)';ctx.fill();
     });
     // Header
-    ctx.textAlign='center';ctx.fillStyle=c1+'bb';
+    ctx.textAlign='center';ctx.fillStyle='#8B6914';
     ctx.font='bold 13px Arial';ctx.fillText('FULLONBAAN EDUCATION',W/2,108);
-    // divider
+    // Top divider
     const dv=ctx.createLinearGradient(W/2-220,0,W/2+220,0);
-    dv.addColorStop(0,'transparent');dv.addColorStop(.5,c1+'aa');dv.addColorStop(1,'transparent');
+    dv.addColorStop(0,'transparent');dv.addColorStop(.5,'rgba(201,147,10,.65)');dv.addColorStop(1,'transparent');
     ctx.beginPath();ctx.strokeStyle=dv;ctx.lineWidth=1;
     ctx.moveTo(W/2-220,126);ctx.lineTo(W/2+220,126);ctx.stroke();
-    ctx.fillStyle='rgba(180,200,230,.45)';ctx.font='14px Arial';
+    ctx.fillStyle='rgba(139,105,20,.72)';ctx.font='14px Arial';
     ctx.fillText('CERTIFICATE OF ACHIEVEMENT',W/2,166);
     // Logo image (FullonBaan branding)
     const _logoImg = new Image();
     _logoImg.src = 'data:image/png;base64,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';
     await new Promise(r=>{_logoImg.onload=r;_logoImg.onerror=r;});
-    const _lw=90,_lh=90;
-    ctx.drawImage(_logoImg, W/2-_lw/2, 188, _lw, _lh);
+    const _maxLogoH=108;
+    const _logoAspect=(_logoImg.naturalWidth||1)/(_logoImg.naturalHeight||1);
+    const _lh=_maxLogoH, _lw=_lh*_logoAspect;
+    ctx.drawImage(_logoImg, W/2-_lw/2, 180, _lw, _lh);
     // Sub
-    ctx.fillStyle='rgba(136,160,200,.8)';ctx.font='italic 17px Georgia,serif';
+    ctx.fillStyle='rgba(139,105,20,.75)';ctx.font='italic 17px Georgia,serif';
     ctx.fillText('This certifies that',W/2,305);
-    // Name
+    // Name — gold gradient
     const ng=ctx.createLinearGradient(W/2-300,0,W/2+300,0);
-    ng.addColorStop(0,c1);ng.addColorStop(.5,'#ffffff99');ng.addColorStop(1,c2);
+    ng.addColorStop(0,'#8B6914');ng.addColorStop(.5,'#FFD700');ng.addColorStop(1,'#8B6914');
     ctx.fillStyle=ng;ctx.font='bold 50px Georgia,serif';ctx.fillText(name,W/2,374);
     // Underline
     const uw=Math.min(ctx.measureText(name).width+80,580);
     const ul=ctx.createLinearGradient(W/2-uw/2,0,W/2+uw/2,0);
-    ul.addColorStop(0,'transparent');ul.addColorStop(.5,c1+'88');ul.addColorStop(1,'transparent');
+    ul.addColorStop(0,'transparent');ul.addColorStop(.5,'rgba(212,175,55,.70)');ul.addColorStop(1,'transparent');
     ctx.beginPath();ctx.strokeStyle=ul;ctx.lineWidth=1.5;
     ctx.moveTo(W/2-uw/2,388);ctx.lineTo(W/2+uw/2,388);ctx.stroke();
     // Body
-    ctx.fillStyle='rgba(178,198,234,.82)';ctx.font='17px Georgia,serif';
+    ctx.fillStyle='rgba(90,56,0,.82)';ctx.font='17px Georgia,serif';
     ctx.fillText('has successfully passed the',W/2,434);
-    ctx.font='bold 22px Georgia,serif';ctx.fillStyle='rgba(210,225,255,.95)';
+    ctx.font='bold 22px Georgia,serif';ctx.fillStyle='#6B4A00';
     ctx.fillText(`${trackFull} Certification`,W/2,464);
     // Score
-    ctx.fillStyle='rgba(136,160,200,.75)';ctx.font='15px Arial';
+    ctx.fillStyle='rgba(139,105,20,.75)';ctx.font='15px Arial';
     ctx.fillText('with a score of',W/2,512);
     ctx.font='bold 38px Georgia,serif';
     const sg=ctx.createLinearGradient(W/2-50,0,W/2+50,0);
-    sg.addColorStop(0,'#34d399');sg.addColorStop(1,'#10b981');
+    sg.addColorStop(0,'#C9930A');sg.addColorStop(.5,'#FFD700');sg.addColorStop(1,'#C9930A');
     ctx.fillStyle=sg;ctx.fillText(`${pct}%`,W/2,556);
     // Footer divider
     const fd=ctx.createLinearGradient(W/2-300,0,W/2+300,0);
-    fd.addColorStop(0,'transparent');fd.addColorStop(.5,c1+'44');fd.addColorStop(1,'transparent');
+    fd.addColorStop(0,'transparent');fd.addColorStop(.5,'rgba(212,175,55,.45)');fd.addColorStop(1,'transparent');
     ctx.beginPath();ctx.strokeStyle=fd;ctx.lineWidth=1;
     ctx.moveTo(W/2-300,598);ctx.lineTo(W/2+300,598);ctx.stroke();
     // Meta
-    ctx.font='13px "Courier New",monospace';ctx.fillStyle='rgba(74,100,148,.88)';
+    ctx.font='13px "Courier New",monospace';ctx.fillStyle='rgba(107,74,0,.80)';
     ctx.fillText(`Date: ${date}`,W/2-200,634);
     ctx.fillText(`Certificate ID: ${certId}`,W/2+130,634);
     // Footer text — main line
-    ctx.fillStyle=c1+'55';ctx.font='12px Arial';
+    ctx.fillStyle='rgba(139,105,20,.55)';ctx.font='12px Arial';
     ctx.fillText('FullonBaan Education · One Stop Destination for Baan Solutions',W/2,762);
     // Bottom divider line
     const bd=ctx.createLinearGradient(W/2-300,0,W/2+300,0);
-    bd.addColorStop(0,'transparent');bd.addColorStop(.5,c1+'33');bd.addColorStop(1,'transparent');
+    bd.addColorStop(0,'transparent');bd.addColorStop(.5,'rgba(212,175,55,.35)');bd.addColorStop(1,'transparent');
     ctx.beginPath();ctx.strokeStyle=bd;ctx.lineWidth=1;
     ctx.moveTo(W/2-300,772);ctx.lineTo(W/2+300,772);ctx.stroke();
     // Computer generated notice — below the line
-    ctx.fillStyle='rgba(120,150,200,.45)';ctx.font='italic 11px Arial';
+    ctx.fillStyle='rgba(139,105,20,.42)';ctx.font='italic 11px Arial';
     ctx.fillText('This is a computer generated certificate — No signature required',W/2,790);
     resolve(cv.toDataURL('image/png'));
   });
@@ -3750,7 +3899,37 @@ function showScreen(id){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function goHome(){
-  clearInterval(examTimer);
+  /* Stop any running timers */
+  clearInterval(timerInt);
+
+  /* Reset all exam state */
+  track=''; QS=[]; candidate={}; answers={}; skipped=new Set(); curIdx=0;
+  timeLeft=DURATION; utrSubmitted=''; paymentVerified=false; currentRegId='';
+  window._certParams=null;
+
+  /* Clear registration form fields */
+  ['rn','re','rm'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+
+  /* Remove track card selection highlights */
+  ['dev','fin','bod','ion','ext','scm','mfg'].forEach(k=>{
+    const c=document.getElementById('card-'+k);
+    if(c) c.className='track-card';
+  });
+
+  /* Reset registration panel labels */
+  const lbl=document.getElementById('reg-track-label');
+  if(lbl){lbl.textContent='← Select a certification track above to begin';lbl.style.color='';}
+  const bb=document.getElementById('begin-btn');
+  if(bb){bb.className='btn btn-primary btn-xl';bb.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg> Proceed to Payment — ₹499';}
+
+  /* Hide cert download button and clear result areas */
+  const dlBtn=document.getElementById('dl-cert-btn');
+  if(dlBtn){dlBtn.style.display='none';}
+  const emailBox=document.getElementById('email-box');
+  if(emailBox) emailBox.innerHTML='';
+  const certArea=document.getElementById('cert-area');
+  if(certArea) certArea.innerHTML='';
+
   showScreen('home');
 }
 
