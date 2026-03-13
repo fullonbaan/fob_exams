@@ -4036,109 +4036,71 @@ function buildExamReviewText(){
 
 /* ── Compact HTML review — stays well under EmailJS 50kb limit ── */
 function buildExamReviewHTML(){
-  /* ─── palette ─────────────────────────────── */
-  const C={
-    ok :{bg:'#f0fdf4',border:'#86efac',badge:'#16a34a',badgeBg:'#dcfce7',dot:'#22c55e'},
-    wr :{bg:'#fff5f5',border:'#fca5a5',badge:'#dc2626',badgeBg:'#fee2e2',dot:'#ef4444'},
-    sk :{bg:'#fefce8',border:'#fde047',badge:'#ca8a04',badgeBg:'#fef9c3',dot:'#eab308'},
-    opt:{corr:'#f0fdf4',corrBorder:'#86efac',corrText:'#15803d',
-         wrong:'#fff5f5',wrongBorder:'#fca5a5',wrongText:'#b91c1c',
-         neu:'#fafaf9',neuBorder:'#e7e5e4',neuText:'#44403c'},
-    page:'#f5f3ef', card:'#ffffff', head:'#1c1917',
-    sub:'#78716c', divider:'#e7e5e4', gold:'#b45309'
-  };
-  const F="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;";
-
-  /* ─── score summary ────────────────────────── */
+  // Fully inlined — email-client safe, ~30KB for 20 questions, well under 50KB limit
   let tot=0,cor=0,wrg=0,skp=0;
   QS.forEach(q=>{
     const s=answers[q.id]||[];
     if(!s.length){skp++;return;}
-    const ok=JSON.stringify([...s].sort())===JSON.stringify([...q.correct].sort());
-    ok?(tot+=q.pts,cor++):(wrg++);
+    JSON.stringify([...s].sort())===JSON.stringify([...q.correct].sort())?(tot+=q.pts,cor++):wrg++;
   });
   const pct=Math.round((tot/TOTAL_PTS)*100);
   const passed=pct>=PASS_PCT;
-  const summaryBg=passed?'#14532d':'#7f1d1d';
-  const summaryAccent=passed?'#22c55e':'#ef4444';
+  const sBg=passed?'#14532d':'#7f1d1d';
+  const sAcc=passed?'#22c55e':'#ef4444';
 
-  const summary=`
-  <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:22px;border-radius:12px;overflow:hidden;background:${summaryBg};">
-    <tr><td style="${F}padding:20px 24px;">
-      <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:6px;">Question-by-Question Review</div>
-      <div style="font-size:22px;font-weight:700;color:#fff;margin-bottom:14px;">${passed?'&#127942; You Passed!':'&#128203; Score Report'} &nbsp;<span style="font-size:14px;font-weight:400;color:rgba(255,255,255,.7);">${pct}% &mdash; ${tot}/${TOTAL_PTS} pts</span></div>
-      <table cellpadding="0" cellspacing="0"><tr>
-        <td style="${F}padding:6px 14px;background:rgba(255,255,255,.12);border-radius:20px;font-size:12px;font-weight:600;color:#fff;margin-right:8px;">&#10003;&nbsp; ${cor} Correct</td>
-        <td width="8"></td>
-        <td style="${F}padding:6px 14px;background:rgba(255,255,255,.12);border-radius:20px;font-size:12px;font-weight:600;color:#fff;">&#10007;&nbsp; ${wrg} Wrong</td>
-        <td width="8"></td>
-        <td style="${F}padding:6px 14px;background:rgba(255,255,255,.12);border-radius:20px;font-size:12px;font-weight:600;color:#fff;">&#9675;&nbsp; ${skp} Skipped</td>
-      </tr></table>
-    </td></tr>
-    <tr><td style="height:4px;background:${summaryAccent};"></td></tr>
-  </table>`;
+  const summary=
+    `<div style="background:${sBg};border-radius:8px;padding:14px 16px;margin-bottom:14px">`+
+    `<div style="font-size:18px;font-weight:700;color:#fff;margin-bottom:8px">`+
+    `${passed?'&#127942;':'&#128203;'} ${passed?'You Passed!':'Score Report'} `+
+    `<span style="font-size:12px;font-weight:400;color:rgba(255,255,255,.65)">${pct}% &mdash; ${tot}/${TOTAL_PTS}pts</span></div>`+
+    `<span style="font-size:11px;font-weight:600;color:#fff;background:rgba(255,255,255,.15);padding:3px 10px;border-radius:12px;margin-right:5px">&#10003; ${cor} Correct</span>`+
+    `<span style="font-size:11px;font-weight:600;color:#fff;background:rgba(255,255,255,.15);padding:3px 10px;border-radius:12px;margin-right:5px">&#10007; ${wrg} Wrong</span>`+
+    `<span style="font-size:11px;font-weight:600;color:#fff;background:rgba(255,255,255,.15);padding:3px 10px;border-radius:12px">&#9675; ${skp} Skipped</span>`+
+    `<div style="height:3px;background:${sAcc};margin-top:12px;border-radius:2px"></div></div>`;
 
-  /* ─── question cards ───────────────────────── */
   const cards=QS.map((q,i)=>{
     const sel=answers[q.id]||[];
     const ok=sel.length>0&&JSON.stringify([...sel].sort())===JSON.stringify([...q.correct].sort());
     const sk=sel.length===0;
-    const st=ok?C.ok:sk?C.sk:C.wr;
+    const cBd=ok?'#86efac':sk?'#fde047':'#fca5a5';
+    const hBg=ok?'#f0fdf4':sk?'#fefce8':'#fff5f5';
+    const bCl=ok?'#16a34a':sk?'#ca8a04':'#dc2626';
+    const bBg=ok?'#dcfce7':sk?'#fef9c3':'#fee2e2';
     const badge=ok?'&#10003; CORRECT':sk?'&#9675; SKIPPED':'&#10007; WRONG';
     const pts=ok?q.pts:0;
-
     const opts=q.opts.map(o=>{
-      const ch=sel.includes(o.k), cr=q.correct.includes(o.k);
-      const isCorrectPick=cr&&ch, isCorrectMissed=cr&&!ch, isWrongPick=ch&&!cr;
-      let bg,border,tc,icon='';
-      if(isCorrectPick){bg=C.opt.corr;border=C.opt.corrBorder;tc=C.opt.corrText;icon='&nbsp;&#10003;';}
-      else if(isCorrectMissed){bg=C.opt.corr;border=C.opt.corrBorder;tc=C.opt.corrText;icon='&nbsp;&#10003;';}
-      else if(isWrongPick){bg=C.opt.wrong;border=C.opt.wrongBorder;tc=C.opt.wrongText;icon='&nbsp;&#10007;';}
-      else{bg=C.opt.neu;border=C.opt.neuBorder;tc=C.opt.neuText;}
-      const fw=cr?'700':'400';
-      return `<tr><td style="${F}padding:7px 12px;background:${bg};border-left:3px solid ${border};border-bottom:1px solid #f0ece8;font-size:12.5px;color:${tc};font-weight:${fw};line-height:1.5;">` +
-        `<span style="font-weight:700;">${o.k.toUpperCase()}.</span>&nbsp;${o.t}${icon}</td></tr>`;
+      const ch=sel.includes(o.k),cr=q.correct.includes(o.k);
+      let st,icon='';
+      if(cr){st='border-left:3px solid #86efac;background:#f0fdf4;color:#15803d;font-weight:600;';icon=' &#10003;';}
+      else if(ch){st='border-left:3px solid #fca5a5;background:#fff5f5;color:#b91c1c;';icon=' &#10007;';}
+      else{st='border-left:3px solid #e5e7eb;color:#374151;';}
+      return `<div style="font-size:12px;padding:5px 10px;border-bottom:1px solid #e5e7eb;${st}"><b>${o.k.toUpperCase()}.</b> ${o.t}${icon}</div>`;
     }).join('');
-
     const ya=sel.length?sel.map(k=>k.toUpperCase()).join(', '):'—';
     const ca=q.correct.map(k=>k.toUpperCase()).join(', ');
-
-    return `<table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:14px;border-radius:8px;border:1px solid ${st.border};overflow:hidden;background:${C.card};">` +
-      /* header row */
-      `<tr><td style="${F}padding:9px 14px;background:${st.bg};border-bottom:1px solid ${st.border};">` +
-        `<table width="100%" cellpadding="0" cellspacing="0"><tr>` +
-          `<td style="${F}font-size:11px;font-weight:700;color:${C.gold};">Q${i+1} &nbsp;<span style="font-weight:400;color:${C.sub};">${q.catL} &middot; ${q.pts}pt${q.pts>1?'s':''}</span>${q.multi?'&nbsp;<span style="font-size:10px;color:#9a3412;background:#fff7ed;padding:1px 6px;border-radius:10px;border:1px solid #fed7aa;">multi</span>':''}</td>` +
-          `<td align="right" style="${F}font-size:11px;font-weight:700;color:${st.badge};background:${st.badgeBg};padding:3px 10px;border-radius:20px;white-space:nowrap;">${badge} &nbsp;${pts}/${q.pts}</td>` +
-        `</tr></table>` +
-      `</td></tr>` +
-      /* question text */
-      `<tr><td style="${F}font-size:13px;font-weight:600;color:${C.head};padding:10px 14px 8px;background:#fff;line-height:1.55;">${q.text}</td></tr>` +
-      /* options */
-      `<tr><td style="padding:0;background:#faf9f7;"><table width="100%" cellpadding="0" cellspacing="0">${opts}</table></td></tr>` +
-      /* answer footer */
-      `<tr><td style="${F}font-size:11.5px;padding:8px 14px;background:#fdf8f3;border-top:1px solid #f0ece8;color:${C.sub};">` +
-        `Your answer:&nbsp;<b style="color:${C.head};">${ya}</b>&nbsp;&nbsp;&nbsp;Correct:&nbsp;<b style="color:${C.ok.badge};">${ca}</b>` +
-      `</td></tr>` +
-    `</table>`;
+    return `<div style="border:1px solid ${cBd};border-radius:7px;overflow:hidden;margin-bottom:10px;background:#fff">`+
+      `<div style="background:${hBg};padding:7px 10px;border-bottom:1px solid ${cBd}">`+
+      `<span style="font-size:11px;font-weight:700;color:#b45309">Q${i+1}</span> `+
+      `<span style="font-size:11px;color:#78716c">${q.catL} &middot; ${q.pts}pt${q.pts>1?'s':''}${q.multi?' <b style="color:#9a3412">(multi)</b>':''}</span>`+
+      `<span style="float:right;font-size:10px;font-weight:700;color:${bCl};background:${bBg};padding:2px 8px;border-radius:12px">${badge} ${pts}/${q.pts}</span></div>`+
+      `<div style="font-size:13px;font-weight:600;color:#111;padding:8px 10px 6px;line-height:1.5">${q.text}</div>`+
+      opts+
+      `<div style="font-size:11px;padding:6px 10px;background:#fdf8f3;border-top:1px solid #f0ece8;color:#78716c">`+
+      `Your answer: <b style="color:#111">${ya}</b> &middot; Correct: <b style="color:#16a34a">${ca}</b></div></div>`;
   }).join('');
 
-  /* ─── wrapper ──────────────────────────────── */
-  return `<div style="${F}background:${C.page};padding:20px 0;">`+
-    `<table width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:0 16px;">`+
-      summary+cards+
-    `</td></tr></table>`+
-  `</div>`;
+  return `<div style="font-family:Arial,sans-serif;background:#f5f3ef;padding:14px">${summary}${cards}</div>`;
 }
 
 async function sendEmails({score,pct,passed,correct,wrong,skip,certId,examDate,trackFull}){
   const box=document.getElementById('email-box');
   box.innerHTML=`<div class="email-box"><span class="email-icon spin">⏳</span><span>Sending confirmation emails…</span></div>`;
 
-  /* ── Build Q&A review for email ── */
-  const exam_review_text = buildExamReviewText();
+  /* ── Build Q&A review — only needed for score report email ── */
   const exam_review_html = buildExamReviewHTML();
+  const exam_review_text = buildExamReviewText();
 
-  /* ── Shared payload for both email types ── */
+  /* ── Shared payload (NO review here — keeps cert & CC emails tiny) ── */
   const base={
     /* Candidate details */
     to_name          : candidate.name,
@@ -4159,10 +4121,7 @@ async function sendEmails({score,pct,passed,correct,wrong,skip,certId,examDate,t
     result_label     : passed ? 'PASSED ✓' : 'NOT PASSED ✗',
     correct,
     wrong,
-    skipped          : skip,
-    /* Full Q&A review — add {{exam_review_html}} or {{exam_review_text}} in your EmailJS template */
-    exam_review_html : exam_review_html,
-    exam_review_text : exam_review_text
+    skipped          : skip
   };
 
   try{
@@ -4170,7 +4129,7 @@ async function sendEmails({score,pct,passed,correct,wrong,skip,certId,examDate,t
     const pause = ms => new Promise(r => setTimeout(r, ms));
 
     /* ── EMAIL 1: Score report → candidate (always sent first) ── */
-    await emailjs.send(EMAILJS_SVC, TPL_RESULT, {...base, to_email: candidate.email, to_name: candidate.name});
+    await emailjs.send(EMAILJS_SVC, TPL_RESULT, {...base, to_email: candidate.email, to_name: candidate.name, exam_review_html, exam_review_text});
     await pause(700);
 
     /* ── EMAIL 2: Certificate notification → candidate (only if passed) ── */
