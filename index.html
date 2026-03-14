@@ -1123,6 +1123,16 @@ canvas#cert-canvas{display:none;}
   cursor:pointer;user-select:all;transition:background .15s;}
 .code-chip:hover{background:rgba(0,200,120,.1);}
 .admin-empty{text-align:center;padding:60px 0;color:var(--textM);font-size:15px;}
+.admin-tools-section{background:var(--surf);border:1px solid var(--rim);border-radius:14px;padding:20px 22px;margin-top:28px;}
+.admin-tools-hdr{display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none;}
+.admin-tools-hdr:hover .admin-tools-chevron{color:var(--text);}
+.admin-tools-chevron{font-size:13px;color:var(--textM);transition:transform .2s;}
+.gh-cert-table{width:100%;border-collapse:collapse;font-size:13px;}
+.gh-cert-table th{font-size:11px;color:var(--textM);font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:8px 10px;text-align:left;border-bottom:1px solid var(--rim2);}
+.gh-cert-table td{padding:10px 10px;border-bottom:1px solid var(--rim);vertical-align:middle;}
+.gh-cert-table tr:last-child td{border-bottom:none;}
+.gh-cert-table tr:hover td{background:rgba(255,255,255,.025);}
+.cert-gen-modal-inner{background:var(--surf);border:1px solid var(--rim2);border-radius:20px;padding:32px 28px;max-width:440px;width:100%;position:relative;}
 
 /* ════════════════════════════════════════
    MODAL / LIGHTBOX
@@ -1978,6 +1988,29 @@ canvas#cert-canvas{display:none;}
     </div>
 
     <div id="submissions-list"></div>
+
+    <!-- ── Cert Tools Panel ── -->
+    <div class="admin-tools-section">
+      <div class="admin-tools-hdr" onclick="toggleAdminCertTools()">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="font-size:22px;">🎓</span>
+          <div>
+            <div style="font-weight:700;font-size:15px;">Certificate Tools</div>
+            <div style="font-size:12px;color:var(--textM);margin-top:2px;">View &amp; manage certificates stored in GitHub · Manually generate certs for passed candidates</div>
+          </div>
+        </div>
+        <span class="admin-tools-chevron" id="admin-cert-tools-chevron">▼</span>
+      </div>
+      <div id="admin-cert-tools-body" style="display:none;margin-top:18px;">
+        <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+          <button class="btn btn-ghost btn-sm" onclick="loadGitHubCerts()">☁ Load / Refresh from GitHub</button>
+        </div>
+        <div id="admin-gh-certs-list">
+          <div class="admin-empty" style="padding:24px 0;font-size:13px;">Click "Load / Refresh from GitHub" to view all certificates stored in the cert store.</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -2119,8 +2152,9 @@ emailjs.init(EMAILJS_PUB);
 ══════════════════════════════════════════ */
 const GITHUB_OWNER     = 'fullonbaan';              // your GitHub username / org
 const GITHUB_REPO      = 'fob-cert-store';          // your private repo name
-const GITHUB_TOKEN     = 'ghp_REPLACE_WITH_YOUR_TOKEN'; // PAT with repo scope
+const GITHUB_TOKEN     = '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'; // PAT with repo scope
 const GITHUB_CERT_FILE = 'certs/certificates.json'; // path inside repo
+const GITHUB_SUBS_FILE = 'submissions/submissions.json'; // approval/payment submissions
 
 /* ══════════════════════════════════════════
    PAYMENT CONFIG  — replace with your UPI ID
@@ -3127,6 +3161,9 @@ function submitUTR(){
   });
   localStorage.setItem('fob_submissions',JSON.stringify(submissions));
 
+  // Mirror to GitHub for cross-device access (non-blocking)
+  ghSaveSubmission(submissions[submissions.length-1]);
+
   // Notify admin via EmailJS (best-effort)
   notifyAdminPayment(utr);
 
@@ -3303,7 +3340,7 @@ function generateApprovalCode(regId){
 }
 
 /* Shared code-verification logic — called from both pending screen and unlock screen */
-function verifyCode(inputId, errId){
+async function verifyCode(inputId, errId){
   const inp=document.getElementById(inputId);
   const err=document.getElementById(errId);
   const entered=(inp.value||'').trim().toUpperCase();
@@ -3313,8 +3350,8 @@ function verifyCode(inputId, errId){
     err.style.display='block';inp.classList.add('invalid');return;
   }
 
-  // Find the matching submission
-  const submissions=JSON.parse(localStorage.getItem('fob_submissions')||'[]');
+  // Find the matching submission — localStorage first (fast), then GitHub (cross-device)
+  let submissions=JSON.parse(localStorage.getItem('fob_submissions')||'[]');
   let sub=null;
   // First try the exact reg ID stored on the input element or in currentRegId
   const storedReg=(inp.dataset&&inp.dataset.regId)||currentRegId;
@@ -3323,6 +3360,25 @@ function verifyCode(inputId, errId){
   if(!sub&&candidate&&candidate.email){
     const matches=submissions.filter(s=>s.email===candidate.email&&s.examId===track&&s.status!=='rejected');
     if(matches.length) sub=matches.sort((a,b)=>new Date(b.submittedAt)-new Date(a.submittedAt))[0];
+  }
+  // GitHub fallback — handles cross-device submissions (e.g. submitted on mobile, verifying on desktop)
+  if(!sub){
+    try{
+      err.textContent=''; err.style.display='none';
+      inp.disabled=true;
+      const { subs:ghSubs } = await ghReadSubmissions();
+      if(storedReg) sub=ghSubs.find(s=>s.regId===storedReg)||null;
+      if(!sub&&candidate&&candidate.email){
+        const matches=ghSubs.filter(s=>s.email===candidate.email&&s.examId===track&&s.status!=='rejected');
+        if(matches.length) sub=matches.sort((a,b)=>new Date(b.submittedAt)-new Date(a.submittedAt))[0];
+      }
+      // Sync to localStorage if found in GitHub
+      if(sub){
+        submissions.push(sub);
+        localStorage.setItem('fob_submissions',JSON.stringify(submissions));
+      }
+    } catch(e){ console.warn('GitHub sub lookup failed in verifyCode:', e); }
+    finally{ inp.disabled=false; }
   }
 
   if(!sub){
@@ -3384,7 +3440,7 @@ function showResumeBanner(msg,isError){
   b.style.color=isError?'var(--red,#e05)':'var(--emerald,#00c878)';
 }
 
-function resumeWithCode(){
+async function resumeWithCode(){
   const emailEl=document.getElementById('resume-email');
   const codeEl=document.getElementById('resume-code');
   const email=(emailEl.value||'').trim().toLowerCase();
@@ -3396,11 +3452,28 @@ function resumeWithCode(){
   if(!entered||entered.length<8){codeEl.classList.add('invalid');hasError=true;}
   if(hasError){showResumeBanner('Please fill in both fields correctly.', true);return;}
 
-  // Find all non-rejected submissions for this email
-  const submissions=JSON.parse(localStorage.getItem('fob_submissions')||'[]');
-  const candidates=submissions.filter(s=>
+  // Find all non-rejected submissions for this email — localStorage first, then GitHub
+  let submissions=JSON.parse(localStorage.getItem('fob_submissions')||'[]');
+  let candidates=submissions.filter(s=>
     (s.email||'').toLowerCase()===email && s.status!=='rejected'
   ).sort((a,b)=>new Date(b.submittedAt)-new Date(a.submittedAt));
+
+  // GitHub fallback — covers case where candidate registered on a different device
+  if(!candidates.length){
+    try{
+      showResumeBanner('🔍 Searching GitHub…', false);
+      const { subs:ghSubs } = await ghReadSubmissions();
+      const ghCandidates=ghSubs.filter(s=>(s.email||'').toLowerCase()===email&&s.status!=='rejected');
+      if(ghCandidates.length){
+        // Sync found records to localStorage
+        for(const s of ghCandidates){
+          if(!submissions.find(ls=>ls.regId===s.regId)) submissions.push(s);
+        }
+        localStorage.setItem('fob_submissions',JSON.stringify(submissions));
+        candidates=ghCandidates.sort((a,b)=>new Date(b.submittedAt)-new Date(a.submittedAt));
+      }
+    } catch(e){ console.warn('GitHub lookup failed in resumeWithCode:', e); }
+  }
 
   if(!candidates.length){
     emailEl.classList.add('invalid');
@@ -3475,8 +3548,17 @@ function setAdminFilter(filter,btn){
   btn.classList.add('active');
   renderSubmissions();
 }
-function loadAdminDashboard(){
-  const submissions=JSON.parse(localStorage.getItem('fob_submissions')||'[]');
+async function loadAdminDashboard(){
+  // Show loading indicator while fetching from GitHub
+  const list=document.getElementById('submissions-list');
+  if(list) list.innerHTML='<div class="admin-empty">⏳ Syncing with GitHub…</div>';
+
+  // Merge GitHub (source of truth) with localStorage (local screenshots + unsynced)
+  const submissions = await ghMergeSubmissions();
+
+  // Sync merged data back to localStorage so local operations stay fast
+  localStorage.setItem('fob_submissions', JSON.stringify(submissions));
+
   const total=submissions.length;
   const pending=submissions.filter(s=>s.status==='pending').length;
   const approved=submissions.filter(s=>s.status==='approved').length;
@@ -3488,10 +3570,10 @@ function loadAdminDashboard(){
   document.getElementById('stat-rejected').textContent=rejected;
   const sc=document.getElementById('stat-completed');
   if(sc)sc.textContent=completed;
-  renderSubmissions();
+  renderSubmissions(submissions);
 }
-function renderSubmissions(){
-  const submissions=JSON.parse(localStorage.getItem('fob_submissions')||'[]');
+function renderSubmissions(submissions){
+  if(!submissions) submissions=JSON.parse(localStorage.getItem('fob_submissions')||'[]');
   const filtered=adminFilter==='all'?submissions:submissions.filter(s=>s.status===adminFilter);
   const list=document.getElementById('submissions-list');
   if(!filtered.length){list.innerHTML='<div class="admin-empty">No submissions found.</div>';return;}
@@ -3524,7 +3606,8 @@ function renderSubmissions(){
           <button class="btn btn-success btn-sm" onclick="approveSubmission('${s.regId}')">✓ Approve</button>
           <button class="btn btn-ghost btn-sm" style="color:var(--red,#e05);border-color:var(--red,#e05);" onclick="rejectSubmission('${s.regId}')">✗ Reject</button>`
         :s.status==='approved'?`<button class="btn btn-ghost btn-sm" onclick="rejectSubmission('${s.regId}')">✗ Reject</button>`
-        :s.status==='completed'?`<span style="font-size:12px;color:var(--textM);">✅ Exam completed — code locked</span>`
+        :s.status==='completed'?`<span style="font-size:12px;color:var(--textM);">✅ Exam completed — code locked</span>
+          <button class="btn btn-ghost btn-sm" style="color:var(--gold);border-color:rgba(233,189,85,.4);" onclick="showGenerateCertModal('${s.regId}','${(s.name||'').replace(/'/g,'\\x27').replace(/"/g,'\\x22')}','${(s.email||'').replace(/'/g,'\\x27').replace(/"/g,'\\x22')}','${s.examId||'dev'}','${s.completedAt||''}')">🎓 Generate Cert</button>`
         :`<button class="btn btn-ghost btn-sm" onclick="approveSubmission('${s.regId}')">✓ Approve</button>`}
         <div>
           <div style="font-size:11px;color:var(--textM);margin-bottom:4px;">Approval Code (share with student):</div>
@@ -3550,6 +3633,10 @@ function updateSubmissionStatus(regId,status){
     submissions[idx].status=status;
     if(status==='approved')submissions[idx].approvedAt=new Date().toISOString();
     localStorage.setItem('fob_submissions',JSON.stringify(submissions));
+    // Mirror status change to GitHub (non-blocking)
+    const updates={status};
+    if(status==='approved') updates.approvedAt=submissions[idx].approvedAt;
+    ghUpdateSubmission(regId, updates);
   }
   loadAdminDashboard();
 }
@@ -3571,7 +3658,191 @@ function escHtml(s){
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+/* ══════════════════════════════════════════
+   ADMIN CERT TOOLS
+   1. Seed Certificates from GitHub — view all
+      GitHub-stored certs, seed any into
+      localStorage so candidates can retrieve them.
+   2. Generate & Post Certificate — for completed
+      submissions where cert was never issued.
+══════════════════════════════════════════ */
 
+function toggleAdminCertTools(){
+  const body=document.getElementById('admin-cert-tools-body');
+  const chev=document.getElementById('admin-cert-tools-chevron');
+  if(!body)return;
+  const open=body.style.display!=='none';
+  body.style.display=open?'none':'block';
+  if(chev)chev.style.transform=open?'':'rotate(180deg)';
+}
+
+async function loadGitHubCerts(){
+  const container=document.getElementById('admin-gh-certs-list');
+  if(!container)return;
+  container.innerHTML='<div class="admin-empty" style="padding:20px 0;">⏳ Loading certificates from GitHub…</div>';
+  try{
+    const {certs}=await ghReadCerts();
+    const localCerts=JSON.parse(localStorage.getItem('fob_certs')||'[]');
+    if(!certs.length){
+      container.innerHTML='<div class="admin-empty" style="padding:20px 0;">No certificates found in GitHub cert store.</div>';
+      return;
+    }
+    const rows=certs.map(c=>{
+      const isLocal=localCerts.find(l=>l.certId===c.certId);
+      const certDataSafe=btoa(unescape(encodeURIComponent(JSON.stringify(c))));
+      return `<tr>
+        <td><strong>${escHtml(c.name||'—')}</strong></td>
+        <td style="color:var(--textM)">${escHtml(c.email||'—')}</td>
+        <td style="font-family:var(--mono);font-size:12px;color:var(--emerald)">${escHtml(c.certId||'—')}</td>
+        <td style="color:var(--textM)">${escHtml(c.trackFull||'—')}</td>
+        <td style="font-family:var(--mono);font-size:12px;">${escHtml(c.date||'—')}</td>
+        <td>
+          <div style="display:flex;gap:8px;align-items:center;">
+            ${isLocal
+              ?'<span style="font-size:11px;color:var(--emerald);font-weight:700;">✓ Cached</span>'
+              :'<span style="font-size:11px;color:var(--textM);">Not cached</span>'
+            }
+            <button class="btn btn-ghost btn-sm" onclick="adminSeedLocalCert('${certDataSafe}')">💾 Seed</button>
+          </div>
+        </td>
+      </tr>`;
+    }).join('');
+    container.innerHTML=`
+      <table class="gh-cert-table">
+        <thead><tr>
+          <th>Name</th><th>Email</th><th>Cert ID</th><th>Track</th><th>Date</th><th>Cache</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <div style="font-size:12px;color:var(--textM);margin-top:12px;padding-top:10px;border-top:1px solid var(--rim);">
+        ${certs.length} certificate${certs.length===1?'':'s'} in GitHub ·
+        <span style="color:var(--emerald)">${localCerts.length} in local cache</span>
+      </div>`;
+  }catch(e){
+    container.innerHTML=`<div class="admin-empty" style="padding:20px 0;">❌ Failed to load: ${escHtml(e.message)}</div>`;
+  }
+}
+
+function adminSeedLocalCert(certBase64){
+  try{
+    const cert=JSON.parse(decodeURIComponent(escape(atob(certBase64))));
+    const certs=JSON.parse(localStorage.getItem('fob_certs')||'[]');
+    if(certs.find(c=>c.certId===cert.certId)){
+      toast('Already in local cache: '+cert.certId,'ℹ️');
+    } else {
+      certs.push(cert);
+      localStorage.setItem('fob_certs',JSON.stringify(certs));
+      toast('Cert seeded to local cache: '+cert.certId,'💾');
+    }
+    loadGitHubCerts();
+  }catch(e){toast('Failed to seed cert: '+e.message,'❌');}
+}
+
+/* ── Generate & Post Certificate ──────────────────────────────── */
+
+function showGenerateCertModal(regId,name,email,examId,completedAt){
+  const existing=document.getElementById('gen-cert-modal');
+  if(existing)existing.remove();
+  const trackLabel=TRACKS[examId]?TRACKS[examId].label.replace(' Certification',''):(examId||'Unknown Track');
+  const dateStr=completedAt
+    ?new Date(completedAt).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})
+    :new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+  const modal=document.createElement('div');
+  modal.id='gen-cert-modal';
+  modal.className='modal-overlay';
+  modal.innerHTML=`
+    <div class="cert-gen-modal-inner">
+      <button style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:20px;color:var(--textM);cursor:pointer;line-height:1;padding:4px;" onclick="document.getElementById('gen-cert-modal').remove()">✕</button>
+      <div style="font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:4px;">🎓 Generate Certificate</div>
+      <div style="font-size:13px;color:var(--textS);line-height:1.55;margin-bottom:22px;">
+        Manually generate a certificate for <strong>${escHtml(name)}</strong> and post it to GitHub so the candidate can retrieve it via the "Get Certificate" link.
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--textM);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Name</div>
+          <div style="font-size:13px;">${escHtml(name)}</div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--textM);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Email</div>
+          <div style="font-size:13px;color:var(--textM);">${escHtml(email)}</div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--textM);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Track</div>
+          <div style="font-size:13px;">${escHtml(trackLabel)}</div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--textM);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Date</div>
+          <div style="font-size:13px;color:var(--textM);">${escHtml(dateStr)}</div>
+        </div>
+      </div>
+      <div style="background:var(--surf2);border:1px solid var(--rim);border-radius:10px;padding:10px 12px;margin-bottom:18px;font-size:12px;color:var(--textM);">
+        <span style="font-weight:700;color:var(--text);">Cert ID:</span>
+        <span style="font-family:var(--mono);color:var(--emerald);margin-left:6px;">${escHtml(regId)}</span>
+      </div>
+      <div style="margin-bottom:22px;">
+        <label style="display:block;font-size:11px;font-weight:700;color:var(--textM);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">
+          Score (%) <span style="color:var(--rose);">*</span>
+        </label>
+        <input type="number" id="gen-cert-pct" min="70" max="100" value="70"
+          style="width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid var(--rim2);background:var(--surf2);color:var(--text);font-size:16px;box-sizing:border-box;transition:border-color .15s;"
+          onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='var(--rim2)'">
+        <div style="font-size:11px;color:var(--textM);margin-top:5px;">Minimum 70% required. Enter the actual score the candidate achieved.</div>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button id="gen-cert-confirm-btn" class="btn btn-primary" style="flex:1;background:var(--gGold);border-color:var(--goldD);"
+          onclick="confirmGenerateCert('${escHtml(regId)}','${name.replace(/'/g,'&#39;').replace(/\\/g,'\\\\').replace(/"/g,'&quot;')}','${email.replace(/'/g,'&#39;').replace(/\\/g,'\\\\').replace(/"/g,'&quot;')}','${escHtml(examId)}','${escHtml(dateStr)}')">
+          🎓 Generate &amp; Post to GitHub
+        </button>
+        <button class="btn btn-ghost" onclick="document.getElementById('gen-cert-modal').remove()">Cancel</button>
+      </div>
+    </div>`;
+  modal.addEventListener('click',e=>{if(e.target===modal)modal.remove();});
+  document.body.appendChild(modal);
+}
+
+async function confirmGenerateCert(regId,name,email,examId,dateStr){
+  const pctEl=document.getElementById('gen-cert-pct');
+  const pct=parseInt(pctEl?pctEl.value:'',10);
+  if(isNaN(pct)||pct<70||pct>100){
+    if(pctEl)pctEl.style.borderColor='var(--rose)';
+    toast('Score must be between 70 and 100','⚠️');
+    return;
+  }
+  const btn=document.getElementById('gen-cert-confirm-btn');
+  if(btn){btn.disabled=true;btn.innerHTML='⏳ Generating…';}
+  try{
+    const decodedName=name.replace(/&#39;/g,"'").replace(/&quot;/g,'"');
+    const decodedEmail=email.replace(/&#39;/g,"'").replace(/&quot;/g,'"');
+    const trackFull=TRACKS[examId]?TRACKS[examId].label.replace(' Certification',''):(examId||'Unknown Track');
+    // Generate the canvas certificate
+    await drawCert(decodedName,pct,regId,dateStr,trackFull);
+    // Build cert record (same shape as auto-generated certs)
+    const certRecord={
+      certId:regId,
+      name:decodedName,
+      email:decodedEmail.toLowerCase(),
+      trackFull,pct,date:dateStr,
+      issuedAt:new Date().toISOString(),
+      adminGenerated:true
+    };
+    // Save to localStorage
+    const certs=JSON.parse(localStorage.getItem('fob_certs')||'[]');
+    if(!certs.find(c=>c.certId===regId)){
+      certs.push(certRecord);
+      localStorage.setItem('fob_certs',JSON.stringify(certs));
+    }
+    // Post to GitHub (saveCertToGitHub already deduplicates by certId)
+    await saveCertToGitHub(certRecord);
+    document.getElementById('gen-cert-modal').remove();
+    toast('Certificate generated &amp; posted to GitHub for '+decodedName,'🎓');
+    // Refresh cert panel if it's open
+    const certBody=document.getElementById('admin-cert-tools-body');
+    if(certBody&&certBody.style.display!=='none') loadGitHubCerts();
+  }catch(e){
+    toast('Failed to generate cert: '+e.message,'❌');
+    if(btn){btn.disabled=false;btn.innerHTML='🎓 Generate &amp; Post to GitHub';}
+  }
+}
 
 /* ══════════════════════════════════════════
    TIMER
@@ -3675,6 +3946,8 @@ function markSubmissionCompleted(){
     submissions[idx].status='completed';
     submissions[idx].completedAt=new Date().toISOString();
     localStorage.setItem('fob_submissions',JSON.stringify(submissions));
+    // Mirror completion to GitHub (non-blocking)
+    ghUpdateSubmission(submissions[idx].regId,{status:'completed',completedAt:submissions[idx].completedAt});
   }
 }
 
@@ -3837,6 +4110,89 @@ async function fetchCertFromGitHub(email, certId){
     console.warn('GitHub cert lookup failed:', e);
     return null;
   }
+}
+
+/* ══════════════════════════════════════════
+   GITHUB SUBMISSIONS STORE
+   Mirrors fob_submissions to GitHub so the
+   admin dashboard works across devices and
+   candidates can resume on any device.
+══════════════════════════════════════════ */
+const GH_SUBS_API = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_SUBS_FILE}`;
+
+async function ghReadSubmissions(){
+  const res = await fetch(GH_SUBS_API, { headers: GH_HDR() });
+  if(res.status === 404) return { subs: [], sha: null };
+  if(!res.ok) throw new Error(`GitHub subs read failed: ${res.status}`);
+  const data = await res.json();
+  const content = JSON.parse(atob(data.content.replace(/\n/g,'')));
+  return { subs: content, sha: data.sha };
+}
+
+async function ghSaveSubmission(record){
+  try{
+    // Exclude screenshot (base64 blob) from GitHub copy to keep file size small.
+    // Screenshots are kept in localStorage for local display only.
+    const { screenshot, ...rec } = record;
+    const { subs, sha } = await ghReadSubmissions();
+    const idx = subs.findIndex(s => s.regId === rec.regId);
+    if(idx >= 0) subs[idx] = { ...subs[idx], ...rec };
+    else subs.push(rec);
+    const body = {
+      message: `subs: ${rec.regId} — ${rec.name}`,
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(subs, null, 2)))),
+      ...(sha ? { sha } : {})
+    };
+    const res = await fetch(GH_SUBS_API, { method:'PUT', headers:GH_HDR(), body:JSON.stringify(body) });
+    if(!res.ok) throw new Error(`GitHub subs write failed: ${res.status}`);
+    console.log('✅ Submission saved to GitHub:', rec.regId);
+  } catch(e){
+    console.warn('GitHub submission save failed (localStorage still has it):', e);
+  }
+}
+
+async function ghUpdateSubmission(regId, updates){
+  try{
+    const { subs, sha } = await ghReadSubmissions();
+    const idx = subs.findIndex(s => s.regId === regId);
+    if(idx < 0){ console.warn('GitHub subs: regId not found for update:', regId); return; }
+    subs[idx] = { ...subs[idx], ...updates };
+    const body = {
+      message: `subs: update ${regId} → ${updates.status || 'updated'}`,
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(subs, null, 2)))),
+      sha
+    };
+    const res = await fetch(GH_SUBS_API, { method:'PUT', headers:GH_HDR(), body:JSON.stringify(body) });
+    if(!res.ok) throw new Error(`GitHub subs update failed: ${res.status}`);
+    console.log('✅ Submission updated in GitHub:', regId, updates);
+  } catch(e){
+    console.warn('GitHub submission update failed:', e);
+  }
+}
+
+/* Merge GitHub submissions with localStorage.
+   GitHub wins for known regIds (source of truth).
+   localStorage-only entries (not yet synced) are appended.
+   Screenshots (device-local) are layered back from localStorage. */
+async function ghMergeSubmissions(){
+  let ghSubs = [];
+  try{
+    const { subs } = await ghReadSubmissions();
+    ghSubs = subs;
+  } catch(e){
+    console.warn('GitHub submissions unreachable, using localStorage only:', e);
+  }
+  const local = JSON.parse(localStorage.getItem('fob_submissions') || '[]');
+  const merged = [...ghSubs];
+  for(const ls of local){
+    if(!merged.find(s => s.regId === ls.regId)) merged.push(ls);
+  }
+  // Layer screenshots back (they're excluded from GitHub copy)
+  for(const s of merged){
+    const ls = local.find(l => l.regId === s.regId);
+    if(ls && ls.screenshot && !s.screenshot) s.screenshot = ls.screenshot;
+  }
+  return merged;
 }
 
 /* ══════════════════════════════════════════ */
