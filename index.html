@@ -2137,24 +2137,14 @@ emailjs.init(EMAILJS_PUB);
 /* ══════════════════════════════════════════
    GITHUB CERT STORE CONFIG
    ─────────────────────────────────────────
-   Certificates are stored as a JSON file in
-   a GitHub repo so they survive across devices
-   and browser clears.
-
-   Setup (one-time):
-   1. Create a PRIVATE GitHub repo, e.g. "fob-cert-store"
-   2. Generate a Personal Access Token (classic) at
-      https://github.com/settings/tokens
-      Scope needed: repo (full)  — keep this secret!
-   3. Fill in the three constants below.
-   4. The file GITHUB_CERT_FILE will be created
-      automatically on the first certificate issued.
+   All GitHub API calls are routed through the
+   Vercel serverless proxy at /api/github so
+   the token NEVER appears in client-side code.
+   The token lives only in the Vercel environment
+   variable GITHUB_TOKEN (set in Vercel dashboard).
 ══════════════════════════════════════════ */
-const GITHUB_OWNER     = 'fullonbaan';              // your GitHub username / org
-const GITHUB_REPO      = 'fob-cert-store';          // your private repo name
-const GITHUB_TOKEN     = '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'; // PAT with repo scope
-const GITHUB_CERT_FILE = 'certs/certificates.json'; // path inside repo
-const GITHUB_SUBS_FILE = 'submissions/submissions.json'; // approval/payment submissions
+const GITHUB_CERT_FILE = 'certs/certificates.json';
+const GITHUB_SUBS_FILE = 'submissions/submissions.json';
 
 /* ══════════════════════════════════════════
    PAYMENT CONFIG  — replace with your UPI ID
@@ -4056,12 +4046,9 @@ async function downloadCertificate(){
    We read → append/search → write back.
 ══════════════════════════════════════════ */
 
-const GH_API = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_CERT_FILE}`;
-const GH_HDR = () => ({
-  'Authorization': `token ${GITHUB_TOKEN}`,
-  'Accept': 'application/vnd.github+json',
-  'Content-Type': 'application/json'
-});
+// All GitHub requests go through the Vercel proxy — token stays server-side
+const GH_API = `/api/github?path=${GITHUB_CERT_FILE}`;
+const GH_HDR = () => ({ 'Content-Type': 'application/json' });
 
 /* Read the cert JSON file from GitHub.
    Returns { certs: [...], sha: '...' }
@@ -4118,7 +4105,7 @@ async function fetchCertFromGitHub(email, certId){
    admin dashboard works across devices and
    candidates can resume on any device.
 ══════════════════════════════════════════ */
-const GH_SUBS_API = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_SUBS_FILE}`;
+const GH_SUBS_API = `/api/github?path=${GITHUB_SUBS_FILE}`;
 
 async function ghReadSubmissions(){
   const res = await fetch(GH_SUBS_API, { headers: GH_HDR() });
