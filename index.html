@@ -3121,10 +3121,10 @@ function selectTrack(t){
   lbl.textContent=cfg.icon+' '+cfg.label+' selected';
   lbl.style.color=cfg.color;
   const btn=document.getElementById('begin-btn');
-  btn.className='btn btn-primary btn-xl'+cfg.btnCls;
+  btn.className='btn btn-gold btn-xl';
   btn.innerHTML=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg> Proceed to Payment — ₹499`;
-  document.querySelector('.rules-h').style.color=cfg.color;
-  document.querySelector('.rules').style.borderColor=cfg.color.replace('var(','').replace(')','');
+  const rulesBox=document.querySelector('.rules-box');
+  if(rulesBox) rulesBox.style.borderColor=cfg.color;
 }
 
 /* ══════════════════════════════════════════
