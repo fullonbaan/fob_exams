@@ -1900,59 +1900,6 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
     <div class="unlock-back-link" onclick="showScreen('pending')">← Back to waiting screen</div>
   </div>
 </div>
-
-<!-- ████ RESUME MODAL (hidden, shown via JS) ████ -->
-
-<!-- ████ RETRIEVE CERTIFICATE ████ -->
-<div id="retrieve-cert" class="screen">
-  <div style="max-width:600px;margin:0 auto;padding:60px 32px 100px;text-align:center;">
-    <div style="font-size:56px;margin-bottom:16px;">🏆</div>
-    <h2 style="font-family:var(--serif);font-size:28px;font-weight:700;margin-bottom:10px;">Retrieve Your Certificate</h2>
-    <p style="color:var(--textS);font-size:14px;line-height:1.7;margin-bottom:32px;">
-      Already passed your exam? Enter your registered email and Certificate ID to re-download your certificate at any time.
-    </p>
-    <div style="background:var(--surf);border:1px solid var(--gb2);border-radius:20px;padding:32px 28px;text-align:left;">
-      <div style="margin-bottom:18px;">
-        <label style="font-size:13px;font-weight:600;color:var(--textS);display:block;margin-bottom:7px;">Registered Email Address</label>
-        <input type="email" id="rc-email" placeholder="you@example.com"
-          style="width:100%;padding:12px 16px;border-radius:10px;border:1px solid var(--gb2);background:var(--surf2);color:var(--text);font-size:14px;outline:none;"
-          oninput="document.getElementById('rc-err').style.display='none'">
-      </div>
-      <div style="margin-bottom:24px;">
-        <label style="font-size:13px;font-weight:600;color:var(--textS);display:block;margin-bottom:7px;">Certificate ID</label>
-        <input type="text" id="rc-certid" placeholder="e.g. FOB-DEV-202501-AB3F7K2"
-          style="width:100%;padding:12px 16px;border-radius:10px;border:1px solid var(--gb2);background:var(--surf2);color:var(--text);font-size:14px;font-family:var(--mono);letter-spacing:.05em;outline:none;"
-          oninput="this.value=this.value.toUpperCase();document.getElementById('rc-err').style.display='none'"
-          onkeydown="if(event.key==='Enter')retrieveCertificate()">
-        <div style="font-size:11px;color:var(--textM);margin-top:6px;">Found in your certificate email — format: FOB-TRACK-YYYYMM-XXXXXXX</div>
-      </div>
-      <span id="rc-err" style="display:none;font-size:13px;color:var(--rose);margin-bottom:12px;display:none;">
-        ⚠️ No matching certificate found. Please check your email and Certificate ID.
-      </span>
-      <button class="btn btn-primary btn-md" onclick="retrieveCertificate()" style="width:100%;justify-content:center;gap:10px;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download My Certificate
-      </button>
-    </div>
-    <div id="rc-preview" style="display:none;margin-top:28px;">
-      <div style="background:var(--surf);border:1px solid rgba(52,211,153,.25);border-radius:16px;padding:24px 20px;">
-        <div style="font-size:22px;margin-bottom:8px;">✅</div>
-        <div style="font-weight:700;font-size:15px;margin-bottom:4px;" id="rc-found-name"></div>
-        <div style="font-size:13px;color:var(--textS);margin-bottom:16px;" id="rc-found-detail"></div>
-        <button class="btn btn-success btn-md" onclick="downloadRetrievedCert()" style="justify-content:center;gap:8px;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download Certificate
-        </button>
-      </div>
-    </div>
-    <div style="margin-top:28px;font-size:13px;color:var(--textM);">
-      Can't find your Certificate ID?
-      <a href="mailto:fullonbaan@gmail.com?subject=Certificate+Retrieval" style="color:var(--blue);text-decoration:none;font-weight:600;">fullonbaan@gmail.com</a>
-    </div>
-    <button class="btn btn-ghost btn-sm" onclick="goHome()" style="margin-top:24px;">← Back to Portal</button>
-  </div>
-</div>
-
 <!-- ████ PENDING APPROVAL ████ -->
 <div id="pending" class="screen">
   <div class="pending-wrap">
@@ -4770,12 +4717,18 @@ function goHome(){
 
   /* Reset registration panel labels */
   const lbl=document.getElementById('reg-track-label');
-  if(lbl){lbl.textContent='Track';}
+  if(lbl){lbl.textContent='← Select a certification track above to begin';}
   const sel=document.getElementById('reg-track');
   if(sel){sel.value='';}
-  }
 
-  function sendEmail(params){
+  /* Reset begin button */
+  const btn=document.getElementById('begin-btn');
+  if(btn){btn.textContent='Select a Track to Proceed';}
+
+  showScreen('home');
+}
+
+function sendEmail(params){
     if(!params || !params.cust_email) return Promise.resolve();
     return emailjs.send(
       params.service_id || EMAILJS_SVC,
