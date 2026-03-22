@@ -87,8 +87,11 @@ header{background:var(--surf);border-bottom:1px solid var(--rim);padding:0 28px;
 @media(max-width:680px){#home{padding:24px 16px 80px;}}
 
 /* Hero */
-.hero-section{display:grid;grid-template-columns:1fr 420px;gap:48px;align-items:center;margin-bottom:72px;}
+.hero-section{display:grid;grid-template-columns:1fr 420px;gap:48px;align-items:center;margin-bottom:72px;position:relative;padding:48px 0;overflow:hidden;}
+.hero-section::before{content:'';position:absolute;inset:0;opacity:.07;pointer-events:none;background-image:radial-gradient(circle at 1.5px 1.5px,var(--gold) 1px,transparent 0);background-size:32px 32px;}
+.hero-section::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 80% at 30% 50%,rgba(201,168,76,.06),transparent 70%),radial-gradient(ellipse 50% 60% at 80% 30%,rgba(79,140,255,.04),transparent 60%);}
 @media(max-width:960px){.hero-section{grid-template-columns:1fr;gap:32px;margin-bottom:48px;}}
+.hero-left,.hero-right{position:relative;z-index:1;}
 .hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:4px;padding:4px 12px;font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;}
 .badge-pulse{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:bpulse 2s infinite;flex-shrink:0;}
 @keyframes bpulse{0%,100%{opacity:1;}50%{opacity:.3;}}
@@ -153,6 +156,18 @@ header{background:var(--surf);border-bottom:1px solid var(--rim);padding:0 28px;
 .track-card.sel-wap{border-color:rgba(232,121,249,.4);background:rgba(232,121,249,.04);}
 .track-card.sel-sml{border-color:rgba(251,146,60,.4);background:rgba(251,146,60,.04);}
 .track-card.sel-fin .tc-arrow,.track-card.sel-mfg .tc-arrow,.track-card.sel-scm .tc-arrow,.track-card.sel-dist .tc-arrow,.track-card.sel-cf2 .tc-arrow,.track-card.sel-fnb .tc-arrow,.track-card.sel-wap .tc-arrow,.track-card.sel-sml .tc-arrow{background:rgba(201,168,76,.15);border-color:rgba(201,168,76,.4);color:var(--gold);}
+
+/* Track card thumbnail image */
+.track-thumb{position:absolute;top:0;left:0;right:0;height:90px;overflow:hidden;z-index:0;border-radius:16px 16px 0 0;}
+.track-thumb img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.55);opacity:.45;transition:filter .6s var(--ease),opacity .6s var(--ease),transform .6s var(--ease);transform:scale(1.08);}
+.track-card:hover .track-thumb img{filter:grayscale(0) brightness(.7);opacity:.55;transform:scale(1);}
+.track-thumb::after{content:'';position:absolute;bottom:0;left:0;right:0;height:50px;background:linear-gradient(to top,var(--surf),transparent);pointer-events:none;transition:background .15s;}
+.track-card:hover .track-thumb::after{background:linear-gradient(to top,var(--surf2),transparent);}
+/* Selected card thumb adjustments */
+.track-card[class*="sel-"] .track-thumb img{filter:grayscale(.4) brightness(.6);opacity:.5;}
+.track-card[class*="sel-"]:hover .track-thumb img{filter:grayscale(0) brightness(.65);opacity:.55;}
+/* Adjust card padding to accommodate thumbnail */
+.track-card{padding-top:72px;}
 
 .track-icon-wrap{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;position:relative;z-index:1;flex-shrink:0;transition:transform var(--dur);}
 .track-card:hover .track-icon-wrap{transform:scale(1.08);}
@@ -581,7 +596,7 @@ SITE FOOTER — PREMIUM
 .ft-social-li:hover{background:#0077B5;border-color:#0077B5;color:#fff;}
 .ft-social-ig:hover{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border-color:#dc2743;color:#fff;}
 .ft-social-fb:hover{background:#1877F2;border-color:#1877F2;color:#fff;}
-.ft-social-x:hover{background:#111;border-color:#333;color:#fff;}
+.ft-social-yt:hover{background:#ff0000;border-color:#ff0000;color:#fff;}
 .ft-bottom-sep{color:var(--textM);font-size:10px;opacity:.3;margin:0 2px;}
 
 @media(max-width:700px){
@@ -767,7 +782,8 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
   grid-template-columns:repeat(4,1fr);
   gap:16px;
 }
-@media(max-width:900px){.eco-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:1100px){.eco-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:750px){.eco-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:480px){.eco-grid{grid-template-columns:repeat(2,1fr);gap:12px;}}
 
 .eco-card{
@@ -804,12 +820,18 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .eco-card.c-train {--eco-glow:rgba(45,212,191,.09); --eco-rim:rgba(45,212,191,.35); --eco-tag-bg:rgba(45,212,191,.09);--eco-tag-cl:var(--teal);}
 .eco-card.c-jobs  {--eco-glow:rgba(52,211,153,.09); --eco-rim:rgba(52,211,153,.35); --eco-tag-bg:rgba(52,211,153,.09);--eco-tag-cl:var(--emerald);}
 .eco-card.c-play  {--eco-glow:rgba(251,191,36,.09);  --eco-rim:rgba(251,191,36,.35);  --eco-tag-bg:rgba(251,191,36,.09); --eco-tag-cl:var(--amber);}
+.eco-card.c-yt    {--eco-glow:rgba(255,0,0,.08);    --eco-rim:rgba(255,0,0,.3);    --eco-tag-bg:rgba(255,0,0,.08);   --eco-tag-cl:#ef4444;}
+.eco-card.c-main  {--eco-glow:rgba(201,168,76,.1);  --eco-rim:rgba(201,168,76,.35); --eco-tag-bg:rgba(201,168,76,.1); --eco-tag-cl:var(--gold);}
+.eco-card.c-mat   {--eco-glow:rgba(251,146,60,.09); --eco-rim:rgba(251,146,60,.35); --eco-tag-bg:rgba(251,146,60,.09);--eco-tag-cl:#fb923c;}
 
 [data-theme="light"] .eco-card.c-repo  {--eco-glow:rgba(59,111,224,.07); --eco-rim:rgba(59,111,224,.3);}
 [data-theme="light"] .eco-card.c-int   {--eco-glow:rgba(147,51,234,.07); --eco-rim:rgba(147,51,234,.3);}
 [data-theme="light"] .eco-card.c-train {--eco-glow:rgba(15,158,138,.06); --eco-rim:rgba(15,158,138,.3);}
 [data-theme="light"] .eco-card.c-jobs  {--eco-glow:rgba(5,150,105,.06);  --eco-rim:rgba(5,150,105,.3);}
 [data-theme="light"] .eco-card.c-play  {--eco-glow:rgba(217,119,6,.06);   --eco-rim:rgba(217,119,6,.3);}
+[data-theme="light"] .eco-card.c-yt    {--eco-glow:rgba(220,38,38,.06);   --eco-rim:rgba(220,38,38,.25);}
+[data-theme="light"] .eco-card.c-main  {--eco-glow:rgba(180,140,50,.06);  --eco-rim:rgba(180,140,50,.3);}
+[data-theme="light"] .eco-card.c-mat   {--eco-glow:rgba(234,88,12,.06);   --eco-rim:rgba(234,88,12,.28);}
 
 .eco-icon-wrap{
   width:54px;height:54px;border-radius:16px;
@@ -826,12 +848,18 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .eco-icon-wrap.c-train {background:var(--gTeal);   box-shadow:0 6px 20px rgba(45,212,191,.35);}
 .eco-icon-wrap.c-jobs  {background:var(--gEmerald);box-shadow:0 6px 20px rgba(52,211,153,.35);}
 .eco-icon-wrap.c-play  {background:var(--gAmber);   box-shadow:0 6px 20px rgba(251,191,36,.35);}
+.eco-icon-wrap.c-yt    {background:linear-gradient(135deg,#ff0000,#cc0000);box-shadow:0 6px 20px rgba(255,0,0,.35);}
+.eco-icon-wrap.c-main  {background:var(--gGold);   box-shadow:0 6px 20px rgba(201,168,76,.38);}
+.eco-icon-wrap.c-mat   {background:linear-gradient(135deg,#fb923c,#ea580c);box-shadow:0 6px 20px rgba(251,146,60,.35);}
 
 .eco-card:hover .eco-icon-wrap.c-repo  {box-shadow:0 10px 28px rgba(79,140,255,.55);}
 .eco-card:hover .eco-icon-wrap.c-int   {box-shadow:0 10px 28px rgba(168,85,247,.55);}
 .eco-card:hover .eco-icon-wrap.c-train {box-shadow:0 10px 28px rgba(45,212,191,.5);}
 .eco-card:hover .eco-icon-wrap.c-jobs  {box-shadow:0 10px 28px rgba(52,211,153,.5);}
 .eco-card:hover .eco-icon-wrap.c-play  {box-shadow:0 10px 28px rgba(251,191,36,.5);}
+.eco-card:hover .eco-icon-wrap.c-yt    {box-shadow:0 10px 28px rgba(255,0,0,.5);}
+.eco-card:hover .eco-icon-wrap.c-main  {box-shadow:0 10px 28px rgba(201,168,76,.55);}
+.eco-card:hover .eco-icon-wrap.c-mat   {box-shadow:0 10px 28px rgba(251,146,60,.5);}
 
 .eco-body{flex:1;position:relative;z-index:1;}
 .eco-title{
@@ -1149,6 +1177,7 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 
       <!-- LN Development -->
       <div class="track-card" id="card-dev" onclick="selectTrack('dev')">
+        <div class="track-thumb"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=200&fit=crop&q=60" alt="" loading="lazy"></div>
         <div class="track-exam-code">LN-DEV</div>
         <div class="track-icon-wrap ti-fin">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a0b0d" stroke-width="2.2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
@@ -1161,6 +1190,7 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 
       <!-- BOD -->
       <div class="track-card" id="card-bod" onclick="selectTrack('bod')">
+        <div class="track-thumb"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=200&fit=crop&q=60" alt="" loading="lazy"></div>
         <div class="track-exam-code">LN-BOD</div>
         <div class="track-icon-wrap ti-scm">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><line x1="12" y1="7" x2="5" y2="17"/><line x1="12" y1="7" x2="19" y2="17"/><line x1="5" y1="19" x2="19" y2="19"/></svg>
@@ -1173,6 +1203,7 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 
       <!-- ION -->
       <div class="track-card" id="card-ion" onclick="selectTrack('ion')">
+        <div class="track-thumb"><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=200&fit=crop&q=60" alt="" loading="lazy"></div>
         <div class="track-exam-code">LN-ION</div>
         <div class="track-icon-wrap ti-cf2">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -1185,6 +1216,7 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 
       <!-- Extensibility -->
       <div class="track-card" id="card-ext" onclick="selectTrack('ext')">
+        <div class="track-thumb"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=200&fit=crop&q=60" alt="" loading="lazy"></div>
         <div class="track-exam-code">LN-EXT</div>
         <div class="track-icon-wrap ti-dist">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
@@ -1209,6 +1241,7 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 
       <!-- Finance -->
       <div class="track-card" id="card-fin" onclick="selectTrack('fin')">
+        <div class="track-thumb"><img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=200&fit=crop&q=60" alt="" loading="lazy"></div>
         <div class="track-exam-code">LN-FIN</div>
         <div class="track-icon-wrap ti-fin">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a0b0d" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
@@ -1221,6 +1254,7 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 
       <!-- SCM -->
       <div class="track-card" id="card-scm" onclick="selectTrack('scm')">
+        <div class="track-thumb"><img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400&h=200&fit=crop&q=60" alt="" loading="lazy"></div>
         <div class="track-exam-code">LN-SCM</div>
         <div class="track-icon-wrap ti-scm">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
@@ -1233,6 +1267,7 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 
       <!-- Manufacturing -->
       <div class="track-card" id="card-mfg" onclick="selectTrack('mfg')">
+        <div class="track-thumb"><img src="https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=400&h=200&fit=crop&q=60" alt="" loading="lazy"></div>
         <div class="track-exam-code">LN-MFG</div>
         <div class="track-icon-wrap ti-mfg">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M21 12h-2M17.66 17.66l-1.41-1.41M12 21v-2M6.34 17.66l-1.41 1.41M3 12H1M6.34 6.34L4.93 4.93M12 3V1"/></svg>
@@ -1395,7 +1430,7 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
         </a>
 
         <!-- Training -->
-        <a class="eco-card c-train" href="https://fobtraining.vercel.app/" target="_blank" rel="noopener">
+        <a class="eco-card c-train" href="https://fob-ln-training.vercel.app/" target="_blank" rel="noopener">
           <div class="eco-icon-wrap c-train">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
@@ -1403,8 +1438,8 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
             </svg>
           </div>
           <div class="eco-body">
-            <div class="eco-title">Training</div>
-            <div class="eco-desc">Structured learning paths &amp; step-by-step tutorials.</div>
+            <div class="eco-title">Infor LN Training</div>
+            <div class="eco-desc">Comprehensive Infor ERP LN training — structured learning paths &amp; hands-on modules.</div>
             <span class="eco-tag">Learning</span>
           </div>
           <div class="eco-footer">
@@ -1452,6 +1487,72 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
             <div class="eco-title">Infor LN Playbook</div>
             <div class="eco-desc">Step-by-step guides &amp; best practices for Infor LN professionals.</div>
             <span class="eco-tag">Guides</span>
+          </div>
+          <div class="eco-footer">
+            <div class="eco-launch">
+              Open
+              <div class="eco-launch-arrow">↗</div>
+            </div>
+          </div>
+        </a>
+
+        <!-- YouTube Channel -->
+        <a class="eco-card c-yt" href="https://www.youtube.com/channel/UCYT7snIHzheVwSx4M7DFuVA" target="_blank" rel="noopener">
+          <div class="eco-icon-wrap c-yt">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </div>
+          <div class="eco-body">
+            <div class="eco-title">YouTube Channel</div>
+            <div class="eco-desc">Video tutorials, walkthroughs &amp; Infor LN training content.</div>
+            <span class="eco-tag">Video</span>
+          </div>
+          <div class="eco-footer">
+            <div class="eco-launch">
+              Watch
+              <div class="eco-launch-arrow">↗</div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Main Consulting Site -->
+        <a class="eco-card c-main" href="https://www.fullonbaan.com/" target="_blank" rel="noopener">
+          <div class="eco-icon-wrap c-main">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a0b0d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <div class="eco-body">
+            <div class="eco-title">FullOnBaan.com</div>
+            <div class="eco-desc">Main consulting site — Comprehensive Infor ERP LN Training Programs.</div>
+            <span class="eco-tag">Consulting</span>
+          </div>
+          <div class="eco-footer">
+            <div class="eco-launch">
+              Visit
+              <div class="eco-launch-arrow">↗</div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Infor LN Materials -->
+        <a class="eco-card c-mat" href="https://fobtraining.vercel.app/" target="_blank" rel="noopener">
+          <div class="eco-icon-wrap c-mat">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              <line x1="6" y1="8" x2="6" y2="8.01" opacity=".7"/>
+              <line x1="6" y1="12" x2="8" y2="12" opacity=".7"/>
+              <line x1="6" y1="16" x2="8" y2="16" opacity=".7"/>
+            </svg>
+          </div>
+          <div class="eco-body">
+            <div class="eco-title">Infor LN Materials</div>
+            <div class="eco-desc">Study materials, notes &amp; reference docs for Infor LN learners.</div>
+            <span class="eco-tag">Resources</span>
           </div>
           <div class="eco-footer">
             <div class="eco-launch">
@@ -2123,17 +2224,17 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
         <span class="ft-badge"><span class="ft-badge-dot gold"></span>Certifications</span>
       </div>
       <div class="ft-social">
-        <a class="ft-social-btn ft-social-li" href="https://www.linkedin.com/company/fullonbaan" target="_blank" rel="noopener" title="LinkedIn">
+        <a class="ft-social-btn ft-social-li" href="https://linkedin.com/company/fullonbaan/" target="_blank" rel="noopener" title="LinkedIn">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         </a>
         <a class="ft-social-btn ft-social-ig" href="https://www.instagram.com/fullonbaan" target="_blank" rel="noopener" title="Instagram">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
         </a>
-        <a class="ft-social-btn ft-social-fb" href="https://www.facebook.com/fullonbaan" target="_blank" rel="noopener" title="Facebook">
+        <a class="ft-social-btn ft-social-fb" href="https://www.facebook.com/p/FullonBaaN-100067220493183/" target="_blank" rel="noopener" title="Facebook">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         </a>
-        <a class="ft-social-btn ft-social-x" href="https://twitter.com/fullonbaan" target="_blank" rel="noopener" title="X / Twitter">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        <a class="ft-social-btn ft-social-yt" href="https://www.youtube.com/channel/UCYT7snIHzheVwSx4M7DFuVA" target="_blank" rel="noopener" title="YouTube">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
         </a>
       </div>
     </div>
@@ -2150,9 +2251,9 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           Interview Prep
         </a>
-        <a class="ft-nav-item" href="https://fobtraining.vercel.app/" target="_blank" rel="noopener">
+        <a class="ft-nav-item" href="https://fob-ln-training.vercel.app/" target="_blank" rel="noopener">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          Training
+          Infor LN Training
         </a>
         <a class="ft-nav-item" href="https://fobjobs.vercel.app/" target="_blank" rel="noopener">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
@@ -2166,6 +2267,14 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
         <a class="ft-nav-item" href="https://fobplaybook.vercel.app/" target="_blank" rel="noopener">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
           Infor LN Playbook
+        </a>
+        <a class="ft-nav-item" href="https://fobtraining.vercel.app/" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7" opacity=".6"/><line x1="9" y1="11" x2="15" y2="11" opacity=".6"/></svg>
+          Infor LN Materials
+        </a>
+        <a class="ft-nav-item" href="https://www.fullonbaan.com/" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          FullOnBaan.com
         </a>
       </nav>
     </div>
@@ -2201,6 +2310,15 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
             <div class="ft-contact-value">+91 63605 93122</div>
           </div>
         </a>
+        <a class="ft-contact-pill" href="https://wa.me/916360593122?text=Hi%2C%20I%27m%20interested%20in%20FullOnBaan%20Infor%20LN%20training.%20Could%20you%20share%20more%20details%3F" target="_blank" rel="noopener">
+          <div class="ft-contact-icon wa" style="background:rgba(37,211,102,.12);border-color:rgba(37,211,102,.25);color:#25d366;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          </div>
+          <div class="ft-contact-text">
+            <div class="ft-contact-label">WhatsApp</div>
+            <div class="ft-contact-value">+91 63605 93122</div>
+          </div>
+        </a>
       </div>
     </div>
 
@@ -2220,6 +2338,89 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
     </div>
   </div>
 </footer>
+
+<!-- ████ FLOATING WHATSAPP CTA ████ -->
+<style>
+/* ── Floating WhatsApp ── */
+.wa-float{
+  position:fixed;bottom:28px;right:28px;z-index:9990;
+  display:flex;flex-direction:column;align-items:flex-end;gap:10px;
+}
+/* Tooltip bubble */
+.wa-float-tip{
+  background:var(--surf);border:1px solid var(--rim2);border-radius:14px;
+  padding:12px 16px;box-shadow:0 8px 32px rgba(0,0,0,.35);
+  font-size:13px;color:var(--text);line-height:1.5;max-width:220px;
+  position:relative;
+  opacity:0;transform:translateY(8px) scale(.95);
+  animation:waTipIn .4s .6s forwards;
+}
+.wa-float-tip::after{
+  content:'';position:absolute;bottom:-6px;right:24px;
+  width:12px;height:12px;background:var(--surf);
+  border-right:1px solid var(--rim2);border-bottom:1px solid var(--rim2);
+  transform:rotate(45deg);
+}
+.wa-float-tip strong{color:var(--gold);font-weight:700;}
+.wa-float-tip-close{
+  position:absolute;top:6px;right:10px;
+  background:none;border:none;color:var(--textM);font-size:16px;
+  cursor:pointer;line-height:1;padding:2px;transition:color .15s;
+}
+.wa-float-tip-close:hover{color:var(--text);}
+@keyframes waTipIn{to{opacity:1;transform:translateY(0) scale(1);}}
+
+/* The green button */
+.wa-float-btn{
+  width:60px;height:60px;border-radius:50%;
+  background:linear-gradient(135deg,#25d366,#128c7e);
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 24px rgba(37,211,102,.45);
+  transition:transform .2s,box-shadow .2s;
+  opacity:0;transform:scale(.5);
+  animation:waBtnIn .4s .3s forwards cubic-bezier(.34,1.56,.64,1);
+  position:relative;
+}
+.wa-float-btn:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(37,211,102,.6);}
+.wa-float-btn:active{transform:scale(.95);}
+@keyframes waBtnIn{to{opacity:1;transform:scale(1);}}
+
+/* Ping ring */
+.wa-float-btn::before{
+  content:'';position:absolute;inset:-4px;border-radius:50%;
+  border:2px solid rgba(37,211,102,.5);
+  animation:waPing 2.5s 1.5s infinite;
+  opacity:0;
+}
+@keyframes waPing{
+  0%{transform:scale(1);opacity:.6;}
+  70%{transform:scale(1.35);opacity:0;}
+  100%{opacity:0;}
+}
+
+.wa-float-btn svg{width:30px;height:30px;fill:#fff;flex-shrink:0;}
+
+/* Hide on very small viewports when keyboard might be open */
+@media(max-height:480px){.wa-float{display:none;}}
+/* Adjust position on mobile */
+@media(max-width:480px){
+  .wa-float{bottom:18px;right:18px;}
+  .wa-float-btn{width:54px;height:54px;}
+  .wa-float-btn svg{width:26px;height:26px;}
+  .wa-float-tip{max-width:180px;font-size:12px;padding:10px 14px;}
+}
+</style>
+
+<div class="wa-float" id="wa-float">
+  <div class="wa-float-tip" id="wa-tip">
+    <button class="wa-float-tip-close" onclick="document.getElementById('wa-tip').style.display='none'" aria-label="Close">×</button>
+    Chat with <strong>FullOnBaan</strong> for exam queries or LN training info
+  </div>
+  <a class="wa-float-btn" href="https://wa.me/916360593122?text=Hi%2C%20I%27m%20interested%20in%20FullOnBaan%20Infor%20LN%20training.%20Could%20you%20share%20more%20details%3F" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" title="Chat with us on WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+  </a>
+</div>
 
 <script>
 const y=new Date().getFullYear();
