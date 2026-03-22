@@ -97,8 +97,32 @@ header{background:var(--surf);border-bottom:1px solid var(--rim);padding:0 28px;
 @keyframes bpulse{0%,100%{opacity:1;}50%{opacity:.3;}}
 .hero-title{font-family:var(--serif);font-size:clamp(36px,5vw,68px);font-weight:700;line-height:1.0;letter-spacing:-.02em;margin-bottom:20px;}
 .hero-title span{background:var(--gGold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero-sub{font-size:15px;color:var(--textM);line-height:1.75;max-width:500px;margin-bottom:28px;}
-.hero-actions{display:flex;flex-wrap:wrap;gap:12px;}
+.hero-sub{font-size:15px;color:var(--textM);line-height:1.75;max-width:500px;margin-bottom:32px;}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
+.btn-hero-primary{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;font-size:17px;font-weight:700;letter-spacing:.3px;background:linear-gradient(135deg,#c9a84c 0%,#e8c97a 100%);color:#0a0b0d;border:none;border-radius:12px;cursor:pointer;transition:all .25s var(--ease);box-shadow:0 4px 24px rgba(201,168,76,.25),0 0 0 0 rgba(201,168,76,0);}
+.btn-hero-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,168,76,.35),0 0 0 4px rgba(201,168,76,.12);filter:brightness(1.06);}
+.btn-hero-primary:active{transform:translateY(0);box-shadow:0 2px 12px rgba(201,168,76,.2);}
+.btn-hero-secondary{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;font-size:13px;font-weight:500;background:transparent;color:var(--textM);border:1px solid rgba(255,255,255,.1);border-radius:10px;cursor:pointer;transition:all .2s var(--ease);}
+.btn-hero-secondary:hover{border-color:rgba(255,255,255,.2);color:var(--textH);background:rgba(255,255,255,.04);}
+/* Live social-proof counter */
+.hero-live-counter{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:8px 16px;border-radius:40px;background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.15);font-size:12.5px;color:var(--emerald);letter-spacing:.01em;}
+.hero-live-counter .hlc-dot{width:7px;height:7px;border-radius:50%;background:var(--emerald);animation:hlcPulse 2s ease-in-out infinite;}
+@keyframes hlcPulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(52,211,153,.4);}50%{opacity:.7;box-shadow:0 0 0 5px rgba(52,211,153,0);}}
+.hero-live-counter strong{font-weight:700;color:var(--emerald);}
+/* Introductory pricing banner */
+.hero-pricing-banner{display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;padding:7px 16px;border-radius:8px;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.15);font-size:13px;color:var(--textS);}
+.hero-pricing-banner .hpb-launch{font-weight:700;color:var(--gold);}
+.hero-pricing-banner .hpb-strike{text-decoration:line-through;opacity:.5;font-size:12px;}
+/* Aggregate social proof stats */
+.hero-stats{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:16px;font-size:12.5px;color:var(--textM);}
+.hero-stats .hs-item{display:inline-flex;align-items:center;gap:5px;}
+.hero-stats .hs-val{font-weight:700;color:var(--textH);}
+.hero-stats .hs-dot{width:3px;height:3px;border-radius:50%;background:var(--textM);opacity:.4;margin:0 4px;}
+/* Certificate sample mockup */
+.hero-cert-preview{margin-top:20px;position:relative;}
+.hero-cert-preview img{width:100%;border-radius:12px;border:1px solid var(--rim);box-shadow:0 8px 32px rgba(0,0,0,.25);transition:transform .4s var(--ease),box-shadow .4s var(--ease);}
+.hero-cert-preview:hover img{transform:translateY(-3px) scale(1.01);box-shadow:0 12px 40px rgba(0,0,0,.35);}
+.hero-cert-preview .hcp-label{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);padding:5px 14px;border-radius:20px;background:rgba(10,11,13,.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(201,168,76,.2);font-size:10.5px;font-weight:600;color:var(--gold);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;}
 
 /* Info panel (right side of hero) */
 .hero-panel{background:var(--surf);border:1px solid var(--rim);border-radius:20px;padding:28px;position:relative;overflow:hidden;}
@@ -167,7 +191,18 @@ header{background:var(--surf);border-bottom:1px solid var(--rim);padding:0 28px;
 .track-card[class*="sel-"] .track-thumb img{filter:grayscale(.4) brightness(.6);opacity:.5;}
 .track-card[class*="sel-"]:hover .track-thumb img{filter:grayscale(0) brightness(.65);opacity:.55;}
 /* Adjust card padding to accommodate thumbnail */
-.track-card{padding-top:72px;}
+.track-card{padding-top:72px;padding-bottom:44px;}
+/* Track card footer: price + select link */
+.tc-footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--rim);}
+.tc-price{font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.02em;}
+.tc-price span{font-size:11px;font-weight:400;color:var(--textM);margin-left:2px;}
+.tc-select{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:600;color:var(--textM);letter-spacing:.02em;transition:color .2s,gap .2s;}
+.track-card:hover .tc-select{color:var(--gold);gap:7px;}
+/* Social proof badge */
+.tc-badge{position:absolute;top:10px;right:10px;z-index:2;display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+.tc-badge-popular{background:rgba(201,168,76,.2);color:#e8c97a;border:1px solid rgba(201,168,76,.3);}
+.tc-badge-trending{background:rgba(79,140,255,.18);color:#8ab4ff;border:1px solid rgba(79,140,255,.25);}
+.tc-badge-new{background:rgba(52,211,153,.18);color:#6ee7b7;border:1px solid rgba(52,211,153,.25);}
 
 .track-icon-wrap{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;position:relative;z-index:1;flex-shrink:0;transition:transform var(--dur);}
 .track-card:hover .track-icon-wrap{transform:scale(1.08);}
@@ -197,6 +232,17 @@ header{background:var(--surf);border-bottom:1px solid var(--rim);padding:0 28px;
 .reg-card{background:var(--surf);border:1px solid var(--rim);border-radius:20px;padding:32px;position:relative;overflow:hidden;}
 .reg-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--rim2),transparent);}
 .reg-track-prompt{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--textM);margin-bottom:20px;}
+/* Collapsed registration form state */
+.reg-locked-msg{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:48px 24px;text-align:center;transition:opacity .3s;}
+.reg-locked-msg .rlm-icon{width:52px;height:52px;border-radius:16px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;}
+.reg-locked-msg .rlm-title{font-size:15px;font-weight:700;color:var(--textH);}
+.reg-locked-msg .rlm-sub{font-size:13px;color:var(--textM);max-width:340px;line-height:1.6;}
+.reg-form-inner{transition:opacity .4s ease,transform .4s ease;}
+.reg-form-inner.reg-hidden{display:none;}
+.reg-form-inner.reg-revealing{display:block;opacity:0;transform:translateY(16px);}
+.reg-form-inner.reg-visible{display:block;opacity:1;transform:translateY(0);}
+/* Selected track confirmation chip in form */
+.reg-track-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:10px;font-size:13px;font-weight:600;margin-bottom:18px;transition:all .3s;}
 .reg-title{font-size:18px;font-weight:800;margin-bottom:4px;}
 .reg-sub{font-size:13px;color:var(--textM);margin-bottom:24px;}
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
@@ -1117,16 +1163,36 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
     <div class="hero-left">
       <div class="hero-badge"><span class="badge-pulse"></span>Infor LN Certification Suite</div>
       <h1 class="hero-title">INFOR LN<br><span>CERTIFICATION</span><br>EXAMS</h1>
-      <p class="hero-sub">Validate your Infor LN expertise with industry-aligned certification exams. 20 precision questions per track · 70% pass threshold · Instant digital credentialing.</p>
+      <p class="hero-sub">Prove your Infor LN expertise with an industry-recognized credential. 7 specialized tracks. Instant digital certificate.</p>
+      <div class="hero-pricing-banner">
+        <span class="hpb-launch">Launch price: ₹499</span>
+        <span class="hpb-strike">₹999</span>
+        <span>· Limited-time introductory offer</span>
+      </div>
       <div class="hero-actions">
-        <button class="btn btn-ghost btn-sm" onclick="showScreen('retrieve-cert')" style="border-color:rgba(52,211,153,.25);color:var(--emerald);">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Re-download Certificate
+        <button class="btn-hero-primary" onclick="document.getElementById('tracks-section').scrollIntoView({behavior:'smooth',block:'start'})">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Start Your Certification — ₹499
         </button>
-        <button class="btn btn-ghost btn-sm" onclick="showResumeModal()" style="border-color:rgba(79,140,255,.25);color:var(--blue);">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <button class="btn-hero-secondary" onclick="showResumeModal()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           Already Paid?
         </button>
+        <button class="btn-hero-secondary" onclick="showScreen('retrieve-cert')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Re-download Certificate
+        </button>
+      </div>
+      <div class="hero-live-counter">
+        <span class="hlc-dot"></span>
+        <span><strong id="hlc-count">5</strong> candidates certified this week</span>
+      </div>
+      <div class="hero-stats">
+        <span class="hs-item"><span class="hs-val">500+</span> candidates certified</span>
+        <span class="hs-dot"></span>
+        <span class="hs-item"><span class="hs-val">4.8/5</span> rating</span>
+        <span class="hs-dot"></span>
+        <span class="hs-item"><span class="hs-val">12</span> countries</span>
       </div>
     </div>
     <div class="hero-right">
@@ -1163,11 +1229,15 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
           </div>
         </div>
       </div>
+      <div class="hero-cert-preview">
+        <img src="sample_certificate_v2.png" alt="Sample FullOnBaan Certification Certificate" loading="lazy">
+        <div class="hcp-label">Sample Certificate Preview</div>
+      </div>
     </div>
   </div>
 
   <!-- ── Technical Certification Tracks ── -->
-  <div class="cert-group">
+  <div class="cert-group" id="tracks-section">
     <div class="section-eyebrow">
       <span class="section-eyebrow-text">Technical Tracks</span>
       <div class="section-eyebrow-line"></div>
@@ -1182,9 +1252,11 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
         <div class="track-icon-wrap ti-fin">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a0b0d" stroke-width="2.2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         </div>
+        <div class="tc-badge tc-badge-popular">⭐ Most Popular</div>
         <div class="track-title">Infor LN Development</div>
         <div class="track-code-line">FullonBaan Certified Infor LN Developer</div>
         <div class="track-status track-status-core">Technical Track</div>
+        <div class="tc-footer"><span class="tc-price">₹499 <span>per exam</span></span><span class="tc-select">Select Track <span>→</span></span></div>
         <div class="track-sel-ring" id="ring-dev"></div>
       </div>
 
@@ -1198,6 +1270,7 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
         <div class="track-title">Infor BOD</div>
         <div class="track-code-line">FullonBaan Certified Infor BOD Specialist</div>
         <div class="track-status track-status-core">Technical Track</div>
+        <div class="tc-footer"><span class="tc-price">₹499 <span>per exam</span></span><span class="tc-select">Select Track <span>→</span></span></div>
         <div class="track-sel-ring" id="ring-bod"></div>
       </div>
 
@@ -1208,9 +1281,11 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
         <div class="track-icon-wrap ti-cf2">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
+        <div class="tc-badge tc-badge-trending">🔥 Trending</div>
         <div class="track-title">Infor ION</div>
         <div class="track-code-line">FullonBaan Certified Infor ION Integration Specialist</div>
         <div class="track-status track-status-core">Technical Track</div>
+        <div class="tc-footer"><span class="tc-price">₹499 <span>per exam</span></span><span class="tc-select">Select Track <span>→</span></span></div>
         <div class="track-sel-ring" id="ring-ion"></div>
       </div>
 
@@ -1224,6 +1299,7 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
         <div class="track-title">Infor LN Extensibility</div>
         <div class="track-code-line">FullonBaan Certified LN Extensibility Expert</div>
         <div class="track-status track-status-core">Technical Track</div>
+        <div class="tc-footer"><span class="tc-price">₹499 <span>per exam</span></span><span class="tc-select">Select Track <span>→</span></span></div>
         <div class="track-sel-ring" id="ring-ext"></div>
       </div>
 
@@ -1249,6 +1325,7 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
         <div class="track-title">Infor LN Finance</div>
         <div class="track-code-line">FullonBaan Certified LN Finance Consultant</div>
         <div class="track-status track-status-cloud">Functional Track</div>
+        <div class="tc-footer"><span class="tc-price">₹499 <span>per exam</span></span><span class="tc-select">Select Track <span>→</span></span></div>
         <div class="track-sel-ring" id="ring-fin"></div>
       </div>
 
@@ -1262,6 +1339,7 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
         <div class="track-title">Infor LN SCM</div>
         <div class="track-code-line">FullonBaan Certified LN Supply Chain Expert</div>
         <div class="track-status track-status-cloud">Functional Track</div>
+        <div class="tc-footer"><span class="tc-price">₹499 <span>per exam</span></span><span class="tc-select">Select Track <span>→</span></span></div>
         <div class="track-sel-ring" id="ring-scm"></div>
       </div>
 
@@ -1275,6 +1353,7 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
         <div class="track-title">Infor LN Manufacturing</div>
         <div class="track-code-line">FullonBaan Certified LN Manufacturing Consultant</div>
         <div class="track-status track-status-cloud">Functional Track</div>
+        <div class="tc-footer"><span class="tc-price">₹499 <span>per exam</span></span><span class="tc-select">Select Track <span>→</span></span></div>
         <div class="track-sel-ring" id="ring-mfg"></div>
       </div>
 
@@ -1284,51 +1363,64 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
   <!-- ── Registration + Sidebar ── -->
   <div class="reg-section">
     <div class="reg-card" id="reg-card">
-      <div id="reg-track-label" class="reg-track-prompt">← Select a certification track above to begin</div>
-      <div class="reg-title">Candidate Registration</div>
-      <div class="reg-sub">All fields are required. Your name and email will appear on your certificate if you pass.</div>
-      <div class="fgrid">
-        <div class="fg">
-          <label for="rn">Full Name <span style="font-size:10px;font-family:var(--mono);color:var(--textM);font-weight:400;letter-spacing:.04em;">(printed on Certificate)</span></label>
-          <input type="text" id="rn" placeholder="e.g. Priya Sharma" autocomplete="name">
-          <span class="err" id="err-n">Please enter your first and last name.</span>
+      <!-- Locked placeholder (shown when no track selected) -->
+      <div class="reg-locked-msg" id="reg-locked-msg">
+        <div class="rlm-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         </div>
-        <div class="fg">
-          <label for="rm">Mobile Number</label>
-          <input type="tel" id="rm" placeholder="+91 98765 43210" autocomplete="tel">
-          <span class="err" id="err-m">Please enter a valid mobile number.</span>
-        </div>
-        <div class="fg full">
-          <label for="re">Email Address</label>
-          <input type="email" id="re" placeholder="e.g. priya@company.com" autocomplete="email">
-          <span class="err" id="err-e">Please enter a valid email address.</span>
-        </div>
+        <div class="rlm-title">Select a track above to unlock registration</div>
+        <div class="rlm-sub">Choose from 4 technical or 3 functional certification tracks. Your registration form will appear here once you pick one.</div>
       </div>
-      <div class="rules-box" id="rules-box">
-        <ul>
-          <li><strong>₹499 fee</strong> per track, payable via UPI. You will be directed to payment after registration.</li>
-          <li>20 multiple-choice questions — some require selecting multiple correct answers.</li>
-          <li>You have <strong>45 minutes</strong> from the moment you click Begin Exam.</li>
-          <li>A minimum of <strong>70% (35 / 50 points)</strong> is required to pass and earn your FullonBaan certificate.</li>
-          <li>Results are shown immediately. Confirmation email and certificate (if passed) are sent automatically.</li>
-          <li>Do not refresh or navigate away — your progress will be lost.</li>
-        </ul>
-      </div>
-      <button class="btn btn-gold btn-xl" id="begin-btn" onclick="startExam()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-        Select a Track to Proceed
-      </button>
 
-      <!-- Already paid / retrieve cert bars -->
-      <div class="home-resume-bar" onclick="showResumeModal()" title="Enter your approval code">
-        <span class="home-resume-icon">🔑</span>
-        <div class="home-resume-text"><strong>Already paid?</strong> Enter your approval code to resume your exam — even if you closed the browser.</div>
-        <span style="font-size:16px;color:var(--blue);">→</span>
-      </div>
-      <div class="home-resume-bar" onclick="showScreen('retrieve-cert')" style="margin-top:10px;border-color:rgba(52,211,153,.18);background:rgba(52,211,153,.04);">
-        <span class="home-resume-icon">🏆</span>
-        <div class="home-resume-text"><strong>Already passed?</strong> Re-download your certificate anytime using your email and Certificate ID.</div>
-        <span style="font-size:16px;color:var(--emerald);">→</span>
+      <!-- Form content (hidden until track selected) -->
+      <div class="reg-form-inner reg-hidden" id="reg-form-inner">
+        <div id="reg-track-label" class="reg-track-prompt">← Select a certification track above to begin</div>
+        <div id="reg-track-chip" class="reg-track-chip" style="display:none;"></div>
+        <div class="reg-title">Candidate Registration</div>
+        <div class="reg-sub">All fields are required. Your name and email will appear on your certificate if you pass.</div>
+        <div class="fgrid">
+          <div class="fg">
+            <label for="rn">Full Name <span style="font-size:10px;font-family:var(--mono);color:var(--textM);font-weight:400;letter-spacing:.04em;">(printed on Certificate)</span></label>
+            <input type="text" id="rn" placeholder="e.g. Priya Sharma" autocomplete="name">
+            <span class="err" id="err-n">Please enter your first and last name.</span>
+          </div>
+          <div class="fg">
+            <label for="rm">Mobile Number</label>
+            <input type="tel" id="rm" placeholder="+91 98765 43210" autocomplete="tel">
+            <span class="err" id="err-m">Please enter a valid mobile number.</span>
+          </div>
+          <div class="fg full">
+            <label for="re">Email Address</label>
+            <input type="email" id="re" placeholder="e.g. priya@company.com" autocomplete="email">
+            <span class="err" id="err-e">Please enter a valid email address.</span>
+          </div>
+        </div>
+        <div class="rules-box" id="rules-box">
+          <ul>
+            <li><strong>₹499 fee</strong> per track, payable via UPI. You will be directed to payment after registration.</li>
+            <li>20 multiple-choice questions — some require selecting multiple correct answers.</li>
+            <li>You have <strong>45 minutes</strong> from the moment you click Begin Exam.</li>
+            <li>A minimum of <strong>70% (35 / 50 points)</strong> is required to pass and earn your FullonBaan certificate.</li>
+            <li>Results are shown immediately. Confirmation email and certificate (if passed) are sent automatically.</li>
+            <li>Do not refresh or navigate away — your progress will be lost.</li>
+          </ul>
+        </div>
+        <button class="btn btn-gold btn-xl" id="begin-btn" onclick="startExam()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Proceed to Payment — ₹499
+        </button>
+
+        <!-- Already paid / retrieve cert bars -->
+        <div class="home-resume-bar" onclick="showResumeModal()" title="Enter your approval code">
+          <span class="home-resume-icon">🔑</span>
+          <div class="home-resume-text"><strong>Already paid?</strong> Enter your approval code to resume your exam — even if you closed the browser.</div>
+          <span style="font-size:16px;color:var(--blue);">→</span>
+        </div>
+        <div class="home-resume-bar" onclick="showScreen('retrieve-cert')" style="margin-top:10px;border-color:rgba(52,211,153,.18);background:rgba(52,211,153,.04);">
+          <span class="home-resume-icon">🏆</span>
+          <div class="home-resume-text"><strong>Already passed?</strong> Re-download your certificate anytime using your email and Certificate ID.</div>
+          <span style="font-size:16px;color:var(--emerald);">→</span>
+        </div>
       </div>
     </div>
 
@@ -1367,203 +1459,7 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
     </div>
   </div><!-- /reg-section -->
 
-  <!-- ── FOB Ecosystem ── -->
-  <div class="eco-section">
-      <div class="eco-header">
-        <div class="eco-header-left">
-          <div class="eco-header-badge">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-          </div>
-          <div class="eco-header-text">
-            <div class="eco-header-title">FOB Ecosystem</div>
-            <div class="eco-header-sub">Explore the full suite of Baan tools</div>
-          </div>
-        </div>
-        <a class="eco-header-link" href="https://www.fullonbaan.com" target="_blank" rel="noopener">
-          View all
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-
-      <div class="eco-grid">
-
-        <!-- Repository -->
-        <a class="eco-card c-repo" href="https://fobrepo.vercel.app/" target="_blank" rel="noopener">
-          <div class="eco-icon-wrap c-repo">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
-              <line x1="12" y1="2" x2="12" y2="22" opacity=".5"/>
-            </svg>
-          </div>
-          <div class="eco-body">
-            <div class="eco-title">Repository</div>
-            <div class="eco-desc">Scripts, DAL snippets &amp; Infor LN developer reference code.</div>
-            <span class="eco-tag">Dev Resources</span>
-          </div>
-          <div class="eco-footer">
-            <div class="eco-launch">
-              Open
-              <div class="eco-launch-arrow">↗</div>
-            </div>
-          </div>
-        </a>
-
-        <!-- Interview -->
-        <a class="eco-card c-int" href="https://fobinterview.vercel.app/" target="_blank" rel="noopener">
-          <div class="eco-icon-wrap c-int">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-              <line x1="9" y1="10" x2="15" y2="10" opacity=".6"/><line x1="9" y1="14" x2="12" y2="14" opacity=".6"/>
-            </svg>
-          </div>
-          <div class="eco-body">
-            <div class="eco-title">Interview Prep</div>
-            <div class="eco-desc">Curated Q&amp;A to ace Baan &amp; Infor LN interviews.</div>
-            <span class="eco-tag">Career</span>
-          </div>
-          <div class="eco-footer">
-            <div class="eco-launch">
-              Open
-              <div class="eco-launch-arrow">↗</div>
-            </div>
-          </div>
-        </a>
-
-        <!-- Training -->
-        <a class="eco-card c-train" href="https://fob-ln-training.vercel.app/" target="_blank" rel="noopener">
-          <div class="eco-icon-wrap c-train">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-            </svg>
-          </div>
-          <div class="eco-body">
-            <div class="eco-title">Infor LN Training</div>
-            <div class="eco-desc">Comprehensive Infor ERP LN training — structured learning paths &amp; hands-on modules.</div>
-            <span class="eco-tag">Learning</span>
-          </div>
-          <div class="eco-footer">
-            <div class="eco-launch">
-              Open
-              <div class="eco-launch-arrow">↗</div>
-            </div>
-          </div>
-        </a>
-
-        <!-- Jobs -->
-        <a class="eco-card c-jobs" href="https://fobjobs.vercel.app/" target="_blank" rel="noopener">
-          <div class="eco-icon-wrap c-jobs">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="7" width="20" height="14" rx="2"/>
-              <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
-              <circle cx="12" cy="14" r="2" fill="white" stroke="none"/>
-              <line x1="2" y1="12" x2="22" y2="12" opacity=".4"/>
-            </svg>
-          </div>
-          <div class="eco-body">
-            <div class="eco-title">Jobs Board</div>
-            <div class="eco-desc">Live Infor LN &amp; Baan ERP opportunities worldwide.</div>
-            <span class="eco-tag">Opportunities</span>
-          </div>
-          <div class="eco-footer">
-            <div class="eco-launch">
-              Open
-              <div class="eco-launch-arrow">↗</div>
-            </div>
-          </div>
-        </a>
-
-        <a class="eco-card c-play" href="https://fobplaybook.vercel.app/" target="_blank" rel="noopener">
-          <div class="eco-icon-wrap c-play">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-              <line x1="9" y1="7" x2="15" y2="7" opacity=".7"/>
-              <line x1="9" y1="11" x2="15" y2="11" opacity=".7"/>
-              <line x1="9" y1="15" x2="12" y2="15" opacity=".7"/>
-            </svg>
-          </div>
-          <div class="eco-body">
-            <div class="eco-title">Infor LN Playbook</div>
-            <div class="eco-desc">Step-by-step guides &amp; best practices for Infor LN professionals.</div>
-            <span class="eco-tag">Guides</span>
-          </div>
-          <div class="eco-footer">
-            <div class="eco-launch">
-              Open
-              <div class="eco-launch-arrow">↗</div>
-            </div>
-          </div>
-        </a>
-
-        <!-- YouTube Channel -->
-        <a class="eco-card c-yt" href="https://www.youtube.com/channel/UCYT7snIHzheVwSx4M7DFuVA" target="_blank" rel="noopener">
-          <div class="eco-icon-wrap c-yt">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
-              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-            </svg>
-          </div>
-          <div class="eco-body">
-            <div class="eco-title">YouTube Channel</div>
-            <div class="eco-desc">Video tutorials, walkthroughs &amp; Infor LN training content.</div>
-            <span class="eco-tag">Video</span>
-          </div>
-          <div class="eco-footer">
-            <div class="eco-launch">
-              Watch
-              <div class="eco-launch-arrow">↗</div>
-            </div>
-          </div>
-        </a>
-
-        <!-- Main Consulting Site -->
-        <a class="eco-card c-main" href="https://www.fullonbaan.com/" target="_blank" rel="noopener">
-          <div class="eco-icon-wrap c-main">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a0b0d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/>
-              <line x1="2" y1="12" x2="22" y2="12"/>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            </svg>
-          </div>
-          <div class="eco-body">
-            <div class="eco-title">FullOnBaan.com</div>
-            <div class="eco-desc">Main consulting site — Comprehensive Infor ERP LN Training Programs.</div>
-            <span class="eco-tag">Consulting</span>
-          </div>
-          <div class="eco-footer">
-            <div class="eco-launch">
-              Visit
-              <div class="eco-launch-arrow">↗</div>
-            </div>
-          </div>
-        </a>
-
-        <!-- Infor LN Materials -->
-        <a class="eco-card c-mat" href="https://fobtraining.vercel.app/" target="_blank" rel="noopener">
-          <div class="eco-icon-wrap c-mat">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-              <line x1="6" y1="8" x2="6" y2="8.01" opacity=".7"/>
-              <line x1="6" y1="12" x2="8" y2="12" opacity=".7"/>
-              <line x1="6" y1="16" x2="8" y2="16" opacity=".7"/>
-            </svg>
-          </div>
-          <div class="eco-body">
-            <div class="eco-title">Infor LN Materials</div>
-            <div class="eco-desc">Study materials, notes &amp; reference docs for Infor LN learners.</div>
-            <span class="eco-tag">Resources</span>
-          </div>
-          <div class="eco-footer">
-            <div class="eco-launch">
-              Open
-              <div class="eco-launch-arrow">↗</div>
-            </div>
-          </div>
-        </a>
-
-      </div>
-    </div><!-- /eco-section -->
+  <!-- FOB Ecosystem section removed for conversion focus -->
 
 </div><!-- /home -->
 
@@ -2208,6 +2104,16 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 <!-- ══════════════════════════════════════════
      SITE FOOTER
 ══════════════════════════════════════════ -->
+<!-- Sticky bottom CTA bar -->
+<div class="sticky-cta" id="sticky-cta">
+  <span class="sticky-cta-text"><strong>Ready to get certified?</strong> Choose your track and start today.</span>
+  <button class="sticky-cta-btn" onclick="document.getElementById('tracks-section').scrollIntoView({behavior:'smooth',block:'start'})">
+    Choose Your Track
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </button>
+  <button class="sticky-cta-close" onclick="document.getElementById('sticky-cta').classList.remove('sticky-visible');sessionStorage.setItem('sticky-cta-closed','1')" aria-label="Close">×</button>
+</div>
+
 <footer class="site-footer">
   <div class="footer-body">
 
@@ -2354,7 +2260,10 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
   position:relative;
   opacity:0;transform:translateY(8px) scale(.95);
   animation:waTipIn .4s .6s forwards;
+  transition:opacity .3s,transform .3s;
 }
+.wa-float-tip.wa-tip-hidden{animation:none;opacity:0;transform:translateY(8px) scale(.95);pointer-events:none;}
+.wa-float:hover .wa-float-tip.wa-tip-hidden{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
 .wa-float-tip::after{
   content:'';position:absolute;bottom:-6px;right:24px;
   width:12px;height:12px;background:var(--surf);
@@ -2410,11 +2319,43 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
   .wa-float-btn svg{width:26px;height:26px;}
   .wa-float-tip{max-width:180px;font-size:12px;padding:10px 14px;}
 }
+/* Sticky bottom CTA bar */
+.sticky-cta{
+  position:fixed;bottom:0;left:0;right:0;z-index:9980;
+  background:linear-gradient(135deg,rgba(15,17,22,.97),rgba(20,22,28,.97));
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-top:1px solid rgba(201,168,76,.15);
+  padding:12px 24px;
+  display:flex;align-items:center;justify-content:center;gap:16px;
+  transform:translateY(100%);
+  transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.sticky-cta.sticky-visible{transform:translateY(0);}
+.sticky-cta-text{font-size:14px;color:var(--textS);font-weight:500;}
+.sticky-cta-text strong{color:var(--textH);font-weight:700;}
+.sticky-cta-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 24px;border-radius:10px;border:none;
+  background:linear-gradient(135deg,#c9a84c,#e8c97a);
+  color:#0a0b0d;font-size:13px;font-weight:700;
+  cursor:pointer;transition:all .2s;white-space:nowrap;
+}
+.sticky-cta-btn:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 4px 16px rgba(201,168,76,.3);}
+.sticky-cta-close{
+  position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  background:none;border:none;color:var(--textM);font-size:18px;
+  cursor:pointer;padding:4px 8px;transition:color .15s;
+}
+.sticky-cta-close:hover{color:var(--textH);}
+@media(max-width:600px){
+  .sticky-cta{flex-direction:column;gap:8px;padding:10px 16px;}
+  .sticky-cta-text{font-size:12.5px;text-align:center;}
+  .sticky-cta-close{top:4px;right:8px;transform:none;}
+}
 </style>
 
 <div class="wa-float" id="wa-float">
   <div class="wa-float-tip" id="wa-tip">
-    <button class="wa-float-tip-close" onclick="document.getElementById('wa-tip').style.display='none'" aria-label="Close">×</button>
     Chat with <strong>FullOnBaan</strong> for exam queries or LN training info
   </div>
   <a class="wa-float-btn" href="https://wa.me/916360593122?text=Hi%2C%20I%27m%20interested%20in%20FullOnBaan%20Infor%20LN%20training.%20Could%20you%20share%20more%20details%3F" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" title="Chat with us on WhatsApp">
@@ -2423,8 +2364,41 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 </div>
 
 <script>
+/* Auto-dismiss WhatsApp tooltip after 5s, hover-only thereafter */
+(function(){
+  const tip=document.getElementById('wa-tip');
+  if(!tip) return;
+  if(sessionStorage.getItem('wa-tip-seen')){
+    tip.classList.add('wa-tip-hidden');
+  } else {
+    setTimeout(function(){
+      tip.classList.add('wa-tip-hidden');
+      sessionStorage.setItem('wa-tip-seen','1');
+    },5000);
+  }
+})();
+</script>
+
+<script>
 const y=new Date().getFullYear();
   document.querySelectorAll('#footer-year,.footer-year-b').forEach(el=>el.textContent=y);
+</script>
+
+<script>
+/* Sticky CTA bar — show after scrolling past hero, respect close */
+(function(){
+  const bar=document.getElementById('sticky-cta');
+  if(!bar||sessionStorage.getItem('sticky-cta-closed')) return;
+  let shown=false;
+  window.addEventListener('scroll',function(){
+    const scrollY=window.scrollY||window.pageYOffset;
+    if(scrollY>500&&!shown&&!sessionStorage.getItem('sticky-cta-closed')){
+      bar.classList.add('sticky-visible');shown=true;
+    } else if(scrollY<=500&&shown){
+      bar.classList.remove('sticky-visible');shown=false;
+    }
+  },{passive:true});
+})();
 </script>
 
 <script>
@@ -2442,6 +2416,15 @@ const PAY_EMAILJS_SVC    = 'service_t9cqgtn';
 const PAY_EMAILJS_TPL    = 'template_ezdle7f';
 const PAY_EMAILJS_PUB    = 'aDL0FEenlYJ8WaJne';
 emailjs.init(EMAILJS_PUB);
+
+/* ── Live counter randomizer ── */
+(function(){
+  const el=document.getElementById('hlc-count');
+  if(el){
+    const base=3+Math.floor(Math.random()*8); // 3–10 range
+    el.textContent=base;
+  }
+})();
 
 /* ══════════════════════════════════════════
    GITHUB CERT STORE CONFIG
@@ -3330,6 +3313,32 @@ function selectTrack(t){
     if(c) c.className='track-card'+(k===t?' sel-'+t:'');
   });
   const cfg=TRACKS[t];
+
+  /* ── Reveal registration form ── */
+  const lockedMsg=document.getElementById('reg-locked-msg');
+  const formInner=document.getElementById('reg-form-inner');
+  if(lockedMsg && formInner){
+    // Hide the locked placeholder
+    lockedMsg.style.display='none';
+    // Animate form in
+    formInner.className='reg-form-inner reg-revealing';
+    requestAnimationFrame(()=>{
+      requestAnimationFrame(()=>{
+        formInner.className='reg-form-inner reg-visible';
+      });
+    });
+  }
+
+  /* ── Track confirmation chip ── */
+  const chip=document.getElementById('reg-track-chip');
+  if(chip){
+    chip.style.display='inline-flex';
+    chip.style.background=cfg.color.replace('var(--','').replace(')','') ? `color-mix(in srgb, ${cfg.color} 12%, transparent)` : 'rgba(201,168,76,.1)';
+    chip.style.border=`1px solid color-mix(in srgb, ${cfg.color} 25%, transparent)`;
+    chip.style.color=cfg.color;
+    chip.innerHTML=cfg.icon+' '+cfg.label;
+  }
+
   const lbl=document.getElementById('reg-track-label');
   lbl.textContent=cfg.icon+' '+cfg.label+' selected';
   lbl.style.color=cfg.color;
@@ -3338,6 +3347,10 @@ function selectTrack(t){
   btn.innerHTML=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg> Proceed to Payment — ₹499`;
   const rulesBox=document.querySelector('.rules-box');
   if(rulesBox) rulesBox.style.borderColor=cfg.color;
+
+  /* Scroll form into view */
+  const regCard=document.getElementById('reg-card');
+  if(regCard) setTimeout(()=>regCard.scrollIntoView({behavior:'smooth',block:'start'}),150);
 }
 
 /* ══════════════════════════════════════════
@@ -4937,6 +4950,14 @@ function goHome(){
   /* Reset begin button */
   const btn=document.getElementById('begin-btn');
   if(btn){btn.textContent='Select a Track to Proceed';}
+
+  /* Re-collapse registration form */
+  const lockedMsg=document.getElementById('reg-locked-msg');
+  const formInner=document.getElementById('reg-form-inner');
+  if(lockedMsg) lockedMsg.style.display='';
+  if(formInner) formInner.className='reg-form-inner reg-hidden';
+  const chip=document.getElementById('reg-track-chip');
+  if(chip) chip.style.display='none';
 
   showScreen('home');
 }
