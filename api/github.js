@@ -24,7 +24,7 @@ export default async function handler(req, res) {
   if (!path) return res.status(400).json({ error: 'path query param required' });
 
   // Only allow access to the cert-store repo paths
-  const allowed = ['certs/certificates.json', 'submissions/submissions.json'];
+  const allowed = ['certs/certificates.json', 'submissions/submissions.json', 'access-codes/codes.json'];
   if (!allowed.includes(path)) {
     return res.status(403).json({ error: 'path not allowed' });
   }

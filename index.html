@@ -1127,6 +1127,50 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
 .home-resume-bar-text{font-size:13px;color:var(--textS);}
 .home-resume-bar-text strong{color:var(--text);}
 .home-resume-bar-arrow{font-size:16px;color:var(--blue);}
+
+/* ── ACCESS CODE MODAL ── */
+.access-modal-box{background:var(--surf);border:1px solid var(--rim);border-radius:20px;padding:36px 32px;max-width:440px;width:92%;position:relative;box-shadow:var(--smLg);}
+.access-modal-close{position:absolute;top:14px;right:16px;width:32px;height:32px;border-radius:8px;border:1px solid var(--rim2);background:transparent;color:var(--textM);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.access-modal-close:hover{border-color:var(--rose);color:var(--rose);background:rgba(251,113,133,.06);}
+.access-modal-title{font-family:var(--serif);font-size:22px;font-weight:700;margin-bottom:6px;}
+.access-modal-body{font-size:13px;color:var(--textM);line-height:1.6;margin-bottom:22px;}
+.access-field{margin-bottom:16px;}
+.access-field label{display:block;font-size:11px;font-weight:600;color:var(--textM);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
+.access-field input,.access-field select{width:100%;padding:11px 14px;border-radius:10px;border:1px solid var(--rim2);background:var(--surf2);color:var(--text);font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .15s;}
+.access-field input:focus,.access-field select:focus{border-color:var(--blue);}
+.access-field input.invalid,.access-field select.invalid{border-color:var(--rose);}
+.access-field select{cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7894' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px;}
+.access-field select option{background:var(--surf);color:var(--text);}
+.access-banner{display:none;padding:10px 14px;border-radius:8px;font-size:12px;margin-bottom:14px;line-height:1.5;}
+.access-banner.error{display:block;background:rgba(251,113,133,.08);border:1px solid rgba(251,113,133,.2);color:var(--rose);}
+.access-banner.success{display:block;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);color:var(--emerald);}
+
+/* ── ADMIN ACCESS CODES PANEL ── */
+.admin-ac-section{background:var(--surf);border:1px solid var(--rim);border-radius:16px;padding:0;margin-top:24px;overflow:hidden;}
+.admin-ac-hdr{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;cursor:pointer;user-select:none;transition:background .15s;}
+.admin-ac-hdr:hover{background:var(--surf2);}
+.admin-ac-body{padding:0 24px 24px;}
+.admin-ac-form{display:grid;grid-template-columns:1fr 1fr auto;gap:14px;align-items:end;padding:18px 0;border-bottom:1px solid var(--rim);}
+@media(max-width:680px){.admin-ac-form{grid-template-columns:1fr;}}
+.admin-ac-generated{margin-top:16px;padding:16px 20px;border-radius:12px;background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.2);display:none;}
+.admin-ac-generated .ac-code-display{font-family:var(--mono);font-size:22px;font-weight:700;letter-spacing:.1em;color:var(--emerald);cursor:pointer;}
+.admin-ac-generated .ac-code-display:hover{text-decoration:underline;}
+.admin-ac-list{margin-top:20px;}
+.admin-ac-item{display:grid;grid-template-columns:1fr 1fr auto 80px auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--rim);font-size:13px;}
+@media(max-width:780px){.admin-ac-item{grid-template-columns:1fr;gap:4px;}}
+.admin-ac-item .ac-email{color:var(--textS);font-weight:500;}
+.admin-ac-item .ac-exam{color:var(--textM);font-size:12px;}
+.admin-ac-item .ac-code{font-family:var(--mono);font-weight:700;color:var(--gold);letter-spacing:.06em;cursor:pointer;}
+.admin-ac-item .ac-code:hover{text-decoration:underline;}
+.ac-status-badge{display:inline-flex;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.03em;}
+.ac-status-badge.unused{background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2);color:var(--emerald);}
+.ac-status-badge.used{background:rgba(107,120,148,.1);border:1px solid rgba(107,120,148,.2);color:var(--textM);}
+
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+
+/* Access code bar on home (similar to resume bar) */
+.home-access-bar{display:flex;align-items:center;gap:14px;margin-top:10px;padding:14px 20px;border-radius:14px;border:1px solid rgba(201,168,76,.18);background:rgba(201,168,76,.04);cursor:pointer;transition:border-color .15s,background .15s;}
+.home-access-bar:hover{border-color:var(--gold);background:rgba(201,168,76,.08);}
 </style>
 
 </style>
@@ -1428,6 +1472,11 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
           <span class="home-resume-icon">🏆</span>
           <div class="home-resume-text"><strong>Already passed?</strong> Re-download your certificate anytime using your email and Certificate ID.</div>
           <span style="font-size:16px;color:var(--emerald);">→</span>
+        </div>
+        <div class="home-access-bar" onclick="showAccessCodeModal()" title="Enter your access code">
+          <span style="font-size:20px;">🎟️</span>
+          <div style="flex:1;font-size:13px;color:var(--textS);line-height:1.5;"><strong style="color:var(--text);">Have an Access Code?</strong> Enter your pre-approved code to take the exam without payment.</div>
+          <span style="font-size:16px;color:var(--gold);">→</span>
         </div>
       </div>
     </div>
@@ -2037,6 +2086,42 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
   </div>
 </div>
 
+<!-- ████ ACCESS CODE REDEMPTION MODAL ████ -->
+<div id="access-modal-overlay" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closeAccessCodeModal()">
+  <div class="access-modal-box">
+    <button class="access-modal-close" onclick="closeAccessCodeModal()" title="Close">✕</button>
+    <div style="font-size:36px;margin-bottom:10px;">🎟️</div>
+    <div class="access-modal-title">Redeem Access Code</div>
+    <p class="access-modal-body">Enter the access code shared with you along with your registered email address. This code is linked to a specific email and exam — only one attempt is allowed per code.</p>
+    <div class="access-banner" id="access-banner"></div>
+    <div class="access-field">
+      <label for="access-name">Full Name <span style="font-size:9px;font-weight:400;color:var(--textM);letter-spacing:.03em;">(printed on Certificate)</span></label>
+      <input type="text" id="access-name" placeholder="e.g. Priya Sharma" autocomplete="name"
+             oninput="this.classList.remove('invalid');hideAccessBanner()"
+             onkeydown="if(event.key==='Enter')document.getElementById('access-email').focus()">
+    </div>
+    <div class="access-field">
+      <label for="access-email">Email Address</label>
+      <input type="email" id="access-email" placeholder="e.g. priya@company.com" autocomplete="email"
+             oninput="this.classList.remove('invalid');hideAccessBanner()"
+             onkeydown="if(event.key==='Enter')document.getElementById('access-code-input').focus()">
+    </div>
+    <div class="access-field">
+      <label for="access-code-input">Access Code</label>
+      <input type="text" id="access-code-input" placeholder="e.g. FOB-A3X7K2" maxlength="12" autocomplete="off" spellcheck="false"
+             oninput="this.value=this.value.toUpperCase();this.classList.remove('invalid');hideAccessBanner()"
+             onkeydown="if(event.key==='Enter')redeemAccessCode()">
+    </div>
+    <button class="btn btn-gold" style="width:100%;margin-top:4px;" onclick="redeemAccessCode()" id="access-redeem-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Verify &amp; Start Exam
+    </button>
+    <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--textM);">
+      Don't have a code? <a href="javascript:void(0)" onclick="closeAccessCodeModal()" style="color:var(--blue);">Register &amp; pay normally</a>
+    </div>
+  </div>
+</div>
+
 <!-- ████ ADMIN LOGIN ████ -->
 <!-- ████ ADMIN LOGIN ████ -->
 <div id="admin-login" class="screen">
@@ -2099,6 +2184,61 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backg
         </div>
         <div id="admin-gh-certs-list">
           <div class="admin-empty" style="padding:24px 0;font-size:13px;">Click "Load / Refresh from GitHub" to view all certificates stored in the cert store.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Access Code Generator Panel ── -->
+    <div class="admin-ac-section">
+      <div class="admin-ac-hdr" onclick="toggleAdminAccessCodes()">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="font-size:22px;">🎟️</span>
+          <div>
+            <div style="font-weight:700;font-size:15px;">Access Code Generator</div>
+            <div style="font-size:12px;color:var(--textM);margin-top:2px;">Generate pre-approved access codes that let users bypass payment for a specific exam</div>
+          </div>
+        </div>
+        <span class="admin-tools-chevron" id="admin-ac-chevron">▼</span>
+      </div>
+      <div id="admin-ac-body" style="display:none;">
+        <div class="admin-ac-body">
+          <div class="admin-ac-form" style="grid-template-columns:1fr 1fr 1fr auto;">
+            <div class="access-field" style="margin-bottom:0;">
+              <label for="ac-gen-name">Candidate Name <span style="font-size:9px;color:var(--textM);font-weight:400;">(optional)</span></label>
+              <input type="text" id="ac-gen-name" placeholder="e.g. Priya Sharma">
+            </div>
+            <div class="access-field" style="margin-bottom:0;">
+              <label for="ac-gen-email">Candidate Email</label>
+              <input type="email" id="ac-gen-email" placeholder="e.g. priya@company.com">
+            </div>
+            <div class="access-field" style="margin-bottom:0;">
+              <label for="ac-gen-exam">Certification Exam</label>
+              <select id="ac-gen-exam">
+                <option value="">— Select exam —</option>
+              </select>
+            </div>
+            <button class="btn btn-gold btn-md" onclick="adminGenerateAccessCode()" style="height:44px;white-space:nowrap;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Generate Code
+            </button>
+          </div>
+          <div class="admin-ac-generated" id="ac-generated-box">
+            <div style="font-size:12px;color:var(--textM);margin-bottom:8px;">Generated Access Code — share this with the candidate:</div>
+            <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+              <span class="ac-code-display" id="ac-generated-code" onclick="copyGeneratedAccessCode()" title="Click to copy">—</span>
+              <button class="btn btn-ghost btn-sm" onclick="copyGeneratedAccessCode()">📋 Copy</button>
+            </div>
+            <div style="font-size:11px;color:var(--textM);margin-top:10px;" id="ac-generated-details"></div>
+          </div>
+          <div class="admin-ac-list" id="admin-ac-list">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+              <div style="font-size:14px;font-weight:600;">Issued Access Codes</div>
+              <button class="btn btn-ghost btn-sm" onclick="loadAdminAccessCodes()">↻ Refresh</button>
+            </div>
+            <div id="ac-list-content">
+              <div class="admin-empty" style="padding:20px 0;font-size:13px;color:var(--textM);">Loading access codes...</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -3869,6 +4009,8 @@ function setAdminFilter(filter,btn){
   renderSubmissions();
 }
 async function loadAdminDashboard(){
+  // Populate access-code exam dropdown
+  populateExamDropdown();
   // Show loading indicator while fetching from GitHub
   const list=document.getElementById('submissions-list');
   if(list) list.innerHTML='<div class="admin-empty">⏳ Syncing with GitHub…</div>';
@@ -4510,6 +4652,302 @@ async function ghMergeSubmissions(){
     if(ls && ls.screenshot && !s.screenshot) s.screenshot = ls.screenshot;
   }
   return merged;
+}
+
+/* ══════════════════════════════════════════
+   ACCESS CODE SYSTEM
+   Pre-approved codes that bypass payment.
+   Stored in GitHub: access-codes/codes.json
+   Each code = { code, email, examId, used, createdAt, usedAt, candidateName }
+══════════════════════════════════════════ */
+const GITHUB_AC_FILE = 'access-codes/codes.json';
+const GH_AC_API = `/api/github?path=${GITHUB_AC_FILE}`;
+
+/* ── GitHub CRUD for access codes ── */
+async function ghReadAccessCodes(){
+  const res = await fetch(GH_AC_API, { headers: GH_HDR() });
+  if(res.status === 404) return { codes: [], sha: null };
+  if(!res.ok) throw new Error(`GitHub access-codes read failed: ${res.status}`);
+  const data = await res.json();
+  const content = JSON.parse(atob(data.content.replace(/\n/g,'')));
+  return { codes: content, sha: data.sha };
+}
+
+async function ghWriteAccessCodes(codes, sha, message){
+  const body = {
+    message: message || 'access-codes: update',
+    content: btoa(unescape(encodeURIComponent(JSON.stringify(codes, null, 2)))),
+    ...(sha ? { sha } : {})
+  };
+  const res = await fetch(GH_AC_API, { method:'PUT', headers:GH_HDR(), body:JSON.stringify(body) });
+  if(!res.ok) throw new Error(`GitHub access-codes write failed: ${res.status}`);
+  return true;
+}
+
+/* ── Generate a unique access code string ── */
+function makeAccessCode(){
+  const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no I/O/0/1 to avoid confusion
+  let code='FOB-';
+  for(let i=0;i<6;i++) code+=chars[Math.floor(Math.random()*chars.length)];
+  return code;
+}
+
+/* ── Access Code Modal (User side) ── */
+function showAccessCodeModal(){
+  document.getElementById('access-modal-overlay').style.display='flex';
+  document.getElementById('access-name').value='';
+  document.getElementById('access-email').value='';
+  document.getElementById('access-code-input').value='';
+  document.getElementById('access-name').classList.remove('invalid');
+  document.getElementById('access-email').classList.remove('invalid');
+  document.getElementById('access-code-input').classList.remove('invalid');
+  hideAccessBanner();
+  setTimeout(()=>document.getElementById('access-name').focus(),100);
+}
+function closeAccessCodeModal(){
+  document.getElementById('access-modal-overlay').style.display='none';
+}
+function hideAccessBanner(){
+  const b=document.getElementById('access-banner');
+  b.style.display='none';b.className='access-banner';b.textContent='';
+}
+function showAccessBanner(msg,type){
+  const b=document.getElementById('access-banner');
+  b.textContent=msg;
+  b.className='access-banner '+type;
+  b.style.display='block';
+}
+
+async function redeemAccessCode(){
+  const nameInput=document.getElementById('access-name');
+  const emailInput=document.getElementById('access-email');
+  const codeInput=document.getElementById('access-code-input');
+  const btn=document.getElementById('access-redeem-btn');
+  const fullName=(nameInput.value||'').trim();
+  const email=(emailInput.value||'').trim().toLowerCase();
+  const code=(codeInput.value||'').trim().toUpperCase();
+
+  hideAccessBanner();
+  nameInput.classList.remove('invalid');
+  emailInput.classList.remove('invalid');
+  codeInput.classList.remove('invalid');
+
+  // Validate inputs
+  if(!fullName||fullName.split(' ').filter(Boolean).length<2){
+    nameInput.classList.add('invalid');
+    showAccessBanner('Please enter your first and last name (this appears on your certificate).','error');
+    return;
+  }
+  if(!email||!email.includes('@')||!email.includes('.')){
+    emailInput.classList.add('invalid');
+    showAccessBanner('Please enter a valid email address.','error');
+    return;
+  }
+  if(!code||code.length<4){
+    codeInput.classList.add('invalid');
+    showAccessBanner('Please enter your access code.','error');
+    return;
+  }
+
+  // Disable button while checking
+  btn.disabled=true;
+  btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation:spin 1s linear infinite;"><path d="M12 2v4m0 12v4m-7.07-3.93l2.83-2.83m8.48-8.48l2.83-2.83M2 12h4m12 0h4m-3.93 7.07l-2.83-2.83M7.76 7.76L4.93 4.93"/></svg> Verifying…';
+
+  try{
+    const { codes, sha } = await ghReadAccessCodes();
+
+    // Find matching code
+    const match = codes.find(c => c.code === code);
+
+    if(!match){
+      showAccessBanner('Invalid access code. Please check and try again.','error');
+      codeInput.classList.add('invalid');
+      return;
+    }
+    if(match.email.toLowerCase() !== email){
+      showAccessBanner('This code is not linked to the email address you entered. Please use the email address that was registered with this code.','error');
+      emailInput.classList.add('invalid');
+      return;
+    }
+    if(match.used){
+      showAccessBanner('This access code has already been used. Each code allows only one exam attempt. Please contact fullonbaan@gmail.com for assistance.','error');
+      codeInput.classList.add('invalid');
+      return;
+    }
+
+    // ✅ Code is valid — mark as used in GitHub
+    match.used = true;
+    match.usedAt = new Date().toISOString();
+    await ghWriteAccessCodes(codes, sha, `access-codes: redeemed ${code} by ${email}`);
+
+    // Set up candidate and track from the code — use name from the form
+    candidate = { name: fullName, email: email, mob: '' };
+    track = match.examId;
+
+    showAccessBanner('Code verified! Starting your exam…','success');
+    toast('Access code verified! Launching exam…','🎉');
+
+    // Close modal and start exam
+    setTimeout(()=>{
+      closeAccessCodeModal();
+      beginExamAfterPayment();
+    },1200);
+
+  } catch(e){
+    console.error('Access code redemption error:', e);
+    showAccessBanner('Unable to verify code right now. Please try again in a moment.','error');
+  } finally {
+    btn.disabled=false;
+    btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Verify &amp; Start Exam';
+  }
+}
+
+/* ── Admin: Access Code Generator ── */
+function toggleAdminAccessCodes(){
+  const body=document.getElementById('admin-ac-body');
+  const chev=document.getElementById('admin-ac-chevron');
+  if(!body)return;
+  const open=body.style.display!=='none';
+  body.style.display=open?'none':'block';
+  if(chev)chev.style.transform=open?'':'rotate(180deg)';
+  if(!open) loadAdminAccessCodes(); // auto-load when opened
+}
+
+function populateExamDropdown(){
+  const sel=document.getElementById('ac-gen-exam');
+  if(!sel)return;
+  // Clear existing options except the first placeholder
+  sel.innerHTML='<option value="">— Select exam —</option>';
+  for(const [id, cfg] of Object.entries(TRACKS)){
+    sel.innerHTML+=`<option value="${id}">${cfg.icon} ${cfg.label}</option>`;
+  }
+}
+
+async function adminGenerateAccessCode(){
+  const nameInput=document.getElementById('ac-gen-name');
+  const emailInput=document.getElementById('ac-gen-email');
+  const examSelect=document.getElementById('ac-gen-exam');
+  const candidateName=(nameInput.value||'').trim();
+  const email=(emailInput.value||'').trim().toLowerCase();
+  const examId=examSelect.value;
+
+  if(!email||!email.includes('@')||!email.includes('.')){
+    emailInput.classList.add('invalid');
+    toast('Please enter a valid email address.','⚠️');
+    return;
+  }
+  if(!examId){
+    examSelect.classList.add('invalid');
+    toast('Please select an exam.','⚠️');
+    return;
+  }
+  emailInput.classList.remove('invalid');
+  examSelect.classList.remove('invalid');
+
+  try{
+    toast('Generating access code…','⏳');
+    const { codes, sha } = await ghReadAccessCodes();
+
+    // Check if there's already an unused (active) code for this email+exam combo
+    const existing = codes.find(c => c.email.toLowerCase()===email && c.examId===examId && !c.used);
+    if(existing){
+      toast('An unused code already exists for this email + exam.','⚠️');
+      document.getElementById('ac-generated-code').textContent = existing.code;
+      document.getElementById('ac-generated-details').textContent = `Email: ${existing.email} · Exam: ${TRACKS[existing.examId]?.label||existing.examId} · Created: ${new Date(existing.createdAt).toLocaleDateString('en-IN')}`;
+      document.getElementById('ac-generated-box').style.display='block';
+      return;
+    }
+
+    // Allow up to 3 total attempts (used + unused) per email+exam combo
+    const MAX_ATTEMPTS = 3;
+    const totalForCombo = codes.filter(c => c.email.toLowerCase()===email && c.examId===examId).length;
+    if(totalForCombo >= MAX_ATTEMPTS){
+      toast(`Maximum ${MAX_ATTEMPTS} attempts reached for this email + exam. No more codes can be generated.`,'❌');
+      return;
+    }
+
+    // Generate new code
+    const newCode = makeAccessCode();
+    const record = {
+      code: newCode,
+      email: email,
+      examId: examId,
+      candidateName: candidateName, // optional — candidate enters name when redeeming if blank
+      used: false,
+      createdAt: new Date().toISOString(),
+      usedAt: null
+    };
+    codes.push(record);
+    await ghWriteAccessCodes(codes, sha, `access-codes: generate ${newCode} for ${email}`);
+
+    // Show the generated code
+    document.getElementById('ac-generated-code').textContent = newCode;
+    document.getElementById('ac-generated-details').textContent = `Email: ${email} · Exam: ${TRACKS[examId]?.label||examId} · Attempt ${totalForCombo+1} of ${MAX_ATTEMPTS} · Created: ${new Date().toLocaleDateString('en-IN')}`;
+    document.getElementById('ac-generated-box').style.display='block';
+
+    toast('Access code generated successfully!','✅');
+
+    // Refresh the list
+    loadAdminAccessCodes();
+
+    // Clear inputs
+    nameInput.value='';
+    emailInput.value='';
+    examSelect.value='';
+
+  } catch(e){
+    console.error('Access code generation error:', e);
+    toast('Failed to generate code. Check console for details.','❌');
+  }
+}
+
+function copyGeneratedAccessCode(){
+  const code=document.getElementById('ac-generated-code').textContent;
+  if(!code||code==='—')return;
+  navigator.clipboard.writeText(code).then(()=>{
+    toast('Code copied: '+code,'📋');
+  }).catch(()=>toast('Code: '+code+' (copy manually)','📋'));
+}
+
+async function loadAdminAccessCodes(){
+  const container=document.getElementById('ac-list-content');
+  if(!container)return;
+  container.innerHTML='<div style="padding:16px 0;font-size:13px;color:var(--textM);">Loading from GitHub…</div>';
+
+  try{
+    const { codes } = await ghReadAccessCodes();
+
+    if(!codes.length){
+      container.innerHTML='<div class="admin-empty" style="padding:20px 0;font-size:13px;color:var(--textM);">No access codes generated yet. Use the form above to create one.</div>';
+      return;
+    }
+
+    // Sort: unused first, then by creation date descending
+    codes.sort((a,b)=>{
+      if(a.used!==b.used) return a.used?1:-1;
+      return new Date(b.createdAt)-new Date(a.createdAt);
+    });
+
+    let html='';
+    for(const c of codes){
+      const examLabel = TRACKS[c.examId]?.label || c.examId;
+      const created = new Date(c.createdAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+      const usedDate = c.usedAt ? new Date(c.usedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '';
+      html+=`
+        <div class="admin-ac-item">
+          <div class="ac-email">${escHtml(c.email)}</div>
+          <div class="ac-exam">${escHtml(examLabel)}</div>
+          <div class="ac-code" onclick="navigator.clipboard.writeText('${c.code}').then(()=>toast('Copied: ${c.code}','📋'))" title="Click to copy">${c.code}</div>
+          <span class="ac-status-badge ${c.used?'used':'unused'}">${c.used?'Used':'Active'}</span>
+          <div style="font-size:11px;color:var(--textM);">${created}${c.used?' · Used: '+usedDate:''}</div>
+        </div>`;
+    }
+    container.innerHTML=html;
+
+  } catch(e){
+    console.error('Load access codes error:', e);
+    container.innerHTML='<div class="admin-empty" style="padding:20px 0;font-size:13px;color:var(--rose);">Failed to load access codes from GitHub. Please try again.</div>';
+  }
 }
 
 /* ══════════════════════════════════════════ */
