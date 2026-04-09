@@ -2692,7 +2692,7 @@ const QS_DEV=[
   opts:[{k:'a',t:'The program throws a runtime error and stops.'},{k:'b',t:'The loop body executes zero times and control passes to the statement after endselect.'},{k:'c',t:'selecterror is automatically set to true and a warning is displayed.'},{k:'d',t:'The first record found in the table is returned as a default.'}],correct:['b']},
  {id:23,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
   text:'In Infor LN, what is a "Zoom" session?',
-  opts:[{k:'a',t:'A session that opens in full screen to display large data sets.'},{k:'b',t:'A lookup session that opens (typically via F5) allowing users to search and select a valid value from a related table.'},{k:'c',t:'A read-only version of a session that displays compressed records.'},{k:'d',t:'A debugging tool that traces program execution step by step.'}],correct:['b']},
+  opts:[{k:'a',t:'A session that opens in full screen to display large data sets.'},{k:'b',t:'A lookup session that opens (e.g. via double-click or the zoom button) allowing users to search and select a valid value from a related table.'},{k:'c',t:'A read-only version of a session that displays compressed records.'},{k:'d',t:'A debugging tool that traces program execution step by step.'}],correct:['b']},
  {id:24,cat:'tbl',cl:'ch-tbl',catL:'Tables & Domains',diff:'simple',dc:'ch-s',pts:2,multi:false,
   text:'In Baan, what is an "Enumerated Domain"?',
   opts:[{k:'a',t:'A domain that stores numeric values within a defined min/max range.'},{k:'b',t:'A domain that defines a fixed set of named constant values (e.g., status: Free=0, Confirmed=1, Closed=2).'},{k:'c',t:'A domain that links a field to another table for foreign key validation.'},{k:'d',t:'A domain used exclusively for monetary amounts with currency codes.'}],correct:['b']},
@@ -2764,7 +2764,7 @@ const QS_DEV=[
   opts:[{k:'a',t:'It executes after every field on the form is processed.'},{k:'b',t:'It executes once when the user exits the program — typically used for cleanup, releasing resources, or writing summary data.'},{k:'c',t:'It executes after every database commit.'},{k:'d',t:'It executes after the first record is displayed to the user.'}],correct:['b']},
  {id:46,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'simple',dc:'ch-s',pts:2,multi:false,
   text:'In Baan, what does the before.display section do?',
-  opts:[{k:'a',t:'It fires before each individual field on the form is displayed to the user.'},{k:'b',t:'It fires once before the entire form is rendered — used to set field visibility, protect attributes, and display-time defaults.'},{k:'c',t:'It fires before every database SELECT operation in the program.'},{k:'d',t:'It fires before the before.program section executes.'}],correct:['b']},
+  opts:[{k:'a',t:'It fires before each individual field on the form is displayed to the user.'},{k:'b',t:'It fires each time before a record is displayed on the form — used to set field visibility, protect attributes, and compute display-time values.'},{k:'c',t:'It fires before every database SELECT operation in the program.'},{k:'d',t:'It fires before the before.program section executes.'}],correct:['b']},
  {id:47,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'medium',dc:'ch-m',pts:3,multi:true,
   text:'Which statements correctly describe differences between db.insert() and dal.new() in Baan?',
   opts:[{k:'a',t:'db.insert() writes directly to the physical table, bypassing DAL integrity rules and hooks.'},{k:'b',t:'dal.new() triggers the DAL\'s before.new and after.new method hooks, enforcing all defined business rules.'},{k:'c',t:'db.insert() requires a separate commit.transaction(), while dal.new() commits automatically.'},{k:'d',t:'Using dal.new() is the preferred approach when a DAL exists, ensuring data integrity across all access paths.'}],correct:['a','b','d']},
@@ -2789,7 +2789,7 @@ const QS_DEV=[
   opts:[{k:'a',t:'It fires automatically whenever the database transaction commits, regardless of the originating action.'},{k:'b',t:'It is the standard option section that executes when the user chooses to save/process the current record — developer logic here validates or transforms data immediately before writing.'},{k:'c',t:'It replaces check.input validation for all fields on the form.'},{k:'d',t:'It is called only by the DAL when dal.new() or dal.update() is invoked.'}],correct:['b']},
  {id:54,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'medium',dc:'ch-m',pts:3,multi:true,
   text:'In Baan / Infor LN development, which of the following statements correctly describe how a zoom session works?',
-  opts:[{k:'a',t:'A zoom session is linked to a specific field in the calling session; when the user activates it (e.g. via F2), it opens a list for the user to select a value from.'},{k:'b',t:'The calling session can pass pre-filter values to the zoom session to narrow the displayed records.'},{k:'c',t:'When the user selects a record in the zoom, the selected key field value(s) are returned and populated into the calling session\'s field.'},{k:'d',t:'A zoom session always runs inside the same database transaction as the calling session and can directly commit changes to the caller\'s main table.'}],correct:['a','b','c'],
+  opts:[{k:'a',t:'A zoom session is linked to a specific field in the calling session; when the user activates it (e.g. via double-click or the zoom button), it opens a list for the user to select a value from.'},{k:'b',t:'The calling session can pass pre-filter values to the zoom session to narrow the displayed records.'},{k:'c',t:'When the user selects a record in the zoom, the selected key field value(s) are returned and populated into the calling session\'s field.'},{k:'d',t:'A zoom session always runs inside the same database transaction as the calling session and can directly commit changes to the caller\'s main table.'}],correct:['a','b','c'],
   explanation:'Zoom sessions are read-only look-up sessions: (a) they are linked to a field and open on user request; (b) the caller can pass pre-filter values; (c) the selected record\'s key is returned to the calling field. Option D is incorrect — zoom sessions are selection helpers that do not commit changes to the calling session\'s table. The caller receives the returned key and then performs any further database operations itself.'},
  {id:55,cat:'prog',cl:'ch-prog',catL:'Program Script',diff:'difficult',dc:'ch-d',pts:4,multi:true,
   text:'A developer calls dal.new() to insert a record inside an open transaction. A second concurrent session immediately queries the same table with db.select() before commit.transaction() is called. Which are valid explanations for why the new record may NOT be visible to the second session?',
@@ -2936,7 +2936,168 @@ const QS_FIN=[
    opts:[{k:'a',t:'Intercompany transactions involve two or more financial companies within the same Infor LN environment.'},
          {k:'b',t:'They automatically generate matching journal entries in both the originating and destination financial companies.'},
          {k:'c',t:'An Intercompany Relation must be configured between the financial companies.'},
-         {k:'d',t:'Intercompany transactions can only be initiated from the General Ledger module.'}],correct:['a','b','c']}
+         {k:'d',t:'Intercompany transactions can only be initiated from the General Ledger module.'}],correct:['a','b','c']},
+/* ── NEW POOL QUESTIONS Q21–Q60 ── */
+ {id:21,cat:'gl',cl:'ch-gl',catL:'General Ledger',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Infor LN, what is the primary purpose of the Chart of Accounts?',
+  opts:[{k:'a',t:'To store customer payment histories.'},{k:'b',t:'To define all general ledger accounts used in the company\'s financial transactions.'},{k:'c',t:'To manage inventory locations.'},{k:'d',t:'To track vendor invoices.'}],correct:['b']},
+
+{id:22,cat:'gl',cl:'ch-gl',catL:'General Ledger',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'Which financial period type in LN General Ledger is typically used for monthly reporting?',
+  opts:[{k:'a',t:'Day period.'},{k:'b',t:'Week period.'},{k:'c',t:'Month period.'},{k:'d',t:'Quarter period.'}],correct:['c']},
+
+{id:23,cat:'gl',cl:'ch-gl',catL:'General Ledger',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What does a Trial Balance in LN General Ledger verify?',
+  opts:[{k:'a',t:'That all debits equal all credits.'},{k:'b',t:'That revenue exceeds expenses.'},{k:'c',t:'That all invoices are paid.'},{k:'d',t:'That inventory is accurate.'}],correct:['a']},
+
+{id:24,cat:'ap',cl:'ch-ap',catL:'Accounts Payable',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In a 3-way invoice match, which three documents are compared in Infor LN?',
+  opts:[{k:'a',t:'Invoice, delivery receipt, and payment.'},{k:'b',t:'Purchase order, receipt, and invoice.'},{k:'c',t:'Invoice, vendor statement, and ledger.'},{k:'d',t:'Receipt, packing slip, and check.'}],correct:['b']},
+
+{id:25,cat:'ap',cl:'ch-ap',catL:'Accounts Payable',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is the primary function of payment terms in Infor LN Accounts Payable?',
+  opts:[{k:'a',t:'To record the vendor\'s address.'},{k:'b',t:'To define when payments are due and any applicable discounts.'},{k:'c',t:'To track invoice quantities.'},{k:'d',t:'To calculate tax amounts.'}],correct:['b']},
+
+{id:26,cat:'ar',cl:'ch-ar',catL:'Accounts Receivable',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Infor LN AR, what does an aging report display?',
+  opts:[{k:'a',t:'The age of products in inventory.'},{k:'b',t:'The age of customer accounts and overdue balances.'},{k:'c',t:'The employee tenure in the company.'},{k:'d',t:'The age of fixed assets.'}],correct:['b']},
+
+{id:27,cat:'ar',cl:'ch-ar',catL:'Accounts Receivable',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is a dunning level in Infor LN Accounts Receivable?',
+  opts:[{k:'a',t:'A discount percentage applied to invoices.'},{k:'b',t:'A system state that triggers collection actions for overdue amounts.'},{k:'c',t:'A currency exchange rate.'},{k:'d',t:'A sales territory classification.'}],correct:['b']},
+
+{id:28,cat:'tax',cl:'ch-tax',catL:'Tax',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Infor LN, what does a tax code define?',
+  opts:[{k:'a',t:'The country where transactions occur.'},{k:'b',t:'The tax rate and calculation method for transactions.'},{k:'c',t:'The customer\'s credit limit.'},{k:'d',t:'The inventory item\'s weight.'}],correct:['b']},
+
+{id:29,cat:'fa',cl:'ch-fa',catL:'Fixed Assets',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is the primary purpose of asset categories in Infor LN Fixed Assets?',
+  opts:[{k:'a',t:'To group assets for depreciation and reporting purposes.'},{k:'b',t:'To track customer locations.'},{k:'c',t:'To manage purchase orders.'},{k:'d',t:'To record payment methods.'}],correct:['a']},
+
+{id:30,cat:'fa',cl:'ch-fa',catL:'Fixed Assets',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'Which depreciation method spreads the cost of an asset evenly over its useful life?',
+  opts:[{k:'a',t:'Double-declining balance.'},{k:'b',t:'Straight-line.'},{k:'c',t:'Sum-of-years digits.'},{k:'d',t:'Units of production.'}],correct:['b']},
+
+{id:31,cat:'cash',cl:'ch-cash',catL:'Cash Management',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is the primary goal of bank reconciliation in Infor LN Cash Management?',
+  opts:[{k:'a',t:'To increase the company\'s profit margin.'},{k:'b',t:'To match bank statements with the company\'s internal records.'},{k:'c',t:'To reduce employee payroll.'},{k:'d',t:'To negotiate vendor discounts.'}],correct:['b']},
+
+{id:32,cat:'gl',cl:'ch-gl',catL:'General Ledger',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In LN General Ledger, what is a dimension?',
+  opts:[{k:'a',t:'A physical measurement of an asset.'},{k:'b',t:'A cost center or profit center used for analysis.'},{k:'c',t:'A type of invoice.'},{k:'d',t:'A payment method.'}],correct:['b']},
+
+{id:33,cat:'gl',cl:'ch-gl',catL:'General Ledger',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is the purpose of year-end closing in Infor LN General Ledger?',
+  opts:[{k:'a',t:'To delete all transactions from the system.'},{k:'b',t:'To finalize financial records and prepare for the new fiscal year.'},{k:'c',t:'To increase the Chart of Accounts.'},{k:'d',t:'To cancel all customer orders.'}],correct:['b']},
+
+{id:34,cat:'ap',cl:'ch-ap',catL:'Accounts Payable',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Infor LN AP, what is a debit note?',
+  opts:[{k:'a',t:'A document reducing the amount owed to a vendor.'},{k:'b',t:'A payment confirmation from the bank.'},{k:'c',t:'An invoice for goods received.'},{k:'d',t:'A customer refund request.'}],correct:['a']},
+
+{id:35,cat:'ar',cl:'ch-ar',catL:'Accounts Receivable',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What does invoice factoring in Infor LN AR allow a company to do?',
+  opts:[{k:'a',t:'Reduce inventory levels.'},{k:'b',t:'Sell receivables to a third party for immediate cash.'},{k:'c',t:'Increase sales prices.'},{k:'d',t:'Extend payment terms to customers.'}],correct:['b']},
+
+{id:36,cat:'tax',cl:'ch-tax',catL:'Tax',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Infor LN Tax, what is a reverse charge mechanism?',
+  opts:[{k:'a',t:'A discount applied to early payments.'},{k:'b',t:'A tax shift where the buyer pays tax instead of the seller.'},{k:'c',t:'A penalty for late invoice submission.'},{k:'d',t:'A currency conversion method.'}],correct:['b']},
+
+{id:37,cat:'fa',cl:'ch-fa',catL:'Fixed Assets',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What happens when a fixed asset is disposed of in Infor LN?',
+  opts:[{k:'a',t:'The asset is immediately deleted from all records.'},{k:'b',t:'A gain or loss is calculated and recorded in the general ledger.'},{k:'c',t:'The asset\'s depreciation increases automatically.'},{k:'d',t:'The customer is charged a disposal fee.'}],correct:['b']},
+
+{id:38,cat:'cash',cl:'ch-cash',catL:'Cash Management',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is a payment batch in Infor LN Cash Management?',
+  opts:[{k:'a',t:'A group of invoices from a single vendor.'},{k:'b',t:'A set of payments processed together in a single run.'},{k:'c',t:'A customer\'s purchase order.'},{k:'d',t:'A depreciation schedule.'}],correct:['b']},
+
+{id:39,cat:'gl',cl:'ch-gl',catL:'General Ledger',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Infor LN, what does multi-company accounting allow?',
+  opts:[{k:'a',t:'Multiple vendors to submit invoices.'},{k:'b',t:'Multiple currencies in a single transaction.'},{k:'c',t:'Multiple legal entities to share the same chart of accounts.'},{k:'d',t:'Multiple payment methods per invoice.'}],correct:['c']},
+
+{id:40,cat:'gl',cl:'ch-gl',catL:'General Ledger',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is intercompany accounting in Infor LN General Ledger?',
+  opts:[{k:'a',t:'Transactions between multiple departments within a single company.'},{k:'b',t:'Transactions between two or more legal entities within the same organization.'},{k:'c',t:'Transactions with external vendors.'},{k:'d',t:'Transactions recorded in different currencies.'}],correct:['b']},
+
+{id:41,cat:'gl',cl:'ch-gl',catL:'General Ledger',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'In Infor LN General Ledger, when performing currency revaluation, what is the primary accounting treatment?',
+  opts:[{k:'a',t:'Revalued gains/losses are posted to the revenue account.'},{k:'b',t:'Revalued gains/losses are recorded in the income statement and balance sheet.'},{k:'c',t:'Currency revaluation has no impact on financial reporting.'},{k:'d',t:'All revalued amounts are transferred to retained earnings immediately.'}],correct:['b']},
+
+{id:42,cat:'ap',cl:'ch-ap',catL:'Accounts Payable',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'In a 2-way invoice match in Infor LN AP, if there is a quantity variance exceeding the tolerance, what should occur?',
+  opts:[{k:'a',t:'The invoice is automatically approved.'},{k:'b',t:'The invoice is flagged for manual review and approval.'},{k:'c',t:'The vendor is immediately notified of overage charges.'},{k:'d',t:'The purchase order is automatically cancelled.'}],correct:['b']},
+
+{id:43,cat:'ar',cl:'ch-ar',catL:'Accounts Receivable',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'In Infor LN AR, when a customer payment is applied to multiple open invoices, what process is used?',
+  opts:[{k:'a',t:'Manual allocation only.'},{k:'b',t:'Automatic oldest-invoice-first allocation or manual allocation.'},{k:'c',t:'Random selection of invoices.'},{k:'d',t:'Allocation based on invoice value alone.'}],correct:['b']},
+
+{id:44,cat:'tax',cl:'ch-tax',catL:'Tax',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'In Infor LN Tax module, what does tax exemption status allow a company to do?',
+  opts:[{k:'a',t:'Avoid paying sales tax on all purchases.'},{k:'b',t:'Skip income tax filing requirements.'},{k:'c',t:'Exclude specific transactions or customers from tax calculation.'},{k:'d',t:'Reduce corporate income tax by 50 percent.'}],correct:['c']},
+
+{id:45,cat:'fa',cl:'ch-fa',catL:'Fixed Assets',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'When an asset is revalued upward in Infor LN Fixed Assets, how is the adjustment typically handled?',
+  opts:[{k:'a',t:'Posted entirely to the income statement as income.'},{k:'b',t:'Posted to a revaluation reserve in equity, with components reflected appropriately.'},{k:'c',t:'Used to immediately reduce depreciation expense.'},{k:'d',t:'Reversed in the next accounting period.'}],correct:['b']},
+
+{id:46,cat:'cash',cl:'ch-cash',catL:'Cash Management',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'In Infor LN Cash Management, what is the purpose of cash flow forecasting?',
+  opts:[{k:'a',t:'To determine the company\'s annual sales.'},{k:'b',t:'To predict future cash positions and identify liquidity needs.'},{k:'c',t:'To eliminate the need for bank reconciliation.'},{k:'d',t:'To authorize all vendor payments automatically.'}],correct:['b']},
+
+{id:47,cat:'gl',cl:'ch-gl',catL:'General Ledger',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'In Infor LN General Ledger integration mapping, what role does the mapping scheme play?',
+  opts:[{k:'a',t:'It defines the Chart of Accounts structure only.'},{k:'b',t:'It maps source data from operational modules to GL accounts for proper posting.'},{k:'c',t:'It authorizes all ledger transactions automatically.'},{k:'d',t:'It eliminates the need for journal entries.'}],correct:['b']},
+
+{id:48,cat:'ap',cl:'ch-ap',catL:'Accounts Payable',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'In Infor LN AP, what is the impact of an early payment discount on the vendor aging report?',
+  opts:[{k:'a',t:'The discount does not appear on the aging report.'},{k:'b',t:'The discount reduces the aging amount if the payment is made by the discount date.'},{k:'c',t:'The discount automatically extends all payment terms.'},{k:'d',t:'The discount increases the vendor\'s credit rating indefinitely.'}],correct:['b']},
+
+{id:49,cat:'ar',cl:'ch-ar',catL:'Accounts Receivable',diff:'difficult',dc:'ch-d',pts:4,multi:false,
+  text:'In Infor LN AR, when implementing a multi-tier dunning process, what should be the primary consideration for escalating dunning levels?',
+  opts:[{k:'a',t:'The size of the customer\'s most recent order.'},{k:'b',t:'The number of days outstanding and previous payment history.'},{k:'c',t:'The geographic location of the customer.'},{k:'d',t:'The sales representative assigned to the account.'}],correct:['b']},
+
+{id:50,cat:'tax',cl:'ch-tax',catL:'Tax',diff:'difficult',dc:'ch-d',pts:4,multi:false,
+  text:'In Infor LN Tax, how should withholding tax be handled when processing an invoice from a vendor in a jurisdiction with high-risk classification?',
+  opts:[{k:'a',t:'Withholding tax is always eliminated.'},{k:'b',t:'Withholding tax is calculated, withheld, and remitted to authorities per regulations.'},{k:'c',t:'Withholding tax is deferred until year-end.'},{k:'d',t:'Withholding tax is only applied to international transactions.'}],correct:['b']},
+
+{id:51,cat:'fa',cl:'ch-fa',catL:'Fixed Assets',diff:'difficult',dc:'ch-d',pts:4,multi:false,
+  text:'In Infor LN Fixed Assets, when an asset is transferred between companies in a multi-company environment, what accounting treatment is required?',
+  opts:[{k:'a',t:'The asset is simply removed from one company and added to another with no journal entries.'},{k:'b',t:'Intercompany transactions are recorded to eliminate gains/losses on internal transfers.'},{k:'c',t:'The asset\'s depreciation schedule is automatically reset.'},{k:'d',t:'The original cost basis is completely recalculated.'}],correct:['b']},
+
+{id:52,cat:'cash',cl:'ch-cash',catL:'Cash Management',diff:'difficult',dc:'ch-d',pts:4,multi:false,
+  text:'In Infor LN Cash Management electronic banking, what is the critical control when initiating large outbound payment batches?',
+  opts:[{k:'a',t:'No controls are necessary if the batch was created by authorized users.'},{k:'b',t:'Dual approval and encryption of sensitive payment data before transmission.'},{k:'c',t:'Payments are immediately released without verification.'},{k:'d',t:'Controls are only required for international payments.'}],correct:['b']},
+
+{id:53,cat:'gl',cl:'ch-gl',catL:'General Ledger',diff:'difficult',dc:'ch-d',pts:4,multi:false,
+  text:'In Infor LN General Ledger, how are dimension hierarchies used in consolidated financial reporting for multi-company organizations?',
+  opts:[{k:'a',t:'Dimensions are used only for cost allocation.'},{k:'b',t:'Hierarchies enable roll-up analysis from lower-level cost centers to company-wide reporting.'},{k:'c',t:'Hierarchies eliminate the need for consolidation entries.'},{k:'d',t:'Dimensions have no impact on consolidated reporting.'}],correct:['b']},
+
+{id:54,cat:'ap',cl:'ch-ap',catL:'Accounts Payable',diff:'difficult',dc:'ch-d',pts:4,multi:false,
+  text:'In Infor LN AP, when a credit note is issued by a vendor with outstanding debit invoices, what is the recommended matching approach?',
+  opts:[{k:'a',t:'The credit note is always applied to the oldest invoice.'},{k:'b',t:'The system allows manual or automatic offset against related debit invoices to net the liability.'},{k:'c',t:'The credit note cannot be matched to any invoice.'},{k:'d',t:'The credit note is always treated as a payment.'}],correct:['b']},
+
+{id:55,cat:'ar',cl:'ch-ar',catL:'Accounts Receivable',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+  text:'In Infor LN AR, which of the following are valid indicators for credit limit review? (Select all that apply)',
+  opts:[{k:'a',t:'Days sales outstanding exceeding industry averages.'},{k:'b',t:'Recurring late payment patterns.'},{k:'c',t:'The number of sales representatives in the region.'},{k:'d',t:'Significant changes in customer\'s industry or financial position.'}],correct:['a','b','d']},
+
+{id:56,cat:'tax',cl:'ch-tax',catL:'Tax',diff:'difficult',dc:'ch-d',pts:4,multi:false,
+  text:'In Infor LN Tax module, when processing a VAT return for multiple jurisdictions with differing recovery rules, what must be configured?',
+  opts:[{k:'a',t:'A single global VAT rate for all jurisdictions.'},{k:'b',t:'Jurisdiction-specific tax codes and recovery rules in the tax configuration.'},{k:'c',t:'Manual adjustments to all VAT calculations post-return.'},{k:'d',t:'A flat VAT percentage regardless of transaction type.'}],correct:['b']},
+
+{id:57,cat:'fa',cl:'ch-fa',catL:'Fixed Assets',diff:'difficult',dc:'ch-d',pts:4,multi:false,
+  text:'In Infor LN Fixed Assets, when component depreciation is applied to a single asset, how are the components tracked and reported?',
+  opts:[{k:'a',t:'Components are depreciated as a single unit with no separate tracking.'},{k:'b',t:'Each component is depreciated separately based on its useful life with individual reporting.'},{k:'c',t:'Component depreciation is not supported in LN.'},{k:'d',t:'Components are always depreciated using straight-line method.'}],correct:['b']},
+
+{id:58,cat:'cash',cl:'ch-cash',catL:'Cash Management',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+  text:'In Infor LN Cash Management, which of the following items should be considered when reconciling uncleared items? (Select all that apply)',
+  opts:[{k:'a',t:'Outstanding checks that have not yet cleared the bank.'},{k:'b',t:'Deposits in transit recorded by the company but not yet processed by the bank.'},{k:'c',t:'Vendor invoice approval dates.'},{k:'d',t:'Bank service charges and interest earned.'}],correct:['a','b','d']},
+
+{id:59,cat:'gl',cl:'ch-gl',catL:'General Ledger',diff:'difficult',dc:'ch-d',pts:4,multi:false,
+  text:'In Infor LN General Ledger with multi-currency consolidation, what adjustment entries are typically necessary to properly consolidate?',
+  opts:[{k:'a',t:'Currency adjustments are never required in consolidation.'},{k:'b',t:'Exchange gain/loss entries and intercompany elimination entries to achieve proper consolidation.'},{k:'c',t:'All transactions must be converted to the functional currency only.'},{k:'d',t:'Currency consolidation eliminates the need for intercompany eliminations.'}],correct:['b']},
+
+{id:60,cat:'ar',cl:'ch-ar',catL:'Accounts Receivable',diff:'difficult',dc:'ch-d',pts:4,multi:false,
+  text:'In Infor LN AR, when a customer disputes an invoice amount and payment is held pending resolution, how should the transaction be classified in aging analysis?',
+  opts:[{k:'a',t:'The disputed amount is removed from aging analysis entirely.'},{k:'b',t:'The full invoice is aged normally until resolution, with dispute notes recorded.'},{k:'c',t:'Disputed amounts are automatically written off.'},{k:'d',t:'The invoice is immediately reclassified as bad debt.'}],correct:['b']}
+
 ];
 
 /* ══════════════════════════════════════════
@@ -3002,7 +3163,128 @@ const QS_BOD=[
    opts:[{k:'a',t:'Using the BODID to detect and discard already-processed BODs.'},{k:'b',t:'Relying on CreationDateTime to sequence BODs and reject older ones.'},{k:'c',t:'Configuring the middleware to maintain a message journal for deduplication.'},{k:'d',t:'Ignoring duplicates entirely, since BOD processing is idempotent for all verbs.'}],correct:['a','b','c']},
   {id:20,cat:'noun',cl:'ch-noun',catL:'Nouns & Verbs',diff:'medium',dc:'ch-m',pts:3,multi:false,
    text:'Which BOD is used to synchronise item/part master data between Infor LN and another application such as a WMS?',
-   opts:[{k:'a',t:'ProcessItemMaster'},{k:'b',t:'SyncItemMaster'},{k:'c',t:'ShowItem'},{k:'d',t:'AcknowledgeItemMaster'}],correct:['b']}
+   opts:[{k:'a',t:'ProcessItemMaster'},{k:'b',t:'SyncItemMaster'},{k:'c',t:'ShowItem'},{k:'d',t:'AcknowledgeItemMaster'}],correct:['b']},
+/* ── NEW POOL QUESTIONS Q21–Q60 ── */
+ {id:21,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is the DataArea of a BOD responsible for?',
+  opts:[{k:'a',t:'Routing and transport-level metadata such as sender and timestamp.'},{k:'b',t:'Carrying the business payload — the Verb (action) and the Noun (business object data).'},{k:'c',t:'Storing the authentication credentials of the sending application.'},{k:'d',t:'Defining the physical database connection parameters.'}],correct:['b']},
+ {id:22,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'How is a BOD name constructed in the OAGIS / Infor standard?',
+  opts:[{k:'a',t:'Noun followed by Verb (e.g. SalesOrderSync).'},{k:'b',t:'Verb followed by Noun (e.g. SyncSalesOrder).'},{k:'c',t:'A numeric code assigned by the middleware.'},{k:'d',t:'An arbitrary name chosen by the developer.'}],correct:['b']},
+ {id:23,cat:'verb',cl:'ch-verb',catL:'Verbs & Patterns',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What type of communication pattern does a "Sync" BOD use?',
+  opts:[{k:'a',t:'Point-to-point — sent to one specific receiver.'},{k:'b',t:'Broadcast — published by the system of record and consumed by any subscribing application.'},{k:'c',t:'Request-response — requires an immediate reply.'},{k:'d',t:'Batch file transfer — sent as a flat file on a schedule.'}],correct:['b']},
+ {id:24,cat:'verb',cl:'ch-verb',catL:'Verbs & Patterns',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What type of communication pattern does a "Process" BOD use?',
+  opts:[{k:'a',t:'Broadcast — published to all applications simultaneously.'},{k:'b',t:'Point-to-point — sent from a non-system-of-record to the system of record requesting an action.'},{k:'c',t:'Multicast — sent to a predefined group of receivers.'},{k:'d',t:'Polling — the receiver periodically checks for new BODs.'}],correct:['b']},
+ {id:25,cat:'verb',cl:'ch-verb',catL:'Verbs & Patterns',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is the purpose of the "Get" verb in BOD messaging?',
+  opts:[{k:'a',t:'It deletes a record from the system of record.'},{k:'b',t:'It is a point-to-point request asking the system of record to return data about a business object.'},{k:'c',t:'It broadcasts master data to all connected systems.'},{k:'d',t:'It confirms receipt of a previously sent BOD.'}],correct:['b']},
+ {id:26,cat:'verb',cl:'ch-verb',catL:'Verbs & Patterns',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'Which BOD verb is used as a response to a "Get" request?',
+  opts:[{k:'a',t:'Acknowledge'},{k:'b',t:'Confirm'},{k:'c',t:'Show'},{k:'d',t:'Sync'}],correct:['c']},
+ {id:27,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What does the "LogicalID" element in the ApplicationArea represent?',
+  opts:[{k:'a',t:'The IP address of the sending server.'},{k:'b',t:'A unique identifier for the sending application instance (e.g. "lid://infor.ln.1").'},{k:'c',t:'The database schema name used by the application.'},{k:'d',t:'The version number of the BOD XML schema.'}],correct:['b']},
+ {id:28,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In what format are dates and times expressed in a BOD?',
+  opts:[{k:'a',t:'Local timezone of the sending server (e.g. 2026-04-09 14:30 IST).'},{k:'b',t:'Coordinated Universal Time (UTC) in ISO 8601 format (e.g. 2026-04-09T09:00:00Z).'},{k:'c',t:'Unix epoch timestamp (seconds since 1970-01-01).'},{k:'d',t:'A custom Infor date format: YYYYMMDD.HHMMSS.'}],correct:['b']},
+ {id:29,cat:'noun',cl:'ch-noun',catL:'Nouns & Verbs',diff:'simple',dc:'ch-s',pts:2,multi:true,
+  text:'Which of the following are valid identification elements commonly found inside a BOD Noun?',
+  opts:[{k:'a',t:'DocumentID — uniquely identifies the business document (e.g. order number).'},{k:'b',t:'PartyID — identifies customers, suppliers, or other business partners.'},{k:'c',t:'LocationID — identifies enterprise sites or warehouses.'},{k:'d',t:'PasswordHash — stores encrypted authentication credentials.'}],correct:['a','b','c']},
+ {id:30,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is the "UserArea" in a BOD used for?',
+  opts:[{k:'a',t:'Storing end-user login credentials for the receiving application.'},{k:'b',t:'Carrying custom or extended fields that are not part of the standard OAGIS noun definition.'},{k:'c',t:'Defining the user interface layout for displaying the BOD.'},{k:'d',t:'Specifying the language preference of the user who created the BOD.'}],correct:['b']},
+ {id:31,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'simple',dc:'ch-s',pts:2,multi:true,
+  text:'Which elements does the UserArea in a BOD typically contain?',
+  opts:[{k:'a',t:'Property elements with NameValue pairs carrying custom data.'},{k:'b',t:'The @name attribute identifying each custom field.'},{k:'c',t:'The @type attribute specifying the data type of the custom value.'},{k:'d',t:'Binary file attachments embedded directly in the UserArea.'}],correct:['a','b','c']},
+ {id:32,cat:'sync',cl:'ch-sync',catL:'Sync & Lifecycle',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Infor terminology, what is a "System of Record" (SOR) in relation to BODs?',
+  opts:[{k:'a',t:'The database server that physically stores the XML BOD files.'},{k:'b',t:'The authoritative application that owns and publishes the master data for a given business object.'},{k:'c',t:'The middleware platform (ION) that routes BODs between applications.'},{k:'d',t:'Any application that receives and processes BODs.'}],correct:['b']},
+ {id:33,cat:'sync',cl:'ch-sync',catL:'Sync & Lifecycle',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'When a business event occurs in Infor LN (e.g. a purchase order is confirmed), what happens with BODs?',
+  opts:[{k:'a',t:'The administrator must manually export the BOD from LN.'},{k:'b',t:'LN automatically publishes the appropriate BOD (e.g. ProcessPurchaseOrder) to the ION middleware.'},{k:'c',t:'LN writes the BOD to a shared folder; the receiver polls the folder periodically.'},{k:'d',t:'Nothing happens — BODs must be created by external scripts.'}],correct:['b']},
+ {id:34,cat:'sync',cl:'ch-sync',catL:'Sync & Lifecycle',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is the role of a "connection point" in Infor ION for BOD integration?',
+  opts:[{k:'a',t:'A physical network cable connecting two servers.'},{k:'b',t:'A configuration that provides ION with the information to connect to an application and defines which BODs the application can send or receive.'},{k:'c',t:'A user account that authenticates BOD transmissions.'},{k:'d',t:'A backup copy of the BOD stored for disaster recovery.'}],correct:['b']},
+ {id:35,cat:'sync',cl:'ch-sync',catL:'Sync & Lifecycle',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is a "document flow" in Infor ION?',
+  opts:[{k:'a',t:'A flowchart showing the business process steps within a single application.'},{k:'b',t:'A configured sequence of activities that defines which BODs flow between application connection points.'},{k:'c',t:'A file-system folder structure where BOD XML files are stored.'},{k:'d',t:'A reporting tool that visualises BOD transaction volumes.'}],correct:['b']},
+ {id:36,cat:'sync',cl:'ch-sync',catL:'Sync & Lifecycle',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'After configuring connection points and document flows in ION, what must be done before BODs can flow?',
+  opts:[{k:'a',t:'Restart the database server.'},{k:'b',t:'Activate the document flows — this also activates the associated connection points.'},{k:'c',t:'Manually export a test BOD from each application.'},{k:'d',t:'Submit a change request to Infor support.'}],correct:['b']},
+ {id:37,cat:'noun',cl:'ch-noun',catL:'Nouns & Verbs',diff:'simple',dc:'ch-s',pts:2,multi:true,
+  text:'Which of the following are common BOD Nouns used in financial integration?',
+  opts:[{k:'a',t:'PayableTransaction'},{k:'b',t:'ReceivableTransaction'},{k:'c',t:'ChartOfAccounts'},{k:'d',t:'WarehouseBinLocation'}],correct:['a','b','c']},
+ {id:38,cat:'verb',cl:'ch-verb',catL:'Verbs & Patterns',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is the purpose of the "Confirm" BOD verb?',
+  opts:[{k:'a',t:'It confirms that the sender has received payment.'},{k:'b',t:'It is used to notify of an error condition during BOD processing — processed within ION, not forwarded to applications.'},{k:'c',t:'It confirms that the receiver has read the BOD content.'},{k:'d',t:'It is a synonym for Acknowledge and can be used interchangeably.'}],correct:['b']},
+ {id:39,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What does the "releaseID" attribute on a BOD indicate?',
+  opts:[{k:'a',t:'The date the BOD was released to production.'},{k:'b',t:'The version of the OAGIS schema that the BOD conforms to.'},{k:'c',t:'The release number of the Infor LN application.'},{k:'d',t:'The priority level assigned to the BOD for processing.'}],correct:['b']},
+ {id:40,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What does the "systemEnvironmentCode" attribute on a BOD signify?',
+  opts:[{k:'a',t:'The operating system of the sending server (Windows, Linux, etc.).'},{k:'b',t:'Whether the BOD is from a production or test environment.'},{k:'c',t:'The hardware specifications of the server processing the BOD.'},{k:'d',t:'The programming language used to generate the BOD.'}],correct:['b']},
+ {id:41,cat:'verb',cl:'ch-verb',catL:'Verbs & Patterns',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In BOD messaging, what does the "Load" verb indicate?',
+  opts:[{k:'a',t:'It loads a BOD XML file from disk into memory.'},{k:'b',t:'It creates a document in the receiving application where the sender will NOT be the owner — the document cannot be refused by the receiver.'},{k:'c',t:'It loads historical data for reporting purposes only.'},{k:'d',t:'It is identical to the Process verb in all respects.'}],correct:['b']},
+ {id:42,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is the "actionCode" attribute used for in a BOD Noun component?',
+  opts:[{k:'a',t:'It specifies the authentication action required to process the BOD.'},{k:'b',t:'It indicates the operation to perform on the noun data — such as Add (create), Replace (update), or Delete (remove).'},{k:'c',t:'It sets the display colour of the BOD in the ION monitoring dashboard.'},{k:'d',t:'It triggers an automated email notification to the system administrator.'}],correct:['b']},
+ {id:43,cat:'noun',cl:'ch-noun',catL:'Nouns & Verbs',diff:'simple',dc:'ch-s',pts:2,multi:true,
+  text:'Which of the following are valid actionCode values in a BOD?',
+  opts:[{k:'a',t:'Add — create a new record.'},{k:'b',t:'Replace — update an existing record.'},{k:'c',t:'Delete — remove a record.'},{k:'d',t:'Merge — combine two existing records into one.'}],correct:['a','b','c']},
+ {id:44,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What standard does the BOD message format follow?',
+  opts:[{k:'a',t:'EDI X12 standard for electronic data interchange.'},{k:'b',t:'OAGIS (Open Applications Group Integration Specification) — an XML-based standard for business application integration.'},{k:'c',t:'SWIFT messaging standard used in banking.'},{k:'d',t:'HL7 FHIR standard used in healthcare.'}],correct:['b']},
+ {id:45,cat:'sync',cl:'ch-sync',catL:'Sync & Lifecycle',diff:'simple',dc:'ch-s',pts:2,multi:true,
+  text:'When Infor LN publishes a Sync BOD after master data is updated, which applications receive it?',
+  opts:[{k:'a',t:'Only applications that have an active subscription to that specific BOD type in the document flow.'},{k:'b',t:'All applications connected to ION, regardless of their subscriptions.'},{k:'c',t:'The middleware (ION) routes the BOD based on the configured document flow rules.'},{k:'d',t:'Only the application that originally created the master data record.'}],correct:['a','c']},
+ {id:46,cat:'sync',cl:'ch-sync',catL:'Sync & Lifecycle',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'Can the same BOD Noun have different Verbs applied to it?',
+  opts:[{k:'a',t:'No — each Noun is permanently associated with a single Verb.'},{k:'b',t:'Yes — for example, SalesOrder can be used with Sync (SyncSalesOrder), Process (ProcessSalesOrder), Show (ShowSalesOrder), and Acknowledge (AcknowledgeSalesOrder).'},{k:'c',t:'Only if the administrator creates a custom BOD mapping.'},{k:'d',t:'Only Sync and Process can share the same Noun.'}],correct:['b']},
+ {id:47,cat:'verb',cl:'ch-verb',catL:'Verbs & Patterns',diff:'medium',dc:'ch-m',pts:3,multi:true,
+  text:'Which statements about the "Acknowledge" BOD are correct?',
+  opts:[{k:'a',t:'It is the standard response to a Process BOD.'},{k:'b',t:'It indicates whether the requested action was accepted, modified, or rejected by the receiving system.'},{k:'c',t:'It is the standard response to a Sync BOD.'},{k:'d',t:'It contains the original BODID from the request for correlation purposes.'}],correct:['a','b','d']},
+ {id:48,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'medium',dc:'ch-m',pts:3,multi:true,
+  text:'Which of the following correctly describe the relationship between Verbs and communication patterns?',
+  opts:[{k:'a',t:'Sync is a broadcast message — one-to-many.'},{k:'b',t:'Process is a point-to-point message — one-to-one.'},{k:'c',t:'Get is a point-to-point request, Show is the point-to-point response.'},{k:'d',t:'Acknowledge is a broadcast message sent to all connected systems.'}],correct:['a','b','c']},
+ {id:49,cat:'sync',cl:'ch-sync',catL:'Sync & Lifecycle',diff:'medium',dc:'ch-m',pts:3,multi:true,
+  text:'Which statements about BOD publishing in Infor LN are correct?',
+  opts:[{k:'a',t:'BODs are published automatically when configured business events occur (e.g. order confirmation, receipt posting).'},{k:'b',t:'The BOD Publish/Subscribe mechanism requires that subscriptions exist before LN publishes the BOD.'},{k:'c',t:'BOD publishing in LN is always a manual, administrator-triggered process.'},{k:'d',t:'LN uses BDE (Business Data Events) to trigger BOD generation from standard business transactions.'}],correct:['a','b','d']},
+ {id:50,cat:'noun',cl:'ch-noun',catL:'Nouns & Verbs',diff:'medium',dc:'ch-m',pts:3,multi:true,
+  text:'Which of the following Verb + Noun combinations are correctly paired with their business purpose?',
+  opts:[{k:'a',t:'SyncItemMaster — replicate part/item master data from the system of record to subscribing applications.'},{k:'b',t:'ProcessPurchaseOrder — send a purchase order from procurement to a supplier system for fulfilment.'},{k:'c',t:'ShowSalesOrder — a response BOD returning sales order details after a Get request.'},{k:'d',t:'SyncPurchaseOrder — synchronise PO transactional data as master data to subscribing applications.'}],correct:['a','b','c']},
+ {id:51,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'medium',dc:'ch-m',pts:3,multi:true,
+  text:'Which of the following elements are part of the ApplicationArea in a BOD?',
+  opts:[{k:'a',t:'Sender — containing LogicalID, ComponentID, and TaskID to identify the origin.'},{k:'b',t:'CreationDateTime — the UTC timestamp when the BOD was created.'},{k:'c',t:'BODID — a globally unique identifier for this specific BOD instance.'},{k:'d',t:'ActionExpression — the XPath expression defining what operation to perform on the Noun.'}],correct:['a','b','c']},
+ {id:52,cat:'sync',cl:'ch-sync',catL:'Sync & Lifecycle',diff:'medium',dc:'ch-m',pts:3,multi:true,
+  text:'In Infor ION, what happens when a document flow is activated?',
+  opts:[{k:'a',t:'The associated connection points become active and can send/receive BODs.'},{k:'b',t:'ION begins routing BODs between the configured application endpoints based on the flow rules.'},{k:'c',t:'All historical BODs are automatically reprocessed through the new flow.'},{k:'d',t:'The applications start publishing BODs for the configured business events.'}],correct:['a','b','d']},
+ {id:53,cat:'verb',cl:'ch-verb',catL:'Verbs & Patterns',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'Why does Infor recommend using the "Cancel" operation on transactional BODs rather than the "Delete" verb?',
+  opts:[{k:'a',t:'Delete is faster but less reliable than Cancel.'},{k:'b',t:'Cancel preserves the record for audit trail purposes, while Delete physically removes it — Infor recommends cancellation to maintain data integrity and compliance.'},{k:'c',t:'There is no difference; they are synonyms in the OAGIS standard.'},{k:'d',t:'Delete is supported only for master data, not transactional data.'}],correct:['b']},
+ {id:54,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'medium',dc:'ch-m',pts:3,multi:true,
+  text:'Which of the following correctly describe the "ActionExpression" element in a BOD?',
+  opts:[{k:'a',t:'It contains an XPath 1.0 expression that identifies the target element(s) within the Noun.'},{k:'b',t:'It carries an actionCode attribute (Add, Replace, or Delete) specifying the operation on the identified element.'},{k:'c',t:'It is mandatory in every BOD regardless of verb type.'},{k:'d',t:'The combination of XPath expression and actionCode forms a complete instruction for the receiving application.'}],correct:['a','b','d']},
+ {id:55,cat:'sync',cl:'ch-sync',catL:'Sync & Lifecycle',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+  text:'Application A (system of record for customers) publishes a SyncCustomerParty BOD. Application B receives it and processes it successfully. Later, Application B needs to update the customer\'s phone number. Which approach is correct?',
+  opts:[{k:'a',t:'Application B sends a ProcessCustomerParty BOD back to Application A requesting the change, since A is the system of record.'},{k:'b',t:'Application B directly publishes a SyncCustomerParty BOD with the updated phone number to overwrite Application A\'s data.'},{k:'c',t:'Application B updates its own local copy and waits for the next Sync from Application A to reconcile differences.'},{k:'d',t:'Application B uses the Update verb to notify Application A of the change, which A can accept or reject.'}],correct:['a','d']},
+ {id:56,cat:'verb',cl:'ch-verb',catL:'Verbs & Patterns',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+  text:'A sales system (not the system of record) sends a ProcessSalesOrder to the ERP (system of record). Which sequence of events correctly describes the expected BOD exchange?',
+  opts:[{k:'a',t:'Sales system sends ProcessSalesOrder → ERP validates and processes → ERP sends AcknowledgeSalesOrder back indicating success or failure.'},{k:'b',t:'ERP publishes SyncSalesOrder to inform all subscribing applications (including the sales system) of the confirmed order data.'},{k:'c',t:'Sales system sends SyncSalesOrder → ERP automatically creates the order.'},{k:'d',t:'The sales system receives a ShowSalesOrder as the standard response to ProcessSalesOrder.'}],correct:['a','b']},
+ {id:57,cat:'sync',cl:'ch-sync',catL:'Sync & Lifecycle',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+  text:'In a multi-application landscape, Application A publishes SyncItemMaster BODs. Applications B and C both subscribe. Application C processes BODs slower than B. Which are valid concerns and strategies?',
+  opts:[{k:'a',t:'If C\'s processing is delayed, it might receive a newer Sync before finishing the previous one — C should use CreationDateTime or a sequence mechanism to avoid applying stale data.'},{k:'b',t:'B and C receive independent copies of each BOD, so B\'s processing speed has no effect on C.'},{k:'c',t:'ION guarantees that all subscribers process each BOD in exact lock-step order, so this scenario cannot occur.'},{k:'d',t:'C should implement BODID-based deduplication to avoid processing the same BOD twice if retries occur.'}],correct:['a','b','d']},
+ {id:58,cat:'bod',cl:'ch-bod',catL:'BOD Structure',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+  text:'An integration architect must send custom fields (not in the standard OAGIS schema) within a BOD. Which statements about extending BODs are correct?',
+  opts:[{k:'a',t:'Custom data should be placed in the UserArea section of the BOD using Property elements with NameValue pairs.'},{k:'b',t:'Infor supports UserArea fields in the header, detail, and root levels of the noun.'},{k:'c',t:'Custom fields can be added anywhere in the standard noun structure by modifying the OAGIS XSD.'},{k:'d',t:'Property elements in UserArea use @name and @type attributes to identify and type the custom values.'}],correct:['a','b','d']},
+ {id:59,cat:'sync',cl:'ch-sync',catL:'Sync & Lifecycle',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+  text:'An Acknowledge BOD returns a "Rejected" status for a ProcessPurchaseOrder sent from Application A. Which are valid investigation and resolution approaches?',
+  opts:[{k:'a',t:'Examine the Acknowledge BOD\'s response code and description fields to identify the specific rejection reason (e.g. invalid item, missing data).'},{k:'b',t:'Check the original BODID in the Acknowledge to correlate it with the failed ProcessPurchaseOrder.'},{k:'c',t:'Resend the exact same BOD immediately — the Acknowledge rejection is always a transient error that resolves on retry.'},{k:'d',t:'Use ION Desk to inspect the BOD message trail and identify at which point in the document flow the rejection occurred.'}],correct:['a','b','d']},
+ {id:60,cat:'verb',cl:'ch-verb',catL:'Verbs & Patterns',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+  text:'Which of the following correctly explain why "Sync" BODs are considered idempotent while "Process" BODs may not be?',
+  opts:[{k:'a',t:'A Sync BOD carries a complete snapshot of the current state — re-processing it produces the same result (upsert). A Process BOD triggers an action that may have side effects if executed twice (e.g. creating duplicate orders).'},{k:'b',t:'Sync BODs use the Replace actionCode by default, meaning the same data overwrites itself without duplication. Process BODs may use Add, which creates new records each time.'},{k:'c',t:'Both are always idempotent — the distinction only matters for the Acknowledge response.'},{k:'d',t:'The receiving application must implement BODID-based deduplication for Process BODs to prevent duplicate processing, while Sync BODs inherently handle duplicates through their upsert nature.'}],correct:['a','b','d']}
 ];
 
 /* ══════════════════════════════════════════
@@ -3068,7 +3350,49 @@ const QS_ION=[
    opts:[{k:'a',t:'ION is pre-configured and managed by Infor in a CloudSuite deployment.'},{k:'b',t:'Customers configure their own Document Flows but share the underlying ION infrastructure.'},{k:'c',t:'Each CloudSuite tenant has a fully isolated ION instance with dedicated hardware.'},{k:'d',t:'ION API Gateway provides OAuth 2.0 token services for CloudSuite APIs.'}],correct:['a','b','d']},
   {id:20,cat:'idoc',cl:'ch-idoc',catL:'ION Desk & Monitoring',diff:'difficult',dc:'ch-d',pts:4,multi:true,
    text:'SyncCustomerParty BODs from Infor LN are not arriving in the target CRM. Which are valid troubleshooting steps in ION?',
-   opts:[{k:'a',t:'Verify the Document Flow for SyncCustomerParty is active and correctly configured.'},{k:'b',t:'Check ION Desk Message Viewer for failed or pending messages.'},{k:'c',t:'Confirm the LN Connection Point Logical ID matches the Sender in the BOD ApplicationArea.'},{k:'d',t:'Restart the Infor LN database server to force BOD regeneration.'}],correct:['a','b','c']}
+   opts:[{k:'a',t:'Verify the Document Flow for SyncCustomerParty is active and correctly configured.'},{k:'b',t:'Check ION Desk Message Viewer for failed or pending messages.'},{k:'c',t:'Confirm the LN Connection Point Logical ID matches the Sender in the BOD ApplicationArea.'},{k:'d',t:'Restart the Infor LN database server to force BOD regeneration.'}],correct:['a','b','c']},
+/* ── NEW POOL QUESTIONS Q21–Q60 ── */
+ {id:21,cat:'ion',cl:'ch-ion',catL:'ION Overview',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'What is the primary purpose of Infor ION?',opts:[{k:'a',t:'To provide a single email platform.'},{k:'b',t:'To integrate applications and enable real-time data exchange across the Infor ecosystem.'},{k:'c',t:'To replace all enterprise databases.'},{k:'d',t:'To manage only on-premise solutions.'}],correct:['b']},
+{id:22,cat:'ion',cl:'ch-ion',catL:'ION Overview',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'Which messaging infrastructure does ION use for asynchronous communication?',opts:[{k:'a',t:'SMTP protocol'},{k:'b',t:'HTTP only'},{k:'c',t:'AMQP (Advanced Message Queuing Protocol)'},{k:'d',t:'FTP connections'}],correct:['c']},
+{id:23,cat:'ion',cl:'ch-ion',catL:'ION Overview',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'What does ION Grid enable?',opts:[{k:'a',t:'Distributed processing and load balancing across multiple servers.'},{k:'b',t:'Email distribution only.'},{k:'c',t:'File transfer via SFTP.'},{k:'d',t:'Direct database replication.'}],correct:['a']},
+{id:24,cat:'iconn',cl:'ch-iconn',catL:'ION Connect',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'Which connection point allows ION Connect to link with LN (Lawson) systems?',opts:[{k:'a',t:'Generic Web Service'},{k:'b',t:'LN Connect Point'},{k:'c',t:'File Connection'},{k:'d',t:'Enterprise API Gateway'}],correct:['b']},
+{id:25,cat:'iconn',cl:'ch-iconn',catL:'ION Connect',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'What is a Logical ID in ION Connect?',opts:[{k:'a',t:'A unique identifier for BOD messages.'},{k:'b',t:'A unique name assigned to a connection point or trading partner.'},{k:'c',t:'A database table reference.'},{k:'d',t:'An email address format.'}],correct:['b']},
+{id:26,cat:'idoc',cl:'ch-idoc',catL:'ION Desk & Monitoring',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'In ION Desk, what does the "Pending" message state indicate?',opts:[{k:'a',t:'The message has been successfully processed.'},{k:'b',t:'The message is waiting to be processed or is in transit.'},{k:'c',t:'The message has encountered an error.'},{k:'d',t:'The message has been deleted.'}],correct:['b']},
+{id:27,cat:'idoc',cl:'ch-idoc',catL:'ION Desk & Monitoring',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'Which ION Desk feature allows you to resend a failed message?',opts:[{k:'a',t:'Message Trail'},{k:'b',t:'Alert Configuration'},{k:'c',t:'Message Resubmission'},{k:'d',t:'Audit Log'}],correct:['c']},
+{id:28,cat:'iflow',cl:'ch-iflow',catL:'Document Flows',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'What is the first step in configuring a Document Flow?',opts:[{k:'a',t:'Define source and target systems.'},{k:'b',t:'Create alert rules.'},{k:'c',t:'Set up authentication.'},{k:'d',t:'Apply filters.'}],correct:['a']},
+{id:29,cat:'iflow',cl:'ch-iflow',catL:'Document Flows',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'In Document Flows, what does BOD mapping define?',opts:[{k:'a',t:'The security protocols used.'},{k:'b',t:'The transformation of Business Object Documents between source and target formats.'},{k:'c',t:'The email addresses for alerts.'},{k:'d',t:'The file storage location.'}],correct:['b']},
+{id:30,cat:'iapi',cl:'ch-iapi',catL:'ION API & Gateway',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'Which authentication method is standard for ION APIs?',opts:[{k:'a',t:'Basic HTTP authentication only'},{k:'b',t:'OAuth2'},{k:'c',t:'API keys without encryption'},{k:'d',t:'Session cookies'}],correct:['b']},
+{id:31,cat:'iapi',cl:'ch-iapi',catL:'ION API & Gateway',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'What is the primary function of the ION API Gateway?',opts:[{k:'a',t:'To store database backups.'},{k:'b',t:'To manage API requests, routing, rate limiting, and security policies.'},{k:'c',t:'To send email notifications.'},{k:'d',t:'To configure user passwords.'}],correct:['b']},
+{id:32,cat:'ion',cl:'ch-ion',catL:'ION Overview',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'What is multi-tenancy in ION?',opts:[{k:'a',t:'Multiple user logins per session.'},{k:'b',t:'The ability to serve multiple independent organizations or customers using a single ION instance.'},{k:'c',t:'Multiple database connections per user.'},{k:'d',t:'Multiple password authentication factors.'}],correct:['b']},
+{id:33,cat:'iconn',cl:'ch-iconn',catL:'ION Connect',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'Which connection point type is used for external or legacy systems without native ION support?',opts:[{k:'a',t:'LN Connect Point'},{k:'b',t:'Generic Web Service Connect Point'},{k:'c',t:'Enterprise Connect Point'},{k:'d',t:'ION Process Connect Point'}],correct:['b']},
+{id:34,cat:'idoc',cl:'ch-idoc',catL:'ION Desk & Monitoring',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'What does the Message Trail in ION Desk display?',opts:[{k:'a',t:'The list of all system users.'},{k:'b',t:'A detailed history of a message including its path through systems, timestamps, and processing status.'},{k:'c',t:'The email templates used.'},{k:'d',t:'The scheduled maintenance windows.'}],correct:['b']},
+{id:35,cat:'iflow',cl:'ch-iflow',catL:'Document Flows',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'What is a filter rule in Document Flows used for?',opts:[{k:'a',t:'To encrypt BOD messages.'},{k:'b',t:'To select which BOD documents should be processed based on specific criteria.'},{k:'c',t:'To delete messages from the system.'},{k:'d',t:'To authenticate users.'}],correct:['b']},
+{id:36,cat:'iapi',cl:'ch-iapi',catL:'ION API & Gateway',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'Rate limiting in the ION API Gateway serves which purpose?',opts:[{k:'a',t:'To block all API requests.'},{k:'b',t:'To control the number of requests per time period to prevent system overload.'},{k:'c',t:'To delete old API logs.'},{k:'d',t:'To authenticate API clients.'}],correct:['b']},
+{id:37,cat:'ion',cl:'ch-ion',catL:'ION Overview',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'Which Infor application is most commonly integrated using ION?',opts:[{k:'a',t:'Infor CloudSuite Industrial (SyteLine)'},{k:'b',t:'Infor LN (Lawson)'},{k:'c',t:'Infor Cloudsuite Financial (Financials)'},{k:'d',t:'All of the above'}],correct:['d']},
+{id:38,cat:'iconn',cl:'ch-iconn',catL:'ION Connect',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'What is the purpose of inbound configuration in ION Connect?',opts:[{k:'a',t:'To define how messages are sent out to external systems.'},{k:'b',t:'To define how incoming messages are received and processed from external systems or connection points.'},{k:'c',t:'To store backup files.'},{k:'d',t:'To manage user access permissions.'}],correct:['b']},
+{id:39,cat:'idoc',cl:'ch-idoc',catL:'ION Desk & Monitoring',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'What action should be taken when a message shows an "Error" state in ION Desk?',opts:[{k:'a',t:'Ignore it until the next scheduled job.'},{k:'b',t:'Investigate the error details in the message trail and attempt resubmission after resolving the issue.'},{k:'c',t:'Delete the message immediately.'},{k:'d',t:'Archive it without review.'}],correct:['b']},
+{id:40,cat:'iflow',cl:'ch-iflow',catL:'Document Flows',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'What does a one-to-many document flow pattern accomplish?',opts:[{k:'a',t:'Routes a single BOD from one source to multiple targets.'},{k:'b',t:'Routes multiple BODs from one source to one target.'},{k:'c',t:'Deletes duplicate messages.'},{k:'d',t:'Blocks all outbound messages.'}],correct:['a']},
+{id:41,cat:'ion',cl:'ch-ion',catL:'ION Overview',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'In the ION architecture, what is the relationship between ION Connect, ION Desk, and ION API Gateway?',opts:[{k:'a',t:'ION Connect sends messages, ION Desk monitors them, and API Gateway handles REST endpoints.'},{k:'b',t:'They operate independently without interaction.'},{k:'c',t:'ION Desk is only for email notifications.'},{k:'d',t:'API Gateway replaces the need for ION Connect.'}],correct:['a']},
+{id:42,cat:'iconn',cl:'ch-iconn',catL:'ION Connect',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'When configuring a BOD routing rule in ION Connect, which of the following must be specified?',opts:[{k:'a',t:'The color scheme for the user interface.'},{k:'b',t:'The source connection point, BOD type, and target connection point.'},{k:'c',t:'The administrator\'s email address.'},{k:'d',t:'The database backup schedule.'}],correct:['b']},
+{id:43,cat:'idoc',cl:'ch-idoc',catL:'ION Desk & Monitoring',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'How does alert configuration in ION Desk improve operational efficiency?',opts:[{k:'a',t:'It sends email notifications for specific message events or errors, enabling proactive issue resolution.'},{k:'b',t:'It automatically deletes all failed messages.'},{k:'c',t:'It prevents all messages from being sent.'},{k:'d',t:'It requires manual review of every message.'}],correct:['a']},
+{id:44,cat:'iflow',cl:'ch-iflow',catL:'Document Flows',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'In a many-to-one document flow pattern, what transformation complexity is typically involved?',opts:[{k:'a',t:'No transformation is needed.'},{k:'b',t:'Simple field mapping only.'},{k:'c',t:'Multiple BOD formats must be consolidated and mapped to a single target format, requiring complex transformation logic.'},{k:'d',t:'Messages are blocked at the gateway.'}],correct:['c']},
+{id:45,cat:'iapi',cl:'ch-iapi',catL:'ION API & Gateway',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'What is the relationship between OAuth2 tokens and ION API security?',opts:[{k:'a',t:'OAuth2 tokens eliminate the need for passwords completely.'},{k:'b',t:'OAuth2 tokens provide time-limited access credentials, reducing exposure of permanent credentials.'},{k:'c',t:'Tokens are stored unencrypted on the client.'},{k:'d',t:'OAuth2 is only for email systems.'}],correct:['b']},
+{id:46,cat:'ion',cl:'ch-ion',catL:'ION Overview',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'Which component of ION facilitates workflow automation and task management?',opts:[{k:'a',t:'ION Connect'},{k:'b',t:'ION Desk'},{k:'c',t:'ION Process'},{k:'d',t:'ION Gateway'}],correct:['c']},
+{id:47,cat:'iconn',cl:'ch-iconn',catL:'ION Connect',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'What happens during the activation lifecycle of an ION Connect connection?',opts:[{k:'a',t:'The connection is immediately visible to all users without testing.'},{k:'b',t:'Connection configuration is validated, tested, and then activated to begin processing live messages.'},{k:'c',t:'The system automatically generates all required BOD mappings.'},{k:'d',t:'Activation requires no configuration steps.'}],correct:['b']},
+{id:48,cat:'idoc',cl:'ch-idoc',catL:'ION Desk & Monitoring',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'How should a system administrator respond to a large backlog of pending messages in ION Desk?',opts:[{k:'a',t:'Manually delete them to clear the backlog.'},{k:'b',t:'Investigate the root cause, check system logs, verify connectivity, and address bottlenecks before resubmitting.'},{k:'c',t:'Ignore them until the next scheduled maintenance window.'},{k:'d',t:'Disable the flows that created the pending messages.'}],correct:['b']},
+{id:49,cat:'iflow',cl:'ch-iflow',catL:'Document Flows',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'What is the purpose of testing a Document Flow before activation?',opts:[{k:'a',t:'To ensure the configuration is correct, BOD mappings work properly, and data transforms accurately before processing live transactions.'},{k:'b',t:'To delete test data from the system.'},{k:'c',t:'To bypass security checks.'},{k:'d',t:'Testing is optional and not recommended.'}],correct:['a']},
+{id:50,cat:'iapi',cl:'ch-iapi',catL:'ION API & Gateway',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'What does the Infor OS Portal provide in relation to ION APIs?',opts:[{k:'a',t:'A command-line interface for database administration.'},{k:'b',t:'A centralized location to discover, manage, and monitor APIs within the Infor ecosystem.'},{k:'c',t:'Email delivery only.'},{k:'d',t:'File compression tools.'}],correct:['b']},
+{id:51,cat:'ion',cl:'ch-ion',catL:'ION Overview',diff:'difficult',dc:'ch-d',pts:4,multi:true,text:'Which of the following are key architectural advantages of ION\'s distributed approach? (Select all that apply)',opts:[{k:'a',t:'Scalability through ION Grid enables handling of high message volumes.'},{k:'b',t:'Loose coupling between applications reduces dependencies and improves system resilience.'},{k:'c',t:'AMQP messaging ensures guaranteed delivery and asynchronous processing.'},{k:'d',t:'Multi-tenancy eliminates the need for data security measures.'}],correct:['a','b','c']},
+{id:52,cat:'iconn',cl:'ch-iconn',catL:'ION Connect',diff:'difficult',dc:'ch-d',pts:4,multi:false,text:'In a complex ION Connect scenario with multiple LN instances, why would you implement separate Logical IDs for each instance?',opts:[{k:'a',t:'To reduce the number of BOD messages in the system.'},{k:'b',t:'To ensure proper routing and identification of BOD messages to the correct instance and prevent cross-instance data contamination.'},{k:'c',t:'To eliminate the need for security configurations.'},{k:'d',t:'Logical IDs are optional and provide no routing benefit.'}],correct:['b']},
+{id:53,cat:'idoc',cl:'ch-idoc',catL:'ION Desk & Monitoring',diff:'difficult',dc:'ch-d',pts:4,multi:true,text:'Which troubleshooting techniques are most effective for resolving recurring message failures in ION Desk? (Select all that apply)',opts:[{k:'a',t:'Analyze message trail details to identify systematic issues.'},{k:'b',t:'Check system connectivity and BOD transformation mappings.'},{k:'c',t:'Delete all alert rules to reduce notifications.'},{k:'d',t:'Monitor system logs and adjust flow configurations based on findings.'}],correct:['a','b','d']},
+{id:54,cat:'iflow',cl:'ch-iflow',catL:'Document Flows',diff:'difficult',dc:'ch-d',pts:4,multi:false,text:'How do filter rules and transformation mappings work together in a Document Flow to ensure data quality?',opts:[{k:'a',t:'Filter rules block all messages; transformations have no effect.'},{k:'b',t:'Filter rules select eligible BOD documents based on criteria, while transformations ensure the selected documents are correctly converted to the target format and data integrity is maintained.'},{k:'c',t:'Transformations run before filters, preventing proper document selection.'},{k:'d',t:'They operate independently without any interaction.'}],correct:['b']},
+{id:55,cat:'iapi',cl:'ch-iapi',catL:'ION API & Gateway',diff:'difficult',dc:'ch-d',pts:4,multi:false,text:'In a high-volume API scenario, how should rate limiting be configured to balance performance and security?',opts:[{k:'a',t:'Disable rate limiting entirely to maximize throughput.'},{k:'b',t:'Set limits arbitrarily without baseline data.'},{k:'c',t:'Configure thresholds based on expected traffic patterns, system capacity, and security requirements to prevent abuse while maintaining acceptable response times.'},{k:'d',t:'Rate limiting is only for blocking malicious users.'}],correct:['c']},
+{id:56,cat:'ion',cl:'ch-ion',catL:'ION Overview',diff:'difficult',dc:'ch-d',pts:4,multi:true,text:'Which statements accurately describe ION\'s role in enterprise integration? (Select all that apply)',opts:[{k:'a',t:'ION provides synchronous, real-time data exchange only.'},{k:'b',t:'ION enables both synchronous and asynchronous messaging patterns.'},{k:'c',t:'ION supports integration across on-premise, cloud, and hybrid environments.'},{k:'d',t:'ION eliminates the need for custom business logic in integrated applications.'}],correct:['b','c']},
+{id:57,cat:'iconn',cl:'ch-iconn',catL:'ION Connect',diff:'difficult',dc:'ch-d',pts:4,multi:false,text:'When mapping fields between source and target BODs in ION Connect, what is the primary challenge with hierarchical or nested BOD structures?',opts:[{k:'a',t:'Nested structures are not supported by ION Connect.'},{k:'b',t:'Field mapping is straightforward with no complexity.'},{k:'c',t:'Proper mapping of nested elements, aggregation of parent-child relationships, and preservation of data hierarchy require careful design to avoid data loss or transformation errors.'},{k:'d',t:'Nested mappings require no testing before deployment.'}],correct:['c']},
+{id:58,cat:'idoc',cl:'ch-idoc',catL:'ION Desk & Monitoring',diff:'difficult',dc:'ch-d',pts:4,multi:true,text:'Which monitoring metrics in ION Desk are essential for identifying system performance bottlenecks? (Select all that apply)',opts:[{k:'a',t:'Message processing latency and throughput rates.'},{k:'b',t:'Error rate trends and failure pattern analysis.'},{k:'c',t:'The color of user interface buttons.'},{k:'d',t:'System resource utilization during peak message volumes.'}],correct:['a','b','d']},
+{id:59,cat:'iflow',cl:'ch-iflow',catL:'Document Flows',diff:'difficult',dc:'ch-d',pts:4,multi:false,text:'In designing a Document Flow for financial transactions, why is strict filter validation and transformation testing critical?',opts:[{k:'a',t:'To ensure compliance with data standards, prevent incorrect transactions, and maintain audit trails for regulatory requirements.'},{k:'b',t:'Filters and transformations are not important for financial flows.'},{k:'c',t:'To increase message latency.'},{k:'d',t:'Financial flows do not require testing.'}],correct:['a']},
+{id:60,cat:'iapi',cl:'ch-iapi',catL:'ION API & Gateway',diff:'difficult',dc:'ch-d',pts:4,multi:true,text:'What are the best practices for securing ION APIs in a production environment? (Select all that apply)',opts:[{k:'a',t:'Use OAuth2 token-based authentication with appropriate scopes.'},{k:'b',t:'Implement rate limiting and request validation at the gateway level.'},{k:'c',t:'Disable all security measures to improve API response time.'},{k:'d',t:'Monitor API usage patterns and set up alerts for anomalous activity.'}],correct:['a','b','d']}
+
 ];
 
 /* ══════════════════════════════════════════
@@ -3135,7 +3459,49 @@ const QS_EXT=[
    opts:[{k:'a',t:'A Hook Script triggered at the "after commit" extension point of the Sales Order DAL.'},{k:'b',t:'A custom field on the Sales Order to track approval status.'},{k:'c',t:'A UI extension to display approval status and an Approve button on the Sales Order session.'},{k:'d',t:'Directly editing the standard SalesOrder DAL source file.'}],correct:['a','b','c']},
   {id:20,cat:'sdk',cl:'ch-sdk',catL:'Extension SDK',diff:'difficult',dc:'ch-d',pts:4,multi:true,
    text:'Which statements about deploying an Infor LN Extension Package are correct?',
-   opts:[{k:'a',t:'Extension packages are deployed via Infor LN Tools / Extension Manager without reinstalling Infor LN.'},{k:'b',t:'A package can be activated and deactivated independently from the core application.'},{k:'c',t:'Deploying an extension package requires a full Infor LN upgrade.'},{k:'d',t:'Packages can be scoped to specific companies or environments within the LN installation.'}],correct:['a','b','d']}
+   opts:[{k:'a',t:'Extension packages are deployed via Infor LN Tools / Extension Manager without reinstalling Infor LN.'},{k:'b',t:'A package can be activated and deactivated independently from the core application.'},{k:'c',t:'Deploying an extension package requires a full Infor LN upgrade.'},{k:'d',t:'Packages can be scoped to specific companies or environments within the LN installation.'}],correct:['a','b','d']},
+/* ── NEW POOL QUESTIONS Q21–Q60 ── */
+ {id:21,cat:'ext',cl:'ch-ext',catL:'Extensibility Overview',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'What is the primary purpose of the extensibility framework in Infor LN?',opts:[{k:'a',t:'To replace the core LN codebase.'},{k:'b',t:'To allow customer changes while protecting upgrade paths.'},{k:'c',t:'To eliminate the need for customization.'},{k:'d',t:'To restrict user access to system functions.'}],correct:['b']},
+{id:22,cat:'ext',cl:'ch-ext',catL:'Extensibility Overview',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'Which layer of the extension hierarchy provides the most upgrade protection?',opts:[{k:'a',t:'Personalizations'},{k:'b',t:'Customizations'},{k:'c',t:'Extensions'},{k:'d',t:'All layers provide equal protection.'}],correct:['c']},
+{id:23,cat:'sdk',cl:'ch-sdk',catL:'Extension SDK',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'What is an Extension Package in the Infor LN Extension SDK?',opts:[{k:'a',t:'A compiled .jar file containing custom objects.'},{k:'b',t:'A container for grouping related extension components.'},{k:'c',t:'A database backup file.'},{k:'d',t:'A user interface theme.'}],correct:['b']},
+{id:24,cat:'sdk',cl:'ch-sdk',catL:'Extension SDK',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'Which tool is used to deploy extensions in Infor LN?',opts:[{k:'a',t:'Extension Manager'},{k:'b',t:'SQL Server Management Studio'},{k:'c',t:'Windows Registry Editor'},{k:'d',t:'Apache Tomcat Console.'}],correct:['a']},
+{id:25,cat:'hook',cl:'ch-hook',catL:'Hook Scripts',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'What is the purpose of a before-hook in Infor LN?',opts:[{k:'a',t:'To log database changes after they occur.'},{k:'b',t:'To execute code before a database operation.'},{k:'c',t:'To delete records automatically.'},{k:'d',t:'To encrypt database fields.'}],correct:['b']},
+{id:26,cat:'hook',cl:'ch-hook',catL:'Hook Scripts',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'Business Data Events (BDE) in LN are used primarily for:',opts:[{k:'a',t:'Creating backup files.'},{k:'b',t:'Triggering custom scripts based on data changes.'},{k:'c',t:'Compiling Java code.'},{k:'d',t:'Managing user permissions.'}],correct:['b']},
+{id:27,cat:'uix',cl:'ch-uix',catL:'UI Extensibility',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'What technology stack is used for creating custom UI widgets in Infor LN?',opts:[{k:'a',t:'PHP and MySQL'},{k:'b',t:'HTML5, JavaScript, and TypeScript'},{k:'c',t:'Flash and ActionScript'},{k:'d',t:'VB.NET and ASP.NET'}],correct:['b']},
+{id:28,cat:'uix',cl:'ch-uix',catL:'UI Extensibility',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'Custom fields in Infor LN forms are managed through which interface?',opts:[{k:'a',t:'LN Studio only'},{k:'b',t:'SQL queries directly'},{k:'c',t:'Form personalization or extensions'},{k:'d',t:'Windows Registry'}],correct:['c']},
+{id:29,cat:'api',cl:'ch-api',catL:'REST & OData APIs',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'What is the primary authentication method for REST APIs in Infor LN?',opts:[{k:'a',t:'HTTP Basic Authentication'},{k:'b',t:'OAuth2 tokens'},{k:'c',t:'Shared passwords'},{k:'d',t:'API keys stored in plain text'}],correct:['b']},
+{id:30,cat:'api',cl:'ch-api',catL:'REST & OData APIs',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'Which query parameter is used to filter OData results in Infor LN APIs?',opts:[{k:'a',t:'$query'},{k:'b',t:'$filter'},{k:'c',t:'$where'},{k:'d',t:'$select'}],correct:['b']},
+{id:31,cat:'studio',cl:'ch-studio',catL:'Infor LN Studio',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'Infor LN Studio is built on which IDE platform?',opts:[{k:'a',t:'Visual Studio'},{k:'b',t:'NetBeans'},{k:'c',t:'Eclipse'},{k:'d',t:'IntelliJ IDEA'}],correct:['c']},
+{id:32,cat:'studio',cl:'ch-studio',catL:'Infor LN Studio',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'What is the primary purpose of source control integration in LN Studio?',opts:[{k:'a',t:'To encrypt project files.'},{k:'b',t:'To track changes and manage versions of code.'},{k:'c',t:'To delete old backups.'},{k:'d',t:'To optimize database performance.'}],correct:['b']},
+{id:33,cat:'ext',cl:'ch-ext',catL:'Extensibility Overview',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'Isolation of customer changes in extensions ensures:',opts:[{k:'a',t:'Customers can modify core LN code directly.'},{k:'b',t:'Customer extensions do not affect system upgrades.'},{k:'c',t:'All extensions must be approved by Infor.'},{k:'d',t:'Extensions cannot communicate with LN.'}],correct:['b']},
+{id:34,cat:'ext',cl:'ch-ext',catL:'Extensibility Overview',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'The extension lifecycle in Infor LN includes which phase?',opts:[{k:'a',t:'Design'},{k:'b',t:'Development'},{k:'c',t:'Deployment'},{k:'d',t:'All of the above'}],correct:['d']},
+{id:35,cat:'sdk',cl:'ch-sdk',catL:'Extension SDK',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'Extension versioning in Infor LN allows:',opts:[{k:'a',t:'Multiple versions of the same extension to coexist.'},{k:'b',t:'Backward compatibility management.'},{k:'c',t:'Roll-back to previous versions.'},{k:'d',t:'All of the above.'}],correct:['d']},
+{id:36,cat:'hook',cl:'ch-hook',catL:'Hook Scripts',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'Hook scripts for DAL (Data Access Layer) operations are executed:',opts:[{k:'a',t:'At the user interface level only.'},{k:'b',t:'At the database level.'},{k:'c',t:'At the middleware layer only.'},{k:'d',t:'In external servers.'}],correct:['b']},
+{id:37,cat:'uix',cl:'ch-uix',catL:'UI Extensibility',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'The Infor Xi framework is primarily used for:',opts:[{k:'a',t:'Mobile app development'},{k:'b',t:'Cloud infrastructure management'},{k:'c',t:'Web-based UI development'},{k:'d',t:'Database optimization'}],correct:['c']},
+{id:38,cat:'api',cl:'ch-api',catL:'REST & OData APIs',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'REST endpoints in Infor LN typically follow which standard URL pattern?',opts:[{k:'a',t:'/soap/service/'},{k:'b',t:'/rest/api/v1/...'},{k:'c',t:'/ftp/files/'},{k:'d',t:'/telnet/port/'}],correct:['b']},
+{id:39,cat:'studio',cl:'ch-studio',catL:'Infor LN Studio',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'Debugging extensions in LN Studio can be done using:',opts:[{k:'a',t:'Browser console only'},{k:'b',t:'Built-in debugger tools'},{k:'c',t:'Print statements to log files'},{k:'d',t:'Manual code review only'}],correct:['b']},
+{id:40,cat:'ext',cl:'ch-ext',catL:'Extensibility Overview',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'What distinguishes an extension from a personalization in Infor LN?',opts:[{k:'a',t:'Extensions are upgradeable; personalizations are not.'},{k:'b',t:'Extensions have broader scope and can reference custom objects.'},{k:'c',t:'Personalizations cannot be modified by users.'},{k:'d',t:'Extensions only apply to the current session.'}],correct:['b']},
+{id:41,cat:'ext',cl:'ch-ext',catL:'Extensibility Overview',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'When designing an extension to maintain upgrade protection, which approach is most appropriate?',opts:[{k:'a',t:'Modify core LN objects directly.'},{k:'b',t:'Create extension-specific objects and reference core LN objects through APIs.'},{k:'c',t:'Copy core objects and rename them.'},{k:'d',t:'Store custom logic in the database schema only.'}],correct:['b']},
+{id:42,cat:'sdk',cl:'ch-sdk',catL:'Extension SDK',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'Extension Manager activation/deactivation per company allows:',opts:[{k:'a',t:'Running different extension versions per company in the same instance.'},{k:'b',t:'Removing extensions from the system entirely.'},{k:'c',t:'Forcing all companies to use the same extension.'},{k:'d',t:'Preventing extensions from being developed.'}],correct:['a']},
+{id:43,cat:'hook',cl:'ch-hook',catL:'Hook Scripts',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'What is the correct execution order for multiple hooks on a single database operation?',opts:[{k:'a',t:'All before-hooks execute in parallel, then all after-hooks execute.'},{k:'b',t:'Hooks execute in the order they were registered; before-hooks before after-hooks.'},{k:'c',t:'After-hooks always execute before before-hooks.'},{k:'d',t:'Hook order is non-deterministic.'}],correct:['b']},
+{id:44,cat:'uix',cl:'ch-uix',catL:'UI Extensibility',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'Contextual apps in Infor LN are best used for:',opts:[{k:'a',t:'Replacing the main application entirely.'},{k:'b',t:'Providing targeted functionality based on user context.'},{k:'c',t:'Storing database backups.'},{k:'d',t:'Managing user authentication.'}],correct:['b']},
+{id:45,cat:'api',cl:'ch-api',catL:'REST & OData APIs',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'The $expand query parameter in OData APIs is used to:',opts:[{k:'a',t:'Compress response data.'},{k:'b',t:'Include related entities in the response.'},{k:'c',t:'Filter results based on date range.'},{k:'d',t:'Sort results in descending order.'}],correct:['b']},
+{id:46,cat:'studio',cl:'ch-studio',catL:'Infor LN Studio',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'BDE (Business Data Event) configuration in LN Studio involves:',opts:[{k:'a',t:'Creating new database tables.'},{k:'b',t:'Defining triggers and associated scripts for data changes.'},{k:'c',t:'Writing SQL stored procedures only.'},{k:'d',t:'Managing user interface themes.'}],correct:['b']},
+{id:47,cat:'api',cl:'ch-api',catL:'REST & OData APIs',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'API security in Infor LN REST endpoints includes:',opts:[{k:'a',t:'OAuth2 authentication and HTTPS encryption'},{k:'b',t:'Shared passwords stored in configuration files'},{k:'c',t:'No security; APIs are open to all users'},{k:'d',t:'API keys visible in browser history.'}],correct:['a']},
+{id:48,cat:'hook',cl:'ch-hook',catL:'Hook Scripts',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'Hook scripts for session-level events in Infor LN can be triggered by:',opts:[{k:'a',t:'User login and logout events'},{k:'b',t:'Data modification operations'},{k:'c',t:'Both user session events and data operations'},{k:'d',t:'System startup only.'}],correct:['c']},
+{id:49,cat:'ext',cl:'ch-ext',catL:'Extensibility Overview',diff:'difficult',dc:'ch-d',pts:4,multi:true,text:'Which statements correctly describe the relationship between extensions and system upgrades? (Select all that apply)',opts:[{k:'a',t:'Extensions can be tested independently before upgrade deployment.'},{k:'b',t:'Extension code is preserved during LN version upgrades.'},{k:'c',t:'All extensions must be recompiled after each system upgrade.'},{k:'d',t:'Extension isolation ensures core LN updates do not break custom extensions.'}],correct:['a','b','d']},
+{id:50,cat:'sdk',cl:'ch-sdk',catL:'Extension SDK',diff:'difficult',dc:'ch-d',pts:4,multi:false,text:'When developing a complex extension package with multiple interdependent components, what is the best practice for versioning?',opts:[{k:'a',t:'Use the same version number for all components regardless of changes.'},{k:'b',t:'Increment individual component versions based on their changes; manage dependencies explicitly.'},{k:'c',t:'Do not version extensions; always use the latest files.'},{k:'d',t:'Version only the main package; ignore component versions.'}],correct:['b']},
+{id:51,cat:'uix',cl:'ch-uix',catL:'UI Extensibility',diff:'difficult',dc:'ch-d',pts:4,multi:false,text:'Creating a mashup in Infor LN that combines data from multiple external systems requires:',opts:[{k:'a',t:'Modifying the core LN database schema.'},{k:'b',t:'Using REST APIs and OAuth2 authentication to integrate external data sources.'},{k:'c',t:'Direct database connections to external systems.'},{k:'d',t:'Copy-pasting data manually between systems.'}],correct:['b']},
+{id:52,cat:'studio',cl:'ch-studio',catL:'Infor LN Studio',diff:'difficult',dc:'ch-d',pts:4,multi:false,text:'A deployment workflow in LN Studio involving multiple environments (dev, test, production) requires:',opts:[{k:'a',t:'Manual file copying between servers.'},{k:'b',t:'Source control integration, versioning, and automated deployment scripts.'},{k:'c',t:'Shared database access across all environments.'},{k:'d',t:'Rewriting code for each environment.'}],correct:['b']},
+{id:53,cat:'api',cl:'ch-api',catL:'REST & OData APIs',diff:'difficult',dc:'ch-d',pts:4,multi:true,text:'Which security practices are essential when consuming REST APIs from Infor LN in production? (Select all that apply)',opts:[{k:'a',t:'Store OAuth2 tokens securely; do not expose in client-side code.'},{k:'b',t:'Use HTTPS for all API calls.'},{k:'c',t:'Implement rate limiting and request validation.'},{k:'d',t:'Share API credentials across team members for convenience.'}],correct:['a','b','c']},
+{id:54,cat:'hook',cl:'ch-hook',catL:'Hook Scripts',diff:'difficult',dc:'ch-d',pts:4,multi:false,text:'When a before-hook on a database insert operation raises an exception, what is the expected behavior?',opts:[{k:'a',t:'The insert operation proceeds regardless of the exception.'},{k:'b',t:'The insert operation is aborted; the exception is propagated.'},{k:'c',t:'The exception is silently logged and ignored.'},{k:'d',t:'The entire session is terminated.'}],correct:['b']},
+{id:55,cat:'ext',cl:'ch-ext',catL:'Extensibility Overview',diff:'difficult',dc:'ch-d',pts:4,multi:false,text:'In a scenario where a customer has both personalizations and extensions for the same form field, what is the precedence order for execution?',opts:[{k:'a',t:'Extensions always execute first; personalizations override them.'},{k:'b',t:'Personalizations execute first; extensions can override personalization behavior.'},{k:'c',t:'Execution order is random.'},{k:'d',t:'Both cannot coexist on the same field.'}],correct:['b']},
+{id:56,cat:'studio',cl:'ch-studio',catL:'Infor LN Studio',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'Custom BOD (Business Object Document) creation in LN Studio requires knowledge of:',opts:[{k:'a',t:'XML schema definition and ION message format'},{k:'b',t:'SQL syntax only'},{k:'c',t:'JavaScript alone'},{k:'d',t:'Visual Studio project files.'}],correct:['a']},
+{id:57,cat:'api',cl:'ch-api',catL:'REST & OData APIs',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'The Infor ION API Gateway provides:',opts:[{k:'a',t:'Direct database access without authentication.'},{k:'b',t:'Centralized authentication and routing for REST and OData APIs.'},{k:'c',t:'File system access only.'},{k:'d',t:'Email delivery services.'}],correct:['b']},
+{id:58,cat:'uix',cl:'ch-uix',catL:'UI Extensibility',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'Form personalization in Infor LN can be used to:',opts:[{k:'a',t:'Hide or disable fields based on user roles.'},{k:'b',t:'Change database schema.'},{k:'c',t:'Modify core application code.'},{k:'d',t:'Delete records automatically.'}],correct:['a']},
+{id:59,cat:'ext',cl:'ch-ext',catL:'Extensibility Overview',diff:'medium',dc:'ch-m',pts:3,multi:false,text:'The three-layer extensibility model (personalizations, customizations, extensions) prioritizes which principle?',opts:[{k:'a',t:'Performance optimization'},{k:'b',t:'Maintainability and supportability across system upgrades'},{k:'c',t:'Maximum code reuse'},{k:'d',t:'Elimination of core modifications.'}],correct:['b']},
+{id:60,cat:'hook',cl:'ch-hook',catL:'Hook Scripts',diff:'simple',dc:'ch-s',pts:2,multi:false,text:'An after-hook in Infor LN is best used for:',opts:[{k:'a',t:'Preventing a database operation.'},{k:'b',t:'Executing actions after a database operation completes successfully.'},{k:'c',t:'Encrypting data in transit.'},{k:'d',t:'Managing user session timeouts.'}],correct:['b']}
+
 ];
 
 /* ══════════════════════════════════════════
@@ -3420,7 +3786,7 @@ const QS_MFG=[
    opts:[{k:'a',t:'It shows the difference between the standard (planned) cost and the actual cost of a production order, helping identify inefficiencies.'},{k:'b',t:'It lists all production orders that are past their due date.'},{k:'c',t:'It summarises the total output of a work centre over a period.'},{k:'d',t:'It records quality inspection results for completed production orders.'}],correct:['a']},
   {id:12,cat:'ep',cl:'ch-ep',catL:'MPS / MRP',diff:'difficult',dc:'ch-d',pts:4,multi:true,
    text:'In Infor LN, what is the difference between MPS (Master Production Schedule) and MRP?',
-   opts:[{k:'a',t:'MPS plans end-item (finished goods) production at a high level; MRP explodes this plan through the BOM to plan component requirements.'},{k:'b',t:'MPS is driven by customer demand and forecasts; MRP is driven by MPS and independent demand for components.'},{k:'c',t:'MPS considers capacity; MRP is always infinite capacity.'},{k:'d',t:'MPS and MRP are the same function accessed through different menus.'}],correct:['a','b']},
+   opts:[{k:'a',t:'MPS plans end-item (finished goods) production at a high level; MRP explodes this plan through the BOM to plan component requirements.'},{k:'b',t:'MPS is driven by customer demand and forecasts; MRP is driven by MPS and independent demand for components.'},{k:'c',t:'MPS considers capacity constraints by default; MRP can only run in infinite capacity mode and cannot account for resource limitations.'},{k:'d',t:'MPS and MRP are the same function accessed through different menus.'}],correct:['a','b']},
   {id:13,cat:'wo',cl:'ch-wo',catL:'Production Orders',diff:'simple',dc:'ch-s',pts:2,multi:false,
    text:'In Infor LN Manufacturing, what does "Operation Reporting" allow a shop floor operator to do?',
    opts:[{k:'a',t:'Record the completion of a routing operation, reporting actual hours, quantities produced, and scrap.'},{k:'b',t:'Approve purchase orders for raw materials required for production.'},{k:'c',t:'Print BOM structures for each production order.'},{k:'d',t:'Create new work centres in the routing master.'}],correct:['a']},
@@ -3445,7 +3811,168 @@ const QS_MFG=[
    opts:[{k:'a',t:'Check the BOM to confirm all required components are correctly defined.'},{k:'b',t:'Review inventory on-hand and available quantities for the components.'},{k:'c',t:'Check if open Purchase Orders or Production Orders for the components will arrive in time.'},{k:'d',t:'Increase the safety stock on the finished item to prevent the shortage.'}],correct:['a','b','c']},
   {id:20,cat:'bom',cl:'ch-bom',catL:'BOM & Routing',diff:'difficult',dc:'ch-d',pts:4,multi:true,
    text:'In Infor LN, which of the following are valid methods for managing engineering changes to a BOM?',
-   opts:[{k:'a',t:'Engineering Change Orders (ECO) with effectivity dates to control when the new BOM version becomes active.'},{k:'b',t:'BOM version control — maintaining multiple versions and selecting the appropriate one at production order creation.'},{k:'c',t:'Directly editing the active BOM in all open production orders simultaneously.'},{k:'d',t:'Using "Phantom" items as placeholders until a new component is approved.'}],correct:['a','b']}
+   opts:[{k:'a',t:'Engineering Change Orders (ECO) with effectivity dates to control when the new BOM version becomes active.'},{k:'b',t:'BOM version control — maintaining multiple versions and selecting the appropriate one at production order creation.'},{k:'c',t:'Directly editing the active BOM in all open production orders simultaneously.'},{k:'d',t:'Using "Phantom" items as placeholders until a new component is approved.'}],correct:['a','b']},
+/* ── NEW POOL QUESTIONS Q21–Q60 ── */
+ {id:21,cat:'bom',cl:'ch-bom',catL:'Bill of Materials',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'Which BOM type is used as the primary reference for manufacturing a finished good?',
+  opts:[{k:'a',t:'Engineering BOM'},{k:'b',t:'Manufacturing BOM'},{k:'c',t:'Planning BOM'},{k:'d',t:'Sales BOM'}],correct:['b']},
+
+{id:22,cat:'bom',cl:'ch-bom',catL:'Bill of Materials',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In Infor LN, what is a phantom item in a BOM?',
+  opts:[{k:'a',t:'An item that has no stock in inventory'},{k:'b',t:'A temporary item used during assembly that is not stocked separately'},{k:'c',t:'An obsolete item waiting to be deleted'},{k:'d',t:'An item with no cost assigned'}],correct:['b']},
+
+{id:23,cat:'bom',cl:'ch-bom',catL:'Bill of Materials',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What does BOM effectivity date control in Infor LN Manufacturing?',
+  opts:[{k:'a',t:'The date the BOM becomes valid for use'},{k:'b',t:'The date the BOM cost was calculated'},{k:'c',t:'The date the BOM must be archived'},{k:'d',t:'The date of the last BOM revision'}],correct:['a']},
+
+{id:24,cat:'bom',cl:'ch-bom',catL:'Bill of Materials',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'Which statement is true about BOM levels?',
+  opts:[{k:'a',t:'All items must be at the same level'},{k:'b',t:'The finished good is always at level 0'},{k:'c',t:'Raw materials cannot have a level assigned'},{k:'d',t:'Levels are optional in Infor LN'}],correct:['b']},
+
+{id:25,cat:'bom',cl:'ch-bom',catL:'Bill of Materials',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is a co-product in manufacturing?',
+  opts:[{k:'a',t:'A component used in multiple products'},{k:'b',t:'A product produced alongside the main product from the same process'},{k:'c',t:'A substitute component'},{k:'d',t:'A product that is always produced first'}],correct:['b']},
+
+{id:26,cat:'bom',cl:'ch-bom',catL:'Bill of Materials',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'In BOM cost roll-up, material cost is typically combined with which other cost components?',
+  opts:[{k:'a',t:'Only labour cost'},{k:'b',t:'Labour, overhead, and subcontracting costs'},{k:'c',t:'Scrap allowance only'},{k:'d',t:'Inspection cost only'}],correct:['b']},
+
+{id:27,cat:'route',cl:'ch-route',catL:'Routing & Operations',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is an operation in Infor LN Routing?',
+  opts:[{k:'a',t:'A single transaction entry'},{k:'b',t:'A step in the production process performed at a work centre'},{k:'c',t:'A quality check point'},{k:'d',t:'A material receipt'}],correct:['b']},
+
+{id:28,cat:'route',cl:'ch-route',catL:'Routing & Operations',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'Which work centre type is used for labour-intensive operations?',
+  opts:[{k:'a',t:'Machine work centre'},{k:'b',t:'Labour work centre'},{k:'c',t:'Subcontracting work centre'},{k:'d',t:'Inspection work centre'}],correct:['b']},
+
+{id:29,cat:'route',cl:'ch-route',catL:'Routing & Operations',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What does setup time represent in a routing operation?',
+  opts:[{k:'a',t:'Time to produce the first unit'},{k:'b',t:'Time to prepare the work centre before production starts'},{k:'c',t:'Time for quality inspection'},{k:'d',t:'Time to move materials to the work centre'}],correct:['b']},
+
+{id:30,cat:'route',cl:'ch-route',catL:'Routing & Operations',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is an alternate routing in Infor LN?',
+  opts:[{k:'a',t:'A backup routing if the primary fails'},{k:'b',t:'An alternative sequence of operations or work centres for the same product'},{k:'c',t:'A routing used only for scrap items'},{k:'d',t:'A routing with no work centre assigned'}],correct:['b']},
+
+{id:31,cat:'mrp',cl:'ch-mrp',catL:'MRP & Planning',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What does MRP stand for in Infor LN?',
+  opts:[{k:'a',t:'Material Requirements Planning'},{k:'b',t:'Manufacturing Requirement Process'},{k:'c',t:'Master Resource Planning'},{k:'d',t:'Material Resource Projection'}],correct:['a']},
+
+{id:32,cat:'mrp',cl:'ch-mrp',catL:'MRP & Planning',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is a planned order in MRP?',
+  opts:[{k:'a',t:'An order that has been released to the shop floor'},{k:'b',t:'A suggested order generated by MRP to meet demand'},{k:'c',t:'An order from a customer'},{k:'d',t:'An order that is currently in production'}],correct:['b']},
+
+{id:33,cat:'mrp',cl:'ch-mrp',catL:'MRP & Planning',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is safety stock used for in MRP planning?',
+  opts:[{k:'a',t:'To cover unexpected demand fluctuations'},{k:'b',t:'To improve production efficiency'},{k:'c',t:'To reduce supplier lead times'},{k:'d',t:'To increase inventory turns'}],correct:['a']},
+
+{id:34,cat:'mrp',cl:'ch-mrp',catL:'MRP & Planning',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What parameter defines how long it takes to receive replenishment stock from a supplier?',
+  opts:[{k:'a',t:'Reorder point'},{k:'b',t:'Lead time'},{k:'c',t:'Safety stock'},{k:'d',t:'Economic order quantity'}],correct:['b']},
+
+{id:35,cat:'prod',cl:'ch-prod',catL:'Production Orders',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is the first status a production order receives when created?',
+  opts:[{k:'a',t:'Released'},{k:'b',t:'Active'},{k:'c',t:'Planned'},{k:'d',t:'Completed'}],correct:['c']},
+
+{id:36,cat:'prod',cl:'ch-prod',catL:'Production Orders',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'When a production order is released, what typically occurs?',
+  opts:[{k:'a',t:'Materials are immediately issued to the shop floor'},{k:'b',t:'The order becomes available for material reservation and shop floor scheduling'},{k:'c',t:'Production is immediately completed'},{k:'d',t:'All quality inspections are performed'}],correct:['b']},
+
+{id:37,cat:'sfc',cl:'ch-sfc',catL:'Shop Floor Control',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What does backflushing mean in Shop Floor Control?',
+  opts:[{k:'a',t:'Returning materials to inventory'},{k:'b',t:'Automatically issuing components when an operation is reported as complete'},{k:'c',t:'Cancelling a production order'},{k:'d',t:'Reversing a labour transaction'}],correct:['b']},
+
+{id:38,cat:'sfc',cl:'ch-sfc',catL:'Shop Floor Control',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What does WIP stand for in Shop Floor Control?',
+  opts:[{k:'a',t:'Work Integrated Production'},{k:'b',t:'Work In Progress'},{k:'c',t:'Workflow In Process'},{k:'d',t:'Weekly Inspection Process'}],correct:['b']},
+
+{id:39,cat:'cost',cl:'ch-cost',catL:'Cost Calculation',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is standard cost in Infor LN Manufacturing?',
+  opts:[{k:'a',t:'The actual cost to produce a unit'},{k:'b',t:'The predetermined cost expected to produce a unit under normal conditions'},{k:'c',t:'The price charged to customers'},{k:'d',t:'The cost in the previous fiscal year'}],correct:['b']},
+
+{id:40,cat:'cost',cl:'ch-cost',catL:'Cost Calculation',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'Which cost component is typically included in overhead allocation?',
+  opts:[{k:'a',t:'Direct material only'},{k:'b',t:'Direct labour only'},{k:'c',t:'Indirect factory costs such as utilities and facility maintenance'},{k:'d',t:'Customer shipping costs'}],correct:['c']},
+
+{id:41,cat:'qual',cl:'ch-qual',catL:'Quality Management',diff:'simple',dc:'ch-s',pts:2,multi:false,
+  text:'What is an inspection plan in Quality Management?',
+  opts:[{k:'a',t:'A document describing which quality tests to perform'},{k:'b',t:'A schedule for customer visits'},{k:'c',t:'A list of defective items'},{k:'d',t:'A training program for operators'}],correct:['a']},
+
+{id:42,cat:'bom',cl:'ch-bom',catL:'Bill of Materials',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'In a BOM structure, if Component A is used in Sub-Assembly B, and Sub-Assembly B is used in Finished Good C, what is the BOM level of Component A?',
+  opts:[{k:'a',t:'Level 0'},{k:'b',t:'Level 1'},{k:'c',t:'Level 2'},{k:'d',t:'Level 3'}],correct:['c']},
+
+{id:43,cat:'bom',cl:'ch-bom',catL:'Bill of Materials',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'How does Infor LN handle multiple BOMs with different effective dates for the same item?',
+  opts:[{k:'a',t:'Only the most recent BOM is used'},{k:'b',t:'The system selects the BOM whose effective date matches the production order date'},{k:'c',t:'All BOMs are merged together'},{k:'d',t:'The user must manually select which BOM to use'}],correct:['b']},
+
+{id:44,cat:'route',cl:'ch-route',catL:'Routing & Operations',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'In Infor LN, what is the difference between run time and operation time in routing?',
+  opts:[{k:'a',t:'Run time is per unit; operation time is total time'},{k:'b',t:'There is no difference'},{k:'c',t:'Run time includes setup; operation time does not'},{k:'d',t:'Operation time is fixed; run time varies by quantity'}],correct:['a']},
+
+{id:45,cat:'route',cl:'ch-route',catL:'Routing & Operations',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'What is wait time in a routing operation used for?',
+  opts:[{k:'a',t:'Time for quality inspection'},{k:'b',t:'Time allowed for material to cure, cool, or dry between operations'},{k:'c',t:'Time for operator break'},{k:'d',t:'Time to transport materials'}],correct:['b']},
+
+{id:46,cat:'mrp',cl:'ch-mrp',catL:'MRP & Planning',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'What is the primary purpose of the frozen time fence in MRP planning?',
+  opts:[{k:'a',t:'To prevent demand forecast changes'},{k:'b',t:'To lock planned orders so they cannot be automatically modified'},{k:'c',t:'To stop inventory movements'},{k:'d',t:'To freeze supplier contracts'}],correct:['b']},
+
+{id:47,cat:'mrp',cl:'ch-mrp',catL:'MRP & Planning',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'In MRP, what does "action message" typically indicate?',
+  opts:[{k:'a',t:'A message sent to the customer'},{k:'b',t:'A suggestion to accelerate, delay, or cancel a planned order'},{k:'c',t:'A notification of supplier delivery'},{k:'d',t:'A quality alert'}],correct:['b']},
+
+{id:48,cat:'prod',cl:'ch-prod',catL:'Production Orders',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'What information must be available before material can be issued to a production order in Infor LN?',
+  opts:[{k:'a',t:'Customer payment confirmation'},{k:'b',t:'The production order must be in released or active status and have sufficient inventory'},{k:'c',t:'All quality inspections must be completed'},{k:'d',t:'The routing must be approved by management'}],correct:['b']},
+
+{id:49,cat:'sfc',cl:'ch-sfc',catL:'Shop Floor Control',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'When reporting scrap in Shop Floor Control, which of the following is typically recorded?',
+  opts:[{k:'a',t:'Only the quantity scrapped'},{k:'b',t:'Quantity scrapped, reason code, and impact on material requirements'},{k:'c',t:'Only the operator ID'},{k:'d',t:'Customer complaint details'}],correct:['b']},
+
+{id:50,cat:'cost',cl:'ch-cost',catL:'Cost Calculation',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'What is a price variance in cost calculation?',
+  opts:[{k:'a',t:'The difference between planned and actual component costs'},{k:'b',t:'The difference between customer price and cost'},{k:'c',t:'The difference between standard and actual labour rates'},{k:'d',t:'The difference between forecast and actual sales'}],correct:['a']},
+
+{id:51,cat:'qual',cl:'ch-qual',catL:'Quality Management',diff:'medium',dc:'ch-m',pts:3,multi:false,
+  text:'What is an NCR (Non-Conformance Report) used for in Infor LN Quality Management?',
+  opts:[{k:'a',t:'To document and track items that do not meet quality standards'},{k:'b',t:'To schedule maintenance'},{k:'c',t:'To record customer complaints'},{k:'d',t:'To track inventory movement'}],correct:['a']},
+
+{id:52,cat:'bom',cl:'ch-bom',catL:'Bill of Materials',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+  text:'Which of the following statements are correct about by-products in Infor LN BOM? (Select all that apply)',
+  opts:[{k:'a',t:'By-products are secondary products from the same process'},{k:'b',t:'By-products always have negative quantities in the BOM'},{k:'c',t:'By-products must be assigned a cost based on their sales value'},{k:'d',t:'By-products cannot be used as components in other products'}],correct:['a','b']},
+
+{id:53,cat:'route',cl:'ch-route',catL:'Routing & Operations',diff:'difficult',dc:'ch-d',pts:4,multi:false,
+  text:'In a subcontracting operation within a routing, how does Infor LN typically handle the cost calculation?',
+  opts:[{k:'a',t:'No cost is included until the subcontractor invoice is received'},{k:'b',t:'Standard subcontracting cost per unit is calculated and added to product cost'},{k:'c',t:'Only material cost is included'},{k:'d',t:'Subcontracting cost is not tracked in Infor LN'}],correct:['b']},
+
+{id:54,cat:'mrp',cl:'ch-mrp',catL:'MRP & Planning',diff:'difficult',dc:'ch-d',pts:4,multi:false,
+  text:'In Infor LN MRP, under what conditions would a planned order be suggested with a quantity greater than the lot size?',
+  opts:[{k:'a',t:'When safety stock is higher than the lot size'},{k:'b',t:'When the order modifier parameter overrides the lot size'},{k:'c',t:'MRP never suggests quantities exceeding the lot size'},{k:'d',t:'When customer demand is seasonal'}],correct:['b']},
+
+{id:55,cat:'prod',cl:'ch-prod',catL:'Production Orders',diff:'difficult',dc:'ch-d',pts:4,multi:false,
+  text:'What occurs when a production order is closed in Infor LN Manufacturing?',
+  opts:[{k:'a',t:'All remaining materials are returned to inventory automatically'},{k:'b',t:'The order can no longer be modified and final cost and variances are locked'},{k:'c',t:'All operations are restarted'},{k:'d',t:'The order is returned to planned status'}],correct:['b']},
+
+{id:56,cat:'sfc',cl:'ch-sfc',catL:'Shop Floor Control',diff:'difficult',dc:'ch-d',pts:4,multi:true,
+  text:'Which of the following are consequences of reporting an operation complete in Shop Floor Control? (Select all that apply)',
+  opts:[{k:'a',t:'The operation status updates to completed'},{k:'b',t:'Components are automatically backflushed if configured'},{k:'c',t:'The production order is immediately closed'},{k:'d',t:'Labour hours are recorded and posted to cost'}],correct:['a','b','d']},
+
+{id:57,cat:'cost',cl:'ch-cost',catL:'Cost Calculation',diff:'difficult',dc:'ch-d',pts:4,multi:false,
+  text:'In Infor LN, how is quantity variance calculated in cost variance analysis?',
+  opts:[{k:'a',t:'(Standard quantity - actual quantity) multiplied by standard unit cost'},{k:'b',t:'(Actual quantity - standard quantity) multiplied by actual unit cost'},{k:'c',t:'The difference between two quantities without consideration of cost'},{k:'d',t:'(Standard cost - actual cost) divided by standard quantity'}],correct:['a']},
+
+{id:58,cat:'qual',cl:'ch-qual',catL:'Quality Management',diff:'difficult',dc:'ch-d',pts:4,multi:false,
+  text:'When a test order is created in Infor LN Quality Management, what is its primary relationship to the production order?',
+  opts:[{k:'a',t:'It replaces the production order'},{k:'b',t:'It is independent and runs parallel to verify product quality before final acceptance'},{k:'c',t:'It occurs only after the production order is closed'},{k:'d',t:'It is used only for scrap materials'}],correct:['b']},
+
+{id:59,cat:'bom',cl:'ch-bom',catL:'Bill of Materials',diff:'difficult',dc:'ch-d',pts:4,multi:false,
+  text:'In a planning BOM used for demand planning, how does Infor LN typically treat components that may vary by end market or customer?',
+  opts:[{k:'a',t:'The planning BOM includes all possible components with percentages to reflect demand mix'},{k:'b',t:'Separate manufacturing BOMs must be created for each variant'},{k:'c',t:'Variable components are not tracked in planning'},{k:'d',t:'Infor LN does not support planning BOMs with variations'}],correct:['a']},
+
+{id:60,cat:'mrp',cl:'ch-mrp',catL:'MRP & Planning',diff:'difficult',dc:'ch-d',pts:4,multi:false,
+  text:'In Infor LN MRP, why would a planner use both finite and infinite capacity scheduling in different planning runs?',
+  opts:[{k:'a',t:'Infinite mode can be used for rough-cut planning while finite mode refines feasibility'},{k:'b',t:'MRP can only run in infinite capacity mode'},{k:'c',t:'Finite mode is for suppliers and infinite for internal work centres'},{k:'d',t:'The mode is randomly selected by the system'}],correct:['a']}
+
 ];
 
 const TRACKS={
@@ -3716,10 +4243,8 @@ function pickStratified(pool, nS, nM, nD){
 function beginExamAfterPayment(){
   paymentVerified=true;
   const QS_MAP={dev:QS_DEV,fin:QS_FIN,bod:QS_BOD,ion:QS_ION,ext:QS_EXT,scm:QS_SCM,mfg:QS_MFG};
-  /* DEV and SCM pools have 60 questions — pick 20 stratified at random (13 simple + 4 medium + 3 difficult = 50 pts) */
-  QS = (track==='dev') ? pickStratified(QS_DEV,13,4,3)
-     : (track==='scm') ? pickStratified(QS_SCM,13,4,3)
-     : [...QS_MAP[track]];
+  /* All pools have 60 questions — pick 20 stratified at random (13 simple + 4 medium + 3 difficult = 50 pts) */
+  QS = pickStratified(QS_MAP[track],13,4,3);
   answers={};skipped=new Set();curIdx=0;timeLeft=DURATION;
   const n=candidate.name;
   document.getElementById('cav').textContent=n.split(' ').filter(Boolean).map(x=>x[0]).slice(0,2).join('').toUpperCase();
